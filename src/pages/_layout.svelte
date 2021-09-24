@@ -25,6 +25,8 @@
     {:else}
         <DrawerLayout>
             <svelte:fragment slot="drawer">
+                <a href="/#/">Index</a>
+                <a href="/#/editor">Editor</a>
             </svelte:fragment>
             <svelte:fragment slot="appbar">
                 <Spacer/>

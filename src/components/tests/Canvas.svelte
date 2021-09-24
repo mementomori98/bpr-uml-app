@@ -82,7 +82,7 @@
     .canvas {
         width: 100%;
         height: 100%;
-        background-color: #ffffac;
+        background-color: #f6f6f1;
         overflow: hidden;
     }
 </style>
