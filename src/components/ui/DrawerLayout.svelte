@@ -53,8 +53,8 @@
             flex-direction: column;
             align-items: flex-start;
             z-index: 501;
-            box-shadow: 0 52px 5px 1px rgba(0, 0, 0, .2);
-            background-color: #e0e0e0;
+            box-shadow: 0 65px 5px 1px rgba(0, 0, 0, .2);
+            background-color: #ffe7ab;
             transition-duration: 400ms;
 
             &--closed {
@@ -74,10 +74,10 @@
             padding: 8px;
             display: flex;
             align-items: center;
-            box-shadow: 2px 0 5px 1px rgba(0, 0, 0, .2);
+            box-shadow: 2px 0 6px 3px rgba(0, 0, 0, .2);
             z-index: 500;
             position: relative;
-            background-color: #307186;
+            background-color: #e8e8e8;
             color: white;
         }
 
