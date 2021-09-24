@@ -1,17 +1,15 @@
 export class AuthenticationService {
 
-    private loggedIn: boolean = true;
-
     public login(username: string, password: string) {
-        this.loggedIn = true;
+        localStorage.setItem('auth', 'true');
     }
 
     public logout() {
-        this.loggedIn = false;
+        localStorage.removeItem('auth')
     }
 
     public isLoggedIn() {
-        return this.loggedIn;
+        return localStorage.getItem('auth') != null;
     }
 
 }

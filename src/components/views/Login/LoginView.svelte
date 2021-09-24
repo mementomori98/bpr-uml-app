@@ -6,14 +6,16 @@
     import {AuthenticationService} from "../../../services/AuthenticationService";
     import View from "../../ui/View.svelte";
     import Card from "../../ui/Card.svelte";
-
-    export let loggedIn: boolean;
+    import {goto} from "@roxi/routify";
 
     let authenticationService = factory.get<AuthenticationService>();
 
+    let username: string;
+    let password: string;
+
     function handleLogin() {
-        authenticationService.login("Hello", "Hello");
-        loggedIn = authenticationService.isLoggedIn();
+        authenticationService.login(username, password);
+        $goto('/');
     }
 
 
@@ -24,8 +26,8 @@
         <Card>
             <View>
                 <svelte:fragment slot="header">Login</svelte:fragment>
-                <Input label="Username" on:enter={handleLogin} focused/>
-                <Input label="Password" password on:enter={handleLogin}/>
+                <Input label="Username" bind:value={username} on:enter={handleLogin} focused/>
+                <Input label="Password" bind:value={password} password on:enter={handleLogin}/>
                 <svelte:fragment slot="actions">
                     <Button on:click={handleLogin}>Login</Button>
                 </svelte:fragment>

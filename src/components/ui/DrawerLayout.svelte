@@ -1,13 +1,21 @@
 <script lang="ts">
+    import {CssBuilder} from "./CssBuilder";
+    import Button from "./Button.svelte";
 
+    let drawerOpen = true;
+
+    $: drawerClass = new CssBuilder('drawer-layout__drawer')
+        .addFeature('closed', !drawerOpen)
+        .build();
 </script>
 
 <div class="drawer-layout">
-    <div class="drawer-layout__drawer">
+    <div class={drawerClass}>
         <slot name="drawer"/>
     </div>
     <div class="drawer-layout__appbar-wrapper">
         <div class="drawer-layout__appbar">
+            <Button on:click={() => drawerOpen = !drawerOpen}>---</Button>
             <slot name="appbar"/>
         </div>
         <div class="drawer-layout__content">
@@ -25,6 +33,7 @@
         display: flex;
 
         &__drawer {
+            box-sizing: border-box;
             width: 240px;
             padding: 16px;
             display: flex;
@@ -33,6 +42,13 @@
             z-index: 501;
             box-shadow: 0 52px 5px 1px rgba(0, 0, 0, .2);
             background-color: #e0e0e0;
+            transition-duration: 400ms;
+
+            &--closed {
+                width: 0;
+                padding: 16px 0;
+                overflow: hidden;
+            }
         }
 
         &__appbar-wrapper {

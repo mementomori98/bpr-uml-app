@@ -1,32 +1,51 @@
 <script lang="ts">
     import Button from "./../components/ui/Button.svelte";
-    import Canvas from "./../components/tests/Canvas.svelte";
     import DrawerLayout from "./../components/ui/DrawerLayout.svelte";
     import Spacer from "./../components/ui/Spacer.svelte";
-    import LoginView from "./../components/views/Login/LoginView.svelte";
     import {factory} from "./../services/Factory";
     import {AuthenticationService} from "./../services/AuthenticationService";
-    import View from "./../components/ui/View.svelte";
-    import Dialog from "./../components/ui/Dialog.svelte";
+    import NavLink from "../components/ui/NavLink.svelte";
+    import {beforeUrlChange} from "@roxi/routify";
+    import {afterPageLoad} from "@roxi/routify";
+    import {goto} from "@roxi/routify";
 
     const authenticationService = factory.get<AuthenticationService>();
-    let loggedIn: boolean = authenticationService.isLoggedIn();
+    let loggedIn: boolean;
+
+    let path: string = '';
+
+    $afterPageLoad(p => {
+        path = '/' + p.title.replace(' ', '-');
+        console.log(path);
+        loggedIn = authenticationService.isLoggedIn();
+        if (!loggedIn && !noAuth.includes(path)) {
+            console.log('redirect to login loggedIn: ' + loggedIn + ' path: ' + path);
+            $goto('/login');
+        }
+    });
+
+    const noAuth: Array<string> = [
+        '/login',
+        '/create-workspace'
+    ];
 
     const handleLogout = function () {
         authenticationService.logout()
         loggedIn = authenticationService.isLoggedIn();
+        $goto('/login');
     }
+
 </script>
 
-
 <main>
-    {#if !loggedIn}
-        <LoginView bind:loggedIn/>
+    {#if noAuth.includes(path)}
+        <slot/>
     {:else}
         <DrawerLayout>
             <svelte:fragment slot="drawer">
-                <a href="/#/">Index</a>
-                <a href="/#/editor">Editor</a>
+                <NavLink href="/" bind:path>Index</NavLink>
+                <NavLink href="/editor" bind:path>Editor</NavLink>
+                <NavLink href="/create-workspace" bind:path>Create workspace</NavLink>
             </svelte:fragment>
             <svelte:fragment slot="appbar">
                 <Spacer/>
@@ -35,7 +54,6 @@
             <slot/>
         </DrawerLayout>
     {/if}
-
 </main>
 
 <style>
