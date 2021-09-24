@@ -45,7 +45,6 @@
             <svelte:fragment slot="drawer">
                 <NavLink href="/" bind:path>Index</NavLink>
                 <NavLink href="/editor" bind:path>Editor</NavLink>
-                <NavLink href="/create-workspace" bind:path>Create workspace</NavLink>
             </svelte:fragment>
             <svelte:fragment slot="appbar">
                 <Spacer/>

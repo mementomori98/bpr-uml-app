@@ -29,9 +29,10 @@
         background-color: red;
         padding: 6px 16px;
         margin: 4px;
-        border-radius: 4px;
+        border-radius: $border-radius-small;
         user-select: none;
         cursor: pointer;
+        transition-duration: 200ms;
 
         &__content {
             display: flex;
@@ -65,6 +66,8 @@
             }
         }
 
-
+        &:hover {
+            box-shadow: $shadow-small;
+        }
     }
 </style>

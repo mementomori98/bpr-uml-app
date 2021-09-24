@@ -1,15 +1,12 @@
 export class AuthenticationService {
-    constructor() {
-        this.loggedIn = true;
-    }
     login(username, password) {
-        this.loggedIn = true;
+        localStorage.setItem('auth', 'true');
     }
     logout() {
-        this.loggedIn = false;
+        localStorage.removeItem('auth');
     }
     isLoggedIn() {
-        return this.loggedIn;
+        return localStorage.getItem('auth') != null;
     }
 }
 //# sourceMappingURL=AuthenticationService.js.map

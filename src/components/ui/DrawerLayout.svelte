@@ -4,6 +4,7 @@
 
     let drawerOpen = true;
 
+
     $: drawerClass = new CssBuilder('drawer-layout__drawer')
         .addFeature('closed', !drawerOpen)
         .build();
@@ -11,6 +12,7 @@
 
 <div class="drawer-layout">
     <div class={drawerClass}>
+        <div class="drawer-layout__logo">Logo</div>
         <slot name="drawer"/>
     </div>
     <div class="drawer-layout__appbar-wrapper">
@@ -32,10 +34,21 @@
         height: 100vh;
         display: flex;
 
+        &__logo {
+            font: $font-title;
+            height: 44px;
+            width: 100%;
+            padding-right: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
         &__drawer {
             box-sizing: border-box;
             width: 240px;
-            padding: 16px;
+            padding: 16px 0;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -45,9 +58,7 @@
             transition-duration: 400ms;
 
             &--closed {
-                width: 0;
-                padding: 16px 0;
-                overflow: hidden;
+                margin-left: -240px;
             }
         }
 

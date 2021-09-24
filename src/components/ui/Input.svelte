@@ -44,10 +44,11 @@
             width: 100%;
             margin: 0;
             transition-duration: 200ms;
+            border-radius: $border-radius-small;
 
             &:focus {
                 border: $border;
-                box-shadow: 0 0 10px -2px rgba(0, 0, 0, .1);
+                box-shadow: $shadow-small;
             }
         }
     }

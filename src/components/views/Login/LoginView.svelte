@@ -7,6 +7,8 @@
     import View from "../../ui/View.svelte";
     import Card from "../../ui/Card.svelte";
     import {goto} from "@roxi/routify";
+    import {Colors} from "../../ui/Colors";
+    import Centerer from "../../ui/Centerer.svelte";
 
     let authenticationService = factory.get<AuthenticationService>();
 
@@ -21,37 +23,21 @@
 
 </script>
 
-<div class="login">
-    <div class="login__container">
-        <Card>
-            <View>
-                <svelte:fragment slot="header">Login</svelte:fragment>
-                <Input label="Username" bind:value={username} on:enter={handleLogin} focused/>
-                <Input label="Password" bind:value={password} password on:enter={handleLogin}/>
-                <svelte:fragment slot="actions">
-                    <Button on:click={handleLogin}>Login</Button>
-                </svelte:fragment>
-            </View>
-        </Card>
-    </div>
-</div>
+<Centerer width="400">
+    <View>
+        <svelte:fragment slot="header">Login</svelte:fragment>
+        <Input label="Username" bind:value={username} on:enter={handleLogin} focused/>
+        <Input label="Password" bind:value={password} password on:enter={handleLogin}/>
+        <svelte:fragment slot="actions">
+            <Button color="{Colors.Gray}" on:click={$goto('/create-workspace')}>Sign up</Button>
+            <Button on:click={handleLogin}>Login</Button>
+        </svelte:fragment>
+    </View>
+</Centerer>
 
 
 <style lang="scss">
     @import "../../theme";
 
-    .login {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #ededed;
-
-        &__container {
-            max-width: 80%;
-            width: 400px;
-        }
-    }
 
 </style>
