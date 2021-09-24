@@ -1,0 +1,18 @@
+<script lang="ts">
+
+</script>
+
+<div class="card">
+    <slot/>
+</div>
+
+<style lang="scss">
+    @import "../theme.scss";
+
+    .card {
+        width: 100%;
+        box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
+        border-radius: 8px;
+        background-color: white;
+    }
+</style>

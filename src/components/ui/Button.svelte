@@ -1,0 +1,70 @@
+<script lang="ts">
+
+    import {Colors} from "./Colors";
+    import {CssBuilder} from "./CssBuilder";
+
+    export let color: Colors = Colors.Blue;
+    export let outlined: boolean = false;
+    export let elevated: boolean = false;
+
+    $: style = new CssBuilder('button')
+        .addFeature(color)
+        .addFeature('outlined', outlined)
+        .addFeature('elevated', elevated)
+        .build();
+
+</script>
+
+<div class={style} on:click>
+    <div class="button__content">
+        <slot/>
+    </div>
+</div>
+
+<style lang="scss">
+    @import "../theme.scss";
+
+    .button {
+        display: inline-block;
+        background-color: red;
+        padding: 6px 16px;
+        margin: 4px;
+        border-radius: 4px;
+        user-select: none;
+        cursor: pointer;
+
+        &__content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &--elevated {
+            box-shadow: $shadow-small;
+        }
+
+        @each $color in $colors {
+            &--#{nth($color, 1)} {
+                background-color: #{nth($color, 2)};
+                color: #{nth($color, 3)};
+                border: 1px solid #{darken(nth($color, 2), 10%)};
+
+                &:active {
+                    background-color: #{darken(nth($color, 2), 7%)};
+                }
+
+                &.button--outlined {
+                    background-color: #{nth($color, 3)};
+                    color: #{nth($color, 2)};
+                    border: 1px solid #{nth($color, 2)};
+
+                    &:active {
+                        background-color: #{darken(nth($color, 3), 7%)};
+                    }
+                }
+            }
+        }
+
+
+    }
+</style>

@@ -1,0 +1,40 @@
+{
+  "name": "svelte-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "routify -b && rollup -c",
+    "dev": "run-p dev:*",
+    "dev:rollup": "rollup -c -w",
+    "dev:routify": "routify",
+    "start": "sirv public --no-clear",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "@rollup/plugin-typescript": "^8.0.0",
+    "@roxi/routify": "^2.18.3",
+    "@tsconfig/svelte": "^2.0.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.3.7",
+    "rollup": "^2.3.4",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-scss": "^3.0.0",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "sass": "^1.42.1",
+    "svelte": "^3.0.0",
+    "svelte-check": "^2.0.0",
+    "svelte-preprocess": "^4.9.5",
+    "tslib": "^2.0.0",
+    "typescript": "^4.0.0"
+  },
+  "dependencies": {
+    "sirv-cli": "^1.0.0"
+  },
+  "routify": {
+    "dynamicImports": false
+  }
+}
