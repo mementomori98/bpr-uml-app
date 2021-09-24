@@ -24,6 +24,7 @@
         font: $font-nav;
         text-transform: uppercase;
         color: #3f3f3f;
+        user-select: none;
 
         &:hover {
             background-color: rgba(black, 0.04);
