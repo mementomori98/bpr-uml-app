@@ -43,8 +43,12 @@
     {:else}
         <DrawerLayout>
             <svelte:fragment slot="drawer">
-                <NavLink href="/" bind:path>Index</NavLink>
-                <NavLink href="/editor" bind:path>Editor</NavLink>
+                <NavLink href="/">Index</NavLink>
+                <NavLink href="/editor">Editor</NavLink>
+                <Spacer size="24"/>
+                <NavLink href="/settings">Settings</NavLink>
+                <NavLink href="/logout">Log out</NavLink>
+                <Spacer size="1"/>
             </svelte:fragment>
             <svelte:fragment slot="appbar">
                 <Spacer/>

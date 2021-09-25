@@ -1,11 +1,13 @@
 <script lang="ts">
 
     import {createEventDispatcher} from "svelte";
+    import {CssBuilder} from "./CssBuilder";
 
     export let label: string = "";
     export let value: string = "";
     export let password: boolean;
     export let focused: boolean;
+    export let locked: boolean = false;
 
     const dispatch = createEventDispatcher();
 
@@ -14,14 +16,22 @@
             dispatch('enter');
     }
 
+    $: contentClass = new CssBuilder('input__content')
+        .addFeature('locked', locked)
+        .build();
+
 </script>
 
 <div class="input">
     <div class="input__label">{label}</div>
-    {#if password}
-        <input bind:value class="input__content" type="password" on:keydown={handleKeyDown} autofocus={focused}/>
+    {#if locked}
+        <div class={contentClass}>{value}</div>
     {:else}
-        <input bind:value class="input__content" on:keydown={handleKeyDown} autofocus={focused}/>
+        {#if password}
+            <input bind:value class="{contentClass}" type="password" on:keydown={handleKeyDown} autofocus={focused}/>
+        {:else}
+            <input bind:value class="{contentClass}" on:keydown={handleKeyDown} autofocus={focused}/>
+        {/if}
     {/if}
 </div>
 
@@ -45,10 +55,21 @@
             margin: 0;
             transition-duration: 200ms;
             border-radius: $border-radius-small;
+            font: $font-form;
 
             &:focus {
                 border: $border;
                 box-shadow: $shadow-small;
+            }
+
+            &--locked {
+                border: 1px solid transparent;
+                padding-left: 0;
+
+                &:focus {
+                    box-shadow: none;
+                    outline: none;
+                }
             }
         }
     }
