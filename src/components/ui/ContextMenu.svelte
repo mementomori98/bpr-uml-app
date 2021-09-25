@@ -22,7 +22,9 @@
          style="{style}"
          bind:clientWidth={width}
          bind:clientHeight={height}
-         on:click={handleOverlayClick}>
+         on:click={handleOverlayClick}
+         on:mousedown={e => e.stopPropagation()}
+         on:mouseup={e => e.stopPropagation()}>
         <slot/>
     </div>
 {/if}
