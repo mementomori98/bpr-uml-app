@@ -9,6 +9,7 @@
     export let lockable = false;
     export let locked = lockable;
     export let submitText: string = 'Submit';
+    export let cancelButton: boolean = false;
 
     const dispatch = createEventDispatcher();
 
@@ -45,9 +46,11 @@
                 <Button on:click={handleSubmit}>{submitText}</Button>
             {/if}
         {:else}
+            {#if cancelButton}
+                <Button color={Colors.Gray} on:click={handleCancel}>Cancel</Button>
+            {/if}
             <Button on:click={handleSubmit}>{submitText}</Button>
         {/if}
-
     </svelte:fragment>
 </View>
 

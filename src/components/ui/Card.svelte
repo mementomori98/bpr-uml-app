@@ -1,5 +1,4 @@
 <script lang="ts">
-
 </script>
 
 <div class="card">
@@ -14,5 +13,9 @@
         box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
         border-radius: 8px;
         background-color: white;
+    }
+
+    :global(.card + .card) {
+        margin-top: 32px;
     }
 </style>

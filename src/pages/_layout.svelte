@@ -8,6 +8,7 @@
     import {beforeUrlChange} from "@roxi/routify";
     import {afterPageLoad} from "@roxi/routify";
     import {goto} from "@roxi/routify";
+    import {Colors} from "../components/ui/Colors";
 
     const authenticationService = factory.get<AuthenticationService>();
     let loggedIn: boolean;
@@ -16,17 +17,16 @@
 
     $afterPageLoad(p => {
         path = '/' + p.title.replace(' ', '-');
-        console.log(path);
         loggedIn = authenticationService.isLoggedIn();
         if (!loggedIn && !noAuth.includes(path)) {
-            console.log('redirect to login loggedIn: ' + loggedIn + ' path: ' + path);
             $goto('/login');
         }
     });
 
     const noAuth: Array<string> = [
         '/login',
-        '/create-workspace'
+        '/create-workspace',
+        '/onboard',
     ];
 
     const handleLogout = function () {
@@ -45,14 +45,15 @@
             <svelte:fragment slot="drawer">
                 <NavLink href="/">Index</NavLink>
                 <NavLink href="/editor">Editor</NavLink>
+                <NavLink href="/onboard">__Onboard</NavLink>
                 <Spacer size="24"/>
-                <NavLink href="/settings">Settings</NavLink>
+                <NavLink href="/settings">Workspace</NavLink>
                 <NavLink href="/logout">Log out</NavLink>
                 <Spacer size="1"/>
             </svelte:fragment>
             <svelte:fragment slot="appbar">
                 <Spacer/>
-                <Button on:click={handleLogout}>Logout</Button>
+                <Button on:click={handleLogout} color={Colors.Gray}>Logout</Button>
             </svelte:fragment>
             <slot/>
         </DrawerLayout>
@@ -64,14 +65,14 @@
         padding: 0;
         font: normal 16px 'Nunito', sans-serif;
         line-height: 1.4;
-    }
-
-    main {
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
     }
 
     :global(*) {
         box-sizing: border-box;
+    }
+
+    main {
+        height: 100%;
     }
 </style>

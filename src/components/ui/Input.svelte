@@ -5,8 +5,8 @@
 
     export let label: string = "";
     export let value: string = "";
-    export let password: boolean;
-    export let focused: boolean;
+    export let password: boolean = false;
+    export let focused: boolean = false;
     export let locked: boolean = false;
 
     const dispatch = createEventDispatcher();

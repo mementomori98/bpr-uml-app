@@ -1,38 +1,59 @@
 <script lang="ts">
     import {CssBuilder} from "./CssBuilder";
     import Button from "./Button.svelte";
+    import Icon from "./Icon.svelte";
+    import {Colors} from "./Colors";
 
     let drawerOpen = true;
 
 
-    $: drawerClass = new CssBuilder('drawer-layout__drawer')
+    $: drawerClass = new CssBuilder('drawer')
         .addFeature('closed', !drawerOpen)
         .build();
+
+    $: appbarClass = new CssBuilder('appbar-wrapper')
+        .addFeature('closed', !drawerOpen)
+        .build();
+
 </script>
 
-<div class="drawer-layout">
-    <div class={drawerClass}>
-        <div class="drawer-layout__logo">Logo</div>
-        <slot name="drawer"/>
+<div class={drawerClass}>
+    <div class="drawer__logo">Logo</div>
+    <slot name="drawer"/>
+</div>
+<div class={appbarClass}>
+    <div class="appbar">
+        <Button on:click={() => drawerOpen = !drawerOpen} color={Colors.Gray}>
+            <Icon icon="menu"/>
+        </Button>
+        <slot name="appbar"/>
     </div>
-    <div class="drawer-layout__appbar-wrapper">
-        <div class="drawer-layout__appbar">
-            <Button on:click={() => drawerOpen = !drawerOpen}>---</Button>
-            <slot name="appbar"/>
-        </div>
-        <div class="drawer-layout__content">
-            <slot/>
-        </div>
+    <div class="content">
+        <slot/>
     </div>
 </div>
 
 <style lang="scss">
     @import "../theme.scss";
 
-    .drawer-layout {
-        width: 100vw;
-        height: 100vh;
+
+    .drawer {
+        position: fixed;
+        top: 0;
+        width: 240px;
+        height: 100%;
+        padding: 16px 0;
         display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        z-index: 501;
+        box-shadow: 0 65px 5px 1px rgba(0, 0, 0, .2);
+        background-color: #ffe7ab;
+        transition-duration: 400ms;
+
+        &--closed {
+            margin-left: -240px;
+        }
 
         &__logo {
             font: $font-title;
@@ -44,45 +65,33 @@
             align-items: flex-start;
             margin-bottom: 24px;
         }
+    }
 
-        &__drawer {
-            box-sizing: border-box;
-            width: 240px;
-            padding: 16px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            z-index: 501;
-            box-shadow: 0 65px 5px 1px rgba(0, 0, 0, .2);
-            background-color: #ffe7ab;
-            transition-duration: 400ms;
+    .appbar-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding-left: 240px;
+        transition-duration: 400ms;
 
-            &--closed {
-                margin-left: -240px;
-            }
+        &--closed {
+            padding-left: 0;
         }
+    }
 
-        &__appbar-wrapper {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
+    .appbar {
+        height: 64px;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        box-shadow: 2px 0 6px 3px rgba(0, 0, 0, .2);
+        z-index: 500;
+        position: relative;
+        background-color: #e8e8e8;
+        color: white;
+    }
 
-        &__appbar {
-            height: 64px;
-            padding: 8px;
-            display: flex;
-            align-items: center;
-            box-shadow: 2px 0 6px 3px rgba(0, 0, 0, .2);
-            z-index: 500;
-            position: relative;
-            background-color: #e8e8e8;
-            color: white;
-        }
-
-        &__content {
-            flex: 1;
-        }
+    .appbar__content {
+        flex: 1;
     }
 </style>
