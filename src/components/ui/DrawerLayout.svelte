@@ -24,7 +24,7 @@
 <div class={appbarClass}>
     <div class="appbar">
         <Button on:click={() => drawerOpen = !drawerOpen} color={Colors.Gray}>
-            <Icon icon="menu"/>
+            <Icon icon="menu" size="14"/>
         </Button>
         <slot name="appbar"/>
     </div>
@@ -91,7 +91,7 @@
         color: white;
     }
 
-    .appbar__content {
+    .content {
         flex: 1;
     }
 </style>

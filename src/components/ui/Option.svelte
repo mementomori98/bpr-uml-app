@@ -1,0 +1,25 @@
+<script lang="ts">
+    import {createEventDispatcher} from "svelte";
+
+    const dispatch = createEventDispatcher()
+</script>
+
+<div class="option" on:click={() => dispatch('click')}>
+    <slot/>
+</div>
+
+<style lang="scss">
+    @import "../theme.scss";
+
+    .option {
+        padding: 4px 16px;
+        background-color: transparent;
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+            background-color: rgba(black, 0.03);
+        }
+    }
+
+</style>

@@ -5,6 +5,7 @@
     // https://www.w3schools.com/icons/icons_reference.asp
 
     export let icon: string;
+    export let size: number = null;
 </script>
 
 <i class="material-icons">{icon}</i>
@@ -14,9 +15,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-weight: bold;
         height: 100%;
         user-select: none;
-        font-size: inherit;
     }
 </style>
