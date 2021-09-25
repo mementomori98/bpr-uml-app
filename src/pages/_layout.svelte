@@ -13,6 +13,7 @@
     import Icon from "../components/ui/Icon.svelte";
     import ContextMenu from "../components/ui/ContextMenu.svelte";
     import Option from "../components/ui/Option.svelte";
+    import VirtualSpace from "../components/ui/VirtualSpace.svelte";
 
     const authenticationService = factory.get<AuthenticationService>();
     let loggedIn: boolean;
@@ -60,6 +61,9 @@
                 <Button on:click={handleLogout} color={Colors.Gray}>Logout</Button>
             </svelte:fragment>
             <slot/>
+            {#if path !== '/editor'}
+                <VirtualSpace/>
+            {/if}
         </DrawerLayout>
         <Fab on:click={() => alert('fab clicked')}>
             <Icon icon="add"/>
