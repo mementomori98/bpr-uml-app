@@ -44,8 +44,8 @@
     }
 
     const handleElementDrag = (e, b) => {
-        b.x += e.detail.dx;
-        b.y += e.detail.dy;
+        b.x += e.detail.dx / zoom;
+        b.y += e.detail.dy / zoom;
         boxes = boxes;
     }
 
