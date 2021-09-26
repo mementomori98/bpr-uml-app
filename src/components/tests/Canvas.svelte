@@ -105,7 +105,7 @@
     <DisplayModel box={box} cameraX={cameraX} cameraY={cameraY} zoom={zoom}/>
     <DisplayModel box={box2} cameraX={cameraX} cameraY={cameraY} zoom={zoom}/>
 
-    <ContextMenu bind:visible={contextMenuVisible} x={contextX} y={contextY}>
+    <ContextMenu bind:visible={contextMenuVisible} left={contextX} top={contextY}>
         <Option>This</Option>
         <Option>That</Option>
     </ContextMenu>

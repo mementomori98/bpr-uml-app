@@ -3,6 +3,7 @@
     import Button from "./Button.svelte";
     import Icon from "./Icon.svelte";
     import {Colors} from "./Colors";
+    import TextButton from "./TextButton.svelte";
 
     let drawerOpen = true;
 
@@ -23,9 +24,9 @@
 </div>
 <div class={appbarClass}>
     <div class="appbar">
-        <Button on:click={() => drawerOpen = !drawerOpen} color={Colors.Gray}>
+        <TextButton on:click={() => drawerOpen = !drawerOpen}>
             <Icon icon="menu" size="14"/>
-        </Button>
+        </TextButton>
         <slot name="appbar"/>
     </div>
     <div class="content">
@@ -47,7 +48,7 @@
         flex-direction: column;
         align-items: flex-start;
         z-index: 501;
-        box-shadow: 0 65px 5px 1px rgba(0, 0, 0, .2);
+        box-shadow: 0 0 5px 1px rgba(0, 0, 0, .2);
         background-color: #ffe7ab;
         transition-duration: 400ms;
 

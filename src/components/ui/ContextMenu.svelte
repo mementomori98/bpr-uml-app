@@ -1,14 +1,21 @@
 <script lang="ts">
+    import {fade} from 'svelte/transition';
+
     export let visible: boolean = false;
-    export let x: number;
-    export let y: number;
+    export let left: number = null;
+    export let top: number = null;
+    export let right: number = null;
+    export let bottom: number = null;
 
     let width: number;
     let height: number;
 
+
     $: style = `
-        left: ${x}px;
-        top: ${y}px;`;
+    ${left == null ? '' : 'left: ' + left + 'px;'}
+    ${top == null ? '' : 'top: ' + top + 'px;'}
+    ${right == null ? '' : 'right: ' + right + 'px;'}
+    ${bottom == null ? '' : 'bottom: ' + bottom + 'px;'}`
 
     const handleOverlayClick = e => {
         visible = false;
@@ -18,7 +25,8 @@
 
 {#if visible}
     <div class="context-menu__overlay" on:click={handleOverlayClick}/>
-    <div class="context-menu"
+    <div in:fade={{duration: 50}} out:fade={{duration: 50}}
+         class="context-menu"
          style="{style}"
          bind:clientWidth={width}
          bind:clientHeight={height}
@@ -41,7 +49,7 @@
         user-select: text;
         z-index: 510;
         min-width: 160px;
-        padding: 12px 0;
+        padding: 8px 0;
         background-color: white;
 
         &__overlay {

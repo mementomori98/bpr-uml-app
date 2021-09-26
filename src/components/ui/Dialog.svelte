@@ -1,5 +1,6 @@
 <script lang="ts">
     import Card from "./Card.svelte";
+    import {fade} from 'svelte/transition'
 
     export let visible: boolean;
 
@@ -14,8 +15,15 @@
 </script>
 
 {#if visible}
-    <div class="dialog__container" on:mousedown={handleContainerClick}>
-        <div class="dialog__content" on:mousedown={handleContentClick}>
+    <div in:fade={{duration: 50}}
+         out:fade={{duration: 50}}
+         class="dialog__container"
+         on:mousedown={handleContainerClick}>
+        <div
+                in:fade={{duration: 50}}
+                out:fade={{duration: 50}}
+                class="dialog__content"
+                on:mousedown={handleContentClick}>
             <Card>
                 <slot/>
             </Card>

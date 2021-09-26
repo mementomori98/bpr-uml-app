@@ -14,9 +14,11 @@
     import ContextMenu from "../components/ui/ContextMenu.svelte";
     import Option from "../components/ui/Option.svelte";
     import VirtualSpace from "../components/ui/VirtualSpace.svelte";
+    import TextButton from "../components/ui/TextButton.svelte";
 
     const authenticationService = factory.get<AuthenticationService>();
     let loggedIn: boolean;
+    let visible: boolean;
 
     let path: string = '';
 
@@ -58,7 +60,10 @@
             </svelte:fragment>
             <svelte:fragment slot="appbar">
                 <Spacer/>
-                <Button on:click={handleLogout} color={Colors.Gray}>Logout</Button>
+                <TextButton on:click={() => visible = true}><Icon icon="person"/></TextButton>
+                <ContextMenu bind:visible top="50" right="8">
+                    <Option on:click={handleLogout}>Log out</Option>
+                </ContextMenu>
             </svelte:fragment>
             <slot/>
             {#if path !== '/editor'}

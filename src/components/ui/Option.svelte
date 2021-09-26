@@ -16,6 +16,8 @@
         background-color: transparent;
         cursor: pointer;
         user-select: none;
+        text-transform: uppercase;
+        font: $font-option;
 
         &:hover {
             background-color: rgba(black, 0.03);
