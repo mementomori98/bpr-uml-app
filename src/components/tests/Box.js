@@ -7,5 +7,5 @@ export class Box {
         this.height = height;
     }
 }
-Box.nextId = BigInt(0);
+Box.nextId = 0;
 //# sourceMappingURL=Box.js.map

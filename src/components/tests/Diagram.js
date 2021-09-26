@@ -8,9 +8,14 @@ export class Diagram {
     }
     move(id, x, y) {
         let box = this.elements.find(b => b.id == id);
+        Diagram.error++;
+        if ((Diagram.error % 4) == 0) {
+            return false;
+        }
         box.x = x;
         box.y = y;
         return true;
     }
 }
+Diagram.error = 0;
 //# sourceMappingURL=Diagram.js.map

@@ -1,13 +1,13 @@
 export class Box {
-    private static nextId: bigint = BigInt(0);
+    private static nextId: number = 0;
 
-    public id: bigint;
+    public id: number;
     public x: number;
     public y: number;
     public width: number;
     public height: number;
 
-    constructor(x: number, y: number, width: number, height: number, id: bigint = null) {
+    constructor(x: number, y: number, width: number, height: number, id: number = null) {
         this.id = id ?? Box.nextId++;
         this.x = x;
         this.y = y;

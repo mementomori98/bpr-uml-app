@@ -2,6 +2,7 @@ import {Box} from "./Box";
 
 export class Diagram {
     public elements: Array<Box>
+    private static error: number = 0;
 
     constructor() {
         this.elements = [
@@ -10,8 +11,12 @@ export class Diagram {
         ];
     }
 
-    public move(id: bigint, x: number, y: number): boolean {
+    public move(id: number, x: number, y: number): boolean {
         let box = this.elements.find(b => b.id == id);
+        Diagram.error++;
+        if ((Diagram.error % 4) == 0) {
+            return false;
+        }
         box.x = x;
         box.y = y;
         return true;

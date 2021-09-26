@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import {createEventDispatcher} from "svelte";
+    import {createEventDispatcher, onDestroy} from "svelte";
 
     export let target = null;
 
@@ -14,8 +14,9 @@
 
     let dragging: boolean = false;
 
-    window.addEventListener('mousedown', e => {
-        if (e.button == 0 && e.target == (target ?? e.target)){
+
+    const handleMouseDown = e => {
+        if (e.button == 0 && e.target == (target ?? e.target)) {
             dragging = true;
             dispatch('dragstart');
         }
@@ -23,16 +24,18 @@
         mouseY = e.clientY - (target?.offsetTop ?? 0);
         clientX = e.clientX;
         clientY = e.clientY;
-    });
+    };
 
-    window.addEventListener('mouseup', e => {
+    const handleMouseUp = e => {
+        if (!dragging)
+            return;
         if (e.button == 0) {
             dragging = false;
             dispatch('dragend');
         }
-    });
+    };
 
-    window.addEventListener('mousemove', e => {
+    const handleMouseMove = e => {
         if (dragging) {
             dispatch('drag', {
                 dx: e.clientX - clientX,
@@ -43,13 +46,27 @@
         mouseY = e.clientY - (target?.offsetTop ?? 0);
         clientX = e.clientX;
         clientY = e.clientY;
-    });
+    };
 
-    window.addEventListener('mousewheel', (e: WheelEvent) => {
+    const handleMouseWheel = (e: WheelEvent) => {
         if (e.target == (target ?? e.target)) {
             dispatch('scroll', e.deltaY);
         }
+    };
+
+    window.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousewheel', handleMouseWheel);
+
+    onDestroy(() => {
+        console.log('destroyed');
+        window.removeEventListener('mousedown', handleMouseDown);
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
+        window.removeEventListener('mousewheel', handleMouseWheel);
     });
+
 </script>
 
 

@@ -5,11 +5,21 @@
     import BoxDisplay from "./BoxDisplay.svelte";
     import {Box} from "./Box";
     import {Diagram} from "./Diagram";
+    import Dialog from "../ui/Dialog.svelte";
+    import View from "../ui/View.svelte";
+    import Button from "../ui/Button.svelte";
+    import {Colors} from "../ui/Colors";
 
     export let diagram: Diagram;
+    let activeId: number = null;
+
+    let errorVisible: boolean = false;
 
     let mouseX: number;
     let mouseY: number;
+
+    let dragX: number = 0;
+    let dragY: number = 0;
 
     let camera = {
         screenCoords: (n1, n2) => [0, 0],
@@ -42,17 +52,42 @@
     }
 
     const handleElementDrag = (e, b) => {
-        diagram.move(b.id, b.x + e.detail.dx / zoom, b.y + e.detail.dy / zoom);
+        if (activeId == null)
+            activeId = b.id;
+        dragX += e.detail.dx / zoom;
+        dragY += e.detail.dy / zoom;
         diagram = diagram;
     }
 
     const handleElementDragEnd = () => {
-
+        if (dragX == 0 && dragY == 0)
+            {return;}
+        if (!diagram.move(
+            activeId,
+            diagram.elements.find(e => e.id == activeId).x + dragX,
+            diagram.elements.find(e => e.id == activeId).y + dragY)) {
+            errorVisible = true;
+        }
+        dragX = 0;
+        dragY = 0;
+        activeId = null;
+        diagram = diagram;
     }
 
     onMount(() => diagram = diagram);
 
 </script>
+
+<Dialog bind:visible={errorVisible}>
+    <View>
+        <svelte:fragment slot="header">Conflict</svelte:fragment>
+        <svelte:fragment slot="header-actions"></svelte:fragment>
+        An error occurred, your changes were not applied.
+        <svelte:fragment slot="actions">
+            <Button on:click={() => errorVisible = false} color={Colors.Red}>Close</Button>
+        </svelte:fragment>
+    </View>
+</Dialog>
 
 <MouseDriver
         bind:mouseX
@@ -68,12 +103,18 @@
         bind:zoom/>
 
 <div bind:this={canvas} style="user-select: none;height: 100%;position: relative; overflow: hidden;">
-    {#each diagram.elements as box, i}
-        <BoxDisplay box={box} screenCoords={camera.screenCoords} bind:element={displays[i]}/>
+    {#each diagram.elements as box, i (box.id)}
+        {#if box.id == activeId}
+            <BoxDisplay box={new Box(box.x + dragX, box.y + dragY, box.width, box.height, box.id)} screenCoords={camera.screenCoords} bind:element={displays[i]}/>
+        {:else}
+            <BoxDisplay box={box} screenCoords={camera.screenCoords} bind:element={displays[i]}/>
+        {/if}
+
         <MouseDriver
                 target={displays[i]}
                 on:scroll={handleScroll}
-                on:drag={e => handleElementDrag(e, box)}/>
+                on:drag={e => handleElementDrag(e, box)}
+                on:dragend={e => handleElementDragEnd()}/>
     {/each}
 </div>
 
