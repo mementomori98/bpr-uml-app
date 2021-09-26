@@ -1,9 +1,12 @@
 <script lang="ts">
     import MouseDriver from "./MouseDriver.svelte";
     import Camera from "./Camera.svelte";
-    import {Box} from "./Box";
     import {onMount} from "svelte";
     import BoxDisplay from "./BoxDisplay.svelte";
+    import {Box} from "./Box";
+    import {Diagram} from "./Diagram";
+
+    export let diagram: Diagram;
 
     let mouseX: number;
     let mouseY: number;
@@ -19,11 +22,6 @@
 
     let canvas: HTMLDivElement;
 
-    let boxes = [
-        new Box(100, 100, 50, 100),
-        new Box(300, 100, 150, 100),
-    ];
-
     let displays = [
         null, null
     ]
@@ -31,7 +29,7 @@
     const handleDrag = e => {
         cameraX -= e.detail.dx / zoom;
         cameraY -= e.detail.dy / zoom;
-        boxes = boxes;
+        diagram = diagram
     };
 
     const handleScroll = e => {
@@ -40,16 +38,19 @@
         } else {
             camera.zoomIn(mouseX, mouseY, canvas.offsetWidth, canvas.offsetHeight);
         }
-        boxes = boxes;
+        diagram = diagram;
     }
 
     const handleElementDrag = (e, b) => {
-        b.x += e.detail.dx / zoom;
-        b.y += e.detail.dy / zoom;
-        boxes = boxes;
+        diagram.move(b.id, b.x + e.detail.dx / zoom, b.y + e.detail.dy / zoom);
+        diagram = diagram;
     }
 
-    onMount(() => boxes = boxes);
+    const handleElementDragEnd = () => {
+
+    }
+
+    onMount(() => diagram = diagram);
 
 </script>
 
@@ -67,10 +68,7 @@
         bind:zoom/>
 
 <div bind:this={canvas} style="user-select: none;height: 100%;position: relative; overflow: hidden;">
-    Camera: {cameraX}:{cameraY}<br/>
-    Zoom: {zoom} <br/>
-
-    {#each boxes as box, i}
+    {#each diagram.elements as box, i}
         <BoxDisplay box={box} screenCoords={camera.screenCoords} bind:element={displays[i]}/>
         <MouseDriver
                 target={displays[i]}

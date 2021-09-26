@@ -51,7 +51,6 @@
         <DrawerLayout>
             <svelte:fragment slot="drawer">
                 <NavLink href="/">Index</NavLink>
-                <NavLink href="/editor">Editor</NavLink>
                 <NavLink href="/onboard">__Onboard</NavLink>
                 <Spacer size="24"/>
                 <NavLink href="/settings">Workspace</NavLink>

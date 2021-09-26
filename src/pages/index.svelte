@@ -1,6 +1,8 @@
 <script>
-    import Fab from "../components/ui/Fab.svelte";
     import Canvas from "../components/tests/Canvas.svelte";
+    import {Diagram} from "../components/tests/Diagram";
+
+    let diagram = new Diagram();
 </script>
 
-<Canvas/>
+<Canvas diagram={diagram}/>
