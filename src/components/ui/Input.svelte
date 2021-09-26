@@ -25,7 +25,13 @@
 <div class="input">
     <div class="input__label">{label}</div>
     {#if locked}
-        <div class={contentClass}>{value}</div>
+        <div class={contentClass}>
+            {#if password}
+                ••••••••
+            {:else}
+                {value}
+            {/if}
+        </div>
     {:else}
         {#if password}
             <input bind:value class="{contentClass}" type="password" on:keydown={handleKeyDown} autofocus={focused}/>

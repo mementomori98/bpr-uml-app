@@ -1,6 +1,6 @@
 <script lang="ts">
     import Container from "../../ui/Container.svelte";
-    import WorkspaceForm from "./WorkspaceForm.svelte";
+    import WorkspaceForm from "./Forms/WorkspaceForm.svelte";
     import UsersCard from "./Users/UsersCard.svelte";
 </script>
 

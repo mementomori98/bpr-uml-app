@@ -62,6 +62,7 @@
                 <Spacer/>
                 <TextButton on:click={() => visible = true}><Icon icon="person"/></TextButton>
                 <ContextMenu bind:visible top="50" right="8">
+                    <Option on:click={$goto('/account')}>Account</Option>
                     <Option on:click={handleLogout}>Log out</Option>
                 </ContextMenu>
             </svelte:fragment>
