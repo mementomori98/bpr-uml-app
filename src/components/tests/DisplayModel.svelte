@@ -1,9 +1,10 @@
 <script lang="ts">
     import {Box} from "./Box";
+
     export let box: Box
-    export let cameraX : number
-    export let cameraY : number
-    export let zoom : number
+    export let cameraX: number
+    export let cameraY: number
+    export let zoom: number
 
     let isDragging: boolean = false;
     let mouseX: number;
@@ -24,9 +25,9 @@
 
     }
     const handleMouseMove = function (e: MouseEvent) {
-        if(isDragging){
+        if (isDragging) {
             console.log(e.x)
-            let x = e.x - mouseX ;
+            let x = e.x - mouseX;
             let y = e.y - mouseY;
             mouseX = e.x;
             mouseY = e.y;
@@ -41,22 +42,22 @@
          top: ${diagramToScreen(box)[1]}px;
          width: ${diagramToScreen(box)[2]}px;
          height: ${diagramToScreen(box)[3]}px;`
-         }
+    }
 </script>
 <div
-   style="{model(box)}"
-   class="model"
-    on:mousedown={handleMouseDown}
-   on:mousemove={handleMouseMove}
-   on:mouseup={() => isDragging = false}
-   on:mouseleave={() => isDragging = false}>
+        style="{model(box)}"
+        class="model"
+        on:mousedown={handleMouseDown}
+        on:mousemove={handleMouseMove}
+        on:mouseup={() => isDragging = false}
+        on:mouseleave={() => isDragging = false}>
 
 </div>
 
 <style lang="scss">
-  .model {
-    background-color: red;
-    position:absolute;
-    cursor: default;
-  }
+    .model {
+        background-color: red;
+        position: absolute;
+        cursor: default;
+    }
 </style>

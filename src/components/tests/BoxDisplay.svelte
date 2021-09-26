@@ -24,5 +24,9 @@
         position: absolute;
         background-color: #d9cfa9;
         border: 1px solid #000000;
+
+        &:hover {
+            box-shadow: $shadow-medium;
+        }
     }
 </style>

@@ -46,6 +46,7 @@
     const handleElementDrag = (e, b) => {
         b.x += e.detail.dx;
         b.y += e.detail.dy;
+        boxes = boxes;
     }
 
     onMount(() => boxes = boxes);
@@ -73,16 +74,10 @@
         <BoxDisplay box={box} screenCoords={camera.screenCoords} bind:element={displays[i]}/>
         <MouseDriver
                 target={displays[i]}
-                on:drag={e => handleElementDrag(e, box)}
-                on:dragend={() => boxes = boxes}/>
+                on:drag={e => handleElementDrag(e, box)}/>
     {/each}
 </div>
 
 <style lang="scss">
     @import "../theme.scss";
-
-    .display {
-        position: absolute;
-        background-color: red;
-    }
 </style>
