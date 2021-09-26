@@ -1,121 +1,88 @@
 <script lang="ts">
+    import MouseDriver from "./MouseDriver.svelte";
+    import Camera from "./Camera.svelte";
     import {Box} from "./Box";
-    import DisplayModel from "./DisplayModel.svelte";
-    import ContextMenu from "../ui/ContextMenu.svelte";
-    import Option from "../ui/Option.svelte";
+    import {onMount} from "svelte";
+    import BoxDisplay from "./BoxDisplay.svelte";
 
     let mouseX: number;
     let mouseY: number;
 
-    let canvasWidth: number;
-    let canvasHeight: number;
+    let camera = {
+        screenCoords: (n1, n2) => [0, 0],
+        zoomOut: (n1, n2, n3, n4) => null,
+        zoomIn: (n1, n2, n3, n4) => null
+    };
+    let cameraX: number;
+    let cameraY: number;
+    let zoom: number;
 
-    let cameraX: number = 0;
-    let cameraY: number = 0;
-    let zoom: number = 1;
+    let canvas: HTMLDivElement;
 
-    let isDragging: boolean = false;
-    let dragX: number, dragY: number;
+    let boxes = [
+        new Box(100, 100, 50, 100),
+        new Box(300, 100, 150, 100),
+    ];
 
-    let box: Box = new Box(50, 150, 100, 200);
-    let box2: Box = new Box(200, 300, 100, 100);
+    let displays = [
+        null, null
+    ]
 
-    let contextMenuVisible: boolean = false;
-    let contextX: number;
-    let contextY: number;
+    const handleDrag = e => {
+        cameraX -= e.detail.dx / zoom;
+        cameraY -= e.detail.dy / zoom;
+        boxes = boxes;
+    };
 
-    const handleMouseMove = function (e: MouseEvent) {
-        if (isDragging) {
-            handleDrag(e)
+    const handleScroll = e => {
+        if (e.detail > 0) {
+            camera.zoomOut(mouseX, mouseY, canvas.offsetWidth, canvas.offsetHeight);
+        } else {
+            camera.zoomIn(mouseX, mouseY, canvas.offsetWidth, canvas.offsetHeight);
         }
-        mouseX = e.offsetX;
-        mouseY = e.offsetY;
+        boxes = boxes;
     }
 
-    const handleDrag = function (e: MouseEvent) {
-        dragX = e.offsetX - mouseX
-        dragY = e.offsetY - mouseY
-        cameraX -= dragX / zoom;
-        cameraY -= dragY / zoom;
-        box = box;
-        box2 = box2;
+    const handleElementDrag = (e, b) => {
+        b.x += e.detail.dx;
+        b.y += e.detail.dy;
     }
 
-    const handleScroll = function (e: WheelEvent) {
-        if (e.deltaY < 0) {
-            let x = (canvasWidth - canvasWidth / 1.1) / zoom * (mouseX / canvasWidth);
-            let y = (canvasHeight - canvasHeight / 1.1) / zoom * (mouseY / canvasHeight);
-            cameraX += (x);
-            cameraY += (y);
-            zoom *= 1.1;
-        } else if (e.deltaY > 0) {
-            let x = (canvasWidth - canvasWidth * 1.1) / zoom * (mouseX / canvasWidth);
-            let y = (canvasHeight - canvasHeight * 1.1) / zoom * (mouseY / canvasHeight);
-            cameraX += (x);
-            cameraY += (y);
-            zoom /= 1.1;
-        }
-        box = box;
-        box2 = box2;
-    }
-
-    const handleContextMenu = (e: MouseEvent) => {
-        if (!contextMenuVisible) {
-            e.preventDefault();
-            contextX = e.clientX;
-            contextY = e.clientY;
-            contextMenuVisible = true;
-        }
-        else {
-            contextMenuVisible = false;
-        }
-
-    }
-
-    const handleMouseDown = (e: MouseEvent) => {
-        if (e.button == 0)
-            isDragging = true;
-    }
-
-    const handleMouseUp = (e: MouseEvent) => {
-        if (e.button == 0)
-            isDragging = false;
-    }
+    onMount(() => boxes = boxes);
 
 </script>
 
-<div class="canvas"
-     bind:clientWidth={canvasWidth}
-     bind:clientHeight={canvasHeight}
-     on:mousemove={handleMouseMove}
-     on:mousedown={handleMouseDown}
-     on:mouseup={handleMouseUp}
-     on:wheel={handleScroll}
-     on:contextmenu={handleContextMenu}>
-    <div style="user-select: none">
-        canvas: {canvasWidth}:{canvasHeight}<br/>
-        drag: {dragX}:{dragY}<br/>
-        mouse: {mouseX}:{mouseY}<br/>
-        zoom: {zoom}<br/>
-        Dragging: {isDragging}<br/>
-        camera: {cameraX}:{cameraY}<br/>
-    </div>
+<MouseDriver
+        bind:mouseX
+        bind:mouseY
+        target={canvas}
+        on:drag={handleDrag}
+        on:scroll={handleScroll}/>
 
+<Camera
+        bind:this={camera}
+        bind:cameraX
+        bind:cameraY
+        bind:zoom/>
 
-    <DisplayModel box={box} cameraX={cameraX} cameraY={cameraY} zoom={zoom}/>
-    <DisplayModel box={box2} cameraX={cameraX} cameraY={cameraY} zoom={zoom}/>
+<div bind:this={canvas} style="user-select: none;height: 100%;position: relative; overflow: hidden;">
+    Camera: {cameraX}:{cameraY}<br/>
+    Zoom: {zoom} <br/>
 
-    <ContextMenu bind:visible={contextMenuVisible} left={contextX} top={contextY}>
-        <Option>This</Option>
-        <Option>That</Option>
-    </ContextMenu>
+    {#each boxes as box, i}
+        <BoxDisplay box={box} screenCoords={camera.screenCoords} bind:element={displays[i]}/>
+        <MouseDriver
+                target={displays[i]}
+                on:drag={e => handleElementDrag(e, box)}
+                on:dragend={() => boxes = boxes}/>
+    {/each}
 </div>
 
 <style lang="scss">
-    .canvas {
-        width: 100%;
-        height: 100%;
-        background-color: #f6f6f1;
-        overflow: hidden;
+    @import "../theme.scss";
+
+    .display {
+        position: absolute;
+        background-color: red;
     }
 </style>

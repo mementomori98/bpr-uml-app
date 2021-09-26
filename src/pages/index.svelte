@@ -1,6 +1,6 @@
 <script>
     import Fab from "../components/ui/Fab.svelte";
-    import Hmmm from "../components/tests/Hmmm.svelte";
+    import Canvas from "../components/tests/Canvas.svelte";
 </script>
 
-<Hmmm/>
+<Canvas/>

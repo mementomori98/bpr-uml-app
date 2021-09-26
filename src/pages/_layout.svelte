@@ -66,7 +66,7 @@
                 </ContextMenu>
             </svelte:fragment>
             <slot/>
-            {#if path !== '/editor'}
+            {#if path !== '/editor' && path !== '/index'}
                 <VirtualSpace/>
             {/if}
         </DrawerLayout>
