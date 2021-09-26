@@ -74,6 +74,7 @@
         <BoxDisplay box={box} screenCoords={camera.screenCoords} bind:element={displays[i]}/>
         <MouseDriver
                 target={displays[i]}
+                on:scroll={handleScroll}
                 on:drag={e => handleElementDrag(e, box)}/>
     {/each}
 </div>
