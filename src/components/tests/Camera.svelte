@@ -13,6 +13,8 @@
     }
 
     export const zoomIn = (mouseX: number, mouseY: number, canvasWidth: number, canvasHeight: number) => {
+        if (zoom * 1.1 > 3)
+            return;
         let x = (canvasWidth - canvasWidth / 1.1) / zoom * (mouseX / canvasWidth);
         let y = (canvasHeight - canvasHeight / 1.1) / zoom * (mouseY / canvasHeight);
         cameraX += x;
@@ -21,6 +23,8 @@
     }
 
     export const zoomOut = (mouseX: number, mouseY: number, canvasWidth: number, canvasHeight: number) => {
+        if (zoom / 1.1 < 0.4)
+            return;
         let x = (canvasWidth - canvasWidth * 1.1) / zoom * (mouseX / canvasWidth);
         let y = (canvasHeight - canvasHeight * 1.1) / zoom * (mouseY / canvasHeight);
         cameraX += x;
