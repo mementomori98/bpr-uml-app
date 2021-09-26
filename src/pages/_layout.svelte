@@ -15,6 +15,7 @@
     import Option from "../components/ui/Option.svelte";
     import VirtualSpace from "../components/ui/VirtualSpace.svelte";
     import TextButton from "../components/ui/TextButton.svelte";
+    import Divider from "../components/ui/Divider.svelte";
 
     const authenticationService = factory.get<AuthenticationService>();
     let loggedIn: boolean;
@@ -62,6 +63,7 @@
                 <TextButton on:click={() => visible = true}><Icon icon="person"/></TextButton>
                 <ContextMenu bind:visible top="50" right="8">
                     <Option on:click={$goto('/account')}>Account</Option>
+                    <Divider/>
                     <Option on:click={handleLogout}>Log out</Option>
                 </ContextMenu>
             </svelte:fragment>

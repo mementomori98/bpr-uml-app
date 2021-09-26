@@ -60,7 +60,6 @@
     window.addEventListener('mousewheel', handleMouseWheel);
 
     onDestroy(() => {
-        console.log('destroyed');
         window.removeEventListener('mousedown', handleMouseDown);
         window.removeEventListener('mousemove', handleMouseMove);
         window.removeEventListener('mouseup', handleMouseUp);
