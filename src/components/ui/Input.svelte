@@ -8,6 +8,8 @@
     export let password: boolean = false;
     export let focused: boolean = false;
     export let locked: boolean = false;
+    export let showError: boolean = false;
+    export let errorMsg: string = "";
 
     const dispatch = createEventDispatcher();
 
@@ -39,6 +41,9 @@
             <input bind:value class="{contentClass}" on:keydown={handleKeyDown} autofocus={focused}/>
         {/if}
     {/if}
+    {#if showError}
+        <div class="input__error">{errorMsg}</div>
+    {/if}
 </div>
 
 <style lang="scss">
@@ -52,6 +57,16 @@
             font: $font-label;
             padding: 8px 0;
         }
+
+          &__error {
+            padding: 0;
+            margin: 0;
+            text-align: end;
+            color: nth($red, 1);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1px;
+          }
 
         &__content {
             border: $border-inactive;
