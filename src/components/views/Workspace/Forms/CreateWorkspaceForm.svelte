@@ -32,8 +32,8 @@
     <View>
         <svelte:fragment slot="header">Sign up</svelte:fragment>
         <Input label="Username" bind:value={username}/>
-        <Input label="Password" bind:value={password} password/>
-        <Input label="Password" bind:value={pwConfirm} password errorMsg="Passwords don't match" showError={showError}/>
+        <Input label="Password" bind:value={password} {password}/>
+        <Input label="Repeat password" bind:value={pwConfirm} on:enter={handleCreate} {password} errorMsg="Passwords don't match" showError={showError} />
         <svelte:fragment slot="actions">
             <Button color={Colors.Gray} on:click={$goto('/login')}>Login</Button>
             <Button on:click={handleCreate}>Create</Button>
