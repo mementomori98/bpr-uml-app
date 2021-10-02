@@ -8,17 +8,25 @@
     import {goto} from "@roxi/routify";
     import {factory} from "../../../../services/Factory";
     import {AuthenticationService} from "../../../../services/AuthenticationService";
+    import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
 
     let workspaceName: string;
     let username: string;
     let password: string;
+    let error: string = '';
 
     const authenticationService = factory.get<AuthenticationService>();
 
     const handleCreate = () => {
-        // todo implement
-        authenticationService.login('', '');
-        $goto('/');
+        const auth = getAuth();
+        createUserWithEmailAndPassword(auth, username, password)
+            .then(() => {
+                localStorage.setItem('auth', 'true');
+                $goto('/');
+            })
+            .catch(() => {
+                error = 'Username taken';
+            });
     }
 
 </script>
@@ -30,6 +38,7 @@
         <Input label="Workspace Name" bind:value={workspaceName}/>
         <Input label="Username" bind:value={username}/>
         <Input label="Password" bind:value={password} password/>
+        <p>{error}</p>
         <svelte:fragment slot="actions">
             <Button color={Colors.Gray} on:click={$goto('/login')}>Login</Button>
             <Button on:click={handleCreate}>Create</Button>
@@ -39,5 +48,5 @@
 
 
 <style lang="scss">
-    @import "../../../theme";
+  @import "../../../theme";
 </style>
