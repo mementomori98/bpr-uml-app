@@ -30,7 +30,9 @@
     <Card>
         <Form lockable bind:locked on:submit={handleSubmit}>
             <svelte:fragment slot="header">Edit Account</svelte:fragment>
-            <svelte:fragment slot="header-actions"></svelte:fragment>
+            <svelte:fragment slot="header-actions">
+                <Button color={Colors.Red}>Delete Account</Button>
+            </svelte:fragment>
             <Input label="Email" bind:value={email} {locked}/>
             <Input label="Password" bind:value={password} {locked} {password}/>
             {#if !locked}
