@@ -7,6 +7,7 @@
     import {goto} from "@roxi/routify";
     import {factory} from "../../../../services/Factory";
     import {AuthenticationService} from "../../../../services/AuthenticationService";
+    import Card from "../../../ui/Card.svelte";
 
     let username: string;
     let password: string;
@@ -28,17 +29,19 @@
 
 </script>
 
-<Centerer>
-    <View>
-        <svelte:fragment slot="header">Sign up</svelte:fragment>
-        <Input label="Username" bind:value={username}/>
-        <Input label="Password" bind:value={password} {password}/>
-        <Input label="Repeat password" bind:value={pwConfirm} on:enter={handleCreate} {password} errorMsg="Passwords don't match" showError={showError} />
-        <svelte:fragment slot="actions">
-            <Button color={Colors.Gray} on:click={$goto('/login')}>Login</Button>
-            <Button on:click={handleCreate}>Create</Button>
-        </svelte:fragment>
-    </View>
+<Centerer verticalCentering width="480" bgColor="ededed">
+    <Card>
+        <View>
+            <svelte:fragment slot="header">Sign up</svelte:fragment>
+            <Input label="Username" bind:value={username}/>
+            <Input label="Password" bind:value={password} {password}/>
+            <Input label="Repeat password" bind:value={pwConfirm} on:enter={handleCreate} {password} errorMsg="Passwords don't match" showError={showError} />
+            <svelte:fragment slot="actions">
+                <Button color={Colors.Gray} on:click={$goto('/login')}>Login</Button>
+                <Button on:click={handleCreate}>Create</Button>
+            </svelte:fragment>
+        </View>
+    </Card>
 </Centerer>
 
 

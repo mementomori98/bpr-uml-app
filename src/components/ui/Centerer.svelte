@@ -1,14 +1,12 @@
 <script lang="ts">
-    import Card from "./Card.svelte";
-
-    export let width: number = 480;
+    export let width: number = 1024;
+    export let bgColor: string = ""
+    export let verticalCentering: boolean = false;
 </script>
 
-<div class="center__wrapper">
-    <div class="center__content" style={`width: ${width}px`}>
-        <Card>
-            <slot/>
-        </Card>
+<div class="center__wrapper" style={`background-color: #${bgColor}; align-items: ${verticalCentering ? 'center' : 'normal'};`}>
+    <div class="center__content" style={`width: ${width}px;`}>
+        <slot/>
     </div>
 </div>
 
@@ -21,7 +19,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #ededed;
     }
 
     .center__content {

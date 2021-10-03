@@ -21,7 +21,7 @@
 
 </script>
 
-<Centerer>
+<Centerer width="480" verticalCentering bgColor="ededed">
     <Card>
         <View>
             <svelte:fragment slot="header">Onboard</svelte:fragment>

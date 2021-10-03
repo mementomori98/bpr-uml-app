@@ -6,6 +6,7 @@
     import Button from "../../../ui/Button.svelte";
     import {Colors} from "../../../ui/Colors";
     import {goto} from "@roxi/routify";
+    import Centerer from "../../../ui/Centerer.svelte";
 
     let email: string = 'myemail@email.com';
     let password: string = 'mypassword123';
@@ -25,16 +26,18 @@
     }
 
 </script>
+<Centerer>
+    <Card>
+        <Form lockable bind:locked on:submit={handleSubmit}>
+            <svelte:fragment slot="header">Edit Account</svelte:fragment>
+            <svelte:fragment slot="header-actions"></svelte:fragment>
+            <Input label="Email" bind:value={email} {locked}/>
+            <Input label="Password" bind:value={password} {locked} {password}/>
+            <Input label="Repeat password" bind:value={pwConfirm} {locked} on:enter={handleSubmit} {password} errorMsg="Passwords don't match" />
+        </Form>
+    </Card>
+</Centerer>
 
-<Card>
-    <Form lockable bind:locked on:submit={handleSubmit}>
-        <svelte:fragment slot="header">Edit Account</svelte:fragment>
-        <svelte:fragment slot="header-actions"></svelte:fragment>
-        <Input label="Email" bind:value={email} {locked}/>
-        <Input label="Password" bind:value={password} {locked} {password}/>
-        <Input label="Repeat password" bind:value={pwConfirm} {locked} on:enter={handleSubmit} {password} errorMsg="Passwords don't match" />
-    </Form>
-</Card>
 
 <style lang="scss">
   @import "../../../theme";

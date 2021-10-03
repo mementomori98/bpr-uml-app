@@ -23,16 +23,18 @@
 
 </script>
 
-<Centerer width="400">
-    <View>
-        <svelte:fragment slot="header">Login</svelte:fragment>
-        <Input label="Username" bind:value={username} on:enter={handleLogin} focused/>
-        <Input label="Password" bind:value={password} password on:enter={handleLogin}/>
-        <svelte:fragment slot="actions">
-            <Button color="{Colors.Gray}" on:click={$goto('/create-workspace')}>Sign up</Button>
-            <Button on:click={handleLogin}>Login</Button>
-        </svelte:fragment>
-    </View>
+<Centerer width="400" bgColor="ededed" verticalCentering>
+    <Card>
+        <View>
+            <svelte:fragment slot="header">Login</svelte:fragment>
+            <Input label="Username" bind:value={username} on:enter={handleLogin} focused/>
+            <Input label="Password" bind:value={password} password on:enter={handleLogin}/>
+            <svelte:fragment slot="actions">
+                <Button color="{Colors.Gray}" on:click={$goto('/create-workspace')}>Sign up</Button>
+                <Button on:click={handleLogin}>Login</Button>
+            </svelte:fragment>
+        </View>
+    </Card>
 </Centerer>
 
 
