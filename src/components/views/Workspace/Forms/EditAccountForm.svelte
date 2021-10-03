@@ -33,7 +33,9 @@
             <svelte:fragment slot="header-actions"></svelte:fragment>
             <Input label="Email" bind:value={email} {locked}/>
             <Input label="Password" bind:value={password} {locked} {password}/>
-            <Input label="Repeat password" bind:value={pwConfirm} {locked} on:enter={handleSubmit} {password} errorMsg="Passwords don't match" />
+            {#if !locked}
+                <Input label="Repeat password" bind:value={pwConfirm} {locked} on:enter={handleSubmit} {password} errorMsg="Passwords don't match" />
+            {/if}
         </Form>
     </Card>
 </Wrapper>
