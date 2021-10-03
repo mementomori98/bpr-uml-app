@@ -35,6 +35,7 @@
         '/login',
         '/create-workspace',
         '/onboard',
+        '/signup',
     ];
 
     const handleLogout = function () {

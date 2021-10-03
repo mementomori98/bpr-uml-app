@@ -1,5 +1,5 @@
 <script>
-    import CreateWorkspaceForm from "../components/views/Workspace/Forms/CreateWorkspaceForm.svelte";
+    import SignupView from "../components/views/Login/SignupView.svelte";
 </script>
 
-<CreateWorkspaceForm/>
+<SignupView/>
