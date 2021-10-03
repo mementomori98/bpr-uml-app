@@ -49,7 +49,7 @@
         <Input label="Password" bind:value={password} password on:enter={handleLogin}/>
         <p>{error}</p>
         <svelte:fragment slot="actions">
-            <Button color="{Colors.Gray}" on:click={$goto('/create-workspace')}>Sign up</Button>
+            <Button color="{Colors.Gray}" on:click={$goto('/signup')}>Sign up</Button>
             <Button on:click={handleGoogleLogin}>Login with Google</Button>
             <Button on:click={handleLogin}>Login</Button>
         </svelte:fragment>
@@ -59,6 +59,5 @@
 
 <style lang="scss">
   @import "../../theme";
-
 
 </style>
