@@ -25,13 +25,18 @@
         pwConfirm = "";
     }
 
+    const deleteAccount = () => {
+        //todo deleteAccount
+        alert('Account removed')
+    }
+
 </script>
 <Wrapper>
     <Card>
         <Form lockable bind:locked on:submit={handleSubmit}>
             <svelte:fragment slot="header">Edit Account</svelte:fragment>
             <svelte:fragment slot="header-actions">
-                <Button color={Colors.Red}>Delete Account</Button>
+                <Button color={Colors.Red} on:click={deleteAccount}>Delete Account</Button>
             </svelte:fragment>
             <Input label="Email" bind:value={email} {locked}/>
             <Input label="Password" bind:value={password} {locked} {password}/>
