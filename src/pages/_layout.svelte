@@ -69,6 +69,9 @@
                 </ContextMenu>
             </svelte:fragment>
             <slot/>
+            {#if path !== '/editor' && path !== '/index'}
+                <VirtualSpace/>
+            {/if}
         </DrawerLayout>
         <Fab on:click={() => alert('fab clicked')}>
             <Icon icon="add"/>
