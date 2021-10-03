@@ -6,7 +6,7 @@
     import Button from "../../../ui/Button.svelte";
     import {Colors} from "../../../ui/Colors";
     import {goto} from "@roxi/routify";
-    import Centerer from "../../../ui/Centerer.svelte";
+    import Wrapper from "../../../ui/Wrapper.svelte";
 
     let email: string = 'myemail@email.com';
     let password: string = 'mypassword123';
@@ -26,7 +26,7 @@
     }
 
 </script>
-<Centerer>
+<Wrapper>
     <Card>
         <Form lockable bind:locked on:submit={handleSubmit}>
             <svelte:fragment slot="header">Edit Account</svelte:fragment>
@@ -36,7 +36,7 @@
             <Input label="Repeat password" bind:value={pwConfirm} {locked} on:enter={handleSubmit} {password} errorMsg="Passwords don't match" />
         </Form>
     </Card>
-</Centerer>
+</Wrapper>
 
 
 <style lang="scss">

@@ -1,5 +1,4 @@
 <script lang="ts">
-    import Centerer from "../components/ui/Centerer.svelte";
     import Card from "../components/ui/Card.svelte";
     import View from "../components/ui/View.svelte";
     import Input from "../components/ui/Input.svelte";
@@ -8,6 +7,7 @@
     import {factory} from "../services/Factory";
     import {AuthenticationService} from "../services/AuthenticationService";
     import {goto} from "@roxi/routify";
+    import Wrapper from "../components/ui/Wrapper.svelte";
 
     let name: string;
     let email: string = "someone@random.com";
@@ -21,7 +21,7 @@
 
 </script>
 
-<Centerer width="480" verticalCentering bgColor="ededed">
+<Wrapper width="480" verticalCentering bgColor="ededed">
     <Card>
         <View>
             <svelte:fragment slot="header">Onboard</svelte:fragment>
@@ -33,7 +33,7 @@
             </svelte:fragment>
         </View>
     </Card>
-</Centerer>
+</Wrapper>
 
 <style lang="scss">
 

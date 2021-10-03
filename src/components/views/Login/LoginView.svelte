@@ -8,7 +8,7 @@
     import Card from "../../ui/Card.svelte";
     import {goto} from "@roxi/routify";
     import {Colors} from "../../ui/Colors";
-    import Centerer from "../../ui/Centerer.svelte";
+    import Wrapper from "../../ui/Wrapper.svelte";
 
     let authenticationService = factory.get<AuthenticationService>();
 
@@ -23,7 +23,7 @@
 
 </script>
 
-<Centerer width="400" bgColor="ededed" verticalCentering>
+<Wrapper width="400" bgColor="ededed" verticalCentering>
     <Card>
         <View>
             <svelte:fragment slot="header">Login</svelte:fragment>
@@ -35,7 +35,7 @@
             </svelte:fragment>
         </View>
     </Card>
-</Centerer>
+</Wrapper>
 
 
 <style lang="scss">

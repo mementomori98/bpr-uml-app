@@ -2,14 +2,14 @@
     import Container from "../../ui/Container.svelte";
     import WorkspaceForm from "./Forms/WorkspaceForm.svelte";
     import UsersCard from "./Users/UsersCard.svelte";
-    import Centerer from "../../ui/Centerer.svelte";
+    import Wrapper from "../../ui/Wrapper.svelte";
 </script>
 
 <Container>
-    <Centerer>
+    <Wrapper>
         <WorkspaceForm/>
         <UsersCard/>
-    </Centerer>
+    </Wrapper>
 </Container>
 
 

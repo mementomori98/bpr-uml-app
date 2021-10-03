@@ -1,13 +1,13 @@
 <script lang="ts">
     import View from "../../../ui/View.svelte";
     import Input from "../../../ui/Input.svelte";
-    import Centerer from "../../../ui/Centerer.svelte";
     import Button from "../../../ui/Button.svelte";
     import {Colors} from "../../../ui/Colors";
     import {goto} from "@roxi/routify";
     import {factory} from "../../../../services/Factory";
     import {AuthenticationService} from "../../../../services/AuthenticationService";
     import Card from "../../../ui/Card.svelte";
+    import Wrapper from "../../../ui/Wrapper.svelte";
 
     let username: string;
     let password: string;
@@ -29,7 +29,7 @@
 
 </script>
 
-<Centerer verticalCentering width="480" bgColor="ededed">
+<Wrapper verticalCentering width="480" bgColor="ededed">
     <Card>
         <View>
             <svelte:fragment slot="header">Sign up</svelte:fragment>
@@ -42,7 +42,7 @@
             </svelte:fragment>
         </View>
     </Card>
-</Centerer>
+</Wrapper>
 
 
 <style lang="scss">
