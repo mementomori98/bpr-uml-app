@@ -16,6 +16,10 @@
         .addFeature('closed', !drawerOpen)
         .build();
 
+    $:appbarCls = new CssBuilder('appbar')
+        .addFeature('closed', !drawerOpen)
+        .build();
+
 </script>
 
 <div class={drawerClass}>
@@ -23,7 +27,7 @@
     <slot name="drawer"/>
 </div>
 <div class={appbarClass}>
-    <div class="appbar">
+    <div class={appbarCls}>
         <TextButton on:click={() => drawerOpen = !drawerOpen}>
             <Icon icon="menu" size="14"/>
         </TextButton>
@@ -72,11 +76,11 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        padding-left: 240px;
+        margin-left: 240px;
         transition-duration: 400ms;
 
         &--closed {
-            padding-left: 0;
+            margin-left: 0;
         }
     }
 
@@ -87,12 +91,19 @@
         align-items: center;
         box-shadow: 2px 0 6px 3px rgba(0, 0, 0, .2);
         z-index: 500;
-        position: relative;
+        position: fixed;
         background-color: #e8e8e8;
         color: white;
+        width: calc(100% - 240px);
+        transition-duration: 400ms;
+
+        &--closed {
+            width: 100%;
+        }
     }
 
     .content {
         flex: 1;
+        margin-top: 64px;
     }
 </style>
