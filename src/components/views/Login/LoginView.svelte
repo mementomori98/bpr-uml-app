@@ -25,7 +25,8 @@
                 localStorage.setItem('auth', 'true');
                 $goto('/');
             })
-            .catch(() => {
+            .catch((err) => {
+                console.log(err);
                 error = 'Login failed'
             });
     }
@@ -39,8 +40,8 @@
                 localStorage.setItem('auth', 'true');
                 $goto('/');
             })
-            .catch(() => {
-                // ignored
+            .catch((err) => {
+                console.log(err);
             });
     }
 

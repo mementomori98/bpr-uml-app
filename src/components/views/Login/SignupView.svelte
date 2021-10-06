@@ -33,7 +33,8 @@
                 localStorage.setItem('auth', 'true');
                 $goto('/');
             })
-            .catch(() => {
+            .catch((err) => {
+                console.log(err);
                 usernameError = true;
             });
     }
