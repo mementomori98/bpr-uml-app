@@ -9,7 +9,7 @@
     export let focused: boolean = false;
     export let locked: boolean = false;
     export let showError: boolean = false;
-    export let errorMsg: string = "";
+    export let errorMessage: string = "";
 
     const dispatch = createEventDispatcher();
 
@@ -42,7 +42,7 @@
         {/if}
     {/if}
     {#if showError}
-        <div class="input__error">{errorMsg}</div>
+        <div class="input__error">{errorMessage}</div>
     {/if}
 </div>
 
@@ -51,22 +51,21 @@
 
     .input {
         width: 100%;
-        padding: 4px 0;
+        padding: 16px 0;
 
         &__label {
             font: $font-label;
             padding: 8px 0;
         }
 
-          &__error {
-            padding: 0;
-            margin: 0;
-            text-align: end;
+        &__error {
+            padding: 2px 4px;
+            position: absolute;
             color: nth($red, 1);
-            font-size: 13px;
-            font-weight: 800;
+            font-size: 14px;
+            font-weight: 600;
             letter-spacing: 1px;
-          }
+        }
 
         &__content {
             border: $border-inactive;
