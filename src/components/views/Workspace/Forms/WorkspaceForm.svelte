@@ -10,12 +10,19 @@
 
     let locked: boolean = true;
 
+    const deleteWorkspace = () => {
+        //todo deleteWorkspace
+        alert('Workspace removed')
+    }
+
 </script>
 
 <Card>
     <Form lockable bind:locked>
         <svelte:fragment slot="header">Workspace</svelte:fragment>
-        <svelte:fragment slot="header-actions"></svelte:fragment>
+        <svelte:fragment slot="header-actions">
+            <Button color={Colors.Red} on:click={deleteWorkspace}>Delete Workspace</Button>
+        </svelte:fragment>
         <Input label="Workspace name" bind:value={workspaceName} {locked}/>
         <svelte:fragment slot="actions">
             {#if locked}
