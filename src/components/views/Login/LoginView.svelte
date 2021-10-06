@@ -7,11 +7,12 @@
     import {Colors} from "../../ui/Colors";
     import {getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
     import Wrapper from "../../ui/Wrapper.svelte";
-    import {factory} from "../../../services/Factory";
     import {AuthenticationService} from "../../../services/AuthenticationService";
     import Card from "../../ui/Card.svelte";
+    import {getContext} from "svelte";
+    import getService from "../../../services/Services";
 
-    let authenticationService = factory.get<AuthenticationService>();
+    let authenticationService = getService(AuthenticationService);
 
     let username: string;
     let password: string;

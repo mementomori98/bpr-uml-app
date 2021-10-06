@@ -4,11 +4,13 @@
     import Button from "../../ui/Button.svelte";
     import {Colors} from "../../ui/Colors";
     import {goto} from "@roxi/routify";
-    import {factory} from "../../../services/Factory";
     import {AuthenticationService} from "../../../services/AuthenticationService";
     import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
     import Card from "../../ui/Card.svelte";
     import Wrapper from "../../ui/Wrapper.svelte";
+    import firebase from "firebase/compat";
+    import Auth = firebase.auth.Auth;
+    import getService from "../../../services/Services";
 
     let username: string;
     let password: string;
@@ -16,7 +18,7 @@
     let pwConfirm: string;
     let passwordError: boolean = false;
 
-    const authenticationService = factory.get<AuthenticationService>();
+    const authenticationService: AuthenticationService = getService(AuthenticationService);
 
     const handleCreate = () => {
         passwordError = false;

@@ -1,3 +1,4 @@
+import "./Services";
 export class AuthenticationService {
     login(username, password) {
         localStorage.setItem('auth', 'true');
@@ -9,4 +10,5 @@ export class AuthenticationService {
         return localStorage.getItem('auth') != null;
     }
 }
+AuthenticationService.key = {};
 //# sourceMappingURL=AuthenticationService.js.map
