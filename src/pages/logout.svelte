@@ -5,6 +5,7 @@
     import getService from "../services/Services";
 
     let authenticationService = getService(AuthenticationService);
+
     authenticationService.logout();
 
 </script>

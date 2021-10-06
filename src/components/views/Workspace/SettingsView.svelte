@@ -6,7 +6,7 @@
 </script>
 
 <Container>
-    <Wrapper>
+    <Wrapper bgColor="ffffff">
         <WorkspaceForm/>
         <UsersCard/>
     </Wrapper>

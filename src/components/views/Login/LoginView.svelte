@@ -5,11 +5,9 @@
     import View from "../../ui/View.svelte";
     import {goto} from "@roxi/routify";
     import {Colors} from "../../ui/Colors";
-    import {getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
     import Wrapper from "../../ui/Wrapper.svelte";
     import {AuthenticationService} from "../../../services/AuthenticationService";
     import Card from "../../ui/Card.svelte";
-    import {getContext} from "svelte";
     import getService from "../../../services/Services";
 
     let authenticationService = getService(AuthenticationService);
@@ -19,33 +17,22 @@
     let error: string = '';
 
     function handleLogin() {
-        const auth = getAuth();
-
-        signInWithEmailAndPassword(auth, username, password)
-            .then(cred => {
-                localStorage.setItem('auth', 'true');
-                $goto('/');
-            })
+        authenticationService.login(username, password)
+            .then(() => $goto('/'))
             .catch((err) => {
                 console.log(err);
-                error = 'Login failed'
+                error = `Login failed (${err.code})`
             });
     }
 
     function handleGoogleLogin() {
-        const auth = getAuth();
-        const provider = new GoogleAuthProvider();
-
-        signInWithPopup(auth, provider)
-            .then(res => {
-                localStorage.setItem('auth', 'true');
-                $goto('/');
-            })
-            .catch((err) => {
+        authenticationService.loginGoogle()
+            .then(() => $goto('/'))
+            .catch(err => {
                 console.log(err);
+                error = `Login failed (${err.code})`;
             });
     }
-
 
 </script>
 
@@ -54,7 +41,7 @@
         <View>
             <svelte:fragment slot="header">Login</svelte:fragment>
             <Input label="Username" bind:value={username} on:enter={handleLogin} focused/>
-            <Input label="Password" bind:value={password} password on:enter={handleLogin}/>
+            <Input label="Password" bind:value={password} password on:enter={handleLogin} showError errorMessage={error}/>
             <svelte:fragment slot="actions">
                 <Button color="{Colors.Gray}" on:click={$goto('/signup')}>Sign up</Button>
                 <Button on:click={handleGoogleLogin}>Login with Google</Button>
@@ -66,6 +53,6 @@
 
 
 <style lang="scss">
-  @import "../../theme";
+    @import "../../theme";
 
 </style>

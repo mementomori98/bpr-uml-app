@@ -17,10 +17,10 @@
     import Divider from "../components/ui/Divider.svelte";
     import {getContext} from "svelte";
     import getService from "../services/Services";
+    import Nav from "../components/Nav.svelte";
 
     const authenticationService = getService(AuthenticationService);
     let loggedIn: boolean;
-    let visible: boolean;
 
     let path: string = '';
 
@@ -39,11 +39,7 @@
         '/signup',
     ];
 
-    const handleLogout = function () {
-        authenticationService.logout()
-        loggedIn = authenticationService.isLoggedIn();
-        $goto('/login');
-    }
+
 
 </script>
 
@@ -51,32 +47,9 @@
     {#if noAuth.includes(path)}
         <slot/>
     {:else}
-        <DrawerLayout>
-            <svelte:fragment slot="drawer">
-                <NavLink href="/">Index</NavLink>
-                <NavLink href="/onboard">__Onboard</NavLink>
-                <Spacer size="24"/>
-                <NavLink href="/settings">Workspace</NavLink>
-                <NavLink href="/logout">Log out</NavLink>
-                <Spacer size="1"/>
-            </svelte:fragment>
-            <svelte:fragment slot="appbar">
-                <Spacer/>
-                <TextButton on:click={() => visible = true}><Icon icon="person"/></TextButton>
-                <ContextMenu bind:visible top="50" right="8">
-                    <Option on:click={$goto('/account')}>Account</Option>
-                    <Divider/>
-                    <Option on:click={handleLogout}>Log out</Option>
-                </ContextMenu>
-            </svelte:fragment>
+        <Nav path={path}>
             <slot/>
-            {#if path !== '/editor' && path !== '/index'}
-                <VirtualSpace/>
-            {/if}
-        </DrawerLayout>
-        <Fab on:click={() => alert('fab clicked')}>
-            <Icon icon="add"/>
-        </Fab>
+        </Nav>
     {/if}
 </main>
 
