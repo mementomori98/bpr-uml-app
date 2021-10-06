@@ -16,6 +16,9 @@
     let password: string;
     let error: string = '';
 
+    if (authenticationService.isLoggedIn())
+        $goto('/');
+
     function handleLogin() {
         authenticationService.login(username, password)
             .then(() => $goto('/'))
