@@ -1,6 +1,6 @@
 <script lang="ts">
     export let width: number = 1024;
-    export let bgColor: string = ""
+    export let bgColor: string = "ededed"
     export let verticalCentering: boolean = false;
 </script>
 

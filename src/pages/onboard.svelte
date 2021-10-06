@@ -4,14 +4,14 @@
     import Input from "../components/ui/Input.svelte";
     import Button from "../components/ui/Button.svelte";
     import {Colors} from "../components/ui/Colors";
-    import {factory} from "../services/Factory";
     import {AuthenticationService} from "../services/AuthenticationService";
     import {goto} from "@roxi/routify";
     import Wrapper from "../components/ui/Wrapper.svelte";
+    import getService from "../services/Services";
 
     let name: string;
     let email: string = "someone@random.com";
-    let authenticationService = factory.get<AuthenticationService>();
+    let authenticationService = getService(AuthenticationService);
 
     const handleFinish = () => {
         // todo
