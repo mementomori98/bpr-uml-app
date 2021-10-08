@@ -31,7 +31,7 @@
     }
 
 </script>
-<Wrapper>
+<Wrapper bgColor="ffffff">
     <Card>
         <Form lockable bind:locked on:submit={handleSubmit}>
             <svelte:fragment slot="header">Edit Account</svelte:fragment>
