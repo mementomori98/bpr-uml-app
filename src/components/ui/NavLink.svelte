@@ -24,7 +24,7 @@
         padding: 8px 24px;
         font: $font-nav;
         text-transform: uppercase;
-        color: #3f3f3f;
+        color: nth($drawer, 2);
         user-select: none;
 
         &:hover {

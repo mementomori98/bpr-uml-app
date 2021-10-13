@@ -3,13 +3,24 @@
 </script>
 
 <div class="container">
-    <slot/>
+    <div class="container__content">
+        <slot/>
+    </div>
 </div>
 
 <style lang="scss">
     @import "../theme.scss";
 
     .container {
-        padding: 16px;
+        display: flex;
+        justify-content: center;
+
+        &__content {
+            padding-top: 24px;
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
     }
 </style>

@@ -53,8 +53,9 @@
         align-items: flex-start;
         z-index: 501;
         box-shadow: 0 0 5px 1px rgba(0, 0, 0, .2);
-        background-color: #ffe7ab;
+        background-color: nth($drawer, 1);
         transition-duration: 400ms;
+        color: nth($drawer, 2);
 
         &--closed {
             margin-left: -240px;

@@ -10,10 +10,11 @@
 
     let name: string;
 
-    const handleSubmit = () => {
-        workspaceService.create(new CreateWorkspaceRequest({
+    const handleSubmit = async () => {
+        const res = await workspaceService.create(new CreateWorkspaceRequest({
             name: name
-        })).then().catch();
+        }));
+        console.log(res);
     }
 
 </script>

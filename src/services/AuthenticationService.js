@@ -1,13 +1,15 @@
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import getService from "./Services";
+import { AppContext } from "./utils/AppContext";
 export class AuthenticationService {
     constructor() {
         this.auth = getAuth();
-        this.tokenName = 'accessToken';
+        this.context = getService(AppContext);
     }
     async login(username, password) {
         try {
             let res = await signInWithEmailAndPassword(this.auth, username, password);
-            localStorage.setItem(this.tokenName, await res.user.getIdToken());
+            this.context.accessToken = await res.user.getIdToken();
         }
         catch (err) {
             throw err;
@@ -17,17 +19,17 @@ export class AuthenticationService {
         try {
             const provider = new GoogleAuthProvider();
             let res = await signInWithPopup(this.auth, provider);
-            localStorage.setItem(this.tokenName, await res.user.getIdToken());
+            this.context.accessToken = await res.user.getIdToken();
         }
         catch (err) {
             throw err;
         }
     }
     logout() {
-        localStorage.removeItem(this.tokenName);
+        this.context.accessToken = null;
     }
     isLoggedIn() {
-        return localStorage.getItem(this.tokenName) != null;
+        return this.context.accessToken != null;
     }
 }
 //# sourceMappingURL=AuthenticationService.js.map
