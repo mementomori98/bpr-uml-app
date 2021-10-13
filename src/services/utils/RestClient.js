@@ -1,5 +1,9 @@
+import getService from "../Services";
+import { AppContext } from "./AppContext";
+import "@roxi/routify/typings/runtime";
 export class RestClient {
     constructor(baseUrl) {
+        this.context = getService(AppContext);
         this.baseUrl = baseUrl !== null && baseUrl !== void 0 ? baseUrl : '';
     }
     async get(path) {
@@ -13,6 +17,7 @@ export class RestClient {
             cache: 'no-cache',
             headers: {
                 'Content-Type': 'application/json',
+                'accessToken': this.context.accessToken
             },
             body: JSON.stringify(body)
         });
@@ -26,10 +31,8 @@ export class RestClient {
             cache: 'no-cache',
             headers: {
                 'Content-Type': 'application/json',
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer',
-            body: JSON.stringify(data) // body data type must match "Content-Type" header
+                'accessToken': this.context.accessToken
+            }, body: JSON.stringify(data) // body data type must match "Content-Type" header
         });
         return response.text(); // parses JSON response into native JavaScript objects
     }

@@ -1,4 +1,10 @@
+import getService from "../Services";
+import {AppContext} from "./AppContext";
+import {context} from "@roxi/routify/typings/runtime";
+
 export class RestClient {
+
+    private readonly context = getService(AppContext);
 
     private baseUrl: string;
 
@@ -18,6 +24,7 @@ export class RestClient {
             cache: 'no-cache',
             headers: {
                 'Content-Type': 'application/json',
+                'accessToken': this.context.accessToken
             },
             body: JSON.stringify(body)
         });
@@ -32,10 +39,8 @@ export class RestClient {
             cache: 'no-cache',
             headers: {
                 'Content-Type': 'application/json',
-            },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-            body: JSON.stringify(data) // body data type must match "Content-Type" header
+                'accessToken': this.context.accessToken
+            },body: JSON.stringify(data) // body data type must match "Content-Type" header
         });
         return response.text(); // parses JSON response into native JavaScript objects
     }

@@ -34,7 +34,7 @@
         const auth = getAuth();
         createUserWithEmailAndPassword(auth, username, password)
             .then(async res => {
-                context.accessToken = await res.user.getIdToken();
+                context.setAccessToken(await res.user.getIdToken());
                 $goto('/');
             })
             .catch((err) => {

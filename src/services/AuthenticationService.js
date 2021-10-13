@@ -9,7 +9,7 @@ export class AuthenticationService {
     async login(username, password) {
         try {
             let res = await signInWithEmailAndPassword(this.auth, username, password);
-            this.context.accessToken = await res.user.getIdToken();
+            this.context.setAccessToken(await res.user.getIdToken());
         }
         catch (err) {
             throw err;
@@ -19,17 +19,18 @@ export class AuthenticationService {
         try {
             const provider = new GoogleAuthProvider();
             let res = await signInWithPopup(this.auth, provider);
-            this.context.accessToken = await res.user.getIdToken();
+            this.context.setAccessToken(await res.user.getIdToken());
         }
         catch (err) {
             throw err;
         }
     }
     logout() {
-        this.context.accessToken = null;
+        this.context.setAccessToken(null);
     }
     isLoggedIn() {
-        return this.context.accessToken != null;
+        console.log(this.context.getAccessToken());
+        return this.context.getAccessToken() != null;
     }
 }
 //# sourceMappingURL=AuthenticationService.js.map

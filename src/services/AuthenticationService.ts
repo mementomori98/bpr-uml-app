@@ -11,7 +11,7 @@ export class AuthenticationService {
     public async login(username: string, password: string) {
         try {
             let res = await signInWithEmailAndPassword(this.auth, username, password);
-            this.context.accessToken = await res.user.getIdToken();
+            this.context.setAccessToken(await res.user.getIdToken());
         }
         catch (err) {
             throw err;
@@ -22,18 +22,19 @@ export class AuthenticationService {
         try {
             const provider = new GoogleAuthProvider();
             let res = await signInWithPopup(this.auth, provider)
-            this.context.accessToken = await res.user.getIdToken();
+            this.context.setAccessToken(await res.user.getIdToken());
         } catch (err) {
             throw err;
         }
     }
 
     public logout() {
-        this.context.accessToken = null;
+        this.context.setAccessToken(null);
     }
 
     public isLoggedIn() {
-        return this.context.accessToken != null;
+        console.log(this.context.getAccessToken());
+        return this.context.getAccessToken() != null;
     }
 
 }
