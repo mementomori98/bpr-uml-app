@@ -11,6 +11,7 @@
     import firebase from "firebase/compat";
     import Auth = firebase.auth.Auth;
     import getService from "../../../services/Services";
+    import {AppContext} from "../../../services/utils/AppContext";
 
     let username: string;
     let password: string;
@@ -19,6 +20,7 @@
     let passwordError: boolean = false;
 
     const authenticationService: AuthenticationService = getService(AuthenticationService);
+    const context = getService(AppContext);
 
     const handleCreate = () => {
         passwordError = false;
@@ -31,8 +33,8 @@
         }
         const auth = getAuth();
         createUserWithEmailAndPassword(auth, username, password)
-            .then(() => {
-                localStorage.setItem('auth', 'true');
+            .then(async res => {
+                context.accessToken = await res.user.getIdToken();
                 $goto('/');
             })
             .catch((err) => {

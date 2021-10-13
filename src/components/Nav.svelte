@@ -28,6 +28,7 @@
         <NavLink href="/">Index</NavLink>
         <NavLink href="/onboard">__Onboard</NavLink>
         <NavLink href="/create-workspace">__Create Workspace</NavLink>
+        <NavLink href="/socket">__Socket</NavLink>
         <Spacer size="24"/>
         <NavLink href="/settings">Workspace</NavLink>
         <NavLink href="/logout">Log out</NavLink>

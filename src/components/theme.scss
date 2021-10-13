@@ -3,8 +3,9 @@
 
 // bg, fg
 $red: rgb(225, 28, 28), rgb(255, 255, 255);
-$blue: rgb(46, 132, 222), rgb(255, 255, 255);
+$blue: rgb(53, 108, 178), rgb(255, 255, 255);
 $gray: rgb(232, 232, 232), rgb(0, 0, 0);
+$drawer: darken(nth($blue, 1), 25%), nth($blue, 2);
 
 $colors: (('red', nth($red, 1), nth($red, 2)),
         ('blue', nth($blue, 1), nth($blue, 2)),
