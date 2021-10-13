@@ -9,6 +9,6 @@
     register(AuthenticationService, () => new AuthenticationService());
     register(WorkspaceService, () => new WorkspaceService());
     register(RestClient, () => new RestClient('https://bpr-uml-rest-server.herokuapp.com'))
-    register(AppContext, () => new AppContext());
+    register(AppContext, () => AppContext.instance);
 
 </script>
