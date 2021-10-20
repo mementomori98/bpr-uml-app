@@ -23,8 +23,11 @@ const deleteWorkspace = () => {
                 <Button color="{Colors.Red}" on:click={() => dangerVisible = true}>Delete</Button>
             </svelte:fragment>
         </WorkspaceDangerItem>
-        <WorkspaceDangerItem/>
-        <WorkspaceDangerItem/>
+        <WorkspaceDangerItem title="Leave Workspace" description="You will permanently leave the workspace. With a new invitation, you can gain access again later.">
+            <svelte:fragment slot="actionBtn">
+                <Button color="{Colors.Red}" on:click={() => dangerVisible = true}>Leave</Button> <!-- TODO functionality -->
+            </svelte:fragment>
+        </WorkspaceDangerItem>
     </View>
 </Card>
 <WorkspaceDangerDialog bind:visible={dangerVisible}/>
