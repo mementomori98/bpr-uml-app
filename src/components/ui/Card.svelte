@@ -1,7 +1,9 @@
 <script lang="ts">
+    export let borderSize: number
+    export let borderColor: string
 </script>
 
-<div class="card">
+<div class="card" style={`border: ${borderSize}px solid #${borderColor};`}>
     <slot/>
 </div>
 

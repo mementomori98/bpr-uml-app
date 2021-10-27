@@ -7,6 +7,7 @@
     export let choices: string[];
     export let btnText: string = "";
     export let hasButton: boolean = false;
+    export let locked: boolean = false;
     let opened: boolean = false;
     const dispatch = createEventDispatcher();
 
@@ -32,16 +33,25 @@
                 tabindex="0"
                 on:focus={() => opened = true}
                 on:blur={() => opened = false}>
-            <div class="select__value">
-                {choice}
-            </div>
-            <div class="select__items" hidden={!opened}>
-                {#each choices as item, i}
-                    <div class="select__items-item" on:click={() => handleRoleChoice(item)}>
-                        {item}
-                    </div>
-                {/each}
-            </div>
+            {#if locked}
+                <div class="select__locked">
+                    {choice}
+                </div>
+            {:else}
+                <div class="select__value">
+                    {choice}
+                </div>
+            {/if}
+
+            {#if !locked}
+                <div class="select__items" hidden={!opened}>
+                    {#each choices as item, i}
+                        <div class="select__items-item" on:click={() => handleRoleChoice(item)}>
+                            {item}
+                        </div>
+                    {/each}
+                </div>
+            {/if}
         </div>
         {#if hasButton}
             <Button on:click={handleSubmit}>{btnText}</Button>
@@ -58,7 +68,7 @@
   @import "../theme.scss";
 
   .wrapper{
-    padding: 4px 0;
+    padding: 16px 0;
   }
 
   .label {
@@ -70,7 +80,7 @@
     border: none;
     outline: 0;
     position: relative;
-
+    width: 100%;
     &__items {
       background-color: white;
       position: absolute;
@@ -94,12 +104,22 @@
       }
     }
 
-    &__value {
+    &__locked {
       padding: 10px 10px 10px 0;
       user-select: none;
-      cursor: pointer;
       width: 150px;
       font-size: 18px;
+    }
+
+    &__value {
+      padding: 10px;
+      user-select: none;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+      border: 1px solid #9ebce2;
+      border-radius: 2px;
+
       &:hover {
         background-color: #f6f6f6;
       }

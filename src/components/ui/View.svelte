@@ -1,9 +1,10 @@
 <script lang="ts">
-
+    export let noPadding: boolean
+    export let noActions: boolean
 </script>
 
-<div class="view">
-    <div class="view__header">
+<div class="view" style={`${noPadding ? "padding: 0" : ""}`}>
+    <div class="view__header" style={`${noPadding ? "padding: 24px" : ""}`}>
         <div class="view__header-content">
             <slot name="header"/>
         </div>
@@ -14,9 +15,12 @@
     <div class="view__content">
         <slot/>
     </div>
-    <div class="view__actions">
-        <slot name="actions"/>
-    </div>
+    {#if !noActions}
+        <div class="view__actions">
+            <slot name="actions"/>
+        </div>
+    {/if}
+
 </div>
 
 <style lang="scss">
