@@ -3,25 +3,27 @@
     import Input from "../../ui/Input.svelte";
     import Button from "../../ui/Button.svelte";
     import View from "../../ui/View.svelte";
-    import {goto} from "@roxi/routify";
     import {Colors} from "../../ui/Colors";
     import Wrapper from "../../ui/Wrapper.svelte";
     import {AuthenticationService} from "../../../services/AuthenticationService";
     import Card from "../../ui/Card.svelte";
     import getService from "../../../services/Services";
+    import {createEventDispatcher} from "svelte";
 
-    let authenticationService = getService(AuthenticationService);
+
+    const authenticationService = getService(AuthenticationService);
+    const dispatch = createEventDispatcher();
 
     let username: string;
     let password: string;
     let error: string = '';
 
     if (authenticationService.isLoggedIn())
-        $goto('/');
+        dispatch('login');
 
     function handleLogin() {
         authenticationService.login(username, password)
-            .then(() => $goto('/'))
+            .then(() => dispatch('login'))
             .catch((err) => {
                 console.log(err);
                 error = `Login failed (${err.code})`
@@ -30,7 +32,7 @@
 
     function handleGoogleLogin() {
         authenticationService.loginGoogle()
-            .then(() => $goto('/'))
+            .then(() => dispatch('login'))
             .catch(err => {
                 console.log(err);
                 error = `Login failed (${err.code})`;
@@ -46,7 +48,7 @@
             <Input label="Username" bind:value={username} on:enter={handleLogin} focused/>
             <Input label="Password" bind:value={password} password on:enter={handleLogin} showError errorMessage={error}/>
             <svelte:fragment slot="actions">
-                <Button color="{Colors.Gray}" on:click={$goto('/signup')}>Sign up</Button>
+                <Button color="{Colors.Gray}" on:click={() => dispatch('signup')}>Sign up</Button>
                 <Button on:click={handleGoogleLogin}>Login with Google</Button>
                 <Button on:click={handleLogin}>Login</Button>
             </svelte:fragment>

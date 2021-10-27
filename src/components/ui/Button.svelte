@@ -49,7 +49,7 @@
             &--#{nth($color, 1)} {
                 background-color: #{nth($color, 2)};
                 color: #{nth($color, 3)};
-                border: 1px solid #{darken(nth($color, 2), 10%)};
+                border: 1px solid #{darken(nth($color, 2), 5%)};
 
                 &:active {
                     background-color: #{darken(nth($color, 2), 7%)};

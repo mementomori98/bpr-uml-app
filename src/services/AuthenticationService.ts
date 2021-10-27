@@ -33,7 +33,6 @@ export class AuthenticationService {
     }
 
     public isLoggedIn() {
-        console.log(this.context.getAccessToken());
         return this.context.getAccessToken() != null;
     }
 

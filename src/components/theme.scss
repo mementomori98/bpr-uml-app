@@ -2,9 +2,9 @@
 @use "sass:map";
 
 // bg, fg
-$red: rgb(225, 28, 28), rgb(255, 255, 255);
-$blue: rgb(53, 108, 178), rgb(255, 255, 255);
-$gray: rgb(232, 232, 232), rgb(0, 0, 0);
+$red: rgb(227, 50, 50), rgb(255, 255, 255);
+$blue: rgb(50, 99, 175), rgb(255, 255, 255);
+$gray: rgb(245, 245, 245), rgb(0, 0, 0);
 $drawer: darken(nth($blue, 1), 25%), nth($blue, 2);
 
 $colors: (('red', nth($red, 1), nth($red, 2)),
@@ -12,7 +12,7 @@ $colors: (('red', nth($red, 1), nth($red, 2)),
         ('gray', nth($gray, 1), nth($gray, 2)),
 );
 
-$shadow-small: 0 0 10px -2px rgba(0, 0, 0, .1);
+$shadow-small: 0 2px 4px 0px rgba(0, 0, 0, .3);
 $shadow-medium: 0 0 15px 0px rgba(0, 0, 0, .2);
 $shadow-large: 0 0 20px 2px rgba(0, 0, 0, .3);
 
@@ -25,5 +25,5 @@ $font-title: 700 28px 'Nunito', sans-serif;
 $font-form: normal 18px 'Nunito', sans-serif;
 $font-option: normal 14px 'Nunito', sans-serif;
 
-$border-radius-small: 2px;
+$border-radius-small: 0px;
 $border-radius-medium: 6px;

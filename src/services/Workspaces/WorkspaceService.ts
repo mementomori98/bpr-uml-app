@@ -1,4 +1,4 @@
-import type {CreateWorkspaceRequest} from "./Models";
+import type {CreateWorkspaceRequest, JoinWorkspaceRequest} from "./Models";
 import getService from "../Services";
 import {RestClient} from "../utils/RestClient";
 
@@ -13,6 +13,14 @@ export class WorkspaceService {
         });
         // Todo return something relevant
         return res;
+    }
+
+    public async join(request: JoinWorkspaceRequest) {
+        const res = await this.client.post('invitation/response', {
+            invitationId: request.invitationId,
+            response: request.accepted
+        });
+        console.log('called invitation/response');
     }
 
 }

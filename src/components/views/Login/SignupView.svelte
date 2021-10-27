@@ -12,6 +12,7 @@
     import Auth = firebase.auth.Auth;
     import getService from "../../../services/Services";
     import {AppContext} from "../../../services/utils/AppContext";
+    import {createEventDispatcher} from "svelte";
 
     let username: string;
     let password: string;
@@ -21,6 +22,7 @@
 
     const authenticationService: AuthenticationService = getService(AuthenticationService);
     const context = getService(AppContext);
+    const dispatch = createEventDispatcher();
 
     const handleCreate = () => {
         passwordError = false;
@@ -35,7 +37,7 @@
         createUserWithEmailAndPassword(auth, username, password)
             .then(async res => {
                 context.setAccessToken(await res.user.getIdToken());
-                $goto('/');
+                dispatch('signup');
             })
             .catch((err) => {
                 console.log(err);
@@ -53,7 +55,7 @@
             <Input label="Password" bind:value={password} password/>
             <Input label="Repeat password" bind:value={pwConfirm} on:enter={handleCreate} password errorMsg="Passwords don't match" showError={passwordError} />
             <svelte:fragment slot="actions">
-                <Button color={Colors.Gray} on:click={$goto('/login')}>Login</Button>
+                <Button color={Colors.Gray} on:click={() => dispatch('login')}>Login</Button>
                 <Button on:click={handleCreate}>Create</Button>
             </svelte:fragment>
         </View>
