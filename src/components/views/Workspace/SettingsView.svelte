@@ -9,8 +9,8 @@
 <Container>
     <Wrapper bgColor="ffffff">
         <WorkspaceForm/>
-        <WorkspaceDangerZone/>
         <UsersCard/>
+        <WorkspaceDangerZone/>
     </Wrapper>
 </Container>
 

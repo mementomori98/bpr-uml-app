@@ -18,15 +18,14 @@
     .wrapper{
       display: flex;
       min-height: 60px;
-      border-top: 1px solid #ee1111;
       width: 100%;
       justify-content: space-between;
       display: flex;
       align-items: center;
-      padding-right: 10px;
+      padding-right: 24px;
 
       &__text-section{
-        padding: 20px;
+        padding: 8px 24px 32px 24px;
       }
       &__title{
         font: $font-nav;
