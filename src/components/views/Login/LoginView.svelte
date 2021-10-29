@@ -10,7 +10,6 @@
     import getService from "../../../services/Services";
     import {createEventDispatcher} from "svelte";
 
-
     const authenticationService = getService(AuthenticationService);
     const dispatch = createEventDispatcher();
 

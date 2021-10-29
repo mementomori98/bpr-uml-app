@@ -24,7 +24,7 @@ export class RestClient {
             cache: 'no-cache',
             headers: {
                 'Content-Type': 'application/json',
-                'accessToken': this.context.getAccessToken()
+                'Authorization': `Bearer ${this.context.getAccessToken()}`
             },
             body: JSON.stringify(body)
         });
@@ -39,7 +39,7 @@ export class RestClient {
             cache: 'no-cache',
             headers: {
                 'Content-Type': 'application/json',
-                'accessToken': this.context.getAccessToken()
+                'Authorization': `Bearer ${this.context.getAccessToken()}`
             },body: JSON.stringify(data) // body data type must match "Content-Type" header
         });
         return response.text(); // parses JSON response into native JavaScript objects

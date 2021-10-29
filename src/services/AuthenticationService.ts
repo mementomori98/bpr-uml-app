@@ -2,16 +2,19 @@
 import {getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import getService from "./Services";
 import {AppContext} from "./utils/AppContext";
+import {RestClient} from "./utils/RestClient";
 
 export class AuthenticationService {
 
     private readonly auth = getAuth();
     private readonly context = getService(AppContext);
+    private readonly client = getService(RestClient);
 
     public async login(username: string, password: string) {
         try {
             let res = await signInWithEmailAndPassword(this.auth, username, password);
             this.context.setAccessToken(await res.user.getIdToken());
+            await this.client.post('users', {});
         }
         catch (err) {
             throw err;
@@ -23,6 +26,7 @@ export class AuthenticationService {
             const provider = new GoogleAuthProvider();
             let res = await signInWithPopup(this.auth, provider)
             this.context.setAccessToken(await res.user.getIdToken());
+            await this.client.post('users', {});
         } catch (err) {
             throw err;
         }
