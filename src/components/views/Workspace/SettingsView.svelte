@@ -11,7 +11,6 @@
 <Container>
     <Wrapper bgColor="ffffff">
         <WorkspaceForm/>
-        <UsersCard/>
         <WorkspaceDangerZone/>
         <WorkspaceUsersCard/>
     </Wrapper>
