@@ -12,5 +12,12 @@ export class WorkspaceService {
         // Todo return something relevant
         return res;
     }
+    async join(request) {
+        const res = await this.client.post('invitation/response', {
+            invitationId: request.invitationId,
+            response: request.accepted
+        });
+        console.log('called invitation/response');
+    }
 }
 //# sourceMappingURL=WorkspaceService.js.map

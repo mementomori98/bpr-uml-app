@@ -29,7 +29,6 @@ export class AuthenticationService {
         this.context.setAccessToken(null);
     }
     isLoggedIn() {
-        console.log(this.context.getAccessToken());
         return this.context.getAccessToken() != null;
     }
 }

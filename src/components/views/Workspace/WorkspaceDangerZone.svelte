@@ -18,14 +18,14 @@ const deleteWorkspace = () => {
 <Card borderSize="1" borderColor="ee1111">
     <View noPadding noActions>
         <svelte:fragment slot="header">Danger Zone</svelte:fragment>
-        <WorkspaceDangerItem title="Delete Workspace" description="Your workspace will be removed permanently. This action cannot be reversed!">
-            <svelte:fragment slot="actionBtn">
-                <Button color="{Colors.Red}" on:click={() => dangerVisible = true}>Delete</Button>
-            </svelte:fragment>
-        </WorkspaceDangerItem>
         <WorkspaceDangerItem title="Leave Workspace" description="You will permanently leave the workspace. With a new invitation, you can gain access again later.">
             <svelte:fragment slot="actionBtn">
                 <Button color="{Colors.Red}" on:click={() => dangerVisible = true}>Leave</Button> <!-- TODO functionality -->
+            </svelte:fragment>
+        </WorkspaceDangerItem>
+        <WorkspaceDangerItem title="Delete Workspace" description="Your workspace will be removed permanently. This action cannot be reversed!">
+            <svelte:fragment slot="actionBtn">
+                <Button color="{Colors.Red}" on:click={() => dangerVisible = true}>Delete</Button>
             </svelte:fragment>
         </WorkspaceDangerItem>
     </View>
