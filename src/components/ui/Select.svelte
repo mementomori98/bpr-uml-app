@@ -3,8 +3,8 @@
     import {createEventDispatcher} from "svelte";
 
     export let label: string = "";
-    export let choice: string = "";
     export let choices: string[];
+    export let choice: string;
     export let btnText: string = "";
     export let hasButton: boolean = false;
     export let locked: boolean = false;
@@ -35,11 +35,11 @@
                 on:blur={() => opened = false}>
             {#if locked}
                 <div class="select__locked">
-                    {choice}
+                    {choice != null ? choice : choices[0]}
                 </div>
             {:else}
                 <div class="select__value">
-                    {choice}
+                    {choice != null ? choice : choices[0]}
                 </div>
             {/if}
 

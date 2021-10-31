@@ -9,24 +9,25 @@
     export let visible: boolean = false;
     export let user: User = null;
 
-
     let roles = ["Admin", "Product owner", "Developer"]
     let locked: boolean = true;
 
-    const onRoleChange = (event) => {
-        //todo update role of user
-        //alert('User ' + user.name + 's role updated to ' + event.detail.role);
-    }
     const deleteUser = () => {
         //todo deleteUser
         alert('User ' + user.name + ' removed')
+    }
+
+    const editUser = () => {
+        //todo editUser
+        console.log("hdssasd")
+        alert('User ' + user.role + ' edited')
     }
 
 
 </script>
 
 <Dialog bind:visible>
-    <Form submitText="Save" lockable  bind:locked>
+    <Form submitText="Save" lockable on:submit={editUser} bind:locked>
         <svelte:fragment slot="header">User profile</svelte:fragment>
         <svelte:fragment slot="header-actions">
             <Button color={Colors.Red} on:click={deleteUser}>Remove user</Button>
@@ -34,24 +35,16 @@
 
         <div class="wrapper">
             <div style="margin-right: 40px">
-                <Input label="Name" value={user.name} {locked}/>
-                <Input label="Email" value={user.email} {locked}/>
+                <Input label="Name" bind:value={user.name} {locked}/>
+                <Input label="Email" bind:value={user.email} {locked}/>
 
             </div>
             <div>
-                <Input label="Status" value={user.status} {locked}/>
-                <Select label="Role" choice={user.role} choices={roles} btnText="Update" on:submit={onRoleChange} {locked}/>
+                <Input label="Status" bind:value={user.status} {locked}/>
+                <Select label="Role" bind:choice={user.role} choices={roles} btnText="Update" {locked}/>
             </div>
         </div>
 
-        <svelte:fragment slot="actions">
-            {#if locked}
-                <Button on:click={() => locked = !locked} color={Colors.Gray}>Edit</Button>
-            {:else}
-                <Button on:click={() => locked = !locked}>Save</Button> <!-- TODO -->
-            {/if}
-
-        </svelte:fragment>
     </Form>
 </Dialog>
 
