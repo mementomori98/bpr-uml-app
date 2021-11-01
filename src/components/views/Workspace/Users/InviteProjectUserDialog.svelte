@@ -7,6 +7,7 @@
     import Select from "../../../ui/Select.svelte";
     import {User} from "../../../../services/users/User";
     import {DataListItem} from "../../../DataListItem";
+    import CloseButton from "../../../ui/CloseButton.svelte";
 
     export let visible: boolean = false;
 
@@ -64,7 +65,7 @@
         {#each usersToAdd as user}
             <div class="wrapper">
                 {user.name}
-                <button on:click={() => closeUserChoice(user)} id='close'>close</button>
+                <CloseButton on:click={() => closeUserChoice(user)}/>
             </div>
 
             <div class="divider"/>
@@ -87,40 +88,5 @@
     border-bottom: .5px solid rgba(0, 0, 0, .2);
   }
 
-  #close {
-    overflow: hidden;
-    position: relative;
-    margin-bottom: auto;
-    margin-top: auto;
-    border: none;
-    padding: 0;
-    width: 1.5em; height: 1.5em;
-    border-radius: 25%;
-    background: transparent;
-    color: #3f3f3f;
-    font: inherit;
-    text-indent: 100%;
-    cursor: pointer;
 
-    &:focus {
-      outline: solid 0 transparent;
-      box-shadow: 0 0 0 1.5px rgba(95, 98, 98, 0.1)
-    }
-
-    &:hover {
-      background: rgba(145, 150, 150, 0.1)
-    }
-
-    &:before, &:after {
-      position: absolute;
-      top: 25%; left: calc(50% - .0625em);
-      width: .125em; height: 50%;
-      border-radius: .125em;
-      transform: rotate(45deg);
-      background: #606060;
-      content: ''
-    }
-
-    &:after { transform: rotate(-45deg); }
-  }
 </style>

@@ -86,7 +86,6 @@
     align-items: center;
     width: 100%;
     padding: 16px;
-    cursor: pointer;
 
     &__header{
       font-weight: 700;
