@@ -30,6 +30,12 @@
     <View>
         <svelte:fragment slot="header">Users</svelte:fragment>
         <svelte:fragment slot="header-actions"></svelte:fragment>
+        <div class="user-list-row user-list-row__header">
+            <div class="user-list-row__name">Name</div>
+            <div class="user-list-row__email">Email</div>
+            <div class="user-list-row__status">Status</div>
+            <div class="user-list-row__role">Role</div>
+        </div>
         <div class="divider"/>
         {#each users as user}
             <div class="user-list-row" on:click={() => handleClick(user)}>
@@ -70,20 +76,27 @@
     padding: 16px;
     cursor: pointer;
 
+    &__header {
+      font-weight: 800;
+      padding: 0 16px;
+      min-height: 48px;
+      cursor: default;
+    }
+
     &__name {
       width: 20%;
     }
 
     &__email {
-      width: 40%;
-    }
-
-    &__status {
       width: 30%;
     }
 
+    &__status {
+      width: 20%;
+    }
+
     &__role {
-      width: 40%;
+      width: 30%;
     }
   }
 </style>

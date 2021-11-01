@@ -64,7 +64,7 @@
     <View>
         <svelte:fragment slot="header">Project Users</svelte:fragment>
         <svelte:fragment slot="header-actions"></svelte:fragment>
-        <div class="user-list-row user-list-row__header" on:click={() => handleClick(user)}>
+        <div class="user-list-row user-list-row__header">
             <div class="user-list-row__name">Name</div>
             <div class="user-list-row__email">Email</div>
             <div class="user-list-row__role">Role</div>
@@ -119,6 +119,8 @@
     &__header {
       font-weight: 800;
       padding: 0 16px;
+      min-height: 48px;
+      cursor: default;
     }
 
     &__name {
