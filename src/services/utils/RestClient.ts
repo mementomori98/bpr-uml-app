@@ -28,7 +28,7 @@ export class RestClient {
             },
             body: JSON.stringify(body)
         });
-        return response.text();
+        return response.json();
     }
 
     private async postData(url = '', data = {}, token: string) {
@@ -40,9 +40,9 @@ export class RestClient {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${this.context.getAccessToken()}`
-            },body: JSON.stringify(data) // body data type must match "Content-Type" header
+            }, body: JSON.stringify(data) // body data type must match "Content-Type" header
         });
-        return response.text(); // parses JSON response into native JavaScript objects
+        return response.json();
     }
 
 }

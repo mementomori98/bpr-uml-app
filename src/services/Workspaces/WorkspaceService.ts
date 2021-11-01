@@ -20,7 +20,6 @@ export class WorkspaceService {
             invitationId: request.invitationId,
             response: request.accepted
         });
-        console.log('called invitation/response');
     }
 
 }
