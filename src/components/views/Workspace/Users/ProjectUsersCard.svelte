@@ -94,7 +94,7 @@
             <div class="divider"/>
 
         {/each}
-        <svelte:fragment slot="actions">
+        <svelte:fragment slot="actions"> <!-- TODO disabled if not product owner-->
             <Button on:click={() => addVisible = true}>Add</Button>
         </svelte:fragment>
     </View>
