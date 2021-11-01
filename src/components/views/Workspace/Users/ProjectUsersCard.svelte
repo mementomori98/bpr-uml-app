@@ -8,9 +8,13 @@
     import Checkbox from "../../../ui/Checkbox.svelte";
 
     let users = [
-        new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer',canEdit: false}),
-        new User({name: 'Aron', email: 'aron@bpr.com', status: 'Active', role: 'Developer',canEdit: true}),
-        new User({name: 'Mate', email: 'mate@bpr.com', status: 'Invited', role: 'Product owner',canEdit: false}),
+        new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer', canEdit: false, id: 1}),
+        new User({name: 'Aron', email: 'aron@bpr.com', status: 'Active', role: 'Developer', canEdit: true, id: 2}),
+        new User({name: 'Mate', email: 'mate@bpr.com', status: 'Invited', role: 'Product owner', canEdit: false, id: 3}),
+        new User({name: 'Tony', email: 'aron@bpr.com', status: 'Active', role: 'Developer', canEdit: true, id: 4}),
+        new User({name: 'Anne', email: 'mate@bpr.com', status: 'Invited', role: 'Product owner', canEdit: false, id: 5}),
+        new User({name: 'Signe', email: 'aron@bpr.com', status: 'Active', role: 'Developer', canEdit: true, id: 6}),
+        new User({name: 'Allan', email: 'mate@bpr.com', status: 'Invited', role: 'Product owner', canEdit: false, id: 7}),
     ].sort((u1, u2) => u1.name.localeCompare(u2.name));
 
     let addVisible: boolean = false;
@@ -34,6 +38,12 @@
     <View>
         <svelte:fragment slot="header">Project Users</svelte:fragment>
         <svelte:fragment slot="header-actions"></svelte:fragment>
+        <div class="user-list-row user-list-row__header" on:click={() => handleClick(user)}>
+            <div class="user-list-row__name">Name</div>
+            <div class="user-list-row__email">Email</div>
+            <div class="user-list-row__role">Role</div>
+            <div class="user-list-row__can-edit">Can edit</div>
+        </div>
         <div class="divider"/>
         {#each users as user}
             <div class="user-list-row" on:click={() => handleClick(user)}>
@@ -60,7 +70,7 @@
 </Card>
 
 <InviteProjectUserDialog bind:visible={addVisible}/>
-<UserSettingsDialog bind:visible={itemSettingsVisible} user={chosenUser}/>
+<!--<UserSettingsDialog bind:visible={itemSettingsVisible} user={chosenUser}/>-->
 
 <style lang="scss">
   @import "../../../theme";
@@ -69,6 +79,8 @@
     border-bottom: .5px solid rgba(0, 0, 0, .2);
   }
 
+
+
   .user-list-row {
     display: flex;
     align-items: center;
@@ -76,24 +88,25 @@
     padding: 16px;
     cursor: pointer;
 
+    &__header{
+      font-weight: 700;
+      padding: 0 16px;
+    }
+
     &__name {
       width: 20%;
     }
 
     &__email {
-      width: 40%;
-    }
-
-    &__status {
-      width: 30%;
+      width: 35%;
     }
 
     &__role {
-      width: 40%;
+      width: 35%;
     }
 
     &__user-list-row__can-edit{
-      width: 20%;
+      width: 10%;
     }
   }
 </style>

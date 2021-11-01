@@ -6,10 +6,12 @@
     import Button from "../../../ui/Button.svelte";
     import {Colors} from "../../../ui/Colors";
     import Form from "../../../ui/Form.svelte";
+    import {DataListItem} from "../../../DataListItem";
     export let visible: boolean = false;
-    export let user: User = null;
+    export let user: User = new User();
+    let roleToSet: DataListItem = null;
 
-    let roles = ["Admin", "Product owner", "Developer"]
+    let roles = [new DataListItem(1, "Admin"),new DataListItem(2, "Product owner"),new DataListItem(3, "Developer")]
     let locked: boolean = true;
 
     const deleteUser = () => {
@@ -20,10 +22,14 @@
     const editUser = () => {
         //todo editUser
         console.log("hdssasd")
-        alert('User ' + user.role + ' edited')
+        console.log(roleToSet.name + " from " + user.role)
+        alert(roleToSet == null ? user.role : roleToSet.name) //TODO roleToSet == null ? user.role : roleToSet
     }
 
-
+    const pickRole = (e) => {
+        console.log(e.detail.choice); //TODO
+        roleToSet = e.detail.choice;
+    }
 </script>
 
 <Dialog bind:visible>
@@ -41,7 +47,7 @@
             </div>
             <div>
                 <Input label="Status" bind:value={user.status} {locked}/>
-                <Select label="Role" bind:choice={user.role} choices={roles} btnText="Update" {locked}/>
+                <Select label="Role" defaultChoice={user.role} on:submit={e => pickRole(e)} choices={roles} btnText="Update" {locked}/>
             </div>
         </div>
 
