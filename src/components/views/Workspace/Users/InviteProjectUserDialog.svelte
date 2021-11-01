@@ -6,7 +6,7 @@
     import Input from "../../../ui/Input.svelte";
     import Select from "../../../ui/Select.svelte";
     import {User} from "../../../../services/users/User";
-    import {DataListItem} from "../../../DataListItem";
+    import {DataListItem} from "../../../../services/DataListItem";
     import CloseButton from "../../../ui/CloseButton.svelte";
     import ListRow from "../../../ui/ListRow.svelte";
     import ListRowItem from "../../../ui/ListRowItem.svelte";

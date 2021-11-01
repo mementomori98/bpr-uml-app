@@ -6,7 +6,7 @@
     import Button from "../../../ui/Button.svelte";
     import {Colors} from "../../../ui/Colors";
     import Form from "../../../ui/Form.svelte";
-    import {DataListItem} from "../../../DataListItem";
+    import {DataListItem} from "../../../../services/DataListItem";
     export let visible: boolean = false;
     export let user: User = new User();
     let roleToSet: DataListItem = null;

@@ -12,7 +12,7 @@
         new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer'}),
         new User({name: 'Aron', email: 'aron@bpr.com', status: 'Active', role: 'Developer'}),
         new User({name: 'Zoli', email: 'zoli@bpr.com', status: 'Active', role: 'Developer'}),
-        new User({name: 'Mate', email: 'mate@bpr.com', status: 'Invited', role: 'Product owner'}),
+        new User({name: 'Mate', email: 'mate@bpr.com', status: 'Invited', role: 'Developer'}),
         new User({name: 'Allan', email: 'allan@bpr.com', status: 'Active', role: 'Admin'}),
     ].sort((u1, u2) => u1.name.localeCompare(u2.name));
 

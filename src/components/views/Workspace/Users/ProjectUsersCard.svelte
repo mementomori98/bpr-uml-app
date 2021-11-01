@@ -64,7 +64,7 @@
 
 <Card>
     <View>
-        <svelte:fragment slot="header">Project Users</svelte:fragment>
+        <svelte:fragment slot="header">Users in Project xxx</svelte:fragment> <!-- TODO disabled if not product owner-->
         <svelte:fragment slot="header-actions"></svelte:fragment>
         <ListRow isHeader>
             <ListRowItem widthInPercentage={20}>Name</ListRowItem>

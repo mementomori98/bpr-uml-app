@@ -1,9 +1,10 @@
 <script lang="ts">
     export let borderSize: number
     export let borderColor: string
+    export let style: string
 </script>
 
-<div class="card" style={`border: ${borderSize}px solid #${borderColor};`}>
+<div class="card" style={`border: ${borderSize}px solid #${borderColor}; ${style}`}>
     <slot/>
 </div>
 
