@@ -8,6 +8,8 @@
     import {User} from "../../../../services/users/User";
     import {DataListItem} from "../../../DataListItem";
     import CloseButton from "../../../ui/CloseButton.svelte";
+    import ListRow from "../../../ui/ListRow.svelte";
+    import ListRowItem from "../../../ui/ListRowItem.svelte";
 
     export let visible: boolean = false;
 
@@ -63,13 +65,10 @@
     <Form on:submit={handleInvite} on:cancel={handleCancel} submitText="Add" cancelButton>
         <svelte:fragment slot="header">Add User</svelte:fragment>
         {#each usersToAdd as user}
-            <div class="wrapper">
+            <ListRow style="justify-content: space-between; padding: 12px 0">
                 {user.name}
                 <CloseButton on:click={() => closeUserChoice(user)}/>
-            </div>
-
-            <div class="divider"/>
-
+            </ListRow>
         {/each}
         <Select clearOnChoice label="Users to add" choices={users} on:submit={e => pickUser(e)}/>
     </Form>

@@ -3,8 +3,9 @@
 
     export let isHeader: boolean = false;
     export let noFunction: boolean = false;
+    export let style: string = "";
 
-    $: style = new CssBuilder('row')
+    $: wrapper = new CssBuilder('row')
         .addFeature('header', isHeader)
         .addFeature('useless', noFunction)
         .build();
@@ -13,7 +14,7 @@
         .build();
 </script>
 
-<div class={style} on:click>
+<div class={wrapper} style={style} on:click>
     <slot/>
 </div>
 <div class={dividerStyle}/>
@@ -25,12 +26,12 @@
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 16px;
+    padding: 14px;
     cursor: pointer;
 
     &--header {
       font-weight: 800;
-      padding: 0 16px;
+      padding: 0 14px;
       min-height: 48px;
       cursor: default;
     }
