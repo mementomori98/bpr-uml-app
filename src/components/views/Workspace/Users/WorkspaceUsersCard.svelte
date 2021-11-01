@@ -5,6 +5,8 @@
     import Button from "../../../ui/Button.svelte";
     import InviteUserDialog from "./InviteUserDialog.svelte";
     import UserSettingsDialog from "./UserSettingsDialog.svelte";
+    import ListRowItem from "../../../ui/ListRowItem.svelte";
+    import ListRow from "../../../ui/ListRow.svelte";
 
     let users = [
         new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer'}),
@@ -30,29 +32,19 @@
     <View>
         <svelte:fragment slot="header">Users</svelte:fragment>
         <svelte:fragment slot="header-actions"></svelte:fragment>
-        <div class="user-list-row user-list-row__header">
-            <div class="user-list-row__name">Name</div>
-            <div class="user-list-row__email">Email</div>
-            <div class="user-list-row__status">Status</div>
-            <div class="user-list-row__role">Role</div>
-        </div>
-        <div class="divider"/>
+        <ListRow isHeader>
+            <ListRowItem widthInPercentage={20}>Name</ListRowItem>
+            <ListRowItem widthInPercentage={30}>Email</ListRowItem>
+            <ListRowItem widthInPercentage={20}>Status</ListRowItem>
+            <ListRowItem widthInPercentage={30}>Role</ListRowItem>
+        </ListRow>
         {#each users as user}
-            <div class="user-list-row" on:click={() => handleClick(user)}>
-                <div class="user-list-row__name">
-                    {user.name}
-                </div>
-                <div class="user-list-row__email">
-                    {user.email}
-                </div>
-                <div class="user-list-row__status">
-                    {user.status}
-                </div>
-                <div class="user-list-row__role">
-                    {user.role}
-                </div>
-            </div>
-            <div class="divider"/>
+            <ListRow on:click={() => handleClick(user)}>
+                <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>
+                <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
+                <ListRowItem widthInPercentage={20}>{user.status}</ListRowItem>
+                <ListRowItem widthInPercentage={30}>{user.role}</ListRowItem>
+            </ListRow>
         {/each}
         <svelte:fragment slot="actions">
             <Button on:click={() => inviteVisible = true}>Invite</Button>
@@ -65,38 +57,4 @@
 <style lang="scss">
   @import "../../../theme";
 
-  .divider {
-    border-bottom: .5px solid rgba(0, 0, 0, .2);
-  }
-
-  .user-list-row {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 16px;
-    cursor: pointer;
-
-    &__header {
-      font-weight: 800;
-      padding: 0 16px;
-      min-height: 48px;
-      cursor: default;
-    }
-
-    &__name {
-      width: 20%;
-    }
-
-    &__email {
-      width: 30%;
-    }
-
-    &__status {
-      width: 20%;
-    }
-
-    &__role {
-      width: 30%;
-    }
-  }
 </style>

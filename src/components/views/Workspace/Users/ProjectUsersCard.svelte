@@ -7,6 +7,8 @@
     import InviteProjectUserDialog from "./InviteProjectUserDialog.svelte";
     import Checkbox from "../../../ui/Checkbox.svelte";
     import CloseButton from "../../../ui/CloseButton.svelte";
+    import ListRowItem from "../../../ui/ListRowItem.svelte";
+    import ListRow from "../../../ui/ListRow.svelte";
 
     let users = [
         new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer', canEdit: false, id: 1}),
@@ -56,7 +58,7 @@
     }
 
     const removeUserFromProject = (user) => {
-        alert(user.name +" to be removed from project") //TODO implement & if(product owner)
+        alert(user.name + " to be removed from project") //TODO implement & if(product owner)
     }
 </script>
 
@@ -64,35 +66,25 @@
     <View>
         <svelte:fragment slot="header">Project Users</svelte:fragment>
         <svelte:fragment slot="header-actions"></svelte:fragment>
-        <div class="user-list-row user-list-row__header">
-            <div class="user-list-row__name">Name</div>
-            <div class="user-list-row__email">Email</div>
-            <div class="user-list-row__role">Role</div>
-            <div class="user-list-row__can-edit">Can edit</div>
-            <div class="user-list-row__close">Kick</div>
-        </div>
-        <div class="divider"/>
+        <ListRow isHeader>
+            <ListRowItem widthInPercentage={20}>Name</ListRowItem>
+            <ListRowItem widthInPercentage={30}>Email</ListRowItem>
+            <ListRowItem widthInPercentage={33}>Role</ListRowItem>
+            <ListRowItem widthInPercentage={10}>Can edit</ListRowItem>
+            <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
+        </ListRow>
         {#each users as user}
-            <div class="user-list-row" on:click={() => handleClick(user)}>
-                <div class="user-list-row__name">
-                    {user.name}
-                </div>
-                <div class="user-list-row__email">
-                    {user.email}
-                </div>
-                <div class="user-list-row__role">
-                    {user.role}
-                </div>
-                <div class="user-list-row__can-edit">
-                    <Checkbox disabled bind:checked={user.canEdit} on:checkChange={e => checkChange(e, user)}/> <!-- TODO disabled if not product owner-->
-                </div>
-                <div class="user-list-row__close">
-                    <CloseButton disabled on:click={() => removeUserFromProject(user)}/>    <!-- TODO disabled if not product owner-->
-
-                </div>
-            </div>
-            <div class="divider"/>
-
+            <ListRow noFunction>
+                <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>
+                <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
+                <ListRowItem widthInPercentage={33}>{user.role}</ListRowItem>
+                <ListRowItem widthInPercentage={10}>
+                    <Checkbox disabled bind:checked={user.canEdit} on:checkChange={e => checkChange(e, user)}/>
+                    <!-- TODO disabled if not product owner--></ListRowItem>
+                <ListRowItem widthInPercentage={7}>
+                    <CloseButton disabled on:click={() => removeUserFromProject(user)}/>
+                    <!-- TODO disabled if not product owner--></ListRowItem>
+            </ListRow>
         {/each}
         <svelte:fragment slot="actions"> <!-- TODO disabled if not product owner-->
             <Button on:click={() => addVisible = true}>Add</Button>
@@ -106,41 +98,4 @@
 <style lang="scss">
   @import "../../../theme";
 
-  .divider {
-    border-bottom: .5px solid rgba(0, 0, 0, .2);
-  }
-
-  .user-list-row {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 16px;
-
-    &__header {
-      font-weight: 800;
-      padding: 0 16px;
-      min-height: 48px;
-      cursor: default;
-    }
-
-    &__name {
-      width: 20%;
-    }
-
-    &__email {
-      width: 30%;
-    }
-
-    &__role {
-      width: 33%;
-    }
-
-    &__can-edit {
-      width: 10%;
-    }
-
-    &__close {
-      width: 7%;
-    }
-  }
 </style>
