@@ -1,19 +1,21 @@
 <script lang="ts">
     import {createEventDispatcher} from "svelte";
-    import {choice} from "./Select.svelte";
+    import {CssBuilder} from "./CssBuilder";
 
     export let checked: boolean = false;
+    export let disabled: boolean = false;
     const dispatch = createEventDispatcher();
     const handleClick = (event) => {
         // todo
         event.stopPropagation();
         dispatch('checkChange', {state: !checked});
     }
+
 </script>
 
 <div class="grid">
     <label class="checkbox bounce">
-        <input bind:checked type="checkbox"  on:click={handleClick}>
+        <input disabled={disabled} bind:checked type="checkbox" on:click={handleClick}>
         <svg viewBox="0 0 21 21">
             <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
         </svg>
@@ -52,6 +54,12 @@
       &:hover {
         --s: 2px;
         --b: var(--border-hover);
+      }
+      &:disabled{
+        --b: #cccccc;
+        --s: 1px;
+        --border-active: #cccccc;
+        cursor: default;
       }
       &:checked {
         --b: var(--border-active);

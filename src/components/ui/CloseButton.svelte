@@ -4,13 +4,14 @@
     import {CssBuilder} from "./CssBuilder";
 
     export let color: Colors = Colors.Blue;
+    export let disabled: boolean = false;
 
     $: style = new CssBuilder('close')
         .build();
 
 </script>
 
-<button on:click class={style}>close</button>
+<button disabled={disabled} on:click class={style + " close:after__disabled"}/>
 
 <style lang="scss">
   @import "../theme.scss";
@@ -39,6 +40,11 @@
       background: rgba(145, 150, 150, 0.1)
     }
 
+    &:disabled {
+      cursor: default;
+      background: none;
+    }
+
     &:before, &:after {
       position: absolute;
       top: 25%; left: calc(50% - .0625em);
@@ -46,9 +52,13 @@
       border-radius: .125em;
       transform: rotate(45deg);
       background: #606060;
-      content: ''
-    }
+      content: '';
 
+    }
+    &:disabled::before, &:disabled::after{
+      background: #cccccc;
+
+    }
     &:after { transform: rotate(-45deg); }
   }
 </style>
