@@ -3,6 +3,7 @@
     import {fade} from 'svelte/transition'
 
     export let visible: boolean;
+    export let style: string;
 
     const handleContainerClick = function (e: MouseEvent) {
         visible = false;
@@ -18,13 +19,14 @@
     <div in:fade={{duration: 50}}
          out:fade={{duration: 50}}
          class="dialog__container"
+         style={style}
          on:mousedown={handleContainerClick}>
         <div
                 in:fade={{duration: 50}}
                 out:fade={{duration: 50}}
                 class="dialog__content"
                 on:mousedown={handleContentClick}>
-            <Card>
+            <Card style={style}>
                 <slot/>
             </Card>
         </div>

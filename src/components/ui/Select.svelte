@@ -1,64 +1,90 @@
 <script lang="ts">
     import Button from "./Button.svelte";
     import {createEventDispatcher} from "svelte";
+    import {DataListItem} from "../../services/DataListItem";
 
     export let label: string = "";
-    export let choice: string = "";
-    export let choices: string[];
+    export let clearOnChoice: boolean;
+    export let choices: DataListItem[];
+    let choice: DataListItem;
+    export let defaultChoice: string;
     export let btnText: string = "";
     export let hasButton: boolean = false;
     export let locked: boolean = false;
     let opened: boolean = false;
     const dispatch = createEventDispatcher();
 
-    const handleRoleChoice = (role) => {
+    const handleRoleChoice = (e, role) => {
+        e.stopPropagation();
         choice = role;
         opened = false;
         if(!hasButton){
-            dispatch('submit', {role: choice});
+            dispatch('submit', {choice: choice});
+        }
+        if(clearOnChoice){
+            choice = null;
         }
 
     }
 
-    const handleSubmit = () => {
-        dispatch('submit', {role: choice});
+    const getChoice = () => {
+        if(choice != null){
+            return choice.name
+        }else{
+            if(defaultChoice != null){
+                return defaultChoice
+            }else{
+                return choices[0].name
+            }
+        }
     }
+
+    const handleSubmit = () => {
+        dispatch('submit', {choice: choices.find(x => x.name === defaultChoice)});
+    }
+
 </script>
 
 <div class="wrapper">
-    <div class="label">{label}</div>
-    <div style="display: flex">
-        <div
-                class="select"
-                tabindex="0"
-                on:focus={() => opened = true}
-                on:blur={() => opened = false}>
-            {#if locked}
-                <div class="select__locked">
-                    {choice}
-                </div>
-            {:else}
-                <div class="select__value">
-                    {choice}
-                </div>
+    {#if choices.length > 0}
+        <div class="label">{label}</div>
+        <div style="display: flex">
+            <div
+                    class="select"
+                    tabindex="0"
+
+                    on:click={() => opened = !opened}
+                    on:blur={() => opened = false}>
+                {#if locked}
+                    <div class="select__locked">
+                        {choice != null ? choice.name : (defaultChoice != null ? defaultChoice : choices[0].name)}
+                    </div>
+                {:else}
+                    <div class="select__value">
+                        {choice != null ? choice.name : (defaultChoice != null ? defaultChoice : choices[0].name)}
+                    </div>
+                {/if}
+
+                {#if !locked}
+                    <div class="select__items" hidden={!opened}>
+                        {#each choices as item, i}
+                            <div class="select__items-item" on:click={e => handleRoleChoice(e, item)}>
+                                {item.name}
+                            </div>
+                        {/each}
+                    </div>
+                {/if}
+            </div>
+            {#if hasButton}
+                <Button on:click={handleSubmit}>{btnText}</Button>
             {/if}
 
-            {#if !locked}
-                <div class="select__items" hidden={!opened}>
-                    {#each choices as item, i}
-                        <div class="select__items-item" on:click={() => handleRoleChoice(item)}>
-                            {item}
-                        </div>
-                    {/each}
-                </div>
-            {/if}
+
         </div>
-        {#if hasButton}
-            <Button on:click={handleSubmit}>{btnText}</Button>
-        {/if}
+    {:else}
+        <div class="label">No available choices</div>
+    {/if}
 
-
-    </div>
 
 </div>
 
