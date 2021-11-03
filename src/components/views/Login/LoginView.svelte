@@ -44,7 +44,7 @@
     <Card>
         <View>
             <svelte:fragment slot="header">Login</svelte:fragment>
-            <Input label="Username" bind:value={username} on:enter={handleLogin} focused/>
+            <Input label="Email" bind:value={username} on:enter={handleLogin} focused/>
             <Input label="Password" bind:value={password} password on:enter={handleLogin} showError errorMessage={error}/>
             <svelte:fragment slot="actions">
                 <Button color="{Colors.Gray}" on:click={() => dispatch('signup')}>Sign up</Button>
