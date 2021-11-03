@@ -57,7 +57,6 @@
             </ListRow>
         {/each}
         <svelte:fragment slot="actions"> <!-- TODO disabled if not product owner-->
-            <Button on:click={() => $goto('/projects')}>Return</Button>
             <Button on:click={() => addVisible = true}>Add</Button>
         </svelte:fragment>
     </View>
