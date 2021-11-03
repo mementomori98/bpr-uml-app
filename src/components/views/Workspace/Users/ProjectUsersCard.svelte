@@ -43,15 +43,6 @@
     ].sort((u1, u2) => u1.name.localeCompare(u2.name));
 
     let addVisible: boolean = false;
-    let itemSettingsVisible: boolean = false;
-    let chosenUser: User = null;
-
-
-    const handleClick = (user) => {
-        // todo
-        itemSettingsVisible = true
-        chosenUser = user
-    }
 
     const checkChange = (e, user) => {
         console.log(user.name + " " + e.detail.state); //TODO
@@ -80,7 +71,7 @@
                 <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
                 <ListRowItem widthInPercentage={33}>{user.role}</ListRowItem>
                 <ListRowItem widthInPercentage={10}>
-                    <Checkbox disabled bind:checked={user.canEdit} on:checkChange={e => checkChange(e, user)}/>
+                    <Checkbox bind:checked={user.canEdit} on:checkChange={e => checkChange(e, user)}/>
                     <!-- TODO disabled if not product owner--></ListRowItem>
                 <ListRowItem widthInPercentage={7}>
                     <CloseButton disabled on:click={() => removeUserFromProject(user)}/>
@@ -95,7 +86,6 @@
 </Card>
 
 <InviteProjectUserDialog bind:visible={addVisible}/>
-<!--<UserSettingsDialog bind:visible={itemSettingsVisible} user={chosenUser}/>-->
 
 <style lang="scss">
   @import "../../../theme";

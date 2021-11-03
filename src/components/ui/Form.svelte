@@ -38,6 +38,7 @@
     </svelte:fragment>
     <slot/>
     <svelte:fragment slot="actions">
+        <slot name="footer-actions"/>
         {#if lockable}
             {#if locked && lockable}
                 <Button color={Colors.Gray} on:click={handleEdit}>Edit</Button>

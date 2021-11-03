@@ -1,12 +1,15 @@
 <script lang="ts">
     import Card from "./Card.svelte";
     import {fade} from 'svelte/transition'
+    import {createEventDispatcher} from "svelte";
 
     export let visible: boolean;
     export let style: string;
+    const dispatch = createEventDispatcher()
 
     const handleContainerClick = function (e: MouseEvent) {
         visible = false;
+        dispatch('clickedOut')
     }
 
     const handleContentClick = function (e: MouseEvent) {

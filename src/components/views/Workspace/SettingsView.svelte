@@ -4,6 +4,7 @@
     import WorkspaceUsersCard from "./Users/WorkspaceUsersCard.svelte";
     import Wrapper from "../../ui/Wrapper.svelte";
     import WorkspaceDangerZone from "./WorkspaceDangerZone.svelte";
+    import WorkspaceTeamsCard from "./Users/WorkspaceTeamsCard.svelte";
 
 </script>
 
@@ -13,6 +14,7 @@
         <WorkspaceForm/>
         <WorkspaceDangerZone/>
         <WorkspaceUsersCard/>
+        <WorkspaceTeamsCard/>
     </Wrapper>
 </Container>
 
