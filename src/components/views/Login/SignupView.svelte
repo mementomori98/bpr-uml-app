@@ -37,6 +37,7 @@
         createUserWithEmailAndPassword(auth, username, password)
             .then(async res => {
                 context.setAccessToken(await res.user.getIdToken());
+                await this.client.post('users', {});
                 dispatch('signup');
             })
             .catch((err) => {
