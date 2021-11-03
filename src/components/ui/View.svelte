@@ -1,6 +1,6 @@
 <script lang="ts">
-    export let noPadding: boolean
-    export let noActions: boolean
+    export let noPadding: boolean = false;
+    export let noActions: boolean = false;
 </script>
 
 <div class="view" style={`${noPadding ? "padding: 0" : ""}`}>

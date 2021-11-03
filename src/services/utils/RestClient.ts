@@ -13,15 +13,14 @@ export class RestClient {
     }
 
     public async get(path: string) {
-        let response = await fetch(`${this.baseUrl}/${path}`);
+        let response = await fetch(`${this.baseUrl}/${path}/`);
         return response.json();
     }
 
     public async post(path: string, body: object) {
-        let response = await fetch(`${this.baseUrl}/${path}`, {
+        let response = await fetch(`${this.baseUrl}/${path}/`, {
             method: 'POST',
             mode: 'cors',
-            cache: 'no-cache',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${this.context.getAccessToken()}`

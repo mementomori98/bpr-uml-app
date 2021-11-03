@@ -1,7 +1,7 @@
 <script lang="ts">
-    export let borderSize: number
-    export let borderColor: string
-    export let style: string
+    export let borderSize: number = 0;
+    export let borderColor: string = 'white';
+    export let style: string = '';
 </script>
 
 <div class="card" style={`border: ${borderSize}px solid #${borderColor}; ${style}`}>
