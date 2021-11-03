@@ -2,12 +2,14 @@
     import {CssBuilder} from "./CssBuilder";
 
     export let isHeader: boolean = false;
+    export let isHighlighted: boolean = false;
     export let noFunction: boolean = false;
     export let style: string = "";
 
     $: wrapper = new CssBuilder('row')
         .addFeature('header', isHeader)
         .addFeature('useless', noFunction)
+        .addFeature('highlighted', isHighlighted)
         .build();
     $: dividerStyle = new CssBuilder('divider')
         .addFeature('header', isHeader)
@@ -38,6 +40,11 @@
 
     &--useless {
       cursor: default;
+    }
+
+    &--highlighted {
+      background-color: #f6f6f6;
+      font-weight: 800;
     }
   }
   .divider {

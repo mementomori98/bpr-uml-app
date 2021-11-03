@@ -9,6 +9,7 @@
     import CloseButton from "../../../ui/CloseButton.svelte";
     import ListRowItem from "../../../ui/ListRowItem.svelte";
     import ListRow from "../../../ui/ListRow.svelte";
+    import {goto, params} from "@roxi/routify";
 
     let users = [
         new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer', canEdit: false, id: 1}),
@@ -64,7 +65,7 @@
 
 <Card>
     <View>
-        <svelte:fragment slot="header">Users in Project xxx</svelte:fragment> <!-- TODO disabled if not product owner-->
+        <svelte:fragment slot="header">Users in {$params.id}</svelte:fragment> <!-- TODO disabled if not product owner-->
         <svelte:fragment slot="header-actions"></svelte:fragment>
         <ListRow isHeader>
             <ListRowItem widthInPercentage={20}>Name</ListRowItem>
@@ -87,6 +88,7 @@
             </ListRow>
         {/each}
         <svelte:fragment slot="actions"> <!-- TODO disabled if not product owner-->
+            <Button on:click={() => $goto('/projects')}>Return</Button>
             <Button on:click={() => addVisible = true}>Add</Button>
         </svelte:fragment>
     </View>
