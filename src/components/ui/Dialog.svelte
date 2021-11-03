@@ -2,8 +2,8 @@
     import Card from "./Card.svelte";
     import {fade} from 'svelte/transition'
 
-    export let visible: boolean;
-    export let style: string;
+    export let visible: boolean = false;
+    export let style: string = '';
 
     const handleContainerClick = function (e: MouseEvent) {
         visible = false;

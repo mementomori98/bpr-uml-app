@@ -18,14 +18,6 @@
     <Form lockable bind:locked>
         <svelte:fragment slot="header">Workspace</svelte:fragment>
         <Input label="Workspace name" bind:value={workspaceName} {locked}/>
-        <svelte:fragment slot="actions">
-            {#if locked}
-                <Button on:click={() => locked = !locked} color={Colors.Gray}>Edit</Button>
-            {:else}'better
-                <Button on:click={() => locked = !locked}>Save</Button>
-            {/if}
-
-        </svelte:fragment>
     </Form>
 </Card>
 

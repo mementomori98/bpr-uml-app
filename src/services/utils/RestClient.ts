@@ -30,18 +30,4 @@ export class RestClient {
         return response.json();
     }
 
-    private async postData(url = '', data = {}, token: string) {
-        // Default options are marked with *
-        const response = await fetch(url, {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.context.getAccessToken()}`
-            }, body: JSON.stringify(data) // body data type must match "Content-Type" header
-        });
-        return response.json();
-    }
-
 }
