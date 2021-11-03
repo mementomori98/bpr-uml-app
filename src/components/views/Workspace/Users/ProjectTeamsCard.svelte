@@ -12,6 +12,7 @@
     import {goto, params} from "@roxi/routify";
     import {Team} from "../../../../services/teams/Team";
     import InviteTeamDialog from "./InviteTeamDialog.svelte";
+    import TeamSettingsDialog from "./TeamSettingsDialog.svelte";
 
     let teams = [
         new Team({name: 'Core', usersAmount: 5, projectsAmount: 3}),
@@ -21,14 +22,14 @@
     ].sort((u1, u2) => u1.name.localeCompare(u2.name));
 
     let addVisible: boolean = false;
-    let itemSettingsVisible: boolean = false;
-    let chosenTeam: User = null;
+    let itemViewVisible: boolean = false;
+    let chosenTeam: Team = null;
 
 
-    const handleClick = (user) => {
+    const handleClick = (team) => {
         // todo
-        itemSettingsVisible = true
-        chosenTeam = user
+        itemViewVisible = true
+        chosenTeam = team
     }
 
     const removeTeamFromProject = (team) => {
@@ -63,7 +64,7 @@
 </Card>
 
 <InviteTeamDialog bind:visible={addVisible}/>
-<!--<UserSettingsDialog bind:visible={itemSettingsVisible} user={chosenUser}/>-->
+<TeamSettingsDialog readonly bind:visible={itemViewVisible} teamName={chosenTeam === null ? "" : chosenTeam.name}/>
 
 <style lang="scss">
   @import "../../../theme";

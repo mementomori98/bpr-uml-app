@@ -14,9 +14,11 @@
     import {UserToTeam} from "../../../../services/users/UserToTeam";
 
     export let visible: boolean = false;
-    export let locked: boolean = true;
-    export let lockable: boolean = false;
+    export let readonly: boolean = false;
+    export let lockable: boolean = readonly;
     export let teamName: string = "";
+
+    let locked: boolean = true;
 
     let testUsers = [
         new User({name: 'Ralu', email: 'ralu@bpr.com', id: 1}),
@@ -113,7 +115,7 @@
 </script>
 
 <Dialog on:clickedOut={() => locked = true} bind:visible style="min-width: 600px">
-    <Form bind:locked lockable={lockable} on:submit={() => lockable ? handleUpdate() : handleCreate()} cancelButton={!lockable} on:cancel={handleCancel} submitText={lockable ? "Update" : "Create"}>
+    <Form readonly={readonly} bind:locked lockable={lockable} on:submit={() => lockable ? handleUpdate() : handleCreate()} cancelButton={!lockable} on:cancel={handleCancel} submitText={lockable ? "Update" : "Create"}>
         <svelte:fragment slot="header">{locked ? "Team" : "Edit team"}</svelte:fragment>
         <Input locked={locked && lockable} label="Team name" bind:value={teamName}/>
         <ListRow isHeader>
