@@ -21,7 +21,7 @@ export class RestClient {
             },
             body: JSON.stringify(body)
         });
-        return response.text();
+        return response.json();
     }
     async postData(url = '', data = {}, token) {
         // Default options are marked with *
@@ -34,7 +34,7 @@ export class RestClient {
                 'Authorization': `Bearer ${this.context.getAccessToken()}`
             }, body: JSON.stringify(data) // body data type must match "Content-Type" header
         });
-        return response.text(); // parses JSON response into native JavaScript objects
+        return response.json();
     }
 }
 //# sourceMappingURL=RestClient.js.map

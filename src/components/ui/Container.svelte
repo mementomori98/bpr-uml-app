@@ -17,7 +17,7 @@
 
         &__content {
             padding-top: 24px;
-            max-width: 800px;
+            max-width: 1024px;
             width: 100%;
             display: flex;
             flex-direction: column;
