@@ -12,9 +12,9 @@
     let name: string;
 
     const handleSubmit = async () => { //TODO
-        const res = await workspaceService.create(new CreateWorkspaceRequest({
+        /*const res = await workspaceService.create(new CreateWorkspaceRequest({
             name: name
-        }));
+        }));*/
         $goto('/')
     }
 

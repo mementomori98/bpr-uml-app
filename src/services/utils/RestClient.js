@@ -7,12 +7,7 @@ export class RestClient {
         this.baseUrl = baseUrl !== null && baseUrl !== void 0 ? baseUrl : '';
     }
     async get(path) {
-        let response = await fetch(`${this.baseUrl}/${path}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${this.context.getAccessToken()}`
-            },
-        });
+        let response = await fetch(`${this.baseUrl}/${path}/`);
         return response.json();
     }
     async post(path, body) {

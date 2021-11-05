@@ -13,12 +13,7 @@ export class RestClient {
     }
 
     public async get(path: string) {
-        let response = await fetch(`${this.baseUrl}/${path}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${this.context.getAccessToken()}`
-            },
-        });
+        let response = await fetch(`${this.baseUrl}/${path}/`);
         return response.json();
     }
 
