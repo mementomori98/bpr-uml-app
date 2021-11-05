@@ -35,6 +35,7 @@
     const noAuth: Array<string> = [
         '/login',
         '/create-workspace',
+        '/select-workspace',
         '/join-workspace',
         '/signup',
     ];

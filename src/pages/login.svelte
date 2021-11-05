@@ -4,4 +4,4 @@
     import {goto} from "@roxi/routify";
 </script>
 
-<LoginOrSignupView on:login={() => $goto('/')}/>
+<LoginOrSignupView/>

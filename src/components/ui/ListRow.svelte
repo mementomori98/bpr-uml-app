@@ -4,6 +4,7 @@
     export let isHeader: boolean = false;
     export let isHighlighted: boolean = false;
     export let noFunction: boolean = false;
+    export let noBorder: boolean = false;
     export let style: string = "";
 
     $: wrapper = new CssBuilder('row')
@@ -13,6 +14,7 @@
         .build();
     $: dividerStyle = new CssBuilder('divider')
         .addFeature('header', isHeader)
+        .addFeature('no-border', noBorder)
         .build();
 </script>
 
@@ -52,6 +54,10 @@
 
     &--header {
       border-bottom: 2px solid #858585;
+    }
+
+    &--no-border {
+      border: none;
     }
   }
 

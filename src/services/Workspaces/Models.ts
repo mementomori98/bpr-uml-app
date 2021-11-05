@@ -7,6 +7,16 @@ export class CreateWorkspaceRequest {
     }
 }
 
+export class Workspace {
+
+    public name: string;
+    public id: string;
+
+    constructor(init?: Partial<CreateWorkspaceRequest>) {
+        Object.assign(this, init);
+    }
+}
+
 export class JoinWorkspaceRequest {
 
     public invitationId: string;

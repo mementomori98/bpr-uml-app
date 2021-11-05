@@ -5,16 +5,17 @@
     import {WorkspaceService} from "../../../../services/Workspaces/WorkspaceService";
     import {CreateWorkspaceRequest} from "../../../../services/Workspaces/Models";
     import Input from "../../../ui/Input.svelte";
+    import {goto} from "@roxi/routify";
 
     const workspaceService = getService(WorkspaceService);
 
     let name: string;
 
-    const handleSubmit = async () => {
-        const res = await workspaceService.create(new CreateWorkspaceRequest({
+    const handleSubmit = async () => { //TODO
+        /*const res = await workspaceService.create(new CreateWorkspaceRequest({
             name: name
-        }));
-        console.log(res);
+        }));*/
+        $goto('/')
     }
 
 </script>

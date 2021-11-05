@@ -13,6 +13,7 @@
     import getService from "../../../services/Services";
     import {AppContext} from "../../../services/utils/AppContext";
     import {createEventDispatcher} from "svelte";
+    import {RestClient} from "../../../services/utils/RestClient";
 
     let username: string;
     let password: string;
@@ -23,6 +24,7 @@
     const authenticationService: AuthenticationService = getService(AuthenticationService);
     const context = getService(AppContext);
     const dispatch = createEventDispatcher();
+    const client = getService(RestClient)
 
     const handleCreate = () => {
         passwordError = false;
@@ -37,7 +39,7 @@
         createUserWithEmailAndPassword(auth, username, password)
             .then(async res => {
                 context.setAccessToken(await res.user.getIdToken());
-                await this.client.post('users', {});
+                await client.post('users', {});
                 dispatch('signup');
             })
             .catch((err) => {
