@@ -1,0 +1,14 @@
+import {Model} from "../Model";
+
+export class Representation<T> extends Model<T> {
+    public id: string;
+    public modelId: string;
+    public x: number;
+    public y: number;
+    public w: number;
+    public h: number;
+}
+
+export class BoxRepresentation extends Representation<BoxRepresentation> {
+
+}

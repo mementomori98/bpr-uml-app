@@ -1,10 +1,9 @@
 <script lang="ts">
     import {params} from "@roxi/routify";
+    import DiagramEditor from "../components/domain/diagrams/DiagramEditor.svelte";
 </script>
 
-{$params.id}
-{$params.name}
-{$params.name2}
+<DiagramEditor diagramId={$params.id}/>
 
 <style lang="scss">
     @import "../components/theme.scss";
