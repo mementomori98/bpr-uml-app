@@ -7,19 +7,31 @@
     import UserSettingsDialog from "./UserSettingsDialog.svelte";
     import ListRowItem from "../../../ui/ListRowItem.svelte";
     import ListRow from "../../../ui/ListRow.svelte";
+    import {onMount} from "svelte";
+    import getService from "../../../../services/Services";
+    import {WorkspaceService} from "../../../../services/Workspaces/WorkspaceService";
+    import {AppContext} from "../../../../services/utils/AppContext";
+    import {UserService} from "../../../../services/users/UserService";
+
+    const userService = getService(UserService);
+    const appContext = getService(AppContext);
 
     let users = [
-        new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer'}),
-        new User({name: 'Aron', email: 'aron@bpr.com', status: 'Active', role: 'Developer'}),
-        new User({name: 'Zoli', email: 'zoli@bpr.com', status: 'Active', role: 'Developer'}),
-        new User({name: 'Mate', email: 'mate@bpr.com', status: 'Invited', role: 'Developer'}),
-        new User({name: 'Allan', email: 'allan@bpr.com', status: 'Active', role: 'Admin'}),
+        new User({name: 'IMPLEMENT ME', email: 'IMPLEMENT ME', status: 'Invited', role: 'Developer'}),
+        new User({name: 'IMPLEMENT ME', email: 'IMPLEMENT ME', status: 'Invited', role: 'Developer'}),
+        new User({name: 'IMPLEMENT ME', email: 'IMPLEMENT ME', status: 'Invited', role: 'Developer'}),
+        new User({name: 'IMPLEMENT ME', email: 'IMPLEMENT ME', status: 'Invited', role: 'Developer'}),
+        new User({name: 'IMPLEMENT ME', email: 'IMPLEMENT ME', status: 'Invited', role: 'Admin'}),
     ].sort((u1, u2) => u1.name.localeCompare(u2.name));
 
     let inviteVisible: boolean = false;
     let itemSettingsVisible: boolean = false;
     let chosenUser: User = null;
 
+    onMount(async () => {
+        const res = await userService.getWorkspaceUsers(appContext.getWorkspaceId());
+        console.log(res)
+    })
 
     const handleClick = (user) => {
         // todo

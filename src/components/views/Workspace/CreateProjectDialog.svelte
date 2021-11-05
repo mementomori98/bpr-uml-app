@@ -10,9 +10,16 @@
     import Checkbox from "../../ui/Checkbox.svelte";
     import {UserToProject} from "../../../services/users/UserToProject";
     import Input from "../../ui/Input.svelte";
+    import {AppContext} from "../../../services/utils/AppContext";
+    import getService from "../../../services/Services";
+    import {ProjectService} from "../../../services/projects/ProjectService";
+    import {CreateProjectRequest} from "../../../services/projects/Models";
 
     export let visible: boolean = false;
     let projectName: string = "";
+
+    const projectService = getService(ProjectService);
+    const appContext = getService(AppContext);
 
     let testUsers = [
         new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer', canEdit: false, id: 1}),
@@ -51,11 +58,12 @@
 
     let projectUsers: UserToProject[] = []
 
-    const handleCreate = () => {
+    const handleCreate =async () => {
         // todo
-        alert("Project " + projectName + " has been created")
-        console.log(projectUsers)
+        console.log(projectUsers) //TODO
+        await projectService.create(new CreateProjectRequest({title: projectName, workspaceId:appContext.getWorkspaceId()}));
         visible = false;
+        
     }
 
     const handleCancel = () => {

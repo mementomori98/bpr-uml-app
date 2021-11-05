@@ -9,6 +9,14 @@
     import {Project} from "../../../services/Workspaces/Project";
     import CreateProjectDialog from "./CreateProjectDialog.svelte";
     import {goto} from "@roxi/routify";
+    import {onMount} from "svelte";
+    import getService from "../../../services/Services";
+    import {UserService} from "../../../services/users/UserService";
+    import {AppContext} from "../../../services/utils/AppContext";
+    import {ProjectService} from "../../../services/projects/ProjectService";
+
+    const projectService = getService(ProjectService);
+    const appContext = getService(AppContext);
 
     let createVisible: boolean = false;
     let currentProjectId: number = 5;
@@ -20,6 +28,10 @@
         new Project({name: 'Syndicate', id: 5}),
     ]
 
+    onMount(async () => {
+        const res = await projectService.getWorkspaceProjects(appContext.getWorkspaceId());
+        console.log(res)
+    })
 
     const formatProjectList = (projects: Project[]) => {
         projects.sort((u1, u2) => u1.name.localeCompare(u2.name));

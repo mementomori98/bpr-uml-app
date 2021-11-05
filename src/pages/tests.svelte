@@ -9,20 +9,12 @@ import Button from "../components/ui/Button.svelte";
 
 const appContext = getService(AppContext);
 
-const get = async () => {
-    console.log(appContext.getWorkspaceId())
-}
-const set = async () => {
-    appContext.setWorkspaceId("hukamuka")
-}
 
 </script>
 
 
 <Container>
     <Card>
-        <Button on:click={get} >Get</Button>
-        <Button on:click={set} >Set</Button>
         <CreateProjectView/>
     </Card>
     <Card>
