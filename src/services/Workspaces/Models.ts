@@ -1,3 +1,5 @@
+import {Model} from "../Model";
+
 export class CreateWorkspaceRequest {
 
     public name: string;
@@ -7,14 +9,11 @@ export class CreateWorkspaceRequest {
     }
 }
 
-export class Workspace {
+export class Workspace extends Model<Workspace>{
 
     public name: string;
-    public id: string;
-
-    constructor(init?: Partial<CreateWorkspaceRequest>) {
-        Object.assign(this, init);
-    }
+    public _id: string;
+    
 }
 
 export class JoinWorkspaceRequest {

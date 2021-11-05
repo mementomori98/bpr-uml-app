@@ -5,10 +5,19 @@ export class WorkspaceService {
         this.client = getService(RestClient);
     }
     async create(request) {
-        const res = await this.client.post('workspace', {
-            workspaceName: request.name,
-            creatorId: 'creator-id-placeholder'
+        const res = await this.client.post('workspaces', {
+            name: request.name,
         });
+        // Todo return something relevant
+        return res;
+    }
+    async get() {
+        const res = await this.client.get('workspaces/');
+        // Todo return something relevant
+        return res;
+    }
+    async getById(id) {
+        const res = await this.client.get('workspaces/' + id);
         // Todo return something relevant
         return res;
     }

@@ -1,24 +1,35 @@
 <script lang="ts">
 
-    import {createEventDispatcher} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
     import View from "../../ui/View.svelte";
     import Card from "../../ui/Card.svelte";
     import Wrapper from "../../ui/Wrapper.svelte";
     import ListRow from "../../ui/ListRow.svelte";
     import ListRowItem from "../../ui/ListRowItem.svelte";
-    import {Workspace} from "../../../services/Workspaces/Models";
+    import {CreateWorkspaceRequest, Workspace} from "../../../services/Workspaces/Models";
     import {goto} from "@roxi/routify";
     import Button from "../../ui/Button.svelte";
+    import getService from "../../../services/Services";
+    import {WorkspaceService} from "../../../services/Workspaces/WorkspaceService";
 
     const dispatch = createEventDispatcher();
 
-    let workspaces = [
-        new Workspace({name: "MOAB", id: 1}),
-        new Workspace({name: "FOAB", id: 2}),
-        new Workspace({name: "Cobalt", id: 3}),
-        new Workspace({name: "Hydrogen", id: 4}),
-        new Workspace({name: "Neutron", id: 5}),
-    ].sort((u1, u2) => u1.name.localeCompare(u2.name));
+    const workspaceService = getService(WorkspaceService);
+
+    let workspaces = [];
+
+    onMount(async () => {
+        const res = await workspaceService.get();
+        workspaces = res.sort((u1, u2) => u1.name.localeCompare(u2.name));
+    })
+
+    const onclick = async (workspace: Workspace) => {
+        console.log(workspace)
+        workspaces = await workspaceService.getById(workspace._id);
+        $goto('/')
+    }
+
+
 
 </script>
 
@@ -27,7 +38,7 @@
         <View>
             <svelte:fragment slot="header">Select workspace</svelte:fragment>
             {#each workspaces as workspace}
-                <ListRow on:click={() => $goto('/')}> <!-- TODO set workspace by the decision -->
+                <ListRow on:click={() => onclick(workspace)}> <!-- TODO set workspace by the decision -->
                     <ListRowItem widthInPercentage={100}>{workspace.name}</ListRowItem>
                 </ListRow>
             {/each}

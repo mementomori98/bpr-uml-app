@@ -6,11 +6,11 @@
     import {goto} from "@roxi/routify";
 
     let workspaces = [
-        new Workspace({name: "MOAB", id: 1}),
-        new Workspace({name: "FOAB", id: 2}),
-        new Workspace({name: "Cobalt", id: 3}),
-        new Workspace({name: "Hydrogen", id: 4}),
-        new Workspace({name: "Neutron", id: 5}),
+        new Workspace({name: "MOAB", _id: 1}),
+        new Workspace({name: "FOAB", _id: 2}),
+        new Workspace({name: "Cobalt", _id: 3}),
+        new Workspace({name: "Hydrogen", _id: 4}),
+        new Workspace({name: "Neutron", _id: 5}),
     ].sort((u1, u2) => u1.name.localeCompare(u2.name));
 
 </script>
