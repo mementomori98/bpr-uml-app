@@ -21,8 +21,6 @@ export class DiagramHandler {
         box.x = x;
         box.y = y;
 
-        this.snackbar.add(`Moved to ${Math.floor(x)}:${Math.floor(y)}`)
-
         return true;
     }
 }

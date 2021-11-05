@@ -14,7 +14,6 @@ export class DiagramHandler {
         let box = this.elements.find(b => b.id == id);
         box.x = x;
         box.y = y;
-        this.snackbar.add(`Moved to ${Math.floor(x)}:${Math.floor(y)}`);
         return true;
     }
 }
