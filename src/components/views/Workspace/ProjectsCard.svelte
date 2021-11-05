@@ -8,16 +8,28 @@
     import {User} from "../../../services/users/User";
     import {Project} from "../../../services/Workspaces/Project";
     import CreateProjectDialog from "./CreateProjectDialog.svelte";
+    import {goto} from "@roxi/routify";
 
     let createVisible: boolean = false;
+    let currentProjectId: number = 5;
+    let received = [
+        new Project({name: 'Pegasus', id: 1}),
+        new Project({name: 'Casino', id: 2}),
+        new Project({name: 'Spectre', id: 3}),
+        new Project({name: 'Skyfall', id: 4}),
+        new Project({name: 'Syndicate', id: 5}),
+    ]
 
-    let projects = [
-        new Project({name: 'Pegasus'}),
-        new Project({name: 'Casino'}),
-        new Project({name: 'Spectre'}),
-        new Project({name: 'Skyfall'}),
-        new Project({name: 'Syndicate'}),
-    ].sort((u1, u2) => u1.name.localeCompare(u2.name));
+
+    const formatProjectList = (projects: Project[]) => {
+        projects.sort((u1, u2) => u1.name.localeCompare(u2.name));
+        let currentProject = projects.filter(item => item.id === currentProjectId)[0]
+        let remaining = projects.filter(item => item.id !== currentProjectId)
+        remaining.unshift(currentProject)
+        return remaining
+    }
+
+    let projects = formatProjectList(received);
 
     const leaveProject = (project) => {
         alert("Leaving project " + project.name)
@@ -33,7 +45,7 @@
             <ListRowItem widthInPercentage={7}>Leave</ListRowItem>
         </ListRow>
         {#each projects as project}
-            <ListRow noFunction>
+            <ListRow on:click={() => $goto('/project', {id: project.name})} isHighlighted={project.id === currentProjectId}> <!-- TODO pass id in goto-->
                 <ListRowItem widthInPercentage={93}>{project.name}</ListRowItem>
                 <ListRowItem widthInPercentage={7}>
                     <CloseButton on:click={() => leaveProject(project)}/>

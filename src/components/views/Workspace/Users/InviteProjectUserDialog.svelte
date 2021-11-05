@@ -29,12 +29,11 @@
 
     const handleInvite = () => {
         // todo
-
+        alert("Invite")
         visible = false;
     }
 
     const handleCancel = () => {
-
         visible = false;
     }
 

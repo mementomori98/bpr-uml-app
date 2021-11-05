@@ -9,6 +9,7 @@
     import CloseButton from "../../../ui/CloseButton.svelte";
     import ListRowItem from "../../../ui/ListRowItem.svelte";
     import ListRow from "../../../ui/ListRow.svelte";
+    import {goto, params} from "@roxi/routify";
 
     let users = [
         new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer', canEdit: false, id: 1}),
@@ -42,15 +43,6 @@
     ].sort((u1, u2) => u1.name.localeCompare(u2.name));
 
     let addVisible: boolean = false;
-    let itemSettingsVisible: boolean = false;
-    let chosenUser: User = null;
-
-
-    const handleClick = (user) => {
-        // todo
-        itemSettingsVisible = true
-        chosenUser = user
-    }
 
     const checkChange = (e, user) => {
         console.log(user.name + " " + e.detail.state); //TODO
@@ -64,7 +56,7 @@
 
 <Card>
     <View>
-        <svelte:fragment slot="header">Users in Project xxx</svelte:fragment> <!-- TODO disabled if not product owner-->
+        <svelte:fragment slot="header">Users in {$params.id}</svelte:fragment> <!-- TODO disabled if not product owner-->
         <svelte:fragment slot="header-actions"></svelte:fragment>
         <ListRow isHeader>
             <ListRowItem widthInPercentage={20}>Name</ListRowItem>
@@ -79,7 +71,7 @@
                 <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
                 <ListRowItem widthInPercentage={33}>{user.role}</ListRowItem>
                 <ListRowItem widthInPercentage={10}>
-                    <Checkbox disabled bind:checked={user.canEdit} on:checkChange={e => checkChange(e, user)}/>
+                    <Checkbox bind:checked={user.canEdit} on:checkChange={e => checkChange(e, user)}/>
                     <!-- TODO disabled if not product owner--></ListRowItem>
                 <ListRowItem widthInPercentage={7}>
                     <CloseButton disabled on:click={() => removeUserFromProject(user)}/>
@@ -93,7 +85,6 @@
 </Card>
 
 <InviteProjectUserDialog bind:visible={addVisible}/>
-<!--<UserSettingsDialog bind:visible={itemSettingsVisible} user={chosenUser}/>-->
 
 <style lang="scss">
   @import "../../../theme";

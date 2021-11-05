@@ -1,7 +1,9 @@
 <script lang="ts">
     import {fade} from 'svelte/transition';
+    import {CssBuilder} from "./CssBuilder";
 
     export let visible: boolean = false;
+    export let noPadding: boolean = false;
     export let left: number = null;
     export let top: number = null;
     export let right: number = null;
@@ -17,6 +19,10 @@
     ${right == null ? '' : 'right: ' + right + 'px;'}
     ${bottom == null ? '' : 'bottom: ' + bottom + 'px;'}`
 
+    $: menuStyle = new CssBuilder('context-menu')
+        .addFeature('no-padding', noPadding)
+        .build();
+
     const handleOverlayClick = e => {
         visible = false;
         e.stopPropagation();
@@ -26,7 +32,7 @@
 {#if visible}
     <div class="context-menu__overlay" on:click={handleOverlayClick}/>
     <div in:fade={{duration: 50}} out:fade={{duration: 50}}
-         class="context-menu"
+         class={menuStyle}
          style="{style}"
          bind:clientWidth={width}
          bind:clientHeight={height}
@@ -49,8 +55,12 @@
         user-select: text;
         z-index: 510;
         min-width: 160px;
-        padding: 8px 0;
+        padding: 12px 0;
         background-color: white;
+
+      &--no-padding{
+        padding: 0;
+      }
 
         &__overlay {
             position: fixed;

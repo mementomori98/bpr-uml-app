@@ -12,9 +12,12 @@
     import Fab from "./ui/Fab.svelte";
     import getService from "../services/Services";
     import {AuthenticationService} from "../services/AuthenticationService";
+    import WorkspaceNavOptions from "./views/Workspace/WorkspaceNavOptions.svelte";
 
     const authenticationService = getService(AuthenticationService);
     let visible: boolean;
+    let visibleWorkspaces: boolean;
+    let workspacesDiv: HTMLElement;
     export let path: string;
 
     const handleLogout = function () {
@@ -30,7 +33,6 @@
         <NavLink href="/diagram">__Diagram</NavLink>
         <NavLink href="/join-workspace">__Join Workspace</NavLink>
         <NavLink href="/projects">Projects</NavLink>
-        <NavLink href="/create-workspace">__Create Workspace</NavLink>
         <NavLink href="/socket">__Socket</NavLink>
         <Spacer size="24"/>
         <NavLink href="/settings">Workspace</NavLink>
@@ -39,6 +41,12 @@
     </svelte:fragment>
     <svelte:fragment slot="appbar">
         <Spacer/>
+        <div style="display: block" bind:this={workspacesDiv}>
+            <TextButton on:click={() => visibleWorkspaces = true}>Switch Workspace</TextButton>
+            <ContextMenu noPadding bind:visible={visibleWorkspaces} top={workspacesDiv?.offsetTop + workspacesDiv?.offsetHeight} right={60}>
+                <WorkspaceNavOptions/>
+            </ContextMenu>
+        </div>
         <TextButton on:click={() => visible = true}><Icon icon="person"/></TextButton>
         <ContextMenu bind:visible top="50" right="8">
             <Option on:click={$goto('/account')}>Account</Option>

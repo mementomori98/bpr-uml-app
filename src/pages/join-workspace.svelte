@@ -27,7 +27,7 @@
 {#if loggedIn}
     <Centerer width="480">
         <Card>
-            <JoinWorkspaceForm invitationId="hello"/>
+            <JoinWorkspaceForm invitationId="hello"/> <!-- TODO -->
         </Card>
     </Centerer>
 {:else}

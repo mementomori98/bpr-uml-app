@@ -2,15 +2,19 @@
     import {CssBuilder} from "./CssBuilder";
 
     export let isHeader: boolean = false;
+    export let isHighlighted: boolean = false;
     export let noFunction: boolean = false;
+    export let noBorder: boolean = false;
     export let style: string = "";
 
     $: wrapper = new CssBuilder('row')
         .addFeature('header', isHeader)
         .addFeature('useless', noFunction)
+        .addFeature('highlighted', isHighlighted)
         .build();
     $: dividerStyle = new CssBuilder('divider')
         .addFeature('header', isHeader)
+        .addFeature('no-border', noBorder)
         .build();
 </script>
 
@@ -39,12 +43,21 @@
     &--useless {
       cursor: default;
     }
+
+    &--highlighted {
+      background-color: #f6f6f6;
+      font-weight: 800;
+    }
   }
   .divider {
     border-bottom: .5px solid rgba(0, 0, 0, .2);
 
     &--header {
       border-bottom: 2px solid #858585;
+    }
+
+    &--no-border {
+      border: none;
     }
   }
 

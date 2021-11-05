@@ -2,16 +2,21 @@
 
     import {Colors} from "./Colors";
     import {CssBuilder} from "./CssBuilder";
+    import {createEventDispatcher} from "svelte";
 
     export let color: Colors = Colors.Blue;
     export let disabled: boolean = false;
+    const dispatch = createEventDispatcher();
 
     $: style = new CssBuilder('close')
         .build();
-
+    const onClick = (e) => {
+        e.stopPropagation()
+        dispatch('click');
+    }
 </script>
 
-<button disabled={disabled} on:click class={style + " close:after__disabled"}/>
+<button disabled={disabled} on:click={onClick} class={style + " close:after__disabled"}/>
 
 <style lang="scss">
   @import "../theme.scss";

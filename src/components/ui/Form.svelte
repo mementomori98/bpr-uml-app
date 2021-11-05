@@ -6,7 +6,8 @@
     import {Colors} from "./Colors";
     import {createEventDispatcher} from "svelte";
 
-    export let lockable = false;
+    export let readonly = false;
+    export let lockable = readonly;
     export let locked = lockable;
     export let submitText: string = 'Submit';
     export let cancelButton: boolean = false;
@@ -38,18 +39,21 @@
     </svelte:fragment>
     <slot/>
     <svelte:fragment slot="actions">
-        {#if lockable}
-            {#if locked && lockable}
-                <Button color={Colors.Gray} on:click={handleEdit}>Edit</Button>
+        <slot name="footer-actions"/>
+        {#if  !readonly}
+            {#if lockable && !readonly}
+                {#if locked && lockable}
+                    <Button color={Colors.Gray} on:click={handleEdit}>Edit</Button>
+                {:else}
+                    <Button on:click={handleCancel} color={Colors.Gray}>Cancel</Button>
+                    <Button on:click={handleSubmit}>{submitText}</Button>
+                {/if}
             {:else}
-                <Button on:click={handleCancel} color={Colors.Gray}>Cancel</Button>
+                {#if cancelButton}
+                    <Button color={Colors.Gray} on:click={handleCancel}>Cancel</Button>
+                {/if}
                 <Button on:click={handleSubmit}>{submitText}</Button>
             {/if}
-        {:else}
-            {#if cancelButton}
-                <Button color={Colors.Gray} on:click={handleCancel}>Cancel</Button>
-            {/if}
-            <Button on:click={handleSubmit}>{submitText}</Button>
         {/if}
     </svelte:fragment>
 </View>
