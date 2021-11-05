@@ -6,8 +6,10 @@
     import {CreateWorkspaceRequest} from "../../../../services/Workspaces/Models";
     import Input from "../../../ui/Input.svelte";
     import {goto} from "@roxi/routify";
+    import {AppContext} from "../../../../services/utils/AppContext";
 
     const workspaceService = getService(WorkspaceService);
+    const appContext = getService(AppContext);
 
     let name: string;
 
@@ -15,6 +17,7 @@
         const res = await workspaceService.create(new CreateWorkspaceRequest({
             name: name
         }));
+        appContext.setWorkspaceId(res._id)
         $goto('/')
     }
 

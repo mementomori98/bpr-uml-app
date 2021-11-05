@@ -13,17 +13,37 @@
     import getService from "../services/Services";
     import {AuthenticationService} from "../services/AuthenticationService";
     import WorkspaceNavOptions from "./views/Workspace/WorkspaceNavOptions.svelte";
+    import {onMount} from "svelte";
+    import {WorkspaceService} from "../services/Workspaces/WorkspaceService";
+    import {AppContext} from "../services/utils/AppContext";
+    import {Workspace} from "../services/Workspaces/Models";
 
     const authenticationService = getService(AuthenticationService);
+    const workspaceService = getService(WorkspaceService);
+    const appContext = getService(AppContext);
+
     let visible: boolean;
     let visibleWorkspaces: boolean;
     let workspacesDiv: HTMLElement;
     export let path: string;
+    let currentWorkspaceName: string;
 
     const handleLogout = function () {
         authenticationService.logout()
         $goto('/login');
     }
+
+    onMount(async () => {
+        const res = await workspaceService.getById(appContext.getWorkspaceId());
+        currentWorkspaceName = res.name;
+    })
+
+    const switchWorkspace = async (e) => {
+        const res = await workspaceService.getById(e.detail.workspaceId);
+        appContext.setWorkspaceId(res._id)
+        currentWorkspaceName = res.name;
+    }
+
 </script>
 
 <DrawerLayout>
@@ -39,11 +59,12 @@
         <Spacer size="1"/>
     </svelte:fragment>
     <svelte:fragment slot="appbar">
+        <TextButton on:click={() => $goto('/settings')}>{currentWorkspaceName}</TextButton>
         <Spacer/>
         <div style="display: block" bind:this={workspacesDiv}>
             <TextButton on:click={() => visibleWorkspaces = true}>Switch Workspace</TextButton>
             <ContextMenu noPadding bind:visible={visibleWorkspaces} top={workspacesDiv?.offsetTop + workspacesDiv?.offsetHeight} right={60}>
-                <WorkspaceNavOptions/>
+                <WorkspaceNavOptions on:switch={e => switchWorkspace(e)}/>
             </ContextMenu>
         </div>
         <TextButton on:click={() => visible = true}><Icon icon="person"/></TextButton>

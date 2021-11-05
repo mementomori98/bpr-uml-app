@@ -11,10 +11,12 @@
     import Button from "../../ui/Button.svelte";
     import getService from "../../../services/Services";
     import {WorkspaceService} from "../../../services/Workspaces/WorkspaceService";
+    import {AppContext} from "../../../services/utils/AppContext";
 
     const dispatch = createEventDispatcher();
 
     const workspaceService = getService(WorkspaceService);
+    const appContext = getService(AppContext);
 
     let workspaces = [];
 
@@ -24,8 +26,8 @@
     })
 
     const onclick = async (workspace: Workspace) => {
-        console.log(workspace)
-        workspaces = await workspaceService.getById(workspace._id);
+        const res = await workspaceService.getById(workspace._id);
+        appContext.setWorkspaceId(res._id)
         $goto('/')
     }
 

@@ -4,19 +4,26 @@
     import ListRow from "../../ui/ListRow.svelte";
     import ListRowItem from "../../ui/ListRowItem.svelte";
     import {goto} from "@roxi/routify";
+    import getService from "../../../services/Services";
+    import {WorkspaceService} from "../../../services/Workspaces/WorkspaceService";
+    import {createEventDispatcher, onMount} from "svelte";
+    import {AppContext} from "../../../services/utils/AppContext";
 
-    let workspaces = [
-        new Workspace({name: "MOAB", _id: 1}),
-        new Workspace({name: "FOAB", _id: 2}),
-        new Workspace({name: "Cobalt", _id: 3}),
-        new Workspace({name: "Hydrogen", _id: 4}),
-        new Workspace({name: "Neutron", _id: 5}),
-    ].sort((u1, u2) => u1.name.localeCompare(u2.name));
+    const workspaceService = getService(WorkspaceService);
+    const appContext = getService(AppContext);
+    const dispatch = createEventDispatcher()
+
+    let workspaces = [];
+
+    onMount(async () => {
+        const res = await workspaceService.get();
+        workspaces = res.sort((u1, u2) => u1.name.localeCompare(u2.name));
+    })
 
 </script>
 
 {#each workspaces as workspace}
-    <ListRow noBorder={workspace === workspaces[workspaces.length-1]} on:click={() => $goto('/')}> <!-- TODO set workspace by the decision -->
+    <ListRow on:click={() => dispatch('switch', {workspaceId: workspace._id})} noBorder={workspace === workspaces[workspaces.length-1]}> <!-- TODO set workspace by the decision -->
         <ListRowItem widthInPercentage={100}>{workspace.name}</ListRowItem>
     </ListRow>
 {/each}
