@@ -11,9 +11,7 @@
     let snackbar = getService(Snackbar);
 </script>
 
-<Canvas diagramHandler={diagram}>
-    Diagram: {diagramId}
-</Canvas>
+<Canvas diagramHandler={diagram}/>
 
 <style lang="scss">
     @import "../../theme.scss";

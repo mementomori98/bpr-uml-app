@@ -10,5 +10,11 @@ export class Representation<T> extends Model<T> {
 }
 
 export class BoxRepresentation extends Representation<BoxRepresentation> {
+    public text: string;
+}
 
+export class ClassDiagramRepresentation extends Representation<ClassDiagramRepresentation> {
+    public name: string;
+    public fields: string[];
+    public methods: string[];
 }

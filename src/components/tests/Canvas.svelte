@@ -8,10 +8,10 @@
     import ContextMenu from "../ui/ContextMenu.svelte";
     import Option from "../ui/Option.svelte";
     import DisplayDispatcher from "./DisplayDispatcher.svelte";
+    import {context} from "@roxi/routify/typings/runtime";
 
     let id = '8';
     export let diagramHandler: DiagramHandler;
-    let activeId: string = null;
 
     let mouseX: number;
     let mouseY: number;
@@ -23,7 +23,8 @@
         screenCoords: (n1, n2) => [0, 0],
         realCoords: (n1, n2) => [0, 0],
         zoomOut: (n1, n2, n3, n4) => null,
-        zoomIn: (n1, n2, n3, n4) => null
+        zoomIn: (n1, n2, n3, n4) => null,
+        getZoom: () => 1,
     };
     let cameraX: number;
     let cameraY: number;
@@ -34,12 +35,6 @@
     let contextX: number;
     let contextY: number;
     let contextVisible: boolean;
-    let contextOffsetX: number;
-    let contextOffsetY: number;
-
-    let displays = [
-        null, null
-    ]
 
     const handleDrag = e => {
         cameraX -= e.detail.dx / zoom;
@@ -54,28 +49,7 @@
             camera.zoomIn(mouseX, mouseY, canvas.offsetWidth, canvas.offsetHeight);
         }
         diagramHandler = diagramHandler;
-    }
-
-    const handleElementDrag = (e, b) => {
-        if (activeId == null)
-            activeId = b.id;
-        dragX += e.detail.dx / zoom;
-        dragY += e.detail.dy / zoom;
-        diagramHandler = diagramHandler;
-    }
-
-    const handleElementDragEnd = () => {
-        if (dragX == 0 && dragY == 0)
-            return;
-
-        diagramHandler.move(
-            activeId,
-            diagramHandler.elements.find(e => e.id == activeId).x + dragX,
-            diagramHandler.elements.find(e => e.id == activeId).y + dragY)
-        dragX = 0;
-        dragY = 0;
-        activeId = null;
-        diagramHandler = diagramHandler;
+        camera = camera;
     }
 
     const handleContextMenu = (e: MouseEvent) => {
@@ -83,27 +57,13 @@
         contextX = e.x;
         contextY = e.y;
         contextVisible = true;
-        contextOffsetX = e.offsetX;
-        contextOffsetY = e.offsetY;
     }
 
     const handleCreateModel = () => {
-        let coords = camera.realCoords(contextOffsetX, contextOffsetY);
+        let coords = camera.realCoords(contextX - canvas.offsetLeft, contextY - canvas.offsetTop);
         diagramHandler.elements.push(new BoxRepresentation({id: (id = id + 1), x: coords[0], y: coords[1], w: 100, h: 100}));
         diagramHandler = diagramHandler;
     }
-
-    const getDragX = (element: Representation<any>) => {
-        if (element.id == activeId)
-            return dragX;
-        return 0;
-    };
-
-    const getDragY = (element: Representation<any>) => {
-        if (element.id == activeId)
-            return dragY;
-        return 0;
-    };
 
     onMount(() => diagramHandler = diagramHandler);
 
@@ -124,15 +84,9 @@
         bind:zoom/>
 
 <div bind:this={canvas} style="user-select: none;height: 100%;position: relative; overflow: hidden;" on:contextmenu={handleContextMenu}>
-    <div>{contextX}:{contextY}-{contextVisible}</div>
     <slot/>
     {#each diagramHandler.elements as element, i (element.id)}
-        <DisplayDispatcher representation={element} screenCoords={camera.screenCoords} bind:element={displays[i]} dragX={getDragX(element)} dragY={getDragY(element)}/>
-        <MouseDriver
-                target={displays[i]}
-                on:scroll={handleScroll}
-                on:drag={e => handleElementDrag(e, element)}
-                on:dragend={e => handleElementDragEnd()}/>
+        <DisplayDispatcher representation={element} camera={camera} diagramHandler={diagramHandler} />
     {/each}
 
     <ContextMenu

@@ -1,3 +1,5 @@
+<svelte:options accessors={true}/>
+
 <script lang="ts">
 
     export let cameraX: number = 0;
@@ -32,8 +34,11 @@
         zoom /= 1.1;
     }
 
-</script>
+    export const getZoom = () => {
+        return zoom;
+    };
 
+</script>
 
 <style lang="scss">
     @import "../theme.scss";

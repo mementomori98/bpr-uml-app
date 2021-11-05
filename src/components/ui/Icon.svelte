@@ -6,9 +6,11 @@
 
     export let icon: string;
     export let size: number = null;
+    export let cursor: string = '';
+    export let element: HTMLElement;
 </script>
 
-<i class="material-icons">{icon}</i>
+<i class="material-icons" bind:this={element} style="cursor: {cursor};">{icon}</i>
 
 <style lang="scss">
     i {

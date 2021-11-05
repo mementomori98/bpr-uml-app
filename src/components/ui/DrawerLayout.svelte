@@ -94,7 +94,7 @@
         z-index: 500;
         position: fixed;
         background-color: #e8e8e8;
-        color: white;
+        color: black;
         width: calc(100% - 240px);
         transition-duration: 400ms;
 
