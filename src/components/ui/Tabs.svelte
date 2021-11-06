@@ -2,7 +2,7 @@
     import Container from "./Container.svelte";
 
     export const TABS = {};
-    export const resetUrl = "";
+    export let resetUrl = "";
     import {setContext, onDestroy, getContext, onMount, createEventDispatcher} from 'svelte';
     import { writable } from 'svelte/store';
     import Tabs from "./Tabs.svelte";

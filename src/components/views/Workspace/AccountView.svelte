@@ -21,8 +21,6 @@
     const onChange = () => {
         $goto('/account');
     }
-
-
     let tabs;
 
 </script>
