@@ -2,6 +2,7 @@
     import Container from "./Container.svelte";
 
     export const TABS = {};
+    export const resetUrl = "";
     import {setContext, onDestroy, getContext, onMount, createEventDispatcher} from 'svelte';
     import { writable } from 'svelte/store';
     import Tabs from "./Tabs.svelte";
@@ -14,6 +15,7 @@
     const selectedPanel = writable(null);
     // export let selected: number = 0;
     const dispatch = createEventDispatcher();
+
 
     setContext(Tabs, {
         registerTab: tab => {
@@ -49,7 +51,10 @@
             const i = tabs.indexOf(tab);
             selectedTab.set(tab);
             selectedPanel.set(panels[i]);
-            $goto('/account');
+            if(resetUrl !== ""){
+                $goto(resetUrl);
+            }
+
         },
 
         selectedTab,

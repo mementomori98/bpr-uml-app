@@ -27,7 +27,7 @@
 
 </script>
 
-<Tabs bind:this={tabs}>
+<Tabs resetUrl="/account" bind:this={tabs}>
     <TabList>
         <Tab>Account</Tab>
         <Tab>Invitations</Tab>
