@@ -9,6 +9,8 @@
     import {Workspace} from "../../../services/Workspaces/Models";
     import {goto} from "@roxi/routify";
     import Button from "../../ui/Button.svelte";
+    import InvitationsList from "./Users/InvitationsList.svelte";
+    import Text from "../../ui/Text.svelte";
 
     const dispatch = createEventDispatcher();
 
@@ -24,13 +26,15 @@
 
 <Wrapper width="480" bgColor="ededed" verticalCentering>
     <Card>
-        <View>
+        <View noActions>
             <svelte:fragment slot="header">Select workspace</svelte:fragment>
+            <Text noPadding>Your workspaces</Text>
             {#each workspaces as workspace}
-                <ListRow on:click={() => $goto('/')}> <!-- TODO set workspace by the decision -->
+                <ListRow noBorder={workspace === workspaces[workspaces.length-1]} on:click={() => $goto('/')}> <!-- TODO set workspace by the decision -->
                     <ListRowItem widthInPercentage={100}>{workspace.name}</ListRowItem>
                 </ListRow>
             {/each}
+            <InvitationsList/>
         </View>
     </Card>
 </Wrapper>

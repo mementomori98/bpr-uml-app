@@ -2,14 +2,18 @@
     import Container from "./Container.svelte";
 
     export const TABS = {};
-    import { setContext, onDestroy } from 'svelte';
+    import {setContext, onDestroy, getContext, onMount, createEventDispatcher} from 'svelte';
     import { writable } from 'svelte/store';
     import Tabs from "./Tabs.svelte";
+    import Wrapper from "./Wrapper.svelte";
+    import {goto} from "@roxi/routify";
 
     const tabs = [];
     const panels = [];
     const selectedTab = writable(null);
     const selectedPanel = writable(null);
+    // export let selected: number = 0;
+    const dispatch = createEventDispatcher();
 
     setContext(Tabs, {
         registerTab: tab => {
@@ -34,17 +38,33 @@
             });
         },
 
-        selectTab: tab => {
+        forceSelectTab: number => {
+            const tab = tabs[number];
             const i = tabs.indexOf(tab);
             selectedTab.set(tab);
             selectedPanel.set(panels[i]);
         },
 
+        selectTab: tab => {
+            const i = tabs.indexOf(tab);
+            selectedTab.set(tab);
+            selectedPanel.set(panels[i]);
+            $goto('/account');
+        },
+
         selectedTab,
         selectedPanel
     });
-</script>
 
-<Container>
+    const { forceSelectTab } = getContext(Tabs);
+
+    export function select(selected: number = 0) {
+        forceSelectTab(selected)
+    }
+
+</script>
+<Wrapper bgColor="ffffff">
+    <Container>
     <slot></slot>
-</Container>
+    </Container>
+</Wrapper>

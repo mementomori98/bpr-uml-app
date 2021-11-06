@@ -16,7 +16,7 @@
 
     const handleSubmit = () => {
         // todo implement
-        if(pwConfirm !== password){
+        if (pwConfirm !== password) {
             showError = true;
             return;
         }
@@ -31,22 +31,21 @@
     }
 
 </script>
-<Wrapper bgColor="ffffff">
-    <Card>
-        <Form lockable bind:locked on:submit={handleSubmit}>
-            <svelte:fragment slot="header">Edit Account</svelte:fragment>
-            <svelte:fragment slot="header-actions">
-                <Button color={Colors.Red} on:click={deleteAccount}>Delete Account</Button>
-            </svelte:fragment>
-            <Input label="Email" bind:value={email} {locked}/>
-            <Input label="Password" bind:value={password} {locked} {password}/>
-            {#if !locked}
-                <Input label="Repeat password" bind:value={pwConfirm} {locked} on:enter={handleSubmit} {password} errorMsg="Passwords don't match" />
-            {/if}
-        </Form>
-    </Card>
-</Wrapper>
 
+<Card>
+    <Form lockable bind:locked on:submit={handleSubmit}>
+        <svelte:fragment slot="header">Edit Account</svelte:fragment>
+        <svelte:fragment slot="header-actions">
+            <Button color={Colors.Red} on:click={deleteAccount}>Delete Account</Button>
+        </svelte:fragment>
+        <Input label="Email" bind:value={email} {locked}/>
+        <Input label="Password" bind:value={password} {locked} {password}/>
+        {#if !locked}
+            <Input label="Repeat password" bind:value={pwConfirm} {locked} on:enter={handleSubmit} {password}
+                   errorMsg="Passwords don't match"/>
+        {/if}
+    </Form>
+</Card>
 
 <style lang="scss">
   @import "../../../theme";

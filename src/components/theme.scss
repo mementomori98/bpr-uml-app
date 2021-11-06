@@ -4,11 +4,13 @@
 // bg, fg
 $red: rgb(227, 50, 50), rgb(255, 255, 255);
 $blue: rgb(73, 116, 182), rgb(255, 255, 255);
+$green: rgb(4, 150, 28), rgb(255, 255, 255);
 $gray: rgb(245, 245, 245), rgb(0, 0, 0);
 $drawer: darken(nth($blue, 1), 25%), nth($blue, 2);
 
 $colors: (('red', nth($red, 1), nth($red, 2)),
         ('blue', nth($blue, 1), nth($blue, 2)),
+        ('green', nth($green, 1), nth($green, 2)),
         ('gray', nth($gray, 1), nth($gray, 2)),
 );
 

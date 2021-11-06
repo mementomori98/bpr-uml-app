@@ -8,6 +8,11 @@ export class Workspace {
         Object.assign(this, init);
     }
 }
+export class WorkspaceInvitation {
+    constructor(init) {
+        Object.assign(this, init);
+    }
+}
 export class JoinWorkspaceRequest {
     constructor(init) {
         Object.assign(this, init);
