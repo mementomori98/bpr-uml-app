@@ -11,7 +11,6 @@ import MessageIcon from "../components/ui/MessageIcon.svelte";
 </script>
 
 
-
 <Tabs>
     <TabList>
         <Tab>Workspace</Tab>

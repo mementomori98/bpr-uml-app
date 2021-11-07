@@ -32,7 +32,6 @@
         <NavLink href="/">Index</NavLink>
         <NavLink href="/tests">Tests</NavLink>
         <NavLink href="/zollytest">Zolly Tabs Test</NavLink>
-        <NavLink href="/join-workspace">__Join Workspace</NavLink>
         <NavLink href="/projects">Projects</NavLink>
         <NavLink href="/socket">__Socket</NavLink>
         <Spacer size="24"/>

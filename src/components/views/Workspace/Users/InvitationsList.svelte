@@ -2,13 +2,16 @@
     import ListRow from "../../../ui/ListRow.svelte";
     import ListRowItem from "../../../ui/ListRowItem.svelte";
     import Button from "../../../ui/Button.svelte";
-    import {WorkspaceInvitation} from "../../../../services/Workspaces/Models";
+    import {JoinWorkspaceRequest, WorkspaceInvitation} from "../../../../services/Workspaces/Models";
     import {Colors} from "../../../ui/Colors";
     import Text from "../../../ui/Text.svelte";
     import {goto} from "@roxi/routify";
     import ListScrollWrapper from "../../../ui/ListScrollWrapper.svelte";
+    import getService from "../../../../services/Services";
+    import {WorkspaceService} from "../../../../services/Workspaces/WorkspaceService";
 
     export let noPadding: boolean = false;
+    const workspaceService = getService(WorkspaceService);
 
     let workspaces = [
         new WorkspaceInvitation({name: 'Rome', invitor: 'Nero', id: 1}),
@@ -16,8 +19,12 @@
         new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 1}),
     ]
 
-    const onJoinInvitation = (workspace: WorkspaceInvitation) => {
+    const onJoinInvitation = async (workspace: WorkspaceInvitation) => {
         alert("Joining to " + workspace.name + "workspace")
+        await workspaceService.join(new JoinWorkspaceRequest({
+            invitationId: workspace.id,
+            accepted: true
+        }));
         $goto('/')
     }
 
