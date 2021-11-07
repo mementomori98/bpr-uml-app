@@ -12,7 +12,7 @@
     @import "../theme.scss";
 
     .option {
-        padding: 4px 16px;
+        padding: 14px 16px;
         background-color: transparent;
         cursor: pointer;
         user-select: none;

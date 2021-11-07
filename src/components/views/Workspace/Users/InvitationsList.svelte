@@ -14,6 +14,12 @@
         new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 1}),
         new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 1}),
     ]
+
+    const onJoinInvitation = (workspace: WorkspaceInvitation) => {
+        alert("Joining to " + workspace.name + "workspace")
+        $goto('/')
+    }
+
 </script>
 
 <Text noPadding={noPadding}>Invitations</Text>
@@ -28,7 +34,7 @@
         <ListRowItem widthInPercentage={40}>{workspace.invitor}</ListRowItem>
         <ListRowItem widthInPercentage={20}>
             <div class="button-wrapper">
-                <Button on:click={() => $goto('/')} small color={Colors.Green}>Join</Button>
+                <Button on:click={() => onJoinInvitation(workspace)} small color={Colors.Green}>Join</Button>
             </div>
         </ListRowItem>
     </ListRow>

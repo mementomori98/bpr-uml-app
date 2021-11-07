@@ -1,8 +1,15 @@
 <script lang="ts">
 
+    import {CssBuilder} from "./CssBuilder";
+
+    export let noPadding: boolean = false;
+
+    $: wrapperStyle = new CssBuilder('divider__wrapper')
+        .addFeature('no-padding', noPadding)
+        .build();
 </script>
 
-<div class="divider__wrapper">
+<div class={wrapperStyle}>
     <div class="divider"></div>
 </div>
 
@@ -13,6 +20,10 @@
         &__wrapper {
             width: 100%;
             padding: 12px;
+
+          &--no-padding{
+            padding: 0;
+          }
         }
 
         height: 1px;
