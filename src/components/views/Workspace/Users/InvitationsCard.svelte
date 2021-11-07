@@ -15,6 +15,14 @@
         new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 1}),
         new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 1}),
     ]
+
+    const onAcceptInvitation = (workspace: WorkspaceInvitation) => {
+        alert("Accept invitation to " + workspace.name)
+    }
+
+    const onDeclineInvitation = (workspace: WorkspaceInvitation) => {
+        alert("Decline invitation to " + workspace.name)
+    }
 </script>
 
 <Card>
@@ -31,8 +39,8 @@
                 <ListRowItem widthInPercentage={35}>{workspace.invitor}</ListRowItem>
                 <ListRowItem widthInPercentage={35}>
                     <div class="button-wrapper">
-                        <Button color={Colors.Green}>Accept</Button>
-                        <Button color={Colors.Red}>Reject</Button>
+                        <Button on:click={() => onAcceptInvitation(workspace)} color={Colors.Green}>Accept</Button>
+                        <Button on:click={() => onDeclineInvitation(workspace)} color={Colors.Red}>Decline</Button>
                     </div>
                 </ListRowItem>
             </ListRow>
