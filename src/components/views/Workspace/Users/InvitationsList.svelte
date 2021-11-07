@@ -11,6 +11,7 @@
     import {WorkspaceService} from "../../../../services/Workspaces/WorkspaceService";
 
     export let noPadding: boolean = false;
+    export let maxHeight: number;
     const workspaceService = getService(WorkspaceService);
 
     export let workspaces: WorkspaceInvitation[] = []
@@ -32,7 +33,7 @@
     <ListRowItem widthInPercentage={40}>Invitor</ListRowItem>
     <ListRowItem widthInPercentage={20}></ListRowItem>
 </ListRow>
-<ListScrollWrapper>
+<ListScrollWrapper maxHeight={maxHeight}>
     {#each workspaces as workspace}
         <ListRow noBorder={workspace === workspaces[workspaces.length-1]} style="padding: 0 0 0 14px; min-height: 40px">
             <ListRowItem widthInPercentage={40}>{workspace.name}</ListRowItem>

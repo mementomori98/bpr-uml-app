@@ -23,11 +23,11 @@
   .wrapper{
     max-height: 280px;
     overflow-y: auto;
-    border: 0.5px solid rgba(0, 0, 0, 0.2);
+    border: 2px solid #e8e8e8;
     border-top: 0;
 
     &--full-border {
-      border-top: 0.5px solid rgba(0, 0, 0, 0.2);
+      border-top: 2px solid #e8e8e8;
     }
 
     &--disabled-border {

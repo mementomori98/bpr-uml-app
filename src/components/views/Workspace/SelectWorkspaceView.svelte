@@ -25,8 +25,8 @@
 
     let invitations: WorkspaceInvitation[] = [
         new WorkspaceInvitation({name: 'Rome', invitor: 'Nero', id: 1}),
-        new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 1}),
-        new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 1}),
+        new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 2}),
+        new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 3}),
     ]
 
 </script>
@@ -44,7 +44,7 @@
                 {/each}
             </ListScrollWrapper>
             {#if invitations.length > 0}
-                <InvitationsList workspaces={invitations}/>
+                <InvitationsList maxHeight={150} workspaces={invitations}/>
             {/if}
 
         </View>

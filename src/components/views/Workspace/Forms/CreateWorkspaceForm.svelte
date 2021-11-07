@@ -8,6 +8,7 @@
     import {goto} from "@roxi/routify";
     import InvitationsList from "../Users/InvitationsList.svelte";
     import View from "../../../ui/View.svelte";
+    import Divider from "../../../ui/Divider.svelte";
 
     const workspaceService = getService(WorkspaceService);
 
@@ -15,8 +16,8 @@
 
     let invitations: WorkspaceInvitation[] = [
         new WorkspaceInvitation({name: 'Rome', invitor: 'Nero', id: 1}),
-        new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 1}),
-        new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 1}),
+        new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 2}),
+        new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 3}),
     ]
 
     const handleSubmit = async () => { //TODO
@@ -34,9 +35,10 @@
     <Input label="Workspace Name" bind:value={name} />
 </Form>
 {#if invitations.length > 0}
+    <Divider/>
     <View noPaddingTop>
         <svelte:fragment slot="header">Join workspace</svelte:fragment>
-        <InvitationsList workspaces={invitations} noPadding/>
+        <InvitationsList maxHeight={150} workspaces={invitations} noPadding/>
     </View>
 {/if}
 
