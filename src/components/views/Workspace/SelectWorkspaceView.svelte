@@ -11,6 +11,7 @@
     import Button from "../../ui/Button.svelte";
     import InvitationsList from "./Users/InvitationsList.svelte";
     import Text from "../../ui/Text.svelte";
+    import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
 
     const dispatch = createEventDispatcher();
 
@@ -29,11 +30,14 @@
         <View noActions>
             <svelte:fragment slot="header">Select workspace</svelte:fragment>
             <Text noPadding>Your workspaces</Text>
-            {#each workspaces as workspace}
-                <ListRow noBorder={workspace === workspaces[workspaces.length-1]} on:click={() => $goto('/')}> <!-- TODO set workspace by the decision -->
-                    <ListRowItem widthInPercentage={100}>{workspace.name}</ListRowItem>
-                </ListRow>
-            {/each}
+            <ListScrollWrapper fullBorder>
+                {#each workspaces as workspace}
+                    <ListRow noBorder={workspace === workspaces[workspaces.length-1]} on:click={() => $goto('/')}> <!-- TODO set workspace by the decision -->
+                        <ListRowItem widthInPercentage={100}>{workspace.name}</ListRowItem>
+                    </ListRow>
+                {/each}
+            </ListScrollWrapper>
+
             <InvitationsList/>
         </View>
     </Card>

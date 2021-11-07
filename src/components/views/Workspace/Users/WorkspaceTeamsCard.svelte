@@ -10,6 +10,7 @@
     import {Team} from "../../../../services/teams/Team";
     import CloseButton from "../../../ui/CloseButton.svelte";
     import TeamSettingsDialog from "./TeamSettingsDialog.svelte";
+    import ListScrollWrapper from "../../../ui/ListScrollWrapper.svelte";
 
 
     let teams = [
@@ -41,21 +42,24 @@
         <svelte:fragment slot="header">Teams</svelte:fragment>
         <svelte:fragment slot="header-actions"></svelte:fragment>
         <ListRow isHeader>
-            <ListRowItem widthInPercentage={73}>Name</ListRowItem>
-            <ListRowItem widthInPercentage={10}>Users</ListRowItem>
-            <ListRowItem widthInPercentage={10}>Projects</ListRowItem>
-            <ListRowItem widthInPercentage={7}>Remove</ListRowItem>
+            <ListRowItem widthInPercentage={64}>Name</ListRowItem>
+            <ListRowItem widthInPercentage={12}>Users</ListRowItem>
+            <ListRowItem widthInPercentage={12}>Projects</ListRowItem>
+            <ListRowItem widthInPercentage={12}>Remove</ListRowItem>
         </ListRow>
-        {#each teams as team}
-            <ListRow on:click={() => handleClick(team)}>
-                <ListRowItem widthInPercentage={73}>{team.name}</ListRowItem>
-                <ListRowItem widthInPercentage={10}>{team.usersAmount}</ListRowItem>
-                <ListRowItem widthInPercentage={10}>{team.projectsAmount}</ListRowItem>
-                <ListRowItem widthInPercentage={7}>
-                    <CloseButton on:click={() => removeTeam(team)}/>
-                    <!-- TODO disabled if not admin, or not created by the user--></ListRowItem>
-            </ListRow>
-        {/each}
+        <ListScrollWrapper>
+            {#each teams as team}
+                <ListRow noBorder={team === teams[teams.length-1]} on:click={() => handleClick(team)}>
+                    <ListRowItem widthInPercentage={64}>{team.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={12}>{team.usersAmount}</ListRowItem>
+                    <ListRowItem widthInPercentage={12}>{team.projectsAmount}</ListRowItem>
+                    <ListRowItem widthInPercentage={12}>
+                        <CloseButton on:click={() => removeTeam(team)}/>
+                        <!-- TODO disabled if not admin, or not created by the user--></ListRowItem>
+                </ListRow>
+            {/each}
+        </ListScrollWrapper>
+
         <svelte:fragment slot="actions">
             <Button on:click={() => createVisible = true}>Invite</Button>
         </svelte:fragment>

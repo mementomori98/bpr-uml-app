@@ -7,6 +7,7 @@
     import UserSettingsDialog from "./UserSettingsDialog.svelte";
     import ListRowItem from "../../../ui/ListRowItem.svelte";
     import ListRow from "../../../ui/ListRow.svelte";
+    import ListScrollWrapper from "../../../ui/ListScrollWrapper.svelte";
 
     let users = [
         new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer'}),
@@ -38,14 +39,17 @@
             <ListRowItem widthInPercentage={20}>Status</ListRowItem>
             <ListRowItem widthInPercentage={30}>Role</ListRowItem>
         </ListRow>
-        {#each users as user}
-            <ListRow on:click={() => handleClick(user)}>
-                <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>
-                <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
-                <ListRowItem widthInPercentage={20}>{user.status}</ListRowItem>
-                <ListRowItem widthInPercentage={30}>{user.role}</ListRowItem>
-            </ListRow>
-        {/each}
+        <ListScrollWrapper>
+            {#each users as user}
+                <ListRow noBorder={user === users[users.length-1]} on:click={() => handleClick(user)}>
+                    <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
+                    <ListRowItem widthInPercentage={20}>{user.status}</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>{user.role}</ListRowItem>
+                </ListRow>
+            {/each}
+        </ListScrollWrapper>
+
         <svelte:fragment slot="actions">
             <Button on:click={() => inviteVisible = true}>Invite</Button>
         </svelte:fragment>

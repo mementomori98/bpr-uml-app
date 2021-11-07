@@ -10,6 +10,7 @@
     import CloseButton from "../../../ui/CloseButton.svelte";
     import ListRow from "../../../ui/ListRow.svelte";
     import ListRowItem from "../../../ui/ListRowItem.svelte";
+    import ListScrollWrapper from "../../../ui/ListScrollWrapper.svelte";
 
     export let visible: boolean = false;
 
@@ -63,13 +64,15 @@
 <Dialog bind:visible>
     <Form on:submit={handleInvite} on:cancel={handleCancel} submitText="Add" cancelButton>
         <svelte:fragment slot="header">Add User</svelte:fragment>
-        {#each usersToAdd as user}
-            <ListRow style="justify-content: space-between; padding: 12px 0">
-                {user.name}
-                <CloseButton on:click={() => closeUserChoice(user)}/>
-            </ListRow>
-        {/each}
         <Select clearOnChoice label="Users to add" choices={users} on:submit={e => pickUser(e)}/>
+        <ListScrollWrapper fullBorder>
+            {#each usersToAdd as user}
+                <ListRow noBorder={user === usersToAdd[usersToAdd.length-1]} style="justify-content: space-between; padding: 12px 12px">
+                    {user.name}
+                    <CloseButton on:click={() => closeUserChoice(user)}/>
+                </ListRow>
+            {/each}
+        </ListScrollWrapper>
     </Form>
 </Dialog>
 

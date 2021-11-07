@@ -12,6 +12,7 @@
     import Button from "../../../ui/Button.svelte";
     import {Colors} from "../../../ui/Colors";
     import {UserToTeam} from "../../../../services/users/UserToTeam";
+    import ListScrollWrapper from "../../../ui/ListScrollWrapper.svelte";
 
     export let visible: boolean = false;
     export let readonly: boolean = false;
@@ -118,6 +119,9 @@
     <Form readonly={readonly} bind:locked lockable={lockable} on:submit={() => lockable ? handleUpdate() : handleCreate()} cancelButton={!lockable} on:cancel={handleCancel} submitText={lockable ? "Update" : "Create"}>
         <svelte:fragment slot="header">{locked ? "Team" : "Edit team"}</svelte:fragment>
         <Input locked={locked && lockable} label="Team name" bind:value={teamName}/>
+        {#if !locked || !lockable}
+            <Select clearOnChoice label="Users to add" choices={listUsers} on:submit={e => pickUser(e)}/>
+        {/if}
         <ListRow isHeader>
             <ListRowItem widthInPercentage={43}>Name</ListRowItem>
             <ListRowItem widthInPercentage={50}>Email</ListRowItem>
@@ -125,20 +129,19 @@
                 <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
             {/if}
         </ListRow>
-        {#each teamUsers as user}
-            <ListRow noFunction>
-                <ListRowItem widthInPercentage={43}>{user.name}</ListRowItem>
-                <ListRowItem widthInPercentage={50}>{user.email}</ListRowItem>
-                {#if !locked  || !lockable}
-                    <ListRowItem widthInPercentage={7}>
-                        <CloseButton on:click={() => closeUserChoice(user)}/>
-                    </ListRowItem>
-                {/if}
-            </ListRow>
-        {/each}
-        {#if !locked || !lockable}
-            <Select clearOnChoice label="Users to add" choices={listUsers} on:submit={e => pickUser(e)}/>
-        {/if}
+        <ListScrollWrapper>
+            {#each teamUsers as user}
+                <ListRow noBorder={user === teamUsers[teamUsers.length-1]} noFunction>
+                    <ListRowItem widthInPercentage={43}>{user.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={50}>{user.email}</ListRowItem>
+                    {#if !locked  || !lockable}
+                        <ListRowItem widthInPercentage={7}>
+                            <CloseButton on:click={() => closeUserChoice(user)}/>
+                        </ListRowItem>
+                    {/if}
+                </ListRow>
+            {/each}
+        </ListScrollWrapper>
         <svelte:fragment slot="footer-actions">
             {#if lockable}
                 <Button color={Colors.Gray} on:click={handleClose}>Close</Button>

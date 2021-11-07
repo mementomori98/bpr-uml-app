@@ -9,6 +9,7 @@
     import Button from "../../../ui/Button.svelte";
     import {WorkspaceInvitation} from "../../../../services/Workspaces/Models";
     import {Colors} from "../../../ui/Colors";
+    import ListScrollWrapper from "../../../ui/ListScrollWrapper.svelte";
 
     let workspaces = [
         new WorkspaceInvitation({name: 'Rome', invitor: 'Nero', id: 1}),
@@ -33,18 +34,21 @@
             <ListRowItem widthInPercentage={35}>Invitor</ListRowItem>
             <ListRowItem widthInPercentage={35}></ListRowItem>
         </ListRow>
-        {#each workspaces as workspace}
-            <ListRow>
-                <ListRowItem widthInPercentage={30}>{workspace.name}</ListRowItem>
-                <ListRowItem widthInPercentage={35}>{workspace.invitor}</ListRowItem>
-                <ListRowItem widthInPercentage={35}>
-                    <div class="button-wrapper">
-                        <Button on:click={() => onAcceptInvitation(workspace)} color={Colors.Green}>Accept</Button>
-                        <Button on:click={() => onDeclineInvitation(workspace)} color={Colors.Red}>Decline</Button>
-                    </div>
-                </ListRowItem>
-            </ListRow>
-        {/each}
+        <ListScrollWrapper>
+            {#each workspaces as workspace}
+                <ListRow noBorder={workspace === workspaces[workspaces.length-1]}>
+                    <ListRowItem widthInPercentage={30}>{workspace.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={35}>{workspace.invitor}</ListRowItem>
+                    <ListRowItem widthInPercentage={35}>
+                        <div class="button-wrapper">
+                            <Button on:click={() => onAcceptInvitation(workspace)} color={Colors.Green}>Accept</Button>
+                            <Button on:click={() => onDeclineInvitation(workspace)} color={Colors.Red}>Decline</Button>
+                        </div>
+                    </ListRowItem>
+                </ListRow>
+            {/each}
+        </ListScrollWrapper>
+
     </View>
 </Card>
 

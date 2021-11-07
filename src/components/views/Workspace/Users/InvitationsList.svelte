@@ -6,6 +6,7 @@
     import {Colors} from "../../../ui/Colors";
     import Text from "../../../ui/Text.svelte";
     import {goto} from "@roxi/routify";
+    import ListScrollWrapper from "../../../ui/ListScrollWrapper.svelte";
 
     export let noPadding: boolean = false;
 
@@ -28,17 +29,20 @@
     <ListRowItem widthInPercentage={40}>Invitor</ListRowItem>
     <ListRowItem widthInPercentage={20}></ListRowItem>
 </ListRow>
-{#each workspaces as workspace}
-    <ListRow style="padding: 0 0 0 14px; min-height: 40px">
-        <ListRowItem widthInPercentage={40}>{workspace.name}</ListRowItem>
-        <ListRowItem widthInPercentage={40}>{workspace.invitor}</ListRowItem>
-        <ListRowItem widthInPercentage={20}>
-            <div class="button-wrapper">
-                <Button on:click={() => onJoinInvitation(workspace)} small color={Colors.Green}>Join</Button>
-            </div>
-        </ListRowItem>
-    </ListRow>
-{/each}
+<ListScrollWrapper>
+    {#each workspaces as workspace}
+        <ListRow noBorder={workspace === workspaces[workspaces.length-1]} style="padding: 0 0 0 14px; min-height: 40px">
+            <ListRowItem widthInPercentage={40}>{workspace.name}</ListRowItem>
+            <ListRowItem widthInPercentage={40}>{workspace.invitor}</ListRowItem>
+            <ListRowItem widthInPercentage={20}>
+                <div class="button-wrapper">
+                    <Button on:click={() => onJoinInvitation(workspace)} small color={Colors.Green}>Join</Button>
+                </div>
+            </ListRowItem>
+        </ListRow>
+    {/each}
+</ListScrollWrapper>
+
 
 <style lang="scss">
   @import "../../../theme";
