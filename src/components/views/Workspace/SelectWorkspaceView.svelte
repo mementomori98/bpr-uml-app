@@ -6,7 +6,7 @@
     import Wrapper from "../../ui/Wrapper.svelte";
     import ListRow from "../../ui/ListRow.svelte";
     import ListRowItem from "../../ui/ListRowItem.svelte";
-    import {Workspace} from "../../../services/Workspaces/Models";
+    import {Workspace, WorkspaceInvitation} from "../../../services/Workspaces/Models";
     import {goto} from "@roxi/routify";
     import Button from "../../ui/Button.svelte";
     import InvitationsList from "./Users/InvitationsList.svelte";
@@ -23,6 +23,12 @@
         new Workspace({name: "Neutron", id: 5}),
     ].sort((u1, u2) => u1.name.localeCompare(u2.name));
 
+    let invitations: WorkspaceInvitation[] = [
+        new WorkspaceInvitation({name: 'Rome', invitor: 'Nero', id: 1}),
+        new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 1}),
+        new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 1}),
+    ]
+
 </script>
 
 <Wrapper width="480" bgColor="ededed" verticalCentering>
@@ -37,8 +43,10 @@
                     </ListRow>
                 {/each}
             </ListScrollWrapper>
+            {#if invitations.length > 0}
+                <InvitationsList workspaces={invitations}/>
+            {/if}
 
-            <InvitationsList/>
         </View>
     </Card>
 </Wrapper>

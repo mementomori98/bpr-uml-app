@@ -13,11 +13,7 @@
     export let noPadding: boolean = false;
     const workspaceService = getService(WorkspaceService);
 
-    let workspaces = [
-        new WorkspaceInvitation({name: 'Rome', invitor: 'Nero', id: 1}),
-        new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 1}),
-        new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 1}),
-    ]
+    export let workspaces: WorkspaceInvitation[] = []
 
     const onJoinInvitation = async (workspace: WorkspaceInvitation) => {
         alert("Joining to " + workspace.name + "workspace")
