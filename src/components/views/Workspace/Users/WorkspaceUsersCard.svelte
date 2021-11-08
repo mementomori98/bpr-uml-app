@@ -33,13 +33,15 @@
     <View>
         <svelte:fragment slot="header">Users</svelte:fragment>
         <svelte:fragment slot="header-actions"></svelte:fragment>
-        <ListRow isHeader>
-            <ListRowItem widthInPercentage={20}>Name</ListRowItem>
-            <ListRowItem widthInPercentage={30}>Email</ListRowItem>
-            <ListRowItem widthInPercentage={20}>Status</ListRowItem>
-            <ListRowItem widthInPercentage={30}>Role</ListRowItem>
-        </ListRow>
         <ListScrollWrapper>
+            <svelte:fragment slot="header">
+                <ListRow isHeader>
+                    <ListRowItem widthInPercentage={20}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>Email</ListRowItem>
+                    <ListRowItem widthInPercentage={20}>Status</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>Role</ListRowItem>
+                </ListRow>
+            </svelte:fragment>
             {#each users as user}
                 <ListRow noBorder={user === users[users.length-1]} on:click={() => handleClick(user)}>
                     <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>

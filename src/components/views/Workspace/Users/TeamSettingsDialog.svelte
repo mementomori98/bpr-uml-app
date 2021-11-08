@@ -65,12 +65,12 @@
     }
 
     const handleCancel = () => {
-        if(lockable){
+        if (lockable) {
             if (!locked) {
                 visible = false;
                 locked = true;
             }
-        } else{
+        } else {
             visible = false;
         }
     }
@@ -116,25 +116,29 @@
 </script>
 
 <Dialog on:clickedOut={() => locked = true} bind:visible style="min-width: 600px">
-    <Form readonly={readonly} bind:locked lockable={lockable} on:submit={() => lockable ? handleUpdate() : handleCreate()} cancelButton={!lockable} on:cancel={handleCancel} submitText={lockable ? "Update" : "Create"}>
+    <Form readonly={readonly} bind:locked lockable={lockable}
+          on:submit={() => lockable ? handleUpdate() : handleCreate()} cancelButton={!lockable} on:cancel={handleCancel}
+          submitText={lockable ? "Update" : "Create"}>
         <svelte:fragment slot="header">{locked ? "Team" : "Edit team"}</svelte:fragment>
         <Input locked={locked && lockable} label="Team name" bind:value={teamName}/>
         {#if !locked || !lockable}
             <Select clearOnChoice label="Users to add" choices={listUsers} on:submit={e => pickUser(e)}/>
         {/if}
-        <ListRow isHeader>
-            <ListRowItem widthInPercentage={43}>Name</ListRowItem>
-            <ListRowItem widthInPercentage={50}>Email</ListRowItem>
-            {#if !locked || !lockable}
-                <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
-            {/if}
-        </ListRow>
         <ListScrollWrapper>
+            <svelte:fragment slot="header">
+                <ListRow isHeader>
+                    <ListRowItem widthInPercentage={43}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={50}>Email</ListRowItem>
+                    {#if !locked || !lockable}
+                        <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
+                    {/if}
+                </ListRow>
+            </svelte:fragment>
             {#each teamUsers as user}
                 <ListRow noBorder={user === teamUsers[teamUsers.length-1]} noFunction>
                     <ListRowItem widthInPercentage={43}>{user.name}</ListRowItem>
                     <ListRowItem widthInPercentage={50}>{user.email}</ListRowItem>
-                    {#if !locked  || !lockable}
+                    {#if !locked || !lockable}
                         <ListRowItem widthInPercentage={7}>
                             <CloseButton on:click={() => closeUserChoice(user)}/>
                         </ListRowItem>

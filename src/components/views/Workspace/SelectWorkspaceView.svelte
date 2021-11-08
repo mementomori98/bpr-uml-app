@@ -36,7 +36,7 @@
         <View noActions>
             <svelte:fragment slot="header">Select workspace</svelte:fragment>
             <Text noPadding>Your workspaces</Text>
-            <ListScrollWrapper fullBorder>
+            <ListScrollWrapper>
                 {#each workspaces as workspace}
                     <ListRow noBorder={workspace === workspaces[workspaces.length-1]} on:click={() => $goto('/')}> <!-- TODO set workspace by the decision -->
                         <ListRowItem widthInPercentage={100}>{workspace.name}</ListRowItem>

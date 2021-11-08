@@ -4,14 +4,16 @@
 
     export let style: string = "";
     export let maxHeight: number;
-    export let fullBorder: boolean = false;
     export let disabledBorder: boolean = false;
 
     $: wrapperStyle = new CssBuilder('wrapper')
-        .addFeature('full-border', fullBorder)
         .addFeature('disabled-border', disabledBorder)
         .build();
 </script>
+
+<div style="margin: 0 -32px">
+    <slot name="header"/>
+</div>
 
 <div class={wrapperStyle} style={`max-height: ${maxHeight}px; ${style};`}>
     <slot/>
@@ -23,12 +25,10 @@
   .wrapper{
     max-height: 280px;
     overflow-y: auto;
-    border: 2px solid #e8e8e8;
-    border-top: 0;
-
-    &--full-border {
-      border-top: 2px solid #e8e8e8;
-    }
+    overflow-x: hidden;
+    border-bottom: 2px solid #d5d5d591; //was border:
+    border-top: 2px solid #d5d5d591;
+    margin: 0 -32px;
 
     &--disabled-border {
       border: 0;

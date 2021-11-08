@@ -57,18 +57,21 @@
 
 <Card>
     <View>
-        <svelte:fragment slot="header">Users in {$params.id}</svelte:fragment> <!-- TODO disabled if not product owner-->
+        <svelte:fragment slot="header">Users in {$params.id}</svelte:fragment>
+        <!-- TODO disabled if not product owner-->
         <svelte:fragment slot="header-actions"></svelte:fragment>
-        <ListRow isHeader>
-            <ListRowItem widthInPercentage={20}>Name</ListRowItem>
-            <ListRowItem widthInPercentage={30}>Email</ListRowItem>
-            <ListRowItem widthInPercentage={33}>Role</ListRowItem>
-            <ListRowItem widthInPercentage={10}>Can edit</ListRowItem>
-            <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
-        </ListRow>
         <ListScrollWrapper>
+            <svelte:fragment slot="header">
+                <ListRow isHeader>
+                    <ListRowItem widthInPercentage={20}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>Email</ListRowItem>
+                    <ListRowItem widthInPercentage={33}>Role</ListRowItem>
+                    <ListRowItem widthInPercentage={10}>Can edit</ListRowItem>
+                    <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
+                </ListRow>
+            </svelte:fragment>
             {#each users as user}
-                <ListRow  noBorder={user === users[users.length-1]} noFunction>
+                <ListRow noBorder={user === users[users.length-1]} noFunction>
                     <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>
                     <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
                     <ListRowItem widthInPercentage={33}>{user.role}</ListRowItem>

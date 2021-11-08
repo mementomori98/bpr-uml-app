@@ -40,14 +40,16 @@
 <Card>
     <View>
         <svelte:fragment slot="header">Projects in workspace</svelte:fragment>
-        <svelte:fragment slot="header-actions"></svelte:fragment>
-        <ListRow isHeader>
-            <ListRowItem widthInPercentage={93}>Name</ListRowItem>
-            <ListRowItem widthInPercentage={7}>Leave</ListRowItem>
-        </ListRow>
         <ListScrollWrapper>
+            <svelte:fragment slot="header">
+                <ListRow isHeader>
+                    <ListRowItem widthInPercentage={93}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={7}>Leave</ListRowItem>
+                </ListRow>
+            </svelte:fragment>
             {#each projects as project}
-                <ListRow noBorder={project === projects[projects.length-1]} on:click={() => $goto('/project', {id: project.name})} isHighlighted={project.id === currentProjectId}> <!-- TODO pass id in goto-->
+                <ListRow noBorder={project === projects[projects.length-1]}
+                         on:click={() => $goto('/project', {id: project.name})}> <!-- TODO pass id in goto--> <!-- TODO isHighlighted = currentProject...-->
                     <ListRowItem widthInPercentage={93}>{project.name}</ListRowItem>
                     <ListRowItem widthInPercentage={7}>
                         <CloseButton on:click={() => leaveProject(project)}/>

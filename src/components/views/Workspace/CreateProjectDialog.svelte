@@ -73,7 +73,13 @@
         let user = testUsers.filter(function (item) {
             return item.id == e.detail.choice.id;
         })[0]
-        projectUsers.push(new UserToProject({name: user.name, email: user.email, id:user.id, canEdit: true, role: "Developer"}));
+        projectUsers.push(new UserToProject({
+            name: user.name,
+            email: user.email,
+            id: user.id,
+            canEdit: true,
+            role: "Developer"
+        }));
 
         listUsers = listUsers.filter(function (item) {
             return item.id != e.detail.choice.id;
@@ -101,14 +107,16 @@
         <svelte:fragment slot="header">Create Project</svelte:fragment>
         <Input label="Project name" bind:value={projectName}/>
         <Select clearOnChoice label="Users to add" choices={listUsers} on:submit={e => pickUser(e)}/>
-        <ListRow isHeader>
-            <ListRowItem widthInPercentage={20}>Name</ListRowItem>
-            <ListRowItem widthInPercentage={30}>Email</ListRowItem>
-            <ListRowItem widthInPercentage={33}>Role</ListRowItem>
-            <ListRowItem widthInPercentage={10}>Can edit</ListRowItem>
-            <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
-        </ListRow>
         <ListScrollWrapper>
+            <svelte:fragment slot="header">
+                <ListRow isHeader>
+                    <ListRowItem widthInPercentage={20}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>Email</ListRowItem>
+                    <ListRowItem widthInPercentage={33}>Role</ListRowItem>
+                    <ListRowItem widthInPercentage={10}>Can edit</ListRowItem>
+                    <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
+                </ListRow>
+            </svelte:fragment>
             {#each projectUsers as user}
                 <ListRow noBorder={user === projectUsers[projectUsers.length-1]} noFunction>
                     <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>

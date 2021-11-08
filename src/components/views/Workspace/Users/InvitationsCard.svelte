@@ -10,6 +10,7 @@
     import ListScrollWrapper from "../../../ui/ListScrollWrapper.svelte";
     import getService from "../../../../services/Services";
     import {WorkspaceService} from "../../../../services/Workspaces/WorkspaceService";
+
     const workspaceService = getService(WorkspaceService);
 
     let workspaces = [
@@ -18,7 +19,7 @@
         new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 1}),
     ]
 
-    const onAcceptInvitation =async (workspace: WorkspaceInvitation) => {
+    const onAcceptInvitation = async (workspace: WorkspaceInvitation) => {
         alert("Accept invitation to " + workspace.name)
         await workspaceService.join(new JoinWorkspaceRequest({
             invitationId: workspace.id,
@@ -38,12 +39,14 @@
 <Card>
     <View>
         <svelte:fragment slot="header">Workspace invitations</svelte:fragment>
-        <ListRow isHeader>
-            <ListRowItem widthInPercentage={30}>Name</ListRowItem>
-            <ListRowItem widthInPercentage={35}>Invitor</ListRowItem>
-            <ListRowItem widthInPercentage={35}></ListRowItem>
-        </ListRow>
         <ListScrollWrapper>
+            <svelte:fragment slot="header">
+                <ListRow isHeader>
+                    <ListRowItem widthInPercentage={30}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={35}>Invitor</ListRowItem>
+                    <ListRowItem widthInPercentage={35}></ListRowItem>
+                </ListRow>
+            </svelte:fragment>
             {#each workspaces as workspace}
                 <ListRow noBorder={workspace === workspaces[workspaces.length-1]}>
                     <ListRowItem widthInPercentage={30}>{workspace.name}</ListRowItem>
@@ -64,7 +67,8 @@
 
 <style lang="scss">
   @import "../../../theme";
-  .button-wrapper{
+
+  .button-wrapper {
     display: flex;
     justify-content: flex-end;
   }
