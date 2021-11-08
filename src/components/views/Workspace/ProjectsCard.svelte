@@ -9,6 +9,7 @@
     import {Project} from "../../../services/Workspaces/Project";
     import CreateProjectDialog from "./CreateProjectDialog.svelte";
     import {goto} from "@roxi/routify";
+    import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
 
     let createVisible: boolean = false;
     let currentProjectId: number = 5;
@@ -44,14 +45,17 @@
             <ListRowItem widthInPercentage={93}>Name</ListRowItem>
             <ListRowItem widthInPercentage={7}>Leave</ListRowItem>
         </ListRow>
-        {#each projects as project}
-            <ListRow on:click={() => $goto('/project', {id: project.name})} isHighlighted={project.id === currentProjectId}> <!-- TODO pass id in goto-->
-                <ListRowItem widthInPercentage={93}>{project.name}</ListRowItem>
-                <ListRowItem widthInPercentage={7}>
-                    <CloseButton on:click={() => leaveProject(project)}/>
-                    <!-- TODO disabled if not product owner--></ListRowItem>
-            </ListRow>
-        {/each}
+        <ListScrollWrapper>
+            {#each projects as project}
+                <ListRow noBorder={project === projects[projects.length-1]} on:click={() => $goto('/project', {id: project.name})} isHighlighted={project.id === currentProjectId}> <!-- TODO pass id in goto-->
+                    <ListRowItem widthInPercentage={93}>{project.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={7}>
+                        <CloseButton on:click={() => leaveProject(project)}/>
+                        <!-- TODO disabled if not product owner--></ListRowItem>
+                </ListRow>
+            {/each}
+        </ListScrollWrapper>
+
         <svelte:fragment slot="actions"> <!-- TODO disabled if not product owner-->
             <Button on:click={() => createVisible = true}>Create Project</Button>
         </svelte:fragment>

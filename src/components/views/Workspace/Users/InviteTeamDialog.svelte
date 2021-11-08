@@ -11,6 +11,7 @@
     import ListRow from "../../../ui/ListRow.svelte";
     import ListRowItem from "../../../ui/ListRowItem.svelte";
     import {Team} from "../../../../services/teams/Team";
+    import ListScrollWrapper from "../../../ui/ListScrollWrapper.svelte";
 
     export let visible: boolean = false;
     let teams = [
@@ -60,13 +61,15 @@
 <Dialog bind:visible>
     <Form on:submit={handleInvite} on:cancel={handleCancel} submitText="Add" cancelButton>
         <svelte:fragment slot="header">Add Team</svelte:fragment>
-        {#each teamsToAdd as team}
-            <ListRow style="justify-content: space-between; padding: 12px 0">
-                {team.name}
-                <CloseButton on:click={() => closeTeamChoice(team)}/>
-            </ListRow>
-        {/each}
         <Select clearOnChoice label="Teams to add" choices={teams} on:submit={e => pickTeam(e)}/>
+        <ListScrollWrapper fullBorder>
+            {#each teamsToAdd as team}
+                <ListRow noBorder={team === teamsToAdd[teamsToAdd.length-1]} style="justify-content: space-between; padding: 12px 12px">
+                    {team.name}
+                    <CloseButton on:click={() => closeTeamChoice(team)}/>
+                </ListRow>
+            {/each}
+        </ListScrollWrapper>
     </Form>
 </Dialog>
 

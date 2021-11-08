@@ -38,6 +38,10 @@
       padding: 0 14px;
       min-height: 48px;
       cursor: default;
+      background-color: #f5f5f5;
+      border: 2px solid #e8e8e8;
+      border-bottom: 0;
+
     }
 
     &--useless {
@@ -45,15 +49,15 @@
     }
 
     &--highlighted {
-      background-color: #f6f6f6;
+      background-color: #6f76ff21;
       font-weight: 800;
     }
   }
   .divider {
-    border-bottom: .5px solid rgba(0, 0, 0, .2);
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
 
     &--header {
-      border-bottom: 2px solid #858585;
+      border-bottom: 2px solid #c4c4c4;
     }
 
     &--no-border {

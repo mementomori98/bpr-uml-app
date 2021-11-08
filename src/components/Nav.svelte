@@ -13,6 +13,7 @@
     import getService from "../services/Services";
     import {AuthenticationService} from "../services/AuthenticationService";
     import WorkspaceNavOptions from "./views/Workspace/WorkspaceNavOptions.svelte";
+    import MessageIcon from "./ui/MessageIcon.svelte";
 
     const authenticationService = getService(AuthenticationService);
     let visible: boolean;
@@ -30,6 +31,7 @@
     <svelte:fragment slot="drawer">
         <NavLink href="/">Index</NavLink>
         <NavLink href="/tests">Tests</NavLink>
+        <NavLink href="/zollytest">Zolly Tabs Test</NavLink>
         <NavLink href="/diagram">__Diagram</NavLink>
         <NavLink href="/join-workspace">__Join Workspace</NavLink>
         <NavLink href="/projects">Projects</NavLink>
@@ -41,16 +43,32 @@
     </svelte:fragment>
     <svelte:fragment slot="appbar">
         <Spacer/>
+
+
         <div style="display: block" bind:this={workspacesDiv}>
             <TextButton on:click={() => visibleWorkspaces = true}>Switch Workspace</TextButton>
-            <ContextMenu noPadding bind:visible={visibleWorkspaces} top={workspacesDiv?.offsetTop + workspacesDiv?.offsetHeight} right={60}>
+            <ContextMenu noPadding bind:visible={visibleWorkspaces}
+                         top={workspacesDiv?.offsetTop + workspacesDiv?.offsetHeight} right={60}>
                 <WorkspaceNavOptions/>
             </ContextMenu>
         </div>
-        <TextButton on:click={() => visible = true}><Icon icon="person"/></TextButton>
-        <ContextMenu bind:visible top="50" right="8">
-            <Option on:click={$goto('/account')}>Account</Option>
-            <Divider/>
+
+        <TextButton on:click={() => visible = true}>
+            <Icon icon="person"/>
+            <div style="position: fixed; right: 24px; top: 28px"><!-- TODO-->
+                <MessageIcon small/>
+            </div>
+        </TextButton>
+
+        <ContextMenu noPadding bind:visible top="50" right="8">
+            <Option on:click={$goto('/account', {tab: "account"})}>Account</Option>
+            <Option on:click={$goto('/account', {tab: "invitations"})}>
+                <div class="option-wrapper">
+                    Invitations
+                    <MessageIcon/><!-- TODO-->
+                </div>
+            </Option>
+            <Divider noPadding/>
             <Option on:click={handleLogout}>Log out</Option>
         </ContextMenu>
     </svelte:fragment>
@@ -62,3 +80,14 @@
 <Fab on:click={() => alert('fab clicked')}>
     <Icon icon="add"/>
 </Fab>
+
+<style lang="scss">
+  @import "theme.css";
+
+  .option-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+  }
+</style>

@@ -17,6 +17,17 @@ export class Workspace {
     }
 }
 
+export class WorkspaceInvitation {
+
+    public name: string;
+    public invitor: string;
+    public id: string;
+
+    constructor(init?: Partial<WorkspaceInvitation>) {
+        Object.assign(this, init);
+    }
+}
+
 export class JoinWorkspaceRequest {
 
     public invitationId: string;

@@ -1,17 +1,28 @@
 <script lang="ts">
+    import {CssBuilder} from "./CssBuilder";
+
     export let noPadding: boolean = false;
+    export let noPaddingTop: boolean = false;
+    export let noHeader: boolean = false;
     export let noActions: boolean = false;
+
+    $: viewClass = new CssBuilder('view')
+        .addFeature('no-padding-top', noPaddingTop)
+        .addFeature('no-padding', noPadding)
+        .build();
 </script>
 
-<div class="view" style={`${noPadding ? "padding: 0" : ""}`}>
-    <div class="view__header" style={`${noPadding ? "padding: 24px" : ""}`}>
-        <div class="view__header-content">
-            <slot name="header"/>
+<div class={viewClass}>
+    {#if !noHeader}
+        <div class="view__header" style={`${noPadding ? "padding: 24px" : ""}`}>
+            <div class="view__header-content">
+                <slot name="header"/>
+            </div>
+            <div class="view__header-actions">
+                <slot name="header-actions"/>
+            </div>
         </div>
-        <div class="view__header-actions">
-            <slot name="header-actions"/>
-        </div>
-    </div>
+    {/if}
     <div class="view__content">
         <slot/>
     </div>
@@ -29,6 +40,14 @@
     .view {
         padding: 32px;
         width: 100%;
+
+      &--no-padding{
+        padding: 0;
+      }
+
+      &--no-padding-top{
+        padding-top: 0;
+      }
 
         &__header {
             display: flex;
