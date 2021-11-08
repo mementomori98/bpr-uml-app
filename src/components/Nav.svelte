@@ -14,6 +14,7 @@
     import {AuthenticationService} from "../services/AuthenticationService";
     import WorkspaceNavOptions from "./views/Workspace/WorkspaceNavOptions.svelte";
     import MessageIcon from "./ui/MessageIcon.svelte";
+    import TreeView from "./views/TreeView.svelte";
 
     const authenticationService = getService(AuthenticationService);
     let visible: boolean;
@@ -25,6 +26,45 @@
         authenticationService.logout()
         $goto('/login');
     }
+
+    const demoTree = {
+        label: "USA", type:"folder", children: [
+            {label: "Cloreida", type:"folder", children: [
+                    {label: "Jackdsonville", type:"model"},
+                    {label: "Orliando", type:"folder", children: [
+                            {label: "Disnney World", type:"model"},
+                            {label: "Univversal Studio", type:"model"},
+                            {label: "Sea Woporld", type:"folder", children: [
+                                    {label: "Cloíyrida", type:"folder", children: [
+                                            {label: "Jackbsonville", type:"model"},
+                                            {label: "Orlanderdo", type:"folder", children: [
+                                                    {label: "Disney vxWorld", type:"model"},
+                                                    {label: "Unixvversal Studio", type:"model"},
+                                                    {label: "Sea Woerld", type:"folder", children: [
+                                                            {label: "Clori3da", type:"folder", children: [
+                                                                    {label: "Jackcsonaaville", type:"model"},
+                                                                    {label: "Orlangdo", type:"folder", children: [
+                                                                            {label: "Disnegy World", type:"model"},
+                                                                            {label: "Univers44al Studio", type:"model"},
+                                                                            {label: "Sea Wo2rld", type:"model"},
+                                                                        ]},
+                                                                    {label: "Mfiami"},
+                                                                ]}
+                                                        ]},
+                                                ]},
+                                            {label: "Miasami"},
+                                        ]}
+                                ]},
+                        ]},
+                    {label: "Miae3mi"},
+                ]},
+            {label: "Californiua", type:"folder", children: [
+                    {label: "Sanfn Francisco", type:"model"},
+                    {label: "Los Angz5eles", type:"model"},
+                    {label: "Sacramfgento", type:"model"},
+                ]},
+        ],
+    }
 </script>
 
 <DrawerLayout>
@@ -33,10 +73,11 @@
 
 
         <NavLink href="/projects">Projects</NavLink>
+        <TreeView tree={demoTree}/>
         <NavLink href="/tests">__Tests</NavLink>
         <NavLink href="/zollytest">__Tabs</NavLink>
-        <NavLink href="/treeview">__Treeview</NavLink>
         <NavLink href="/socket">__Socket</NavLink>
+
         <Spacer size="24"/>
         <NavLink href="/settings">Workspace</NavLink>
         <NavLink href="/logout">Log out</NavLink>

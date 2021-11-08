@@ -1,136 +1,66 @@
 <script lang="ts">
-    const _expansionState = {}
-    export let tree = {}
-    const {label, type, children} = tree
+    import TreeView from "./TreeView.svelte";
+    import TreeViewElement from "../ui/TreeViewElement.svelte";
+    import {CssBuilder} from "../ui/CssBuilder";
+    import {noPadding} from "../ui/Text.svelte";
 
-    let expanded = _expansionState[label] || false
-    const toggleExpansion = () => {
-        expanded = _expansionState[label] = !expanded
-    }
-    $: arrowDown = expanded
+    export let tree;
+    export let width: number;
+    export let height: number;
+    export let maxWidth: number = width;
+    export let maxHeight: number = height;
 
-    //fas fa-folder
-    //	indeterminate_check_box
+    $: style = new CssBuilder('wrapper')
+        .build();
+
+
 </script>
-
-
-<svelte:head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</svelte:head>
-<div class="routy">
-            {#if expanded}
-                <div class="line-wrapper">
-                    <div class="vertical">
-                    </div>
-                </div>
-            {/if}
-            {#if children}
-                <div on:click={toggleExpansion} class="item-wrapper">
-                    <div class="icon-wrapper">
-                        {#if !expanded}
-                            <div class="fa fa-plus icon"></div>
-                        {:else}
-                            <div class="fa fa-minus icon"></div>
-                        {/if}
-                    </div>
-                    <div style="align-self: center">
-                        {label}
-                    </div>
-                </div>
-                {#if expanded}
-                    {#each children as child}
-                        <div style="display: flex">
-                            <div class="horizontal">
-                            </div>
-                            <svelte:self tree={child}/>
-                        </div>
-
-                    {/each}
-                {/if}
-            {:else}
-				<div class="no-arrow">{label}</div>
-            {/if}
+<div class={style}>
+    <TreeViewElement tree={tree}/>
 </div>
+
 
 <style lang="scss">
   @import "../theme.scss";
 
-  .routy {
-    height: fit-content;
-    position: relative;
+  .wrapper {
+    width: calc(100% - 24px);
+    min-height: 200px;
+    max-height: 200px;
+    border-radius: 5px;
+    padding: 10px 0px 15px 0;
+    margin: 0 12px 0 12px;
+    background-color: #30476a;
+    overflow: overlay;
+    border: 1px solid #dfdfff4d;
   }
 
-  ul {
-    margin: 0;
-    list-style: none;
-    padding-left: 0;
-    user-select: none;
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
   }
 
-  li{
-    position: relative
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: rgba(37, 60, 94, 0.38);
+    border-radius: 10px;
   }
 
-  .no-arrow {
-    padding-left: 17px;
-    height: 20px;
+  ::-webkit-scrollbar-corner {
+    background: #30476a;
+    border-radius: 0 0 10px 0;
+
   }
 
-  .item-wrapper {
-    display: flex;
-    height: 20px;
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(151, 151, 210, 0.38);
   }
 
-  .line-wrapper {
-    position: absolute;
-    height: 100%;
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    border-radius: 10px;
+    background: rgba(156, 156, 217, 0.56);
   }
-
-  .vertical {
-    height: 100%;
-
-    &:before {
-      content: "";
-      display: block;
-      position: relative;
-      z-index: 1;
-      top: 14px;
-      height: calc(100% - 24px);
-      border: 1px solid #dedede;
-      border-width: 0 0 0 2px;
-      z-index: -100;
-    }
-  }
-
-  .horizontal {
-    height: 100%;
-
-    &:before {
-      content: "";
-      display: block;
-      position: relative;
-      z-index: 1;
-      top: 9px;
-      width: 15px;
-      border: 1px solid #dedede;
-      border-width: 2px 0 0 0;
-    }
-  }
-
-  .icon-wrapper {
-    margin-right: 5px;
-    width: 10px;
-    height: fit-content;
-    align-self: center;
-    padding-bottom: 5px
-  }
-
-  .icon {
-    font-size: 7px;
-    border: 2px solid #989898;
-    color: #252525;
-    padding: 2px 2px 1px 2px;
-    border-radius: 2px;
-  }
-
 </style>
