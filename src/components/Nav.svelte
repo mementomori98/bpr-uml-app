@@ -30,9 +30,12 @@
 <DrawerLayout>
     <svelte:fragment slot="drawer">
         <NavLink href="/">Index</NavLink>
-        <NavLink href="/tests">Tests</NavLink>
-        <NavLink href="/zollytest">Zolly Tabs Test</NavLink>
+
+
         <NavLink href="/projects">Projects</NavLink>
+        <NavLink href="/tests">__Tests</NavLink>
+        <NavLink href="/zollytest">__Tabs</NavLink>
+        <NavLink href="/treeview">__Treeview</NavLink>
         <NavLink href="/socket">__Socket</NavLink>
         <Spacer size="24"/>
         <NavLink href="/settings">Workspace</NavLink>
