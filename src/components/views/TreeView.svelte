@@ -18,13 +18,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </svelte:head>
 <div class="routy">
-    <ul>
-        <li>
-            <div class="line-wrapper">
-                <div class="test">
+            {#if expanded}
+                <div class="line-wrapper">
+                    <div class="vertical">
+                    </div>
                 </div>
-            </div>
-
+            {/if}
             {#if children}
                 <div on:click={toggleExpansion} class="item-wrapper">
                     <div class="icon-wrapper">
@@ -40,19 +39,17 @@
                 </div>
                 {#if expanded}
                     {#each children as child}
-                        <svelte:self tree={child}/>
+                        <div style="display: flex">
+                            <div class="horizontal">
+                            </div>
+                            <svelte:self tree={child}/>
+                        </div>
+
                     {/each}
                 {/if}
             {:else}
-			<span>
-				<span class="no-arrow"></span>
-
-                {label}
-			</span>
+				<div class="no-arrow">{label}</div>
             {/if}
-
-        </li>
-    </ul>
 </div>
 
 <style lang="scss">
@@ -60,48 +57,69 @@
 
   .routy {
     height: fit-content;
-
-    & > ul > li > .line-wrapper {
-      height: 300px;
-    }
+    position: relative;
   }
 
   ul {
     margin: 0;
     list-style: none;
-    padding-left: 1.2rem;
+    padding-left: 0;
     user-select: none;
   }
 
+  li{
+    position: relative
+  }
+
   .no-arrow {
-    padding-left: 1.0rem;
+    padding-left: 17px;
+    height: 20px;
   }
 
   .item-wrapper {
     display: flex;
+    height: 20px;
   }
 
   .line-wrapper {
     position: absolute;
+    height: 100%;
   }
 
-  .test {
+  .vertical {
     height: 100%;
+
     &:before {
       content: "";
       display: block;
       position: relative;
       z-index: 1;
-      top: 18px;
-      height: 100%;
-      border: 1px solid red;
+      top: 14px;
+      height: calc(100% - 24px);
+      border: 1px solid #dedede;
       border-width: 0 0 0 2px;
+      z-index: -100;
+    }
+  }
+
+  .horizontal {
+    height: 100%;
+
+    &:before {
+      content: "";
+      display: block;
+      position: relative;
+      z-index: 1;
+      top: 9px;
+      width: 15px;
+      border: 1px solid #dedede;
+      border-width: 2px 0 0 0;
     }
   }
 
   .icon-wrapper {
     margin-right: 5px;
-    width: fit-content;
+    width: 10px;
     height: fit-content;
     align-self: center;
     padding-bottom: 5px

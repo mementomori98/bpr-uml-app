@@ -4,7 +4,7 @@
 
     const tree = {
         label: "USA", type:"folder", children: [
-            {label: "Florida", type:"folder", children: [
+            {label: "Clorida", type:"folder", children: [
                     {label: "Jacksonville", type:"model"},
                     {label: "Orlando", type:"folder", children: [
                             {label: "Disney World", type:"model"},
