@@ -3,8 +3,8 @@
     import {fade} from 'svelte/transition'
     import {createEventDispatcher} from "svelte";
 
-    export let visible: boolean;
-    export let style: string;
+    export let visible: boolean = false;
+    export let style: string = '';
     const dispatch = createEventDispatcher()
 
     const handleContainerClick = function (e: MouseEvent) {

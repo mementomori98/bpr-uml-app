@@ -70,14 +70,13 @@
 <DrawerLayout>
     <svelte:fragment slot="drawer">
         <NavLink href="/">Index</NavLink>
-
-
-        <NavLink href="/projects">Projects</NavLink>
+        
+        <NavLink href="/projects">Projects</NavLink>        
         <TreeView tree={demoTree}/>
+        <NavLink href="/diagram">__Diagram</NavLink>
         <NavLink href="/tests">__Tests</NavLink>
         <NavLink href="/zollytest">__Tabs</NavLink>
         <NavLink href="/socket">__Socket</NavLink>
-
         <Spacer size="24"/>
         <NavLink href="/settings">Workspace</NavLink>
         <NavLink href="/logout">Log out</NavLink>
@@ -115,7 +114,7 @@
         </ContextMenu>
     </svelte:fragment>
     <slot/>
-    {#if path !== '/editor' && path !== '/index'}
+    {#if path !== '/editor' && path !== '/diagram'}
         <VirtualSpace/>
     {/if}
 </DrawerLayout>
