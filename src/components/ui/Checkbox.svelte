@@ -1,6 +1,6 @@
 <script lang="ts">
     import {createEventDispatcher} from "svelte";
-    import {CssBuilder} from "./CssBuilder";
+    import {CssBuilder} from "./utils/CssBuilder";
 
     export let checked: boolean = false;
     export let disabled: boolean = false;

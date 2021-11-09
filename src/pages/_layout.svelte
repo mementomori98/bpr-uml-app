@@ -7,7 +7,7 @@
     import {beforeUrlChange} from "@roxi/routify";
     import {afterPageLoad} from "@roxi/routify";
     import {goto} from "@roxi/routify";
-    import {Colors} from "../components/ui/Colors";
+    import {Colors} from "../components/ui/utils/Colors";
     import Fab from "../components/ui/Fab.svelte";
     import Icon from "../components/ui/Icon.svelte";
     import ContextMenu from "../components/ui/ContextMenu.svelte";

@@ -2,7 +2,7 @@
     import Dialog from "../../../ui/Dialog.svelte";
     import Form from "../../../ui/Form.svelte";
     import Button from "../../../ui/Button.svelte";
-    import {Colors} from "../../../ui/Colors";
+    import {Colors} from "../../../ui/utils/Colors";
     import Input from "../../../ui/Input.svelte";
 
     export let visible: boolean = false;

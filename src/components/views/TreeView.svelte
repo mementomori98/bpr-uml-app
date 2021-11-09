@@ -1,7 +1,7 @@
 <script lang="ts">
     import TreeView from "./TreeView.svelte";
     import TreeViewElement from "../ui/TreeViewElement.svelte";
-    import {CssBuilder} from "../ui/CssBuilder";
+    import {CssBuilder} from "../ui/utils/CssBuilder";
     import {noPadding} from "../ui/Text.svelte";
 
     export let tree;

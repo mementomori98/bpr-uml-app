@@ -4,7 +4,7 @@
     import Form from "../../../ui/Form.svelte";
     import Input from "../../../ui/Input.svelte";
     import Button from "../../../ui/Button.svelte";
-    import {Colors} from "../../../ui/Colors";
+    import {Colors} from "../../../ui/utils/Colors";
     import {goto} from "@roxi/routify";
     import Wrapper from "../../../ui/Wrapper.svelte";
 

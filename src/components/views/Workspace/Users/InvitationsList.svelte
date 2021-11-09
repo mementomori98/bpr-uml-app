@@ -3,7 +3,7 @@
     import ListRowItem from "../../../ui/ListRowItem.svelte";
     import Button from "../../../ui/Button.svelte";
     import {JoinWorkspaceRequest, WorkspaceInvitation} from "../../../../services/Workspaces/Models";
-    import {Colors} from "../../../ui/Colors";
+    import {Colors} from "../../../ui/utils/Colors";
     import Text from "../../../ui/Text.svelte";
     import {goto} from "@roxi/routify";
     import ListScrollWrapper from "../../../ui/ListScrollWrapper.svelte";

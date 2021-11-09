@@ -3,7 +3,7 @@ import Card from "../../ui/Card.svelte";
 import View from "../../ui/View.svelte";
 import WorkspaceDangerItem from "./WorkspaceDangerItem.svelte";
 import Button from "../../ui/Button.svelte";
-import {Colors} from "../../ui/Colors";
+import {Colors} from "../../ui/utils/Colors";
 import WorkspaceDangerDialog from "./WorkspaceDangerDialog.svelte";
 
 export let title: string = ""

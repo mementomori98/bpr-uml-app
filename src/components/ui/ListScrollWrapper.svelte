@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {CssBuilder} from "./CssBuilder";
+    import {CssBuilder} from "./utils/CssBuilder";
     import {isHeader, noBorder} from "./ListRow.svelte";
 
     export let style: string = "";

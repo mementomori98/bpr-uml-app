@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {CssBuilder} from "./CssBuilder";
+    import {CssBuilder} from "./utils/CssBuilder";
 
     export let isHeader: boolean = false;
     export let isHighlighted: boolean = false;

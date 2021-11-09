@@ -1,7 +1,7 @@
 <script lang="ts">
 
-    import {Colors} from "./Colors";
-    import {CssBuilder} from "./CssBuilder";
+    import {Colors} from "./utils/Colors";
+    import {CssBuilder} from "./utils/CssBuilder";
     import {createEventDispatcher} from "svelte";
 
     export let color: Colors = Colors.Blue;

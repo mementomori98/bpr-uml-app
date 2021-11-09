@@ -1,7 +1,7 @@
 <script lang="ts">
 
     import {createEventDispatcher} from "svelte";
-    import {CssBuilder} from "./CssBuilder";
+    import {CssBuilder} from "./utils/CssBuilder";
 
     export let label: string = "";
     export let value: string = "";

@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import {CssBuilder} from "./CssBuilder";
+    import {CssBuilder} from "./utils/CssBuilder";
 
     export let noPadding: boolean = false;
 

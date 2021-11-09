@@ -1,4 +1,4 @@
-import { Colors } from "../../components/ui/Colors";
+import { Colors } from "../../components/ui/utils/Colors";
 import { Model } from "../Model";
 export class Snackbar {
     constructor() {

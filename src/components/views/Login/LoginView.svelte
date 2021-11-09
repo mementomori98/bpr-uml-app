@@ -3,7 +3,7 @@
     import Input from "../../ui/Input.svelte";
     import Button from "../../ui/Button.svelte";
     import View from "../../ui/View.svelte";
-    import {Colors} from "../../ui/Colors";
+    import {Colors} from "../../ui/utils/Colors";
     import Wrapper from "../../ui/Wrapper.svelte";
     import {AuthenticationService} from "../../../services/AuthenticationService";
     import Card from "../../ui/Card.svelte";

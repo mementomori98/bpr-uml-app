@@ -10,7 +10,7 @@
     import Checkbox from "../../../ui/Checkbox.svelte";
     import Input from "../../../ui/Input.svelte";
     import Button from "../../../ui/Button.svelte";
-    import {Colors} from "../../../ui/Colors";
+    import {Colors} from "../../../ui/utils/Colors";
     import {UserToTeam} from "../../../../services/users/UserToTeam";
     import ListScrollWrapper from "../../../ui/ListScrollWrapper.svelte";
 

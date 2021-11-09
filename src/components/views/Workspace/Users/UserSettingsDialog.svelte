@@ -4,7 +4,7 @@
     import Input from "../../../ui/Input.svelte";
     import Select from "../../../ui/Select.svelte";
     import Button from "../../../ui/Button.svelte";
-    import {Colors} from "../../../ui/Colors";
+    import {Colors} from "../../../ui/utils/Colors";
     import Form from "../../../ui/Form.svelte";
     import {DataListItem} from "../../../../services/DataListItem";
     export let visible: boolean = false;

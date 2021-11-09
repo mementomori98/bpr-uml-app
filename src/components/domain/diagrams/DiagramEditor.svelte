@@ -4,7 +4,7 @@
     import Button from "../../ui/Button.svelte";
     import getService from "../../../services/Services";
     import {Snackbar} from "../../../services/utils/Snackbar";
-    import {Colors} from "../../ui/Colors";
+    import {Colors} from "../../ui/utils/Colors";
 
     export let diagramId: string;
     let diagram = new DiagramHandler();
