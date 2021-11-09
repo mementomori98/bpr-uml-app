@@ -6,7 +6,7 @@ import Button from "../../ui/Button.svelte";
 import {Colors} from "../../ui/Colors";
 import WorkspaceDangerDialog from "./WorkspaceDangerDialog.svelte";
 
-export let title: string = ""
+export const title: string = ""
 let dangerVisible: boolean = false;
 
 const deleteWorkspace = () => {

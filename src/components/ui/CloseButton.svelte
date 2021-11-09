@@ -4,7 +4,7 @@
     import {CssBuilder} from "./CssBuilder";
     import {createEventDispatcher} from "svelte";
 
-    export let color: Colors = Colors.Blue;
+    export const color: Colors = Colors.Blue;
     export let disabled: boolean = false;
     const dispatch = createEventDispatcher();
 
