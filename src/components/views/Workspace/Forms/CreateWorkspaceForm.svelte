@@ -9,8 +9,10 @@
     import InvitationsList from "../Users/InvitationsList.svelte";
     import View from "../../../ui/View.svelte";
     import Divider from "../../../ui/Divider.svelte";
+    import {AppContext} from "../../../../services/utils/AppContext";
 
     const workspaceService = getService(WorkspaceService);
+    const appContext = getService(AppContext);
 
     let name: string;
 
@@ -24,6 +26,7 @@
         /*const res = await workspaceService.create(new CreateWorkspaceRequest({
             name: name
         }));*/
+       // appContext.setWorkspaceId(res._id)
         $goto('/')
     }
 

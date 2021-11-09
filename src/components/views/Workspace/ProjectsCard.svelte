@@ -7,12 +7,32 @@
     import CloseButton from "../../ui/CloseButton.svelte";
     import CreateProjectDialog from "./CreateProjectDialog.svelte";
     import {goto} from "@roxi/routify";
+    import {onMount} from "svelte";
+    import getService from "../../../services/Services";
+    import {UserService} from "../../../services/users/UserService";
+    import {AppContext} from "../../../services/utils/AppContext";
+    import {ProjectService} from "../../../services/projects/ProjectService";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
     import {Team} from "../../../services/teams/Team";
     import {Project} from "../../../services/Workspaces/Project";
 
+    const projectService = getService(ProjectService);
+    const appContext = getService(AppContext);
+
     let createVisible: boolean = false;
     let currentProjectId: number = 5;
+    let received = [
+        new Project({name: 'Pegasus', id: 1}),
+        new Project({name: 'Casino', id: 2}),
+        new Project({name: 'Spectre', id: 3}),
+        new Project({name: 'Skyfall', id: 4}),
+        new Project({name: 'Syndicate', id: 5}),
+    ]
+
+    onMount(async () => {
+        const res = await projectService.getWorkspaceProjects(appContext.getWorkspaceId());
+        console.log(res)
+    })
 
     const formatProjectList = (projects: Project[]) => {
         projects.sort((u1, u2) => u1.name.localeCompare(u2.name));
@@ -21,14 +41,6 @@
         remaining.unshift(currentProject)
         return remaining
     }
-
-    let received = [
-        new Project({name: 'Pegasus', id: 1}),
-        new Project({name: 'Casino', id: 2}),
-        new Project({name: 'Spectre', id: 3}),
-        new Project({name: 'Skyfall', id: 4}),
-        new Project({name: 'Syndicate', id: 5}),
-    ]
 
     let projects = formatProjectList(received);
 

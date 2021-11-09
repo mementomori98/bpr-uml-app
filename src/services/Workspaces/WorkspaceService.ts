@@ -22,4 +22,15 @@ export class WorkspaceService {
         });
     }
 
+    public async get() {
+        const res = await this.client.get('workspaces/');
+        // Todo return something relevant
+        return res;
+    }
+
+    public async getById(id: string) {
+        const res = await this.client.get('workspaces/' + id);
+        // Todo return something relevant
+        return res;
+    }
 }
