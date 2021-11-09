@@ -65,20 +65,20 @@
                 <ListRow isHeader>
                     <ListRowItem widthInPercentage={20}>Name</ListRowItem>
                     <ListRowItem widthInPercentage={30}>Email</ListRowItem>
-                    <ListRowItem widthInPercentage={33}>Role</ListRowItem>
-                    <ListRowItem widthInPercentage={10}>Can edit</ListRowItem>
-                    <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>Role</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>Can edit</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>Kick</ListRowItem>
                 </ListRow>
             </svelte:fragment>
             {#each users as user}
                 <ListRow noBorder={user === users[users.length-1]} noFunction>
                     <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>
                     <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
-                    <ListRowItem widthInPercentage={33}>{user.role}</ListRowItem>
-                    <ListRowItem widthInPercentage={10}>
+                    <ListRowItem widthInPercentage={30}>{user.role}</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>
                         <Checkbox bind:checked={user.canEdit} on:checkChange={e => checkChange(e, user)}/>
                         <!-- TODO disabled if not product owner--></ListRowItem>
-                    <ListRowItem widthInPercentage={7}>
+                    <ListRowItem center widthInPercentage={10}>
                         <CloseButton on:click={() => removeUserFromProject(user)}/>
                         <!-- TODO disabled if not product owner--></ListRowItem>
                 </ListRow>

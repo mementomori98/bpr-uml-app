@@ -130,7 +130,7 @@
                     <ListRowItem widthInPercentage={43}>Name</ListRowItem>
                     <ListRowItem widthInPercentage={50}>Email</ListRowItem>
                     {#if !locked || !lockable}
-                        <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
+                        <ListRowItem center widthInPercentage={7}>Kick</ListRowItem>
                     {/if}
                 </ListRow>
             </svelte:fragment>
@@ -139,7 +139,7 @@
                     <ListRowItem widthInPercentage={43}>{user.name}</ListRowItem>
                     <ListRowItem widthInPercentage={50}>{user.email}</ListRowItem>
                     {#if !locked || !lockable}
-                        <ListRowItem widthInPercentage={7}>
+                        <ListRowItem center widthInPercentage={7}>
                             <CloseButton on:click={() => closeUserChoice(user)}/>
                         </ListRowItem>
                     {/if}

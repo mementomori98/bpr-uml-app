@@ -11,7 +11,7 @@
         .build();
 </script>
 
-<div style={`width: ${widthInPercentage}%;`}>
+<div class={dividerStyle} style={`width: ${widthInPercentage}%;`}>
     <slot/>
 </div>
 

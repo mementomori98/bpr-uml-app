@@ -32,11 +32,11 @@
     --border-active: #1E2235;
     --tick: #fff;
     position: relative;
+
     input,
     svg {
       width: 21px;
       height: 21px;
-      display: block;
     }
     input {
       -webkit-appearance: none;
@@ -74,7 +74,7 @@
       stroke: var(--stroke, var(--border-active));
       position: absolute;
       top: 0;
-      left: 0;
+      left: 14px;
       width: 21px;
       height: 21px;
       transform: scale(var(--scale, 1)) translateZ(0);
@@ -124,53 +124,5 @@
     }
   }
 
-  html {
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-  }
 
-  * {
-    box-sizing: inherit;
-    &:before,
-    &:after {
-      box-sizing: inherit;
-    }
-  }
-
-  // Center & dribbble
-  body {
-    min-height: 100vh;
-    display: flex;
-    font-family: 'Roboto', Arial;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background: #F6F8FF;
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-gap: 24px;
-    }
-    .dribbble {
-      position: fixed;
-      display: block;
-      right: 20px;
-      bottom: 20px;
-      img {
-        display: block;
-        height: 28px;
-      }
-    }
-    .twitter {
-      position: fixed;
-      display: block;
-      right: 64px;
-      bottom: 14px;
-      svg {
-        width: 32px;
-        height: 32px;
-        fill: #1da1f2;
-      }
-    }
-  }
 </style>

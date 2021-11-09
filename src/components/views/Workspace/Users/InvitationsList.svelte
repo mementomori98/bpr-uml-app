@@ -30,14 +30,14 @@
 <Text noPadding={noPadding}>Invitations</Text>
 <ListScrollWrapper maxHeight={maxHeight}>
     <svelte:fragment slot="header">
-        <ListRow style="padding: 0 0 0 14px; min-height: 40px" isHeader>
+        <ListRow style="padding-top:0; padding-bottom:0;  min-height: 40px" isHeader>
             <ListRowItem widthInPercentage={40}>Name</ListRowItem>
             <ListRowItem widthInPercentage={40}>Invitor</ListRowItem>
             <ListRowItem widthInPercentage={20}></ListRowItem>
         </ListRow>
     </svelte:fragment>
     {#each workspaces as workspace}
-        <ListRow noBorder={workspace === workspaces[workspaces.length-1]} style="padding: 0 0 0 14px; min-height: 40px">
+        <ListRow noBorder={workspace === workspaces[workspaces.length-1]} style="padding-top:0; padding-bottom:0; min-height: 40px">
             <ListRowItem widthInPercentage={40}>{workspace.name}</ListRowItem>
             <ListRowItem widthInPercentage={40}>{workspace.invitor}</ListRowItem>
             <ListRowItem widthInPercentage={20}>

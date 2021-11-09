@@ -44,18 +44,18 @@
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
-                    <ListRowItem widthInPercentage={64}>Name</ListRowItem>
-                    <ListRowItem widthInPercentage={12}>Users</ListRowItem>
-                    <ListRowItem widthInPercentage={12}>Projects</ListRowItem>
-                    <ListRowItem widthInPercentage={12}>Remove</ListRowItem>
+                    <ListRowItem widthInPercentage={56}>Name</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>Users</ListRowItem>
+                    <ListRowItem center widthInPercentage={16}>Projects</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>Remove</ListRowItem>
                 </ListRow>
             </svelte:fragment>
             {#each teams as team}
                 <ListRow noBorder={team === teams[teams.length-1]} on:click={() => handleClick(team)}>
-                    <ListRowItem widthInPercentage={64}>{team.name}</ListRowItem>
-                    <ListRowItem widthInPercentage={12}>{team.usersAmount}</ListRowItem>
-                    <ListRowItem widthInPercentage={12}>{team.projectsAmount}</ListRowItem>
-                    <ListRowItem widthInPercentage={12}>
+                    <ListRowItem widthInPercentage={56}>{team.name}</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>{team.usersAmount}</ListRowItem>
+                    <ListRowItem center widthInPercentage={16}>{team.projectsAmount}</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>
                         <CloseButton on:click={() => removeTeam(team)}/>
                         <!-- TODO disabled if not admin, or not created by the user--></ListRowItem>
                 </ListRow>

@@ -44,14 +44,14 @@
             <svelte:fragment slot="header">
                 <ListRow isHeader>
                     <ListRowItem widthInPercentage={93}>Name</ListRowItem>
-                    <ListRowItem widthInPercentage={7}>Leave</ListRowItem>
+                    <ListRowItem center widthInPercentage={7}>Leave</ListRowItem>
                 </ListRow>
             </svelte:fragment>
             {#each projects as project}
                 <ListRow noBorder={project === projects[projects.length-1]}
                          on:click={() => $goto('/project', {id: project.name})}> <!-- TODO pass id in goto--> <!-- TODO isHighlighted = currentProject...-->
                     <ListRowItem widthInPercentage={93}>{project.name}</ListRowItem>
-                    <ListRowItem widthInPercentage={7}>
+                    <ListRowItem center widthInPercentage={7}>
                         <CloseButton on:click={() => leaveProject(project)}/>
                         <!-- TODO disabled if not product owner--></ListRowItem>
                 </ListRow>
