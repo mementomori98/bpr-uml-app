@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {CssBuilder} from "./CssBuilder";
+    import {CssBuilder} from "./utils/CssBuilder";
 
     export let widthInPercentage: number = 10;
     export let center: boolean = false;
