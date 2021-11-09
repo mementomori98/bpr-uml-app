@@ -42,7 +42,7 @@
         <Input label="Password" bind:value={password} {locked} {password}/>
         {#if !locked}
             <Input label="Repeat password" bind:value={pwConfirm} {locked} on:enter={handleSubmit} {password}
-                   errorMsg="Passwords don't match"/>
+                   errorMessage="Passwords don't match"/>
         {/if}
     </Form>
 </Card>

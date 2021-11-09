@@ -3,7 +3,7 @@
     import {isHeader, noBorder} from "./ListRow.svelte";
 
     export let style: string = "";
-    export let maxHeight: number;
+    export let maxHeight: number = null;
     export let disabledBorder: boolean = false;
     export let hiddenVerticalScroll: boolean = false;
 

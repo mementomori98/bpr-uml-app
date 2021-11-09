@@ -5,22 +5,14 @@
     import ListRow from "../../ui/ListRow.svelte";
     import ListRowItem from "../../ui/ListRowItem.svelte";
     import CloseButton from "../../ui/CloseButton.svelte";
-    import {User} from "../../../services/users/User";
-    import {Project} from "../../../services/Workspaces/Project";
     import CreateProjectDialog from "./CreateProjectDialog.svelte";
     import {goto} from "@roxi/routify";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
+    import {Team} from "../../../services/teams/Team";
+    import {Project} from "../../../services/Workspaces/Project";
 
     let createVisible: boolean = false;
     let currentProjectId: number = 5;
-    let received = [
-        new Project({name: 'Pegasus', id: 1}),
-        new Project({name: 'Casino', id: 2}),
-        new Project({name: 'Spectre', id: 3}),
-        new Project({name: 'Skyfall', id: 4}),
-        new Project({name: 'Syndicate', id: 5}),
-    ]
-
 
     const formatProjectList = (projects: Project[]) => {
         projects.sort((u1, u2) => u1.name.localeCompare(u2.name));
@@ -29,6 +21,14 @@
         remaining.unshift(currentProject)
         return remaining
     }
+
+    let received = [
+        new Project({name: 'Pegasus', id: 1}),
+        new Project({name: 'Casino', id: 2}),
+        new Project({name: 'Spectre', id: 3}),
+        new Project({name: 'Skyfall', id: 4}),
+        new Project({name: 'Syndicate', id: 5}),
+    ]
 
     let projects = formatProjectList(received);
 

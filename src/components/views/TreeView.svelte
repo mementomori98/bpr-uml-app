@@ -4,19 +4,21 @@
     import {CssBuilder} from "../ui/CssBuilder";
     import {noPadding} from "../ui/Text.svelte";
 
-    export let tree;
-    export let width: number;
-    export let height: number;
+    export let tree = null;
+    export let width: number = 200;
+    export let height: number = 200;
     export let maxWidth: number = width;
     export let maxHeight: number = height;
 
     $: style = new CssBuilder('wrapper')
         .build();
-
-
 </script>
+
+
 <div class={style}>
-    <TreeViewElement tree={tree}/>
+    {#if tree !== null}
+        <TreeViewElement tree={tree}/>
+    {/if}
 </div>
 
 
