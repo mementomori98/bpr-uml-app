@@ -13,6 +13,7 @@
     import {Team} from "../../../../services/teams/Team";
     import InviteTeamDialog from "./InviteTeamDialog.svelte";
     import TeamSettingsDialog from "./TeamSettingsDialog.svelte";
+    import ListScrollWrapper from "../../../ui/ListScrollWrapper.svelte";
 
     let teams = [
         new Team({name: 'Core', usersAmount: 5, projectsAmount: 3}),
@@ -39,24 +40,29 @@
 
 <Card>
     <View>
-        <svelte:fragment slot="header">Teams in {$params.id}</svelte:fragment> <!-- TODO disabled if not product owner-->
+        <svelte:fragment slot="header">Teams in {$params.id}</svelte:fragment>
+        <!-- TODO disabled if not product owner-->
         <svelte:fragment slot="header-actions"></svelte:fragment>
-        <ListRow isHeader>
-            <ListRowItem widthInPercentage={73}>Name</ListRowItem>
-            <ListRowItem widthInPercentage={10}>Users</ListRowItem>
-            <ListRowItem widthInPercentage={10}>Projects</ListRowItem>
-            <ListRowItem widthInPercentage={7}>Remove</ListRowItem>
-        </ListRow>
-        {#each teams as team}
-            <ListRow on:click={() => handleClick(team)}>
-                <ListRowItem widthInPercentage={73}>{team.name}</ListRowItem>
-                <ListRowItem widthInPercentage={10}>{team.usersAmount}</ListRowItem>
-                <ListRowItem widthInPercentage={10}>{team.projectsAmount}</ListRowItem>
-                <ListRowItem widthInPercentage={7}>
-                    <CloseButton on:click={() => removeTeamFromProject(team)}/>
-                    <!-- TODO disabled if not product owner --></ListRowItem>
-            </ListRow>
-        {/each}
+        <ListScrollWrapper>
+            <svelte:fragment slot="header">
+                <ListRow isHeader>
+                    <ListRowItem widthInPercentage={58}>Name</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>Users</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>Projects</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>Remove</ListRowItem>
+                </ListRow>
+            </svelte:fragment>
+            {#each teams as team}
+                <ListRow noBorder={team === teams[teams.length-1]} on:click={() => handleClick(team)}>
+                    <ListRowItem widthInPercentage={58}>{team.name}</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>{team.usersAmount}</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>{team.projectsAmount}</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>
+                        <CloseButton on:click={() => removeTeamFromProject(team)}/>
+                        <!-- TODO disabled if not product owner --></ListRowItem>
+                </ListRow>
+            {/each}
+        </ListScrollWrapper>
         <svelte:fragment slot="actions"> <!-- TODO disabled if not product owner-->
             <Button on:click={() => addVisible = true}>Add</Button>
         </svelte:fragment>

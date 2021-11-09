@@ -1,10 +1,17 @@
 <script lang="ts">
     import {createEventDispatcher} from "svelte";
+    import {CssBuilder} from "./CssBuilder";
 
     const dispatch = createEventDispatcher()
+
+    export let noPadding: boolean = false;
+
+    $: className = new CssBuilder('text-button')
+        .addFeature('no-padding', noPadding)
+        .build();
 </script>
 
-<div class="text-button" on:click={() => dispatch('click')}>
+<div class={className} on:click={() => dispatch('click')}>
     <slot/>
 </div>
 
@@ -16,8 +23,11 @@
         user-select: none;
         cursor: pointer;
         padding: 8px 16px;
-        color: black;
         border-radius: $border-radius-medium;
+
+        &--no-padding {
+            padding: 4px;
+        }
 
         &:hover {
             background-color: rgba(black, 0.03);

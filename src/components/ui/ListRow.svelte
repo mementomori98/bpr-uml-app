@@ -21,6 +21,7 @@
 <div class={wrapper} style={style} on:click>
     <slot/>
 </div>
+
 <div class={dividerStyle}/>
 
 <style lang="scss">
@@ -30,14 +31,15 @@
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 14px;
+    padding: 14px 32px;
     cursor: pointer;
 
     &--header {
       font-weight: 800;
-      padding: 0 14px;
+      padding: 0 32px;
       min-height: 48px;
       cursor: default;
+      background-color: #b8f3ff3b;
     }
 
     &--useless {
@@ -45,15 +47,15 @@
     }
 
     &--highlighted {
-      background-color: #f6f6f6;
+      background-color: #6f76ff21;
       font-weight: 800;
     }
   }
   .divider {
-    border-bottom: .5px solid rgba(0, 0, 0, .2);
+    border-bottom: 1px solid rgba(0, 0, 0, .08);
 
     &--header {
-      border-bottom: 2px solid #858585;
+      border: none;
     }
 
     &--no-border {

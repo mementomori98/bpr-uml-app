@@ -6,9 +6,12 @@
     import Wrapper from "../../ui/Wrapper.svelte";
     import ListRow from "../../ui/ListRow.svelte";
     import ListRowItem from "../../ui/ListRowItem.svelte";
-    import {CreateWorkspaceRequest, Workspace} from "../../../services/Workspaces/Models";
+    import {Workspace, WorkspaceInvitation} from "../../../services/Workspaces/Models";
     import {goto} from "@roxi/routify";
     import Button from "../../ui/Button.svelte";
+    import InvitationsList from "./Users/InvitationsList.svelte";
+    import Text from "../../ui/Text.svelte";
+    import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
     import getService from "../../../services/Services";
     import {WorkspaceService} from "../../../services/Workspaces/WorkspaceService";
     import {AppContext} from "../../../services/utils/AppContext";
@@ -33,18 +36,30 @@
     }
 
 
+    let invitations: WorkspaceInvitation[] = [
+        new WorkspaceInvitation({name: 'Rome', invitor: 'Nero', id: 1}),
+        new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 2}),
+        new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 3}),
+    ]
 
 </script>
 
 <Wrapper width="480" bgColor="ededed" verticalCentering>
     <Card>
-        <View>
+        <View noActions>
             <svelte:fragment slot="header">Select workspace</svelte:fragment>
-            {#each workspaces as workspace}
-                <ListRow on:click={() => onclick(workspace)}> <!-- TODO set workspace by the decision -->
-                    <ListRowItem widthInPercentage={100}>{workspace.name}</ListRowItem>
-                </ListRow>
-            {/each}
+            <Text noPadding>Your workspaces</Text>
+            <ListScrollWrapper>
+                {#each workspaces as workspace}
+                    <ListRow noBorder={workspace === workspaces[workspaces.length-1]} on:click={() => $goto('/')}> <!-- TODO set workspace by the decision -->
+                        <ListRowItem widthInPercentage={100}>{workspace.name}</ListRowItem>
+                    </ListRow>
+                {/each}
+            </ListScrollWrapper>
+            {#if invitations.length > 0}
+                <InvitationsList maxHeight={150} workspaces={invitations}/>
+            {/if}
+
         </View>
     </Card>
 </Wrapper>

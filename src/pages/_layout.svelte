@@ -18,6 +18,7 @@
     import {getContext} from "svelte";
     import getService from "../services/Services";
     import Nav from "../components/Nav.svelte";
+    import SnackbarProvider from "../components/ui/SnackbarProvider.svelte";
 
     const authenticationService = getService(AuthenticationService);
     let loggedIn: boolean;
@@ -45,6 +46,7 @@
 </script>
 
 <main>
+    <SnackbarProvider/>
     {#if noAuth.includes(path)}
         <slot/>
     {:else}

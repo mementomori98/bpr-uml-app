@@ -14,6 +14,7 @@
     import getService from "../../../services/Services";
     import {ProjectService} from "../../../services/projects/ProjectService";
     import {CreateProjectRequest} from "../../../services/projects/Models";
+    import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
 
     export let visible: boolean = false;
     let projectName: string = "";
@@ -80,7 +81,13 @@
         let user = testUsers.filter(function (item) {
             return item.id == e.detail.choice.id;
         })[0]
-        projectUsers.push(new UserToProject({name: user.name, email: user.email, id:user.id, canEdit: true, role: "Developer"}));
+        projectUsers.push(new UserToProject({
+            name: user.name,
+            email: user.email,
+            id: user.id,
+            canEdit: true,
+            role: "Developer"
+        }));
 
         listUsers = listUsers.filter(function (item) {
             return item.id != e.detail.choice.id;
@@ -107,28 +114,32 @@
     <Form on:submit={handleCreate} on:cancel={handleCancel} submitText="Create" cancelButton>
         <svelte:fragment slot="header">Create Project</svelte:fragment>
         <Input label="Project name" bind:value={projectName}/>
-        <ListRow isHeader>
-            <ListRowItem widthInPercentage={20}>Name</ListRowItem>
-            <ListRowItem widthInPercentage={30}>Email</ListRowItem>
-            <ListRowItem widthInPercentage={33}>Role</ListRowItem>
-            <ListRowItem widthInPercentage={10}>Can edit</ListRowItem>
-            <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
-        </ListRow>
-        {#each projectUsers as user}
-            <ListRow noFunction>
-                <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>
-                <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
-                <ListRowItem widthInPercentage={33}>{user.role}</ListRowItem>
-                <ListRowItem widthInPercentage={10}>
-                    <Checkbox bind:checked={user.canEdit}
-                              on:checkChange={e => console.log("")}/>
-                </ListRowItem>
-                <ListRowItem widthInPercentage={7}>
-                    <CloseButton on:click={() => closeUserChoice(user)}/>
-                </ListRowItem>
-            </ListRow>
-        {/each}
         <Select clearOnChoice label="Users to add" choices={listUsers} on:submit={e => pickUser(e)}/>
+        <ListScrollWrapper>
+            <svelte:fragment slot="header">
+                <ListRow isHeader>
+                    <ListRowItem widthInPercentage={20}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>Email</ListRowItem>
+                    <ListRowItem widthInPercentage={33}>Role</ListRowItem>
+                    <ListRowItem widthInPercentage={10}>Can edit</ListRowItem>
+                    <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
+                </ListRow>
+            </svelte:fragment>
+            {#each projectUsers as user}
+                <ListRow noBorder={user === projectUsers[projectUsers.length-1]} noFunction>
+                    <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
+                    <ListRowItem widthInPercentage={33}>{user.role}</ListRowItem>
+                    <ListRowItem widthInPercentage={10}>
+                        <Checkbox bind:checked={user.canEdit}
+                                  on:checkChange={e => console.log("")}/>
+                    </ListRowItem>
+                    <ListRowItem widthInPercentage={7}>
+                        <CloseButton on:click={() => closeUserChoice(user)}/>
+                    </ListRowItem>
+                </ListRow>
+            {/each}
+        </ListScrollWrapper>
     </Form>
 </Dialog>
 

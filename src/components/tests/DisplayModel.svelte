@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {Box} from "./Box";
+    import {Box} from "../../services/diagrams/Box";
 
     export let box: Box
     export let cameraX: number

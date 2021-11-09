@@ -15,6 +15,7 @@
 
     const userService = getService(UserService);
     const appContext = getService(AppContext);
+    import ListScrollWrapper from "../../../ui/ListScrollWrapper.svelte";
 
     let users = [
         new User({name: 'IMPLEMENT ME', email: 'IMPLEMENT ME', status: 'Invited', role: 'Developer'}),
@@ -44,20 +45,25 @@
     <View>
         <svelte:fragment slot="header">Users</svelte:fragment>
         <svelte:fragment slot="header-actions"></svelte:fragment>
-        <ListRow isHeader>
-            <ListRowItem widthInPercentage={20}>Name</ListRowItem>
-            <ListRowItem widthInPercentage={30}>Email</ListRowItem>
-            <ListRowItem widthInPercentage={20}>Status</ListRowItem>
-            <ListRowItem widthInPercentage={30}>Role</ListRowItem>
-        </ListRow>
-        {#each users as user}
-            <ListRow on:click={() => handleClick(user)}>
-                <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>
-                <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
-                <ListRowItem widthInPercentage={20}>{user.status}</ListRowItem>
-                <ListRowItem widthInPercentage={30}>{user.role}</ListRowItem>
-            </ListRow>
-        {/each}
+        <ListScrollWrapper>
+            <svelte:fragment slot="header">
+                <ListRow isHeader>
+                    <ListRowItem widthInPercentage={30}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>Email</ListRowItem>
+                    <ListRowItem center widthInPercentage={20}>Status</ListRowItem>
+                    <ListRowItem right widthInPercentage={20}>Role</ListRowItem>
+                </ListRow>
+            </svelte:fragment>
+            {#each users as user}
+                <ListRow noBorder={user === users[users.length-1]} on:click={() => handleClick(user)}>
+                    <ListRowItem widthInPercentage={30}>{user.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
+                    <ListRowItem center widthInPercentage={20}>{user.status}</ListRowItem>
+                    <ListRowItem right widthInPercentage={20}>{user.role}</ListRowItem>
+                </ListRow>
+            {/each}
+        </ListScrollWrapper>
+
         <svelte:fragment slot="actions">
             <Button on:click={() => inviteVisible = true}>Invite</Button>
         </svelte:fragment>

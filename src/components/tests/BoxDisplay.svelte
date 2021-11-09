@@ -1,32 +1,31 @@
 <script lang="ts">
-    import {Box} from "./Box";
 
-    export let box: Box;
+    import {BoxRepresentation} from "../../services/diagrams/Representations";
+    import DisplayFrame from "./DisplayFrame.svelte";
+
+    export let representation: BoxRepresentation;
+    export let dragX: number;
+    export let dragY: number;
     export let screenCoords;
-    export let element;
+    export let element = null;
+    export let zoom: number;
 
-    const style = (box: Box) => {
-        return `
-        left: ${screenCoords(box.x, box.y)[0]}px;
-        top: ${screenCoords(box.x, box.y)[1]}px;
-        width: ${screenCoords(box.x + box.width, box.y + box.height)[0] - screenCoords(box.x, box.y)[0]}px;
-        height: ${screenCoords(box.x + box.width, box.y + box.height)[1] - screenCoords(box.x, box.y)[1]}px;`;
-    }
 </script>
 
-<div class="box-display" style={style(box)} bind:this={element}>
-</div>
+<DisplayFrame representation={representation} dragX={dragX} dragY={dragY} screenCoords={screenCoords} zoom={zoom} bind:element>
+    <div class="box">
+        {representation.text}
+    </div>
+</DisplayFrame>
 
 <style lang="scss">
     @import "../theme.scss";
 
-    .box-display {
-        position: absolute;
+    .box {
         background-color: #d9cfa9;
-        border: 1px solid #000000;
-
-        &:hover {
-            box-shadow: $shadow-medium;
-        }
+        border: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 </style>

@@ -5,8 +5,6 @@
     import ListRow from "../../ui/ListRow.svelte";
     import ListRowItem from "../../ui/ListRowItem.svelte";
     import CloseButton from "../../ui/CloseButton.svelte";
-    import {User} from "../../../services/users/User";
-    import {Project} from "../../../services/Workspaces/Project";
     import CreateProjectDialog from "./CreateProjectDialog.svelte";
     import {goto} from "@roxi/routify";
     import {onMount} from "svelte";
@@ -14,6 +12,9 @@
     import {UserService} from "../../../services/users/UserService";
     import {AppContext} from "../../../services/utils/AppContext";
     import {ProjectService} from "../../../services/projects/ProjectService";
+    import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
+    import {Team} from "../../../services/teams/Team";
+    import {Project} from "../../../services/Workspaces/Project";
 
     const projectService = getService(ProjectService);
     const appContext = getService(AppContext);
@@ -51,19 +52,24 @@
 <Card>
     <View>
         <svelte:fragment slot="header">Projects in workspace</svelte:fragment>
-        <svelte:fragment slot="header-actions"></svelte:fragment>
-        <ListRow isHeader>
-            <ListRowItem widthInPercentage={93}>Name</ListRowItem>
-            <ListRowItem widthInPercentage={7}>Leave</ListRowItem>
-        </ListRow>
-        {#each projects as project}
-            <ListRow on:click={() => $goto('/project', {id: project.name})} isHighlighted={project.id === currentProjectId}> <!-- TODO pass id in goto-->
-                <ListRowItem widthInPercentage={93}>{project.name}</ListRowItem>
-                <ListRowItem widthInPercentage={7}>
-                    <CloseButton on:click={() => leaveProject(project)}/>
-                    <!-- TODO disabled if not product owner--></ListRowItem>
-            </ListRow>
-        {/each}
+        <ListScrollWrapper>
+            <svelte:fragment slot="header">
+                <ListRow isHeader>
+                    <ListRowItem widthInPercentage={93}>Name</ListRowItem>
+                    <ListRowItem center widthInPercentage={7}>Leave</ListRowItem>
+                </ListRow>
+            </svelte:fragment>
+            {#each projects as project}
+                <ListRow noBorder={project === projects[projects.length-1]}
+                         on:click={() => $goto('/project', {id: project.name})}> <!-- TODO pass id in goto--> <!-- TODO isHighlighted = currentProject...-->
+                    <ListRowItem widthInPercentage={93}>{project.name}</ListRowItem>
+                    <ListRowItem center widthInPercentage={7}>
+                        <CloseButton on:click={() => leaveProject(project)}/>
+                        <!-- TODO disabled if not product owner--></ListRowItem>
+                </ListRow>
+            {/each}
+        </ListScrollWrapper>
+
         <svelte:fragment slot="actions"> <!-- TODO disabled if not product owner-->
             <Button on:click={() => createVisible = true}>Create Project</Button>
         </svelte:fragment>

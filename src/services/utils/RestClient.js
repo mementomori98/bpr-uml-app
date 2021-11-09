@@ -7,12 +7,7 @@ export class RestClient {
         this.baseUrl = baseUrl !== null && baseUrl !== void 0 ? baseUrl : '';
     }
     async get(path) {
-        let response = await fetch(`${this.baseUrl}/${path}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${this.context.getAccessToken()}`
-            },
-        });
+        let response = await fetch(`${this.baseUrl}/${path}/`);
         return response.json();
     }
     async post(path, body) {
@@ -24,19 +19,6 @@ export class RestClient {
                 'Authorization': `Bearer ${this.context.getAccessToken()}`
             },
             body: JSON.stringify(body)
-        });
-        return response.json();
-    }
-    async postData(url = '', data = {}, token) {
-        // Default options are marked with *
-        const response = await fetch(url, {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.context.getAccessToken()}`
-            }, body: JSON.stringify(data) // body data type must match "Content-Type" header
         });
         return response.json();
     }

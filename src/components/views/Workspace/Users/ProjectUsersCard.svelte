@@ -10,6 +10,7 @@
     import ListRowItem from "../../../ui/ListRowItem.svelte";
     import ListRow from "../../../ui/ListRow.svelte";
     import {goto, params} from "@roxi/routify";
+    import ListScrollWrapper from "../../../ui/ListScrollWrapper.svelte";
 
     let users = [
         new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer', canEdit: false, id: 1}),
@@ -56,28 +57,34 @@
 
 <Card>
     <View>
-        <svelte:fragment slot="header">Users in {$params.id}</svelte:fragment> <!-- TODO disabled if not product owner-->
+        <svelte:fragment slot="header">Users in {$params.id}</svelte:fragment>
+        <!-- TODO disabled if not product owner-->
         <svelte:fragment slot="header-actions"></svelte:fragment>
-        <ListRow isHeader>
-            <ListRowItem widthInPercentage={20}>Name</ListRowItem>
-            <ListRowItem widthInPercentage={30}>Email</ListRowItem>
-            <ListRowItem widthInPercentage={33}>Role</ListRowItem>
-            <ListRowItem widthInPercentage={10}>Can edit</ListRowItem>
-            <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
-        </ListRow>
-        {#each users as user}
-            <ListRow noFunction>
-                <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>
-                <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
-                <ListRowItem widthInPercentage={33}>{user.role}</ListRowItem>
-                <ListRowItem widthInPercentage={10}>
-                    <Checkbox bind:checked={user.canEdit} on:checkChange={e => checkChange(e, user)}/>
-                    <!-- TODO disabled if not product owner--></ListRowItem>
-                <ListRowItem widthInPercentage={7}>
-                    <CloseButton disabled on:click={() => removeUserFromProject(user)}/>
-                    <!-- TODO disabled if not product owner--></ListRowItem>
-            </ListRow>
-        {/each}
+        <ListScrollWrapper>
+            <svelte:fragment slot="header">
+                <ListRow isHeader>
+                    <ListRowItem widthInPercentage={20}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>Email</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>Role</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>Can edit</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>Kick</ListRowItem>
+                </ListRow>
+            </svelte:fragment>
+            {#each users as user}
+                <ListRow noBorder={user === users[users.length-1]} noFunction>
+                    <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>{user.role}</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>
+                        <Checkbox bind:checked={user.canEdit} on:checkChange={e => checkChange(e, user)}/>
+                        <!-- TODO disabled if not product owner--></ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>
+                        <CloseButton on:click={() => removeUserFromProject(user)}/>
+                        <!-- TODO disabled if not product owner--></ListRowItem>
+                </ListRow>
+            {/each}
+        </ListScrollWrapper>
+
         <svelte:fragment slot="actions"> <!-- TODO disabled if not product owner-->
             <Button on:click={() => addVisible = true}>Add</Button>
         </svelte:fragment>

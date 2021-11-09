@@ -6,10 +6,12 @@
     export let color: Colors = Colors.Blue;
     export let outlined: boolean = false;
     export let elevated: boolean = false;
+    export let small: boolean = false;
 
     $: style = new CssBuilder('button')
         .addFeature(color)
         .addFeature('outlined', outlined)
+        .addFeature('small', small)
         .addFeature('elevated', elevated)
         .build();
 
@@ -43,6 +45,10 @@
 
         &--elevated {
             box-shadow: $shadow-small;
+        }
+
+        &--small {
+          padding: 3px 10px;
         }
 
         @each $color in $colors {
