@@ -21,9 +21,15 @@
   .item{
     &--center{
       text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     &--right{
       text-align: right;
+      display: flex;
+      justify-content: end;
+      align-items: center;
     }
   }
 </style>
