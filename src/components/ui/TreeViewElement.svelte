@@ -6,7 +6,7 @@
 </script>
 <script>
     //	import { slide } from 'svelte/transition'
-    export let tree
+    export let tree = {}
     const {label, type, children} = tree
 
     let expanded = _expansionState[label] || false

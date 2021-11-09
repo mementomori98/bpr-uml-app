@@ -65,9 +65,9 @@
     <Form on:submit={handleInvite} on:cancel={handleCancel} submitText="Add" cancelButton>
         <svelte:fragment slot="header">Add User</svelte:fragment>
         <Select clearOnChoice label="Users to add" choices={users} on:submit={e => pickUser(e)}/>
-        <ListScrollWrapper fullBorder>
+        <ListScrollWrapper>
             {#each usersToAdd as user}
-                <ListRow noBorder={user === usersToAdd[usersToAdd.length-1]} style="justify-content: space-between; padding: 12px 12px">
+                <ListRow noBorder={user === usersToAdd[usersToAdd.length-1]} style="justify-content: space-between; padding: 12px 32px">
                     {user.name}
                     <CloseButton on:click={() => closeUserChoice(user)}/>
                 </ListRow>

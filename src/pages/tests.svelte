@@ -1,12 +1,19 @@
 <script lang="ts">
-
 import CreateProjectView from "../components/domain/projects/CreateProjectView.svelte";
 import Card from "../components/ui/Card.svelte";
 import Container from "../components/ui/Container.svelte";
 import CreateDiagramView from "../components/domain/diagrams/CreateDiagramView.svelte";
 import View from "../components/ui/View.svelte";
 import DragList from "../components/ui/DragList.svelte";
+import getService from "../services/Services";
+import {AppContext} from "../services/utils/AppContext";
+import Button from "../components/ui/Button.svelte";
+
+const appContext = getService(AppContext);
+
+
 </script>
+
 
 <Container>
     <Card>
@@ -24,6 +31,7 @@ import DragList from "../components/ui/DragList.svelte";
         <CreateDiagramView/>
     </Card>
 </Container>
+
 
 
 <style lang="scss">

@@ -40,21 +40,24 @@
 
 <Card>
     <View>
-        <svelte:fragment slot="header">Teams in {$params.id}</svelte:fragment> <!-- TODO disabled if not product owner-->
+        <svelte:fragment slot="header">Teams in {$params.id}</svelte:fragment>
+        <!-- TODO disabled if not product owner-->
         <svelte:fragment slot="header-actions"></svelte:fragment>
-        <ListRow isHeader>
-            <ListRowItem widthInPercentage={64}>Name</ListRowItem>
-            <ListRowItem widthInPercentage={12}>Users</ListRowItem>
-            <ListRowItem widthInPercentage={12}>Projects</ListRowItem>
-            <ListRowItem widthInPercentage={12}>Remove</ListRowItem>
-        </ListRow>
         <ListScrollWrapper>
+            <svelte:fragment slot="header">
+                <ListRow isHeader>
+                    <ListRowItem widthInPercentage={58}>Name</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>Users</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>Projects</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>Remove</ListRowItem>
+                </ListRow>
+            </svelte:fragment>
             {#each teams as team}
                 <ListRow noBorder={team === teams[teams.length-1]} on:click={() => handleClick(team)}>
-                    <ListRowItem widthInPercentage={64}>{team.name}</ListRowItem>
-                    <ListRowItem widthInPercentage={12}>{team.usersAmount}</ListRowItem>
-                    <ListRowItem widthInPercentage={12}>{team.projectsAmount}</ListRowItem>
-                    <ListRowItem widthInPercentage={12}>
+                    <ListRowItem widthInPercentage={58}>{team.name}</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>{team.usersAmount}</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>{team.projectsAmount}</ListRowItem>
+                    <ListRowItem center widthInPercentage={14}>
                         <CloseButton on:click={() => removeTeamFromProject(team)}/>
                         <!-- TODO disabled if not product owner --></ListRowItem>
                 </ListRow>

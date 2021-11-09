@@ -14,16 +14,30 @@
 </script>
 
 <div class="grid">
-    <label class="checkbox bounce">
+    <div class="checkbox bounce">
         <input disabled={disabled} bind:checked type="checkbox" on:click={handleClick}>
         <svg viewBox="0 0 21 21">
             <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
         </svg>
-    </label>
+    </div>
 </div>
 
 <style lang="scss">
   @import "../theme.scss";
+
+  * {
+    text-align: initial;
+  }
+
+  .grid {
+    position: relative;
+  }
+
+  .checkbox,
+  .bounce {
+    width: 21px;
+    height: 21px;
+  }
 
   .checkbox {
     --background: #fff;
@@ -31,17 +45,17 @@
     --border-hover: #BBC1E1;
     --border-active: #1E2235;
     --tick: #fff;
-    position: relative;
+
     input,
     svg {
       width: 21px;
       height: 21px;
-      display: block;
+      position: absolute;
     }
+
     input {
       -webkit-appearance: none;
       -moz-appearance: none;
-      position: relative;
       outline: none;
       background: var(--background);
       border: none;
@@ -51,20 +65,24 @@
       border-radius: 4px;
       transition: box-shadow .3s;
       box-shadow: inset 0 0 0 var(--s, 1px) var(--b, var(--border));
+
       &:hover {
         --s: 2px;
         --b: var(--border-hover);
       }
-      &:disabled{
+
+      &:disabled {
         --b: #cccccc;
         --s: 1px;
         --border-active: #cccccc;
         cursor: default;
       }
+
       &:checked {
         --b: var(--border-active);
       }
     }
+
     svg {
       pointer-events: none;
       fill: none;
@@ -72,40 +90,44 @@
       stroke-linecap: round;
       stroke-linejoin: round;
       stroke: var(--stroke, var(--border-active));
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 21px;
       height: 21px;
       transform: scale(var(--scale, 1)) translateZ(0);
     }
+
     &.path {
       input {
         &:checked {
           --s: 2px;
           transition-delay: .4s;
+
           & + svg {
             --a: 16.1 86.12;
             --o: 102.22;
           }
         }
       }
+
       svg {
         stroke-dasharray: var(--a, 86.12);
         stroke-dashoffset: var(--o, 86.12);
         transition: stroke-dasharray .6s, stroke-dashoffset .6s;
       }
     }
+
     &.bounce {
       --stroke: var(--tick);
+
       input {
         &:checked {
           --s: 11px;
+
           & + svg {
             animation: bounce .4s linear forwards .2s;
           }
         }
       }
+
       svg {
         --scale: 0;
       }
@@ -124,53 +146,5 @@
     }
   }
 
-  html {
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-  }
 
-  * {
-    box-sizing: inherit;
-    &:before,
-    &:after {
-      box-sizing: inherit;
-    }
-  }
-
-  // Center & dribbble
-  body {
-    min-height: 100vh;
-    display: flex;
-    font-family: 'Roboto', Arial;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background: #F6F8FF;
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-gap: 24px;
-    }
-    .dribbble {
-      position: fixed;
-      display: block;
-      right: 20px;
-      bottom: 20px;
-      img {
-        display: block;
-        height: 28px;
-      }
-    }
-    .twitter {
-      position: fixed;
-      display: block;
-      right: 64px;
-      bottom: 14px;
-      svg {
-        width: 32px;
-        height: 32px;
-        fill: #1da1f2;
-      }
-    }
-  }
 </style>

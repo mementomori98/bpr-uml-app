@@ -10,10 +10,17 @@
     import Checkbox from "../../ui/Checkbox.svelte";
     import {UserToProject} from "../../../services/users/UserToProject";
     import Input from "../../ui/Input.svelte";
+    import {AppContext} from "../../../services/utils/AppContext";
+    import getService from "../../../services/Services";
+    import {ProjectService} from "../../../services/projects/ProjectService";
+    import {CreateProjectRequest} from "../../../services/projects/Models";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
 
     export let visible: boolean = false;
     let projectName: string = "";
+
+    const projectService = getService(ProjectService);
+    const appContext = getService(AppContext);
 
     let testUsers = [
         new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer', canEdit: false, id: 1}),
@@ -52,11 +59,12 @@
 
     let projectUsers: UserToProject[] = []
 
-    const handleCreate = () => {
+    const handleCreate =async () => {
         // todo
-        alert("Project " + projectName + " has been created")
-        console.log(projectUsers)
+        console.log(projectUsers) //TODO
+        await projectService.create(new CreateProjectRequest({title: projectName, workspaceId:appContext.getWorkspaceId()}));
         visible = false;
+        
     }
 
     const handleCancel = () => {
@@ -73,7 +81,13 @@
         let user = testUsers.filter(function (item) {
             return item.id == e.detail.choice.id;
         })[0]
-        projectUsers.push(new UserToProject({name: user.name, email: user.email, id:user.id, canEdit: true, role: "Developer"}));
+        projectUsers.push(new UserToProject({
+            name: user.name,
+            email: user.email,
+            id: user.id,
+            canEdit: true,
+            role: "Developer"
+        }));
 
         listUsers = listUsers.filter(function (item) {
             return item.id != e.detail.choice.id;
@@ -101,14 +115,16 @@
         <svelte:fragment slot="header">Create Project</svelte:fragment>
         <Input label="Project name" bind:value={projectName}/>
         <Select clearOnChoice label="Users to add" choices={listUsers} on:submit={e => pickUser(e)}/>
-        <ListRow isHeader>
-            <ListRowItem widthInPercentage={20}>Name</ListRowItem>
-            <ListRowItem widthInPercentage={30}>Email</ListRowItem>
-            <ListRowItem widthInPercentage={33}>Role</ListRowItem>
-            <ListRowItem widthInPercentage={10}>Can edit</ListRowItem>
-            <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
-        </ListRow>
         <ListScrollWrapper>
+            <svelte:fragment slot="header">
+                <ListRow isHeader>
+                    <ListRowItem widthInPercentage={20}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>Email</ListRowItem>
+                    <ListRowItem widthInPercentage={33}>Role</ListRowItem>
+                    <ListRowItem widthInPercentage={10}>Can edit</ListRowItem>
+                    <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
+                </ListRow>
+            </svelte:fragment>
             {#each projectUsers as user}
                 <ListRow noBorder={user === projectUsers[projectUsers.length-1]} noFunction>
                     <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>

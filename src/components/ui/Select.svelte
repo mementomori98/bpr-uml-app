@@ -4,7 +4,7 @@
     import {DataListItem} from "../../services/DataListItem";
 
     export let label: string = "";
-    export let clearOnChoice: boolean;
+    export let clearOnChoice: boolean = false;
     export let choices: DataListItem[];
     let choice: DataListItem;
     export let defaultChoice: string;

@@ -1,5 +1,6 @@
 import {Model} from "../Model";
 
 export class CreateProjectRequest extends Model<CreateProjectRequest> {
-    public name: string;
+    public title: string;
+    public workspaceId: string;
 }

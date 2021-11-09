@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import {createEventDispatcher} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
     import View from "../../ui/View.svelte";
     import Card from "../../ui/Card.svelte";
     import Wrapper from "../../ui/Wrapper.svelte";
@@ -12,16 +12,29 @@
     import InvitationsList from "./Users/InvitationsList.svelte";
     import Text from "../../ui/Text.svelte";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
+    import getService from "../../../services/Services";
+    import {WorkspaceService} from "../../../services/Workspaces/WorkspaceService";
+    import {AppContext} from "../../../services/utils/AppContext";
 
     const dispatch = createEventDispatcher();
 
-    let workspaces = [
-        new Workspace({name: "MOAB", id: 1}),
-        new Workspace({name: "FOAB", id: 2}),
-        new Workspace({name: "Cobalt", id: 3}),
-        new Workspace({name: "Hydrogen", id: 4}),
-        new Workspace({name: "Neutron", id: 5}),
-    ].sort((u1, u2) => u1.name.localeCompare(u2.name));
+    const workspaceService = getService(WorkspaceService);
+    const appContext = getService(AppContext);
+
+    let workspaces = [];
+
+    onMount(async () => {
+        const res = await workspaceService.get();
+        workspaces = res.sort((u1, u2) => u1.name.localeCompare(u2.name));
+
+    })
+
+    const onclick = async (workspace: Workspace) => {
+        const res = await workspaceService.getById(workspace._id);
+        appContext.setWorkspaceId(res._id)
+        $goto('/')
+    }
+
 
     let invitations: WorkspaceInvitation[] = [
         new WorkspaceInvitation({name: 'Rome', invitor: 'Nero', id: 1}),
@@ -36,7 +49,7 @@
         <View noActions>
             <svelte:fragment slot="header">Select workspace</svelte:fragment>
             <Text noPadding>Your workspaces</Text>
-            <ListScrollWrapper fullBorder>
+            <ListScrollWrapper>
                 {#each workspaces as workspace}
                     <ListRow noBorder={workspace === workspaces[workspaces.length-1]} on:click={() => $goto('/')}> <!-- TODO set workspace by the decision -->
                         <ListRowItem widthInPercentage={100}>{workspace.name}</ListRowItem>

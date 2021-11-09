@@ -17,11 +17,11 @@
   @import "../theme.scss";
 
   .text {
-    font: $font-nav;
-    padding-top: 20px;
+    font: $font-sec-title;
+    padding: 34px 0 6px 0;
 
     &--no-padding{
-      padding: 0;
+      padding: 0 0 6px 0;
     }
   }
 </style>
