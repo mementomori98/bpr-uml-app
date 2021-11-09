@@ -26,7 +26,7 @@
 
   .wrapper{
     max-height: 280px;
-    overflow-y: scroll;
+    overflow-y: overlay;
     overflow-x: hidden;
     border-bottom: 2px solid #d5d5d591; //was border:
     border-top: 2px solid #d5d5d591;

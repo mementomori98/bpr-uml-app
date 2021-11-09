@@ -36,13 +36,10 @@
 
     &--header {
       font-weight: 800;
-      padding: 0 40px 0 32px; //extra 8 on the right because of the scrollbar
+      padding: 0 32px;
       min-height: 48px;
       cursor: default;
       background-color: #b8f3ff3b;
-      //border: 2px solid #e8e8e8;
-      //border-bottom: 0;
-
     }
 
     &--useless {
@@ -58,7 +55,6 @@
     border-bottom: 1px solid rgba(0, 0, 0, .08);
 
     &--header {
-     // border-bottom: 2px solid #c4c4c4;
       border: none;
     }
 
