@@ -56,7 +56,6 @@
     input {
       -webkit-appearance: none;
       -moz-appearance: none;
-      position: absolute; //------------------relative
       outline: none;
       background: var(--background);
       border: none;
