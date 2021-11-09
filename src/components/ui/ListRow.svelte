@@ -31,12 +31,12 @@
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 14px;
+    padding: 14px 32px;
     cursor: pointer;
 
     &--header {
       font-weight: 800;
-      padding: 0 14px;
+      padding: 0 40px 0 32px; //extra 8 on the right because of the scrollbar
       min-height: 48px;
       cursor: default;
       background-color: #b8f3ff3b;
