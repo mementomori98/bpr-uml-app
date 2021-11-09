@@ -3,7 +3,7 @@
     // https://www.w3schools.com/icons/icons_reference.asp
 
     export let icon: string;
-    export let size: number = null;
+    export const size: number = null;
     export let cursor: string = '';
     export let element: HTMLElement = null;
 </script>

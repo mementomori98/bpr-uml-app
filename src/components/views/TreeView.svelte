@@ -5,10 +5,10 @@
     import {noPadding} from "../ui/Text.svelte";
 
     export let tree = null;
-    export let width: number = 200;
-    export let height: number = 200;
-    export let maxWidth: number = width;
-    export let maxHeight: number = height;
+    export const width: number = 200;
+    export const height: number = 200;
+    export const maxWidth: number = width;
+    export const maxHeight: number = height;
 
     $: style = new CssBuilder('wrapper')
         .build();
