@@ -10,29 +10,39 @@
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
     import getService from "../utils/ServiceFactory";
     import {WorkspaceService} from "../workspaces/WorkspaceService";
+    import {onMount} from "svelte";
+    import {goto} from "@roxi/routify";
+    import {UserService} from "./UserService";
 
     const workspaceService = getService(WorkspaceService);
+    const userService = getService(UserService);
 
-    let workspaces = [
-        new WorkspaceInvitation({name: 'Rome', invitor: 'Nero', id: 1}),
-        new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 1}),
-        new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 1}),
-    ]
+    let invitations = []
+
+    onMount(async () => {
+        invitations = await userService.getUserInvitations();
+    })
 
     const onAcceptInvitation = async (workspace: WorkspaceInvitation) => {
-        alert("Accept invitation to " + workspace.name)
-        await workspaceService.join(new JoinWorkspaceRequest({
-            invitationId: workspace.id,
-            accepted: true
-        }));
+        try{
+            await workspaceService.join(new JoinWorkspaceRequest({
+                invitationId: workspace._id,
+                accepted: true
+            }));
+        }catch (e) {
+            console.log("acceptInvitation error occurred, possibly no json object")
+        }
     }
 
     const onDeclineInvitation = async (workspace: WorkspaceInvitation) => {
-        alert("Decline invitation to " + workspace.name)
-        await workspaceService.join(new JoinWorkspaceRequest({
-            invitationId: workspace.id,
-            accepted: false
-        }));
+        try{
+            await workspaceService.join(new JoinWorkspaceRequest({
+                invitationId: workspace._id,
+                accepted: false
+            }));
+        }catch (e) {
+            console.log("acceptInvitation error occurred, possibly no json object")
+        }
     }
 </script>
 
@@ -47,14 +57,14 @@
                     <ListRowItem widthInPercentage={35}></ListRowItem>
                 </ListRow>
             </svelte:fragment>
-            {#each workspaces as workspace}
-                <ListRow noBorder={workspace === workspaces[workspaces.length-1]}>
-                    <ListRowItem widthInPercentage={30}>{workspace.name}</ListRowItem>
-                    <ListRowItem widthInPercentage={35}>{workspace.invitor}</ListRowItem>
+            {#each invitations as invitation}
+                <ListRow noBorder={invitation === invitations[invitations.length-1]}>
+                    <ListRowItem widthInPercentage={30}>{invitation.workspaceId}</ListRowItem>
+                    <ListRowItem widthInPercentage={35}>{invitation.inviterId}</ListRowItem>
                     <ListRowItem widthInPercentage={35}>
                         <div class="button-wrapper">
-                            <Button on:click={() => onAcceptInvitation(workspace)} color={Colors.Green}>Accept</Button>
-                            <Button on:click={() => onDeclineInvitation(workspace)} color={Colors.Red}>Decline</Button>
+                            <Button on:click={() => onAcceptInvitation(invitation)} color={Colors.Green}>Accept</Button>
+                            <Button on:click={() => onDeclineInvitation(invitation)} color={Colors.Red}>Decline</Button>
                         </div>
                     </ListRowItem>
                 </ListRow>

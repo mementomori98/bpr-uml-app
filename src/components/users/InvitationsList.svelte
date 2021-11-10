@@ -17,12 +17,15 @@
     export let invitations: WorkspaceInvitation[] = []
 
     const onJoinInvitation = async (workspace: WorkspaceInvitation) => {
-        alert("Joining to " + workspace.workspaceId + "workspace")
-        const res = await workspaceService.join(new JoinWorkspaceRequest({
-            invitationId: workspace._id,
-            accepted: true
-        }));
-        console.log("heyyyyyyyy")
+        try{
+            const res = await workspaceService.join(new JoinWorkspaceRequest({
+                invitationId: workspace._id,
+                accepted: true
+            }));
+        }catch (e) {
+            console.log("joinInvitation error occurred, possibly no json object")
+        }
+
         $goto('/')
     }
 

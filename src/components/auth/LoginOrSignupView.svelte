@@ -5,33 +5,27 @@
     import {createEventDispatcher} from "svelte";
     import {goto} from "@roxi/routify";
     import {Workspace, WorkspaceInvitation} from "../workspaces/Models";
+    import getService from "../utils/ServiceFactory";
+    import {UserService} from "../users/UserService";
+    import {WorkspaceService} from "../workspaces/WorkspaceService";
 
     const dispatch = createEventDispatcher();
 
     let login: boolean = true;
+    const userService = getService(UserService);
+    const workspaceService = getService(WorkspaceService);
 
-    let workspaces = [
-        new Workspace({name: "MOAB", id: 1}),
-        new Workspace({name: "FOAB", id: 2}),
-        new Workspace({name: "Cobalt", id: 3}),
-        new Workspace({name: "Hydrogen", id: 4}),
-        new Workspace({name: "Neutron", id: 5}),
-    ].sort((u1, u2) => u1.name.localeCompare(u2.name));
+    let workspaces = [];
+    let invitations = []
 
-    let invitations: WorkspaceInvitation[] = [
-        new WorkspaceInvitation({name: 'Rome', invitor: 'Nero', id: 1}),
-        new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 2}),
-        new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 3}),
-    ]
-
-
-    const onLogin = () => {
-        if(workspaces.length >= 1 && invitations.length >= 1){
+    const onLogin = async () => {
+        invitations = await userService.getUserInvitations();
+        workspaces = await workspaceService.get();
+        if(workspaces.length >= 1 || invitations.length >= 1){
             $goto('/select-workspace')
         }else{
             $goto('/create-workspace')
         }
-
     }
 
     const onSignup = () => {

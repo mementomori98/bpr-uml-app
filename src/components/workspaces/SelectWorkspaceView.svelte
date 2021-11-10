@@ -26,18 +26,11 @@
     let workspaces = [];
     let invitations = [];
 
-    // let invitations: WorkspaceInvitation[] = [
-         // new WorkspaceInvitation({name: 'Rome', invitor: 'Nero', id: 1}),
-        // new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 2}),
-        // new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 3}),
-    // ]
-
     onMount(async () => {
         const wss = await workspaceService.get();
         workspaces = wss.sort((u1, u2) => u1.name.localeCompare(u2.name));
 
-        const is = await userService.getUserInvitations();
-        console.log(is)
+        invitations = await userService.getUserInvitations();
 
         if(workspaces.length === 0 && invitations.length === 0){
             $goto('/create-workspace')
@@ -45,10 +38,6 @@
     })
 
     const onclick = async (workspace: Workspace) => {
-        // if(workspace._id == null){
-        //     $goto('/select-workspace')
-        //     return;
-        // }
         const res = await workspaceService.getById(workspace._id);
         appContext.setWorkspaceId(res._id)
         $goto('/')
@@ -69,7 +58,7 @@
                 {/each}
             </ListScrollWrapper>
             {#if invitations.length > 0}
-                <InvitationsList maxHeight={150} workspaces={invitations}/>
+                <InvitationsList maxHeight={150} invitations={invitations}/>
             {/if}
 
         </View>

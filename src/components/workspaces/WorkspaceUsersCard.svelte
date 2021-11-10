@@ -31,7 +31,6 @@
 
     onMount(async () => {
         const res = await userService.getWorkspaceUsers(appContext.getWorkspaceId());
-        console.log(res)
     })
 
     const handleClick = async (user) => {
