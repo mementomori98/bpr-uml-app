@@ -15,15 +15,9 @@
     const userService = getService(UserService);
     const appContext = getService(AppContext);
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
-    import {User, UserInvitationRequest} from "../users/Models";
+    import {User, UserInvitationRequest, WorkspaceUsersResponse} from "../users/Models";
 
-    let users = [
-        new User({name: 'IMPLEMENT ME', email: 'IMPLEMENT ME', status: 'Invited', role: 'Developer'}),
-        new User({name: 'IMPLEMENT ME', email: 'IMPLEMENT ME', status: 'Invited', role: 'Developer'}),
-        new User({name: 'IMPLEMENT ME', email: 'IMPLEMENT ME', status: 'Invited', role: 'Developer'}),
-        new User({name: 'IMPLEMENT ME', email: 'IMPLEMENT ME', status: 'Invited', role: 'Developer'}),
-        new User({name: 'IMPLEMENT ME', email: 'IMPLEMENT ME', status: 'Invited', role: 'Admin'}),
-    ].sort((u1, u2) => u1.name.localeCompare(u2.name));
+    let users: WorkspaceUsersResponse[] = [];
 
     let inviteVisible: boolean = false;
     let itemSettingsVisible: boolean = false;
@@ -31,6 +25,7 @@
 
     onMount(async () => {
         const res = await userService.getWorkspaceUsers(appContext.getWorkspaceId());
+        users = res.sort((u1, u2) => u1.name.localeCompare(u2.name)); //TODO should merge it with the invited ones, and show them by status on the separate column
     })
 
     const handleClick = async (user) => {

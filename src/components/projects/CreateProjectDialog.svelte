@@ -14,12 +14,14 @@
     import {CreateProjectRequest} from "./Models";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
     import {User, UserToProject} from "../users/Models";
+    import {createEventDispatcher} from "svelte";
 
     export let visible: boolean = false;
     let projectName: string = "";
 
     const projectService = getService(ProjectService);
     const appContext = getService(AppContext);
+    const dispatch = createEventDispatcher();
 
     let testUsers = [
         new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer', canEdit: false, id: 1}),
@@ -63,7 +65,7 @@
         console.log(projectUsers) //TODO
         await projectService.create(new CreateProjectRequest({title: projectName, workspaceId:appContext.getWorkspaceId()}));
         visible = false;
-        
+        dispatch('create')
     }
 
     const handleCancel = () => {

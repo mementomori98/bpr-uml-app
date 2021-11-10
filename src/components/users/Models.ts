@@ -1,3 +1,5 @@
+import {Model} from "../utils/Model";
+
 export class User {
     public name: string;
     public email: string;
@@ -20,6 +22,13 @@ export class UserInvitationRequest {
     constructor(init?: Partial<UserInvitationRequest>) {
         Object.assign(this, init);
     }
+}
+
+export class WorkspaceUsersResponse extends Model<WorkspaceUsersResponse> {
+    public email: string;
+    public firebaseId: string;
+    public name: string;
+    public _id: string;
 }
 
 //+++++++++++++++++++++

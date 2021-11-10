@@ -21,17 +21,16 @@
 
     let createVisible: boolean = false;
     let currentProjectId: number = 5;
-    let received = [
-        new Project({name: 'Pegasus', id: 1}),
-        new Project({name: 'Casino', id: 2}),
-        new Project({name: 'Spectre', id: 3}),
-        new Project({name: 'Skyfall', id: 4}),
-        new Project({name: 'Syndicate', id: 5}),
-    ]
+
     let projects: ProjectsResponse[] = [];
+
     onMount(async () => {
         projects = await projectService.getWorkspaceProjects(appContext.getWorkspaceId());
     })
+
+    const onCreateProject = async () => {
+        projects = await projectService.getWorkspaceProjects(appContext.getWorkspaceId());
+    }
 
     /*const formatProjectList = (projects: Project[]) => {
         projects.sort((u1, u2) => u1.name.localeCompare(u2.name));
@@ -74,7 +73,7 @@
     </View>
 </Card>
 
-<CreateProjectDialog bind:visible={createVisible}/>
+<CreateProjectDialog on:create={onCreateProject} bind:visible={createVisible}/>
 
 <style lang="scss">
   @import "../../ui/theme";
