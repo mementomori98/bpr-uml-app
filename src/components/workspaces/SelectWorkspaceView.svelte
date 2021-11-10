@@ -49,9 +49,6 @@
         $goto('/')
     }
 
-
-
-
 </script>
 
 <Wrapper width="480" bgColor="ededed" verticalCentering>
