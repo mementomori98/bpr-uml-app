@@ -1,8 +1,8 @@
 <script lang="ts">
 
-    import {AuthenticationService} from "../services/AuthenticationService";
+    import {AuthenticationService} from "../refactor/auth/AuthenticationService";
     import {getContext} from "svelte";
-    import getService from "../services/Services";
+    import getService from "../refactor/utils/Services";
 
     let authenticationService = getService(AuthenticationService);
 

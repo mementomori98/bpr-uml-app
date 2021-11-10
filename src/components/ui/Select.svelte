@@ -1,7 +1,7 @@
 <script lang="ts">
     import Button from "./Button.svelte";
     import {createEventDispatcher} from "svelte";
-    import {DataListItem} from "../../services/DataListItem";
+    import {DataListItem} from "../utils/DataListItem";
 
     export let label: string = "";
     export let clearOnChoice: boolean = false;

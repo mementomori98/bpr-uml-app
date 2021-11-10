@@ -2,12 +2,12 @@
     import Button from "./../components/ui/Button.svelte";
     import DrawerLayout from "./../components/ui/DrawerLayout.svelte";
     import Spacer from "./../components/ui/Spacer.svelte";
-    import {AuthenticationService} from "./../services/AuthenticationService";
+    import {AuthenticationService} from "../refactor/auth/AuthenticationService";
     import NavLink from "../components/ui/NavLink.svelte";
     import {beforeUrlChange} from "@roxi/routify";
     import {afterPageLoad} from "@roxi/routify";
     import {goto} from "@roxi/routify";
-    import {Colors} from "../components/ui/utils/Colors";
+    import {Colors} from "../components/utils/Colors";
     import Fab from "../components/ui/Fab.svelte";
     import Icon from "../components/ui/Icon.svelte";
     import ContextMenu from "../components/ui/ContextMenu.svelte";
@@ -16,8 +16,8 @@
     import TextButton from "../components/ui/TextButton.svelte";
     import Divider from "../components/ui/Divider.svelte";
     import {getContext} from "svelte";
-    import getService from "../services/Services";
-    import Nav from "../components/Nav.svelte";
+    import getService from "../refactor/utils/Services";
+    import Nav from "../Nav.svelte";
     import SnackbarProvider from "../components/ui/SnackbarProvider.svelte";
 
     const authenticationService = getService(AuthenticationService);

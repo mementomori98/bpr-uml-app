@@ -1,5 +1,5 @@
 <script>
-    import SignupView from "../components/views/Login/SignupView.svelte";
+    import SignupView from "../refactor/auth/SignupView.svelte";
 </script>
 
 <SignupView/>

@@ -1,9 +1,8 @@
 <script lang="ts">
     import {Router} from "@roxi/routify";
     import {routes} from "../.routify/routes";
-    import GlobalScssImports from "./GlobalScssImports.svelte";
     import {initializeApp} from 'firebase/app';
-    import RegisterServices from "./components/RegisterServices.svelte";
+    import RegisterServices from "./refactor/utils/RegisterServices.svelte";
 
     const firebaseConfig = {
         apiKey: "AIzaSyDAuriepQen_J7sYEo4zKZLpFnjbhljsdQ",
@@ -18,5 +17,4 @@
 </script>
 
 <RegisterServices/>
-<GlobalScssImports/>
 <Router config={{useHash: true}} {routes}/>

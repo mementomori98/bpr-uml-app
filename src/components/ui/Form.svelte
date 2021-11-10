@@ -3,7 +3,7 @@
 
     import View from "./View.svelte";
     import Button from "./Button.svelte";
-    import {Colors} from "./utils/Colors";
+    import {Colors} from "../utils/Colors";
     import {createEventDispatcher} from "svelte";
 
     export let readonly = false;

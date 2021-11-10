@@ -1,7 +1,7 @@
 <script lang="ts">
 
-    import getService from "../../services/Services";
-    import {Snackbar} from "../../services/utils/Snackbar";
+    import getService from "../../refactor/utils/Services";
+    import {Snackbar} from "../../refactor/utils/Snackbar";
 
     let snackbar = getService(Snackbar);
 

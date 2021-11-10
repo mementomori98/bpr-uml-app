@@ -1,5 +1,5 @@
 <script>
-    import ProjectView from "../components/views/Workspace/ProjectView.svelte";
+    import ProjectView from "../refactor/projects/ProjectView.svelte";
 </script>
 
 <ProjectView/>

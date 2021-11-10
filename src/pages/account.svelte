@@ -1,5 +1,5 @@
 <script>
-    import AccountView from "../components/views/Workspace/AccountView.svelte";
+    import AccountView from "../refactor/users/AccountView.svelte";
 </script>
 
 <AccountView/>

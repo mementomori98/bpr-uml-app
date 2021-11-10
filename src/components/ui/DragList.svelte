@@ -1,6 +1,6 @@
 <script lang="ts">
-    import {draggable} from "./utils/draggable";
-    import Hoverable from "./utils/Hoverable.svelte";
+    import {draggable} from "../utils/draggable";
+    import Hoverable from "../utils/Hoverable.svelte";
 
     export let items: Array<any> = ['hello', 'world', 'how', 'are', 'you']
     let active = null;

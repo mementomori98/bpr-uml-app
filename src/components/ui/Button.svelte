@@ -1,7 +1,7 @@
 <script lang="ts">
 
-    import {Colors} from "./utils/Colors";
-    import {CssBuilder} from "./utils/CssBuilder";
+    import {Colors} from "../utils/Colors";
+    import {CssBuilder} from "../utils/CssBuilder";
 
     export let color: Colors = Colors.Blue;
     export let outlined: boolean = false;
