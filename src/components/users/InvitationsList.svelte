@@ -18,10 +18,10 @@
 
     const onJoinInvitation = async (workspace: WorkspaceInvitation) => {
         alert("Joining to " + workspace.name + "workspace")
-        await workspaceService.join(new JoinWorkspaceRequest({
-            invitationId: workspace.id,
-            accepted: true
-        }));
+        // await workspaceService.join(new JoinWorkspaceRequest({
+        //     invitationId: workspace.id,
+        //     accepted: true
+        // }));
         $goto('/')
     }
 

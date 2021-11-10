@@ -11,6 +11,19 @@ export class User {
     }
 }
 
+//+++++++++++++++++++++
+
+export class UserInvitationRequest {
+    workspaceId: string;
+    inviteeEmailAddress: string;
+
+    constructor(init?: Partial<UserInvitationRequest>) {
+        Object.assign(this, init);
+    }
+}
+
+//+++++++++++++++++++++
+
 export class UserToProject {
     public name: string;
     public email: string;
@@ -22,6 +35,8 @@ export class UserToProject {
         Object.assign(this, init);
     }
 }
+
+
 
 export class UserToTeam {
     public name: string;

@@ -4,13 +4,23 @@
     import Button from "../../ui/Button.svelte";
     import {Colors} from "../../ui/utils/Colors";
     import Input from "../../ui/Input.svelte";
+    import {UserInvitationRequest} from "./Models";
+    import getService from "../utils/ServiceFactory";
+    import {UserService} from "./UserService";
+    import {AppContext} from "../utils/AppContext";
 
     export let visible: boolean = false;
-
+    const userService = getService(UserService);
+    const appContext = getService(AppContext);
     let email: string;
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         // todo
+        await userService.inviteUser(new UserInvitationRequest(
+            {
+                inviteeEmailAddress: email,
+                workspaceId: appContext.getWorkspaceId(),
+            }));
         email = '';
         visible = false;
     }

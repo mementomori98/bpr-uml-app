@@ -1,7 +1,7 @@
 
 import getService from "../utils/ServiceFactory";
 import {RestClient} from "../utils/RestClient";
-import {CreateProjectRequest} from "../projects/Models";
+import {UserInvitationRequest} from "./Models";
 
 export class UserService {
 
@@ -9,6 +9,15 @@ export class UserService {
 
     public async getWorkspaceUsers(id: string) {
         const res = await this.client.get('workspaces/' + id + '/users');
+        return res;
+    }
+
+    public async inviteUser(request: UserInvitationRequest) {
+        const res = await this.client.post('workspaces/invitation', {
+            workspaceId: request.workspaceId,
+            inviteeEmailAddress: request.inviteeEmailAddress,
+        });
+        // Todo return something relevant
         return res;
     }
 }

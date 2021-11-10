@@ -15,7 +15,7 @@
     const userService = getService(UserService);
     const appContext = getService(AppContext);
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
-    import {User} from "../users/Models";
+    import {User, UserInvitationRequest} from "../users/Models";
 
     let users = [
         new User({name: 'IMPLEMENT ME', email: 'IMPLEMENT ME', status: 'Invited', role: 'Developer'}),
@@ -34,7 +34,7 @@
         console.log(res)
     })
 
-    const handleClick = (user) => {
+    const handleClick = async (user) => {
         // todo
         itemSettingsVisible = true
         chosenUser = user
