@@ -23,7 +23,7 @@
             </div>
         </div>
     {/if}
-    <div class="view__content">u
+    <div class="view__content">
         <slot/>
     </div>
     {#if !noActions}
