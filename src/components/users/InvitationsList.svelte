@@ -14,14 +14,15 @@
     export let maxHeight: number;
     const workspaceService = getService(WorkspaceService);
 
-    export let workspaces: WorkspaceInvitation[] = []
+    export let invitations: WorkspaceInvitation[] = []
 
     const onJoinInvitation = async (workspace: WorkspaceInvitation) => {
-        alert("Joining to " + workspace.name + "workspace")
-        // await workspaceService.join(new JoinWorkspaceRequest({
-        //     invitationId: workspace.id,
-        //     accepted: true
-        // }));
+        alert("Joining to " + workspace.workspaceId + "workspace")
+        const res = await workspaceService.join(new JoinWorkspaceRequest({
+            invitationId: workspace._id,
+            accepted: true
+        }));
+        console.log("heyyyyyyyy")
         $goto('/')
     }
 
@@ -36,13 +37,13 @@
             <ListRowItem widthInPercentage={20}></ListRowItem>
         </ListRow>
     </svelte:fragment>
-    {#each workspaces as workspace}
-        <ListRow noBorder={workspace === workspaces[workspaces.length-1]} style="padding-top:0; padding-bottom:0; min-height: 40px">
-            <ListRowItem widthInPercentage={40}>{workspace.name}</ListRowItem>
-            <ListRowItem widthInPercentage={40}>{workspace.invitor}</ListRowItem>
+    {#each invitations as invitation}
+        <ListRow noBorder={invitation === invitations[invitations.length-1]} style="padding-top:0; padding-bottom:0; min-height: 40px">
+            <ListRowItem widthInPercentage={40}>{invitation.workspaceId}</ListRowItem> <!--TODO workspaceName-->
+            <ListRowItem widthInPercentage={40}>{invitation.inviterId}</ListRowItem> <!--TODO inviterName-->
             <ListRowItem widthInPercentage={20}>
                 <div class="button-wrapper">
-                    <Button on:click={() => onJoinInvitation(workspace)} small color={Colors.Green}>Join</Button>
+                    <Button on:click={() => onJoinInvitation(invitation)} small color={Colors.Green}>Join</Button>
                 </div>
             </ListRowItem>
         </ListRow>

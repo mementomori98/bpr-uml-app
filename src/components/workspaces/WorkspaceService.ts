@@ -15,9 +15,9 @@ export class WorkspaceService {
     }
 
     public async join(request: JoinWorkspaceRequest) {
-        const res = await this.client.post('invitation/response', {
+        const res = await this.client.post('workspaces/invitation/response', {
             invitationId: request.invitationId,
-            response: request.accepted
+            accepted: request.accepted
         });
     }
 

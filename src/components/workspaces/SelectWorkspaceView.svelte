@@ -15,24 +15,29 @@
     import getService from "../utils/ServiceFactory";
     import {WorkspaceService} from "./WorkspaceService";
     import {AppContext} from "../utils/AppContext";
+    import {UserService} from "../users/UserService";
 
     const dispatch = createEventDispatcher();
 
     const workspaceService = getService(WorkspaceService);
+    const userService = getService(UserService);
     const appContext = getService(AppContext);
 
     let workspaces = [];
+    let invitations = [];
 
-    let invitations: WorkspaceInvitation[] = [
+    // let invitations: WorkspaceInvitation[] = [
          // new WorkspaceInvitation({name: 'Rome', invitor: 'Nero', id: 1}),
         // new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 2}),
         // new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 3}),
-    ]
+    // ]
 
     onMount(async () => {
-        const res = await workspaceService.get();
-        workspaces = res.sort((u1, u2) => u1.name.localeCompare(u2.name));
-//TODO getInvitations
+        const wss = await workspaceService.get();
+        workspaces = wss.sort((u1, u2) => u1.name.localeCompare(u2.name));
+
+        const is = await userService.getUserInvitations();
+        console.log(is)
 
         if(workspaces.length === 0 && invitations.length === 0){
             $goto('/create-workspace')

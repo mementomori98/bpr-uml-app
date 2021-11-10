@@ -15,12 +15,16 @@
     let email: string;
 
     const handleSubmit = async () => {
-        // todo
-        await userService.inviteUser(new UserInvitationRequest(
+        console.log("heyy")
+        const test = await userService.inviteUser(new UserInvitationRequest(
             {
                 inviteeEmailAddress: email,
                 workspaceId: appContext.getWorkspaceId(),
-            }));
+            })).catch(function (ex) {
+                console.log("ex", ex)
+            return ex;
+        });;
+        //***************************
         email = '';
         visible = false;
     }
@@ -41,6 +45,6 @@
 </Dialog>
 
 <style lang="scss">
-    @import "../../ui/theme";
+  @import "../../ui/theme";
 
 </style>

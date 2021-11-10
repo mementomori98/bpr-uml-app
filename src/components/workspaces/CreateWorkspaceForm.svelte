@@ -10,17 +10,16 @@
     import View from "../../ui/View.svelte";
     import Divider from "../../ui/Divider.svelte";
     import {AppContext} from "../utils/AppContext";
+    import {onMount} from "svelte";
+    import {UserService} from "../users/UserService";
 
     const workspaceService = getService(WorkspaceService);
+    const userService = getService(UserService);
     const appContext = getService(AppContext);
 
     let name: string;
 
-    let invitations: WorkspaceInvitation[] = [
-        new WorkspaceInvitation({name: 'Rome', invitor: 'Nero', id: 1}),
-        new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 2}),
-        new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 3}),
-    ]
+    let invitations: WorkspaceInvitation[] = [];
 
     const handleSubmit = async () => { //TODO
         const res = await workspaceService.create(new CreateWorkspaceRequest({
@@ -29,6 +28,10 @@
         appContext.setWorkspaceId(res._id)
         $goto('/')
     }
+
+    onMount(async () => {
+        invitations = await userService.getUserInvitations();
+    })
 
 </script>
 
@@ -41,7 +44,7 @@
     <Divider/>
     <View noPaddingTop>
         <svelte:fragment slot="header">Join workspace</svelte:fragment>
-        <InvitationsList maxHeight={150} workspaces={invitations} noPadding/>
+        <InvitationsList maxHeight={150} invitations={invitations} noPadding/>
     </View>
 {/if}
 

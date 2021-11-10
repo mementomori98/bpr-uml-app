@@ -12,6 +12,11 @@ export class UserService {
         return res;
     }
 
+    public async getUserInvitations() {
+        const res = await this.client.get('users/invitations');
+        return res;
+    }
+
     public async inviteUser(request: UserInvitationRequest) {
         const res = await this.client.post('workspaces/invitation', {
             workspaceId: request.workspaceId,
