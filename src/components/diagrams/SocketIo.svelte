@@ -8,17 +8,24 @@
     import Button from "../../ui/Button.svelte";
     import Wrapper from "../../ui/Wrapper.svelte";
     import Container from "../../ui/Container.svelte";
+    import getService from "../utils/ServiceFactory";
+    import {AppContext} from "../utils/AppContext";
 
-    let value;
-    let response = '';
+    const appContext = getService(AppContext)
 
-    let socket = io.connect('https://bpr-uml-socket-server.herokuapp.com/')
-
-    socket.on('echo', d => {
-        response += ('<br/>' + d.echo.replace('Server Says: ', ''));
-        console.log(response);
+    let socket = io.connect('https://bpr-uml-socket-server.herokuapp.com/', {
+        extraHeaders: {
+            Authorization: `Bearer ${appContext.getAccessToken()}`
+        }
     })
 
+    socket.on("connect", () => {
+        console.log('id: ' + socket.id); // x8WIv7-mJelg7on_ALbx
+    });
+
+    socket.on("disconnect", () => {
+        console.log('id: dc ' + socket.id); // undefined
+    });
 
     const handleClicked = async () => await socket.emit('send_message', {message: value});
 
@@ -30,16 +37,8 @@
         <View>
             <svelte:fragment slot="header">Socket Connection</svelte:fragment>
             <svelte:fragment slot="header-actions"></svelte:fragment>
-            <Input Label="Message" bind:value/>
-            <Button on:click={handleClicked}>Send</Button>
-            {@html response}
+
             <svelte:fragment slot="actions"></svelte:fragment>
         </View>
     </Card>
 </Container>
-
-
-<style lang="scss">
-    @import "../../ui/theme";
-
-</style>

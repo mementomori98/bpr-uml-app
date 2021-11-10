@@ -23,46 +23,45 @@
 
 
 <style lang="scss">
-  @import "../ui/theme";
+    @import "../ui/theme";
 
-  .wrapper {
-    width: calc(100% - 24px);
-    min-height: 200px;
-    max-height: 200px;
-    border-radius: 5px;
-    padding: 10px 0px 15px 0;
-    margin: 0 12px 0 12px;
-    background-color: #30476a;
-    overflow: overlay;
-    border: 1px solid #dfdfff4d;
-  }
+    .wrapper {
+        width: calc(100% - 24px);
+        height: calc(100vh - 64px - 32px);
+        border-radius: 5px;
+        padding: 10px 0px 15px 0;
+        margin: 0 12px 0 12px;
+        background-color: #30476a;
+        border: 1px solid #dfdfff4d;
+        overflow: scroll;
+    }
 
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
 
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: rgba(37, 60, 94, 0.38);
-    border-radius: 10px;
-  }
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: rgba(37, 60, 94, 0.38);
+        border-radius: 10px;
+    }
 
-  ::-webkit-scrollbar-corner {
-    background: #30476a;
-    border-radius: 0 0 10px 0;
+    ::-webkit-scrollbar-corner {
+        background: #30476a;
+        border-radius: 0 0 10px 0;
 
-  }
+    }
 
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: rgba(151, 151, 210, 0.38);
-  }
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgba(151, 151, 210, 0.38);
+    }
 
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    border-radius: 10px;
-    background: rgba(156, 156, 217, 0.56);
-  }
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        border-radius: 10px;
+        background: rgba(156, 156, 217, 0.56);
+    }
 </style>

@@ -35,44 +35,6 @@
         $goto('/login');
     }
 
-    const demoTree = {
-        label: "USA", type:"folder", children: [
-            {label: "Cloreida", type:"folder", children: [
-                    {label: "Jackdsonville", type:"model"},
-                    {label: "Orliando", type:"folder", children: [
-                            {label: "Disnney World", type:"model"},
-                            {label: "Univversal Studio", type:"model"},
-                            {label: "Sea Woporld", type:"folder", children: [
-                                    {label: "Cloíyrida", type:"folder", children: [
-                                            {label: "Jackbsonville", type:"model"},
-                                            {label: "Orlanderdo", type:"folder", children: [
-                                                    {label: "Disney vxWorld", type:"model"},
-                                                    {label: "Unixvversal Studio", type:"model"},
-                                                    {label: "Sea Woerld", type:"folder", children: [
-                                                            {label: "Clori3da", type:"folder", children: [
-                                                                    {label: "Jackcsonaaville", type:"model"},
-                                                                    {label: "Orlangdo", type:"folder", children: [
-                                                                            {label: "Disnegy World", type:"model"},
-                                                                            {label: "Univers44al Studio", type:"model"},
-                                                                            {label: "Sea Wo2rld", type:"model"},
-                                                                        ]},
-                                                                    {label: "Mfiami"},
-                                                                ]}
-                                                        ]},
-                                                ]},
-                                            {label: "Miasami"},
-                                        ]}
-                                ]},
-                        ]},
-                    {label: "Miae3mi"},
-                ]},
-            {label: "Californiua", type:"folder", children: [
-                    {label: "Sanfn Francisco", type:"model"},
-                    {label: "Los Angz5eles", type:"model"},
-                    {label: "Sacramfgento", type:"model"},
-                ]},
-        ],
-    }
     onMount(async () => {
         const res = await workspaceService.getById(appContext.getWorkspaceId());
         currentWorkspaceName = res.name;
@@ -90,8 +52,7 @@
     <svelte:fragment slot="drawer">
         <NavLink href="/">Index</NavLink>
         
-        <NavLink href="/projects">Projects</NavLink>        
-        <TreeView tree={demoTree}/>
+        <NavLink href="/projects">Projects</NavLink>
         <NavLink href="/diagram">__Diagram</NavLink>
         <NavLink href="/tests">__Tests</NavLink>
         <NavLink href="/zollytest">__Tabs</NavLink>
