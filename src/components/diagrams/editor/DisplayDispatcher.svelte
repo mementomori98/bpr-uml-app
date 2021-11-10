@@ -1,11 +1,12 @@
 <script lang="ts">
 
-    import {BoxRepresentation, ClassDiagramRepresentation, Representation} from "../Representations";
-    import BoxDisplay from "./BoxDisplay.svelte";
-    import MouseDriver from "../MouseDriver.svelte";
-    import Camera from "../Camera.svelte";
-    import {DiagramHandler} from "../DiagramHandler";
-    import ClassDisplay from "./ClassDisplay.svelte";
+    import BoxDisplay from "../boxes/BoxDisplay.svelte";
+    import MouseDriver from "./MouseDriver.svelte";
+    import Camera from "./Camera.svelte";
+    import {DiagramHandler} from "../utils/DiagramHandler";
+    import ClassDisplay from "../classes/ClassDisplay.svelte";
+    import {BoxRepresentation} from "../boxes/Models";
+    import {ClassDiagramRepresentation} from "../classes/Models";
 
     export let representation: Representation<any>;
     export let camera: Camera;

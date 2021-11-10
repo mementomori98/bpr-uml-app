@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import {Representation} from "../Representations";
+    import {Representation} from "../utils/Models";
     import Icon from "../../../ui/Icon.svelte";
     import TextButton from "../../../ui/TextButton.svelte";
 

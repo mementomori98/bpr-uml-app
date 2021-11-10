@@ -70,6 +70,6 @@
 
 
 <style lang="scss">
-    @import "../../ui/theme";
+    @import "../../../ui/theme";
 
 </style>

@@ -1,6 +1,6 @@
 <script lang="ts">
     import {params} from "@roxi/routify";
-    import DiagramEditor from "../components/diagrams/DiagramEditor.svelte";
+    import DiagramEditor from "../components/diagrams/editor/DiagramEditor.svelte";
 </script>
 
 <DiagramEditor diagramId={$params.id}/>

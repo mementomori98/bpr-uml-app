@@ -1,7 +1,7 @@
 <script lang="ts">
 
-    import {BoxRepresentation} from "../Representations";
-    import DisplayFrame from "./DisplayFrame.svelte";
+    import {BoxRepresentation} from "../utils/Models";
+    import DisplayFrame from "../editor/DisplayFrame.svelte";
 
     export let representation: BoxRepresentation;
     export let dragX: number;

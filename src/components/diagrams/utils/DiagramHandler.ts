@@ -1,6 +1,9 @@
-import {BoxRepresentation, ClassDiagramRepresentation, Representation} from "./Representations";
-import getService from "../utils/ServiceFactory";
-import {Snackbar} from "../utils/Snackbar";
+
+import getService from "../../utils/ServiceFactory";
+import {Snackbar} from "../../utils/Snackbar";
+import type {Representation} from "./Models";
+import {BoxRepresentation} from "../boxes/Models";
+import {ClassDiagramRepresentation} from "../classes/Models";
 
 export class DiagramHandler {
 

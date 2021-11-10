@@ -1,6 +1,7 @@
-import { BoxRepresentation, ClassDiagramRepresentation } from "./Representations";
-import getService from "../utils/ServiceFactory";
-import { Snackbar } from "../utils/Snackbar";
+import getService from "../../utils/ServiceFactory";
+import { Snackbar } from "../../utils/Snackbar";
+import { BoxRepresentation } from "../boxes/Models";
+import { ClassDiagramRepresentation } from "../classes/Models";
 export class DiagramHandler {
     constructor() {
         this.snackbar = getService(Snackbar);

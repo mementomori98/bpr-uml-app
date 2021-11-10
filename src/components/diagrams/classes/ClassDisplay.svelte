@@ -1,7 +1,7 @@
 <script lang="ts">
 
-    import {ClassDiagramRepresentation} from "../Representations";
-    import DisplayFrame from "./DisplayFrame.svelte";
+    import {ClassDiagramRepresentation} from "../utils/Models";
+    import DisplayFrame from "../editor/DisplayFrame.svelte";
 
     export let representation: ClassDiagramRepresentation;
     export let dragX: number;
