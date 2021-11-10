@@ -9,9 +9,9 @@
     import DisplayDispatcher from "./DisplayDispatcher.svelte";
     import {context} from "@roxi/routify/typings/runtime";
     import {BoxRepresentation} from "../boxes/Models";
+    import CanvasContextMenu from "./CanvasContextMenu.svelte";
 
-    let id = '8';
-    export let diagramHandler: DiagramHandler;
+    let diagramHandler = new DiagramHandler(() => diagramHandler = diagramHandler);
 
     let mouseX: number;
     let mouseY: number;
@@ -59,12 +59,6 @@
         contextVisible = true;
     }
 
-    const handleCreateModel = () => {
-        let coords = camera.realCoords(contextX - canvas.offsetLeft, contextY - canvas.offsetTop);
-        diagramHandler.elements.push(new BoxRepresentation({id: (id = id + 1), x: coords[0], y: coords[1], w: 100, h: 100}));
-        diagramHandler = diagramHandler;
-    }
-
     onMount(() => diagramHandler = diagramHandler);
 
 </script>
@@ -89,12 +83,15 @@
         <DisplayDispatcher representation={element} camera={camera} diagramHandler={diagramHandler} />
     {/each}
 
-    <ContextMenu
-    bind:left={contextX}
-    bind:top={contextY}
-    bind:visible={contextVisible}>
-        <Option on:click={handleCreateModel}>Create Model</Option>
-    </ContextMenu>
+    <CanvasContextMenu
+        originX={contextX}
+        originY={contextY}
+        canvasX={canvas?.offsetLeft}
+        canvasY={canvas?.offsetTop}
+        diagramHandler={diagramHandler}
+        realCoords={camera.realCoords}
+        bind:visible={contextVisible}
+        refreshCallback={() => diagramHandler = diagramHandler}/>
 </div>
 
 <style lang="scss">
