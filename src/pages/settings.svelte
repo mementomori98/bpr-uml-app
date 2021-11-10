@@ -1,5 +1,5 @@
 <script>
-    import SettingsView from "../refactor/workspaces/SettingsView.svelte";
+    import SettingsView from "../components/workspaces/SettingsView.svelte";
 </script>
 
 <SettingsView/>

@@ -15,7 +15,7 @@
     import TextButton from "../ui/TextButton.svelte";
     import Divider from "../ui/Divider.svelte";
     import {getContext} from "svelte";
-    import getService from "../refactor/utils/ServiceFactory";
+    import getService from "../components/utils/ServiceFactory";
     import Nav from "../Nav.svelte";
     import SnackbarProvider from "../ui/SnackbarProvider.svelte";
     import {AuthenticationService} from "../components/auth/AuthenticationService";

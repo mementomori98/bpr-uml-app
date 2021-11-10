@@ -10,10 +10,10 @@
     import Wrapper from "../../ui/Wrapper.svelte";
     import firebase from "firebase/compat";
     import Auth = firebase.auth.Auth;
-    import getService from "../../refactor/utils/ServiceFactory";
-    import {AppContext} from "../../refactor/utils/AppContext";
+    import getService from "../utils/ServiceFactory";
+    import {AppContext} from "../utils/AppContext";
     import {createEventDispatcher} from "svelte";
-    import {RestClient} from "../../refactor/utils/RestClient";
+    import {RestClient} from "../utils/RestClient";
 
     let username: string;
     let password: string;

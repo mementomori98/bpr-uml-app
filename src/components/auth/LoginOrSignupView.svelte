@@ -4,7 +4,7 @@
     import SignupView from "./SignupView.svelte";
     import {createEventDispatcher} from "svelte";
     import {goto} from "@roxi/routify";
-    import {Workspace} from "../../refactor/workspaces/Models";
+    import {Workspace} from "../workspaces/Models";
 
     const dispatch = createEventDispatcher();
 

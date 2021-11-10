@@ -8,12 +8,12 @@
     import CreateProjectDialog from "./CreateProjectDialog.svelte";
     import {goto} from "@roxi/routify";
     import {onMount} from "svelte";
-    import getService from "../../refactor/utils/ServiceFactory";
-    import {UserService} from "../../refactor/users/UserService";
-    import {AppContext} from "../../refactor/utils/AppContext";
+    import getService from "../utils/ServiceFactory";
+    import {UserService} from "../users/UserService";
+    import {AppContext} from "../utils/AppContext";
     import {ProjectService} from "./ProjectService";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
-    import {Team} from "../../refactor/teams/Models";
+    import {Team} from "../teams/Models";
     import {Project} from "./Models";
 
     const projectService = getService(ProjectService);

@@ -2,15 +2,15 @@
     import Card from "../../ui/Card.svelte";
     import View from "../../ui/View.svelte";
     import Button from "../../ui/Button.svelte";
-    import UserSettingsDialog from "../../refactor/users/UserSettingsDialog.svelte";
-    import InviteProjectUserDialog from "../../refactor/users/InviteProjectUserDialog.svelte";
+    import UserSettingsDialog from "../users/UserSettingsDialog.svelte";
+    import InviteProjectUserDialog from "../users/InviteProjectUserDialog.svelte";
     import Checkbox from "../../ui/Checkbox.svelte";
     import CloseButton from "../../ui/CloseButton.svelte";
     import ListRowItem from "../../ui/ListRowItem.svelte";
     import ListRow from "../../ui/ListRow.svelte";
     import {goto, params} from "@roxi/routify";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
-    import {User} from "../../refactor/users/Models";
+    import {User} from "../users/Models";
 
     let users = [
         new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer', canEdit: false, id: 1}),

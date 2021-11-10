@@ -10,12 +10,12 @@
     import {goto} from "@roxi/routify";
     import VirtualSpace from "./ui/VirtualSpace.svelte";
     import Fab from "./ui/Fab.svelte";
-    import getService from "./refactor/utils/ServiceFactory";
-    import WorkspaceNavOptions from "./refactor/workspaces/WorkspaceNavOptions.svelte";
+    import getService from "./components/utils/ServiceFactory";
+    import WorkspaceNavOptions from "./components/workspaces/WorkspaceNavOptions.svelte";
     import {onMount} from "svelte";
-    import {WorkspaceService} from "./refactor/workspaces/WorkspaceService";
-    import {AppContext} from "./refactor/utils/AppContext";
-    import {Workspace} from "./refactor/workspaces/Models";
+    import {WorkspaceService} from "./components/workspaces/WorkspaceService";
+    import {AppContext} from "./components/utils/AppContext";
+    import {Workspace} from "./components/workspaces/Models";
     import MessageIcon from "./ui/MessageIcon.svelte";
     import TreeView from "./ui/TreeView.svelte";
     import {AuthenticationService} from "./components/auth/AuthenticationService";

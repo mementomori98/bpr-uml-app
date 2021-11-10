@@ -2,7 +2,7 @@
     import {Router} from "@roxi/routify";
     import {routes} from "../.routify/routes";
     import {initializeApp} from 'firebase/app';
-    import RegisterServices from "./refactor/utils/RegisterServices.svelte";
+    import RegisterServices from "./components/utils/RegisterServices.svelte";
 
     const firebaseConfig = {
         apiKey: "AIzaSyDAuriepQen_J7sYEo4zKZLpFnjbhljsdQ",

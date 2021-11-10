@@ -1,7 +1,7 @@
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import getService from "../../refactor/utils/ServiceFactory";
-import { AppContext } from "../../refactor/utils/AppContext";
-import { RestClient } from "../../refactor/utils/RestClient";
+import getService from "../utils/ServiceFactory";
+import { AppContext } from "../utils/AppContext";
+import { RestClient } from "../utils/RestClient";
 export class AuthenticationService {
     constructor() {
         this.auth = getAuth();

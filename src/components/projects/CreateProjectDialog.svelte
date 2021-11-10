@@ -8,12 +8,12 @@
     import ListRowItem from "../../ui/ListRowItem.svelte";
     import Checkbox from "../../ui/Checkbox.svelte";
     import Input from "../../ui/Input.svelte";
-    import {AppContext} from "../../refactor/utils/AppContext";
-    import getService from "../../refactor/utils/ServiceFactory";
+    import {AppContext} from "../utils/AppContext";
+    import getService from "../utils/ServiceFactory";
     import {ProjectService} from "./ProjectService";
     import {CreateProjectRequest} from "./Models";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
-    import {User, UserToProject} from "../../refactor/users/Models";
+    import {User, UserToProject} from "../users/Models";
 
     export let visible: boolean = false;
     let projectName: string = "";

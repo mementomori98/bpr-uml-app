@@ -1,6 +1,6 @@
 <script>
     import {goto} from "@roxi/routify";
-    import SelectWorkspaceView from "../refactor/workspaces/SelectWorkspaceView.svelte";
+    import SelectWorkspaceView from "../components/workspaces/SelectWorkspaceView.svelte";
 </script>
 
 <SelectWorkspaceView on:choice={() => $goto('/')}/>

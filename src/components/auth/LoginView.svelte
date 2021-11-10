@@ -8,7 +8,7 @@
     import {AuthenticationService} from "./AuthenticationService";
     import Card from "../../ui/Card.svelte";
     import {createEventDispatcher} from "svelte";
-    import getService from "../../refactor/utils/ServiceFactory";
+    import getService from "../utils/ServiceFactory";
 
     const authenticationService = getService(AuthenticationService);
     const dispatch = createEventDispatcher();

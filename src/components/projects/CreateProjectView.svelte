@@ -2,7 +2,7 @@
     import View from "../../ui/View.svelte";
     import Button from "../../ui/Button.svelte";
     import Input from "../../ui/Input.svelte";
-    import getService from "../../refactor/utils/ServiceFactory";
+    import getService from "../utils/ServiceFactory";
     import {ProjectService} from "./ProjectService";
     import {CreateProjectRequest} from "./Models";
 

@@ -1,4 +1,4 @@
-import { Model } from "../../refactor/utils/Model";
+import { Model } from "../utils/Model";
 export class CreateProjectRequest extends Model {
 }
 export class Project {

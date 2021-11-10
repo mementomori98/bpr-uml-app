@@ -1,7 +1,7 @@
 
 import getService from "../utils/ServiceFactory";
 import {RestClient} from "../utils/RestClient";
-import {CreateProjectRequest} from "../../components/projects/Models";
+import {CreateProjectRequest} from "../projects/Models";
 
 export class UserService {
 

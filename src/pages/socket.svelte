@@ -1,5 +1,5 @@
 <script>
-    import SocketIo from "../refactor/diagrams/SocketIo.svelte";
+    import SocketIo from "../components/diagrams/SocketIo.svelte";
 </script>
 
 <SocketIo/>

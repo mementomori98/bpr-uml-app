@@ -1,5 +1,5 @@
-import getService from "../../refactor/utils/ServiceFactory";
-import {RestClient} from "../../refactor/utils/RestClient";
+import getService from "../utils/ServiceFactory";
+import {RestClient} from "../utils/RestClient";
 import type {CreateProjectRequest} from "./Models";
 
 export class ProjectService {

@@ -4,9 +4,9 @@ import Tabs from "../ui/Tabs.svelte";
 import TabList from "../ui/TabList.svelte";
 import Tab from "../ui/Tab.svelte";
 import TabPanel from "../ui/TabPanel.svelte";
-import WorkspaceForm from "../refactor/workspaces/WorkspaceForm.svelte";
-import WorkspaceDangerZone from "../refactor/workspaces/WorkspaceDangerZone.svelte";
-import WorkspaceUsersCard from "../refactor/workspaces/WorkspaceUsersCard.svelte";
+import WorkspaceForm from "../components/workspaces/WorkspaceForm.svelte";
+import WorkspaceDangerZone from "../components/workspaces/WorkspaceDangerZone.svelte";
+import WorkspaceUsersCard from "../components/workspaces/WorkspaceUsersCard.svelte";
 import MessageIcon from "../ui/MessageIcon.svelte";
 </script>
 
