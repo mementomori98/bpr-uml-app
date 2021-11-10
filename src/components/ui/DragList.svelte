@@ -10,12 +10,13 @@
     let dx = 0;
     let dy = 0;
 
-    const start = item => {
+    const start = (e, item) => {
         active = item;
+        [dx, dy] = [e.detail.x, e.detail.y]
     }
 
     const drag = e => {
-        [dx, dy] = [e.detail.dx, e.detail.dy];
+        // [dx, dy] = [e.detail.dx, e.detail.dy];
     }
 
     const end = () => {
@@ -61,6 +62,9 @@
         if (item !== hovered)
             return;
         before = e.offsetY / e.target.clientHeight < 0.5;
+        if (active === null)
+            return;
+        [dx, dy] = [e.clientX, e.clientY];
     }
 
 </script>
@@ -78,10 +82,10 @@
             <div
                     class="ordinary"
                     style="left: {dx}px;top: {dy}px"
-                    class:hovered={hovered === item && active !== item}
+                    class:hovered={hovered === item && active === null}
                     class:relative={active === item}
                     use:draggable
-                    on:panstart={e => start(item)}
+                    on:panstart={e => start(e, item)}
                     on:panmove={drag}
                     on:panend={end}>
                 {item}
@@ -94,44 +98,47 @@
     $border: #73b6fc;
 
     .ordinary {
+        transition-duration: 100ms;
         background-color: white;
         padding: 8px;
     }
 
     .relative {
-        position: relative;
+        transition-duration: 0ms;
+        position: absolute;
         background-color: darkgray !important;
         pointer-events: none;
     }
 
     .hovered {
-        //background-color: #ededed !important;
+        box-shadow: 0 0 8px 0 rgba(0, 0, 0, .1);
+    }
+
+    .outer {
+        transition-duration: 300ms;
     }
 
     .outer::before {
-        transition-duration: 200ms;
         content: " ";
         display: block;
         position: relative;
-        height: 0px;
+        height: 2px;
     }
 
     .outer::after {
-        transition-duration: 200ms;
         content: " ";
         display: block;
         position: relative;
-        height: 0px;
+        height: 2px;
+        top: -2px;
     }
 
     .before::before {
-        height: 20px;
-        //background-color: $border;
+        background-color: $border;
     }
 
     .after::after {
-        height: 20px;
-        //background-color: $border;
+        background-color: $border;
     }
 </style>
 
