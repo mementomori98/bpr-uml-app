@@ -97,7 +97,7 @@
         <NavLink href="/zollytest">__Tabs</NavLink>
         <NavLink href="/socket">__Socket</NavLink>
         <Spacer size="24"/>
-        <NavLink href="/settings">Workspace</NavLink>
+        <NavLink href="/workspaces">Workspace</NavLink>
         <NavLink href="/logout">Log out</NavLink>
         <Spacer size="1"/>
     </svelte:fragment>
