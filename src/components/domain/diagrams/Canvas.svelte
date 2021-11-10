@@ -2,12 +2,12 @@
     import MouseDriver from "./MouseDriver.svelte";
     import Camera from "./Camera.svelte";
     import {onMount} from "svelte";
-    import BoxDisplay from "./BoxDisplay.svelte";
-    import {DiagramHandler} from "../../services/diagrams/DiagramHandler";
-    import {BoxRepresentation, Representation} from "../../services/diagrams/Representations";
-    import ContextMenu from "../ui/ContextMenu.svelte";
-    import Option from "../ui/Option.svelte";
-    import DisplayDispatcher from "./DisplayDispatcher.svelte";
+    import BoxDisplay from "./displays/BoxDisplay.svelte";
+    import {DiagramHandler} from "../../../services/diagrams/DiagramHandler";
+    import {BoxRepresentation, Representation} from "../../../services/diagrams/Representations";
+    import ContextMenu from "../../ui/ContextMenu.svelte";
+    import Option from "../../ui/Option.svelte";
+    import DisplayDispatcher from "./displays/DisplayDispatcher.svelte";
     import {context} from "@roxi/routify/typings/runtime";
 
     let id = '8';
@@ -98,5 +98,5 @@
 </div>
 
 <style lang="scss">
-    @import "../theme.scss";
+    @import "../../theme";
 </style>

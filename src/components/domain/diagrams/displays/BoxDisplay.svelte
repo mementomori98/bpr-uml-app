@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import {BoxRepresentation} from "../../services/diagrams/Representations";
+    import {BoxRepresentation} from "../../../../services/diagrams/Representations";
     import DisplayFrame from "./DisplayFrame.svelte";
 
     export let representation: BoxRepresentation;
@@ -19,7 +19,7 @@
 </DisplayFrame>
 
 <style lang="scss">
-    @import "../theme.scss";
+    @import "../../../theme";
 
     .box {
         background-color: #d9cfa9;

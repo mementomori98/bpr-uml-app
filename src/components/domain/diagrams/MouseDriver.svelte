@@ -70,6 +70,6 @@
 
 
 <style lang="scss">
-    @import "../theme.scss";
+    @import "../../theme";
 
 </style>

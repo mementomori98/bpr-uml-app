@@ -1,10 +1,10 @@
 <script lang="ts">
 
-    import {BoxRepresentation, ClassDiagramRepresentation, Representation} from "../../services/diagrams/Representations";
+    import {BoxRepresentation, ClassDiagramRepresentation, Representation} from "../../../../services/diagrams/Representations";
     import BoxDisplay from "./BoxDisplay.svelte";
-    import MouseDriver from "./MouseDriver.svelte";
-    import Camera from "./Camera.svelte";
-    import {DiagramHandler} from "../../services/diagrams/DiagramHandler";
+    import MouseDriver from "../MouseDriver.svelte";
+    import Camera from "../Camera.svelte";
+    import {DiagramHandler} from "../../../../services/diagrams/DiagramHandler";
     import ClassDisplay from "./ClassDisplay.svelte";
 
     export let representation: Representation<any>;
@@ -52,7 +52,7 @@
         on:dragend={e => handleElementDragEnd()}/>
 
 <style lang="scss">
-    @import "../theme.scss";
+    @import "../../../theme";
 
     .display {
 

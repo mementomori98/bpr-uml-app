@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import {ClassDiagramRepresentation} from "../../services/diagrams/Representations";
+    import {ClassDiagramRepresentation} from "../../../../services/diagrams/Representations";
     import DisplayFrame from "./DisplayFrame.svelte";
 
     export let representation: ClassDiagramRepresentation;
@@ -35,7 +35,7 @@
 </DisplayFrame>
 
 <style lang="scss">
-    @import "../theme.scss";
+    @import "../../../theme";
 
 
     .class {

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Canvas from "../../tests/Canvas.svelte";
+    import Canvas from "./Canvas.svelte";
     import {DiagramHandler} from "../../../services/diagrams/DiagramHandler";
     import Button from "../../ui/Button.svelte";
     import getService from "../../../services/Services";
