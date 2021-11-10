@@ -22,6 +22,7 @@ export class DiagramHandler {
     constructor(callback: () => void) {
         this.callback = callback;
 
+        // @ts-ignore
         this.socket = io.connect('https://bpr-uml-socket-server.herokuapp.com/', {
             extraHeaders: {
                 Authorization: `Bearer ${this.appContext.getAccessToken()}`

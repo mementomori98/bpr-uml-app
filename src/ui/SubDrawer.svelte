@@ -4,6 +4,7 @@
     import Button from "./Button.svelte";
 
     let closed = false;
+    let drawerElement: HTMLElement;
 
     $: drawerClass = new CssBuilder('secondary-drawer__drawer-content')
         .addFeature('closed', closed)
@@ -11,12 +12,18 @@
 
 </script>
 
+<div style="left: {drawerElement?.offsetLeft}px;top: {drawerElement?.offsetTop};position:absolute;background-color:#ededed;padding:4px 8px;z-index: 20000;cursor:pointer;user-select:none;font-weight:900;font-family:consolas;" on:click={() => closed = !closed}>
+    {#if closed}
+        &gt;
+    {:else}
+        &lt;
+    {/if}
+</div>
 <div class="secondary-drawer">
-    <div class={drawerClass}>
+    <div class={drawerClass} bind:this={drawerElement}>
         <slot name="drawer"/>
     </div>
     <div class="secondary-drawer__main-content">
-        <Button on:click={() => closed = !closed}>Close</Button>
         <slot/>
     </div>
 </div>
