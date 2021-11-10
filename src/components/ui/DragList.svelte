@@ -130,7 +130,7 @@
         display: block;
         position: relative;
         height: 2px;
-        top: -2px;
+        top: 2px;
     }
 
     .before::before {
