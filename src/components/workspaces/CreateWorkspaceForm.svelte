@@ -23,10 +23,10 @@
     ]
 
     const handleSubmit = async () => { //TODO
-        /*const res = await workspaceService.create(new CreateWorkspaceRequest({
+        const res = await workspaceService.create(new CreateWorkspaceRequest({
             name: name
-        }));*/
-       // appContext.setWorkspaceId(res._id)
+        }));
+        appContext.setWorkspaceId(res._id)
         $goto('/')
     }
 
