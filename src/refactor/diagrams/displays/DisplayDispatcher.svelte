@@ -52,7 +52,7 @@
         on:dragend={e => handleElementDragEnd()}/>
 
 <style lang="scss">
-    @import "../../../components/theme";
+    @import "../../../ui/theme";
 
     .display {
 

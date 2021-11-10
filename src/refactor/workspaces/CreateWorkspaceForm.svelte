@@ -1,14 +1,14 @@
 <script lang="ts">
 
-    import Form from "../../components/ui/Form.svelte";
-    import getService from "../utils/Services";
+    import Form from "../../ui/Form.svelte";
+    import getService from "../utils/ServiceFactory";
     import {WorkspaceService} from "./WorkspaceService";
     import {CreateWorkspaceRequest, WorkspaceInvitation} from "./Models";
-    import Input from "../../components/ui/Input.svelte";
+    import Input from "../../ui/Input.svelte";
     import {goto} from "@roxi/routify";
     import InvitationsList from "../users/InvitationsList.svelte";
-    import View from "../../components/ui/View.svelte";
-    import Divider from "../../components/ui/Divider.svelte";
+    import View from "../../ui/View.svelte";
+    import Divider from "../../ui/Divider.svelte";
     import {AppContext} from "../utils/AppContext";
 
     const workspaceService = getService(WorkspaceService);
@@ -47,6 +47,6 @@
 
 
 <style lang="scss">
-    @import "../../components/theme";
+    @import "../../ui/theme";
 
 </style>

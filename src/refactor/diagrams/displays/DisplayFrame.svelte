@@ -1,8 +1,8 @@
 <script lang="ts">
 
     import {Representation} from "../Representations";
-    import Icon from "../../../components/ui/Icon.svelte";
-    import TextButton from "../../../components/ui/TextButton.svelte";
+    import Icon from "../../../ui/Icon.svelte";
+    import TextButton from "../../../ui/TextButton.svelte";
 
     export let representation: Representation<any>;
     export let dragX: number;
@@ -33,7 +33,7 @@
 </div>
 
 <style lang="scss">
-    @import "../../../components/theme";
+    @import "../../../ui/theme";
 
     .display-frame {
         position: absolute;

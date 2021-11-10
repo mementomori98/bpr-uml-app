@@ -5,8 +5,8 @@
     import BoxDisplay from "./displays/BoxDisplay.svelte";
     import {DiagramHandler} from "./DiagramHandler";
     import {BoxRepresentation, Representation} from "./Representations";
-    import ContextMenu from "../../components/ui/ContextMenu.svelte";
-    import Option from "../../components/ui/Option.svelte";
+    import ContextMenu from "../../ui/ContextMenu.svelte";
+    import Option from "../../ui/Option.svelte";
     import DisplayDispatcher from "./displays/DisplayDispatcher.svelte";
     import {context} from "@roxi/routify/typings/runtime";
 
@@ -98,5 +98,5 @@
 </div>
 
 <style lang="scss">
-    @import "../../components/theme";
+    @import "../../ui/theme";
 </style>

@@ -2,12 +2,12 @@
 
     import {io} from "socket.io-client";
     import {onMount} from "svelte";
-    import Card from "../../components/ui/Card.svelte";
-    import View from "../../components/ui/View.svelte";
-    import Input from "../../components/ui/Input.svelte";
-    import Button from "../../components/ui/Button.svelte";
-    import Wrapper from "../../components/ui/Wrapper.svelte";
-    import Container from "../../components/ui/Container.svelte";
+    import Card from "../../ui/Card.svelte";
+    import View from "../../ui/View.svelte";
+    import Input from "../../ui/Input.svelte";
+    import Button from "../../ui/Button.svelte";
+    import Wrapper from "../../ui/Wrapper.svelte";
+    import Container from "../../ui/Container.svelte";
 
     let value;
     let response = '';
@@ -40,6 +40,6 @@
 
 
 <style lang="scss">
-    @import "../../components/theme";
+    @import "../../ui/theme";
 
 </style>

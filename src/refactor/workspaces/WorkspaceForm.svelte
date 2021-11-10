@@ -1,10 +1,10 @@
 <script lang="ts">
 
-    import Card from "../../components/ui/Card.svelte";
-    import Form from "../../components/ui/Form.svelte";
-    import Input from "../../components/ui/Input.svelte";
-    import Button from "../../components/ui/Button.svelte";
-    import {Colors} from "../../components/utils/Colors";
+    import Card from "../../ui/Card.svelte";
+    import Form from "../../ui/Form.svelte";
+    import Input from "../../ui/Input.svelte";
+    import Button from "../../ui/Button.svelte";
+    import {Colors} from "../../ui/utils/Colors";
 
     let workspaceName: string = 'My Workspace';
 
@@ -22,6 +22,6 @@
 </Card>
 
 <style lang="scss">
-    @import "../../components/theme";
+    @import "../../ui/theme";
 
 </style>

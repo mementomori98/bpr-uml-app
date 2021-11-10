@@ -1,14 +1,14 @@
 <script lang="ts">
-    import Wrapper from "../../components/ui/Wrapper.svelte";
-    import Card from "../../components/ui/Card.svelte";
-    import View from "../../components/ui/View.svelte";
-    import ListRow from "../../components/ui/ListRow.svelte";
-    import ListRowItem from "../../components/ui/ListRowItem.svelte";
-    import Button from "../../components/ui/Button.svelte";
+    import Wrapper from "../../ui/Wrapper.svelte";
+    import Card from "../../ui/Card.svelte";
+    import View from "../../ui/View.svelte";
+    import ListRow from "../../ui/ListRow.svelte";
+    import ListRowItem from "../../ui/ListRowItem.svelte";
+    import Button from "../../ui/Button.svelte";
     import {JoinWorkspaceRequest, WorkspaceInvitation} from "../workspaces/Models";
-    import {Colors} from "../../components/utils/Colors";
-    import ListScrollWrapper from "../../components/ui/ListScrollWrapper.svelte";
-    import getService from "../utils/Services";
+    import {Colors} from "../../ui/utils/Colors";
+    import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
+    import getService from "../utils/ServiceFactory";
     import {WorkspaceService} from "../workspaces/WorkspaceService";
 
     const workspaceService = getService(WorkspaceService);
@@ -66,7 +66,7 @@
 
 
 <style lang="scss">
-  @import "../../components/theme";
+  @import "../../ui/theme";
 
   .button-wrapper {
     display: flex;

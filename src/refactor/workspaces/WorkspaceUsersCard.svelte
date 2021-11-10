@@ -1,21 +1,21 @@
 <script lang="ts">
-    import Card from "../../components/ui/Card.svelte";
-    import {User} from "../users/User";
-    import View from "../../components/ui/View.svelte";
-    import Button from "../../components/ui/Button.svelte";
+    import Card from "../../ui/Card.svelte";
+    import View from "../../ui/View.svelte";
+    import Button from "../../ui/Button.svelte";
     import InviteUserDialog from "../users/InviteUserDialog.svelte";
     import UserSettingsDialog from "../users/UserSettingsDialog.svelte";
-    import ListRowItem from "../../components/ui/ListRowItem.svelte";
-    import ListRow from "../../components/ui/ListRow.svelte";
+    import ListRowItem from "../../ui/ListRowItem.svelte";
+    import ListRow from "../../ui/ListRow.svelte";
     import {onMount} from "svelte";
-    import getService from "../utils/Services";
+    import getService from "../utils/ServiceFactory";
     import {WorkspaceService} from "./WorkspaceService";
     import {AppContext} from "../utils/AppContext";
     import {UserService} from "../users/UserService";
 
     const userService = getService(UserService);
     const appContext = getService(AppContext);
-    import ListScrollWrapper from "../../components/ui/ListScrollWrapper.svelte";
+    import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
+    import {User} from "../users/Models";
 
     let users = [
         new User({name: 'IMPLEMENT ME', email: 'IMPLEMENT ME', status: 'Invited', role: 'Developer'}),
@@ -73,6 +73,6 @@
 <UserSettingsDialog bind:visible={itemSettingsVisible} user={chosenUser}/> <!-- TODO should pass id-->
 
 <style lang="scss">
-  @import "../../components/theme";
+  @import "../../ui/theme";
 
 </style>

@@ -1,13 +1,13 @@
 <script lang="ts">
-import CreateProjectView from "../refactor/projects/CreateProjectView.svelte";
-import Card from "../components/ui/Card.svelte";
-import Container from "../components/ui/Container.svelte";
+import CreateProjectView from "../components/projects/CreateProjectView.svelte";
+import Card from "../ui/Card.svelte";
+import Container from "../ui/Container.svelte";
 import CreateDiagramView from "../refactor/diagrams/CreateDiagramView.svelte";
-import View from "../components/ui/View.svelte";
-import DragList from "../components/ui/DragList.svelte";
-import getService from "../refactor/utils/Services";
+import View from "../ui/View.svelte";
+import DragList from "../ui/DragList.svelte";
+import getService from "../refactor/utils/ServiceFactory";
 import {AppContext} from "../refactor/utils/AppContext";
-import Button from "../components/ui/Button.svelte";
+import Button from "../ui/Button.svelte";
 
 const appContext = getService(AppContext);
 
@@ -35,6 +35,6 @@ const appContext = getService(AppContext);
 
 
 <style lang="scss">
-    @import "../components/theme.scss";
+    @import "../ui/theme";
 
 </style>

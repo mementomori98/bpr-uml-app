@@ -1,4 +1,4 @@
-import getService from "./Services";
+import getService from "./ServiceFactory";
 import {AppContext} from "./AppContext";
 import {context} from "@roxi/routify/typings/runtime";
 

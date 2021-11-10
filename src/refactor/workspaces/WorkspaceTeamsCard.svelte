@@ -1,16 +1,15 @@
 <script lang="ts">
-    import Card from "../../components/ui/Card.svelte";
-    import {User} from "../users/User";
-    import View from "../../components/ui/View.svelte";
-    import Button from "../../components/ui/Button.svelte";
+    import Card from "../../ui/Card.svelte";
+    import View from "../../ui/View.svelte";
+    import Button from "../../ui/Button.svelte";
     import InviteUserDialog from "../users/InviteUserDialog.svelte";
     import UserSettingsDialog from "../users/UserSettingsDialog.svelte";
-    import ListRowItem from "../../components/ui/ListRowItem.svelte";
-    import ListRow from "../../components/ui/ListRow.svelte";
-    import {Team} from "../teams/Team";
-    import CloseButton from "../../components/ui/CloseButton.svelte";
+    import ListRowItem from "../../ui/ListRowItem.svelte";
+    import ListRow from "../../ui/ListRow.svelte";
+    import {Team} from "../teams/Models";
+    import CloseButton from "../../ui/CloseButton.svelte";
     import TeamSettingsDialog from "../teams/TeamSettingsDialog.svelte";
-    import ListScrollWrapper from "../../components/ui/ListScrollWrapper.svelte";
+    import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
 
 
     let teams = [
@@ -70,6 +69,6 @@
 <TeamSettingsDialog lockable teamName={chosenTeam === null ? "" : chosenTeam.name} bind:visible={itemSettingsVisible}/>
 <TeamSettingsDialog bind:visible={createVisible}/>
 <style lang="scss">
-  @import "../../components/theme";
+  @import "../../ui/theme";
 
 </style>

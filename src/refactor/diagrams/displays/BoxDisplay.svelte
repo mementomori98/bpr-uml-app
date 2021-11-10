@@ -19,7 +19,7 @@
 </DisplayFrame>
 
 <style lang="scss">
-    @import "../../../components/theme";
+    @import "../../../ui/theme";
 
     .box {
         background-color: #d9cfa9;

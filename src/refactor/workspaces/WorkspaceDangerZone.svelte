@@ -1,9 +1,9 @@
 <script lang="ts">
-import Card from "../../components/ui/Card.svelte";
-import View from "../../components/ui/View.svelte";
+import Card from "../../ui/Card.svelte";
+import View from "../../ui/View.svelte";
 import WorkspaceDangerItem from "./WorkspaceDangerItem.svelte";
-import Button from "../../components/ui/Button.svelte";
-import {Colors} from "../../components/utils/Colors";
+import Button from "../../ui/Button.svelte";
+import {Colors} from "../../ui/utils/Colors";
 import WorkspaceDangerDialog from "./WorkspaceDangerDialog.svelte";
 
 export const title: string = ""
@@ -33,7 +33,7 @@ const deleteWorkspace = () => {
 <WorkspaceDangerDialog bind:visible={dangerVisible}/>
 
 <style lang="scss">
-  @import "../../components/theme";
+  @import "../../ui/theme";
 
 
 </style>

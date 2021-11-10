@@ -1,17 +1,18 @@
 <script lang="ts">
-    import Dialog from "../../components/ui/Dialog.svelte";
-    import {User} from "./User";
-    import Input from "../../components/ui/Input.svelte";
-    import Select from "../../components/ui/Select.svelte";
-    import Button from "../../components/ui/Button.svelte";
-    import {Colors} from "../../components/utils/Colors";
-    import Form from "../../components/ui/Form.svelte";
-    import {DataListItem} from "../../components/utils/DataListItem";
+    import Dialog from "../../ui/Dialog.svelte";
+    import {User} from "./Models";
+    import Input from "../../ui/Input.svelte";
+    import Select from "../../ui/Select.svelte";
+    import Button from "../../ui/Button.svelte";
+    import {Colors} from "../../ui/utils/Colors";
+    import Form from "../../ui/Form.svelte";
+    import {DataListItem} from "../../ui/utils/DataListItem";
+
     export let visible: boolean = false;
     export let user: User = new User();
     let roleToSet: DataListItem = null;
 
-    let roles = [new DataListItem(1, "Admin"),new DataListItem(2, "Product owner"),new DataListItem(3, "Developer")]
+    let roles = [new DataListItem(1, "Admin"), new DataListItem(2, "Product owner"), new DataListItem(3, "Developer")]
     let locked: boolean = true;
 
     const deleteUser = () => {
@@ -55,13 +56,12 @@
 </Dialog>
 
 <style lang="scss">
-  @import "../../components/theme";
+    @import "../../ui/theme";
 
 
-
-    .wrapper{
-      padding: 0px 20px 20px 20px;
-      display: flex;
+    .wrapper {
+        padding: 0px 20px 20px 20px;
+        display: flex;
 
     }
 </style>

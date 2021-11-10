@@ -1,18 +1,18 @@
 <script lang="ts">
 
     import {createEventDispatcher, onMount} from "svelte";
-    import View from "../../components/ui/View.svelte";
-    import Card from "../../components/ui/Card.svelte";
-    import Wrapper from "../../components/ui/Wrapper.svelte";
-    import ListRow from "../../components/ui/ListRow.svelte";
-    import ListRowItem from "../../components/ui/ListRowItem.svelte";
+    import View from "../../ui/View.svelte";
+    import Card from "../../ui/Card.svelte";
+    import Wrapper from "../../ui/Wrapper.svelte";
+    import ListRow from "../../ui/ListRow.svelte";
+    import ListRowItem from "../../ui/ListRowItem.svelte";
     import {Workspace, WorkspaceInvitation} from "./Models";
     import {goto} from "@roxi/routify";
-    import Button from "../../components/ui/Button.svelte";
+    import Button from "../../ui/Button.svelte";
     import InvitationsList from "../users/InvitationsList.svelte";
-    import Text from "../../components/ui/Text.svelte";
-    import ListScrollWrapper from "../../components/ui/ListScrollWrapper.svelte";
-    import getService from "../utils/Services";
+    import Text from "../../ui/Text.svelte";
+    import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
+    import getService from "../utils/ServiceFactory";
     import {WorkspaceService} from "./WorkspaceService";
     import {AppContext} from "../utils/AppContext";
 
@@ -65,6 +65,6 @@
 </Wrapper>
 
 <style lang="scss">
-  @import "../../components/theme";
+  @import "../../ui/theme";
 
 </style>

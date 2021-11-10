@@ -6,6 +6,6 @@
 <DiagramEditor diagramId={$params.id}/>
 
 <style lang="scss">
-    @import "../components/theme.scss";
+    @import "../ui/theme";
 
 </style>

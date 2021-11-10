@@ -1,24 +1,24 @@
 <script lang="ts">
-    import DrawerLayout from "./components/ui/DrawerLayout.svelte";
-    import NavLink from "./components/ui/NavLink.svelte";
-    import Spacer from "./components/ui/Spacer.svelte";
-    import TextButton from "./components/ui/TextButton.svelte";
-    import Icon from "./components/ui/Icon.svelte";
-    import ContextMenu from "./components/ui/ContextMenu.svelte";
-    import Option from "./components/ui/Option.svelte";
-    import Divider from "./components/ui/Divider.svelte";
+    import DrawerLayout from "./ui/DrawerLayout.svelte";
+    import NavLink from "./ui/NavLink.svelte";
+    import Spacer from "./ui/Spacer.svelte";
+    import TextButton from "./ui/TextButton.svelte";
+    import Icon from "./ui/Icon.svelte";
+    import ContextMenu from "./ui/ContextMenu.svelte";
+    import Option from "./ui/Option.svelte";
+    import Divider from "./ui/Divider.svelte";
     import {goto} from "@roxi/routify";
-    import VirtualSpace from "./components/ui/VirtualSpace.svelte";
-    import Fab from "./components/ui/Fab.svelte";
-    import getService from "./refactor/utils/Services";
-    import {AuthenticationService} from "./refactor/auth/AuthenticationService";
+    import VirtualSpace from "./ui/VirtualSpace.svelte";
+    import Fab from "./ui/Fab.svelte";
+    import getService from "./refactor/utils/ServiceFactory";
     import WorkspaceNavOptions from "./refactor/workspaces/WorkspaceNavOptions.svelte";
     import {onMount} from "svelte";
     import {WorkspaceService} from "./refactor/workspaces/WorkspaceService";
     import {AppContext} from "./refactor/utils/AppContext";
     import {Workspace} from "./refactor/workspaces/Models";
-    import MessageIcon from "./components/ui/MessageIcon.svelte";
-    import TreeView from "./components/ui/TreeView.svelte";
+    import MessageIcon from "./ui/MessageIcon.svelte";
+    import TreeView from "./ui/TreeView.svelte";
+    import {AuthenticationService} from "./components/auth/AuthenticationService";
 
     const authenticationService = getService(AuthenticationService);
     const workspaceService = getService(WorkspaceService);
@@ -142,7 +142,7 @@
 </Fab>
 
 <style lang="scss">
-  @import "components/theme.css";
+  @import "ui/theme.css";
 
   .option-wrapper {
     display: flex;

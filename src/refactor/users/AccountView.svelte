@@ -1,10 +1,10 @@
 <script lang="ts">
-    import Container from "../../components/ui/Container.svelte";
+    import Container from "../../ui/Container.svelte";
     import EditAccountForm from "./EditAccountForm.svelte";
-    import Tabs from "../../components/ui/Tabs.svelte";
-    import TabList from "../../components/ui/TabList.svelte";
-    import Tab from "../../components/ui/Tab.svelte";
-    import TabPanel from "../../components/ui/TabPanel.svelte";
+    import Tabs from "../../ui/Tabs.svelte";
+    import TabList from "../../ui/TabList.svelte";
+    import Tab from "../../ui/Tab.svelte";
+    import TabPanel from "../../ui/TabPanel.svelte";
     import InvitationsCard from "./InvitationsCard.svelte";
     import {getContext, onMount, afterUpdate} from "svelte";
     import {goto, params} from "@roxi/routify";
@@ -41,5 +41,5 @@
 </Tabs>
 
 <style lang="scss">
-  @import "../../components/theme";
+  @import "../../ui/theme";
 </style>

@@ -1,17 +1,16 @@
 <script lang="ts">
-    import Dialog from "../../components/ui/Dialog.svelte";
-    import Form from "../../components/ui/Form.svelte";
-    import Button from "../../components/ui/Button.svelte";
-    import {Colors} from "../../components/utils/Colors";
-    import Input from "../../components/ui/Input.svelte";
-    import Select from "../../components/ui/Select.svelte";
-    import {User} from "../users/User";
-    import {DataListItem} from "../../components/utils/DataListItem";
-    import CloseButton from "../../components/ui/CloseButton.svelte";
-    import ListRow from "../../components/ui/ListRow.svelte";
-    import ListRowItem from "../../components/ui/ListRowItem.svelte";
-    import {Team} from "./Team";
-    import ListScrollWrapper from "../../components/ui/ListScrollWrapper.svelte";
+    import Dialog from "../../ui/Dialog.svelte";
+    import Form from "../../ui/Form.svelte";
+    import Button from "../../ui/Button.svelte";
+    import {Colors} from "../../ui/utils/Colors";
+    import Input from "../../ui/Input.svelte";
+    import Select from "../../ui/Select.svelte";
+    import {DataListItem} from "../../ui/utils/DataListItem";
+    import CloseButton from "../../ui/CloseButton.svelte";
+    import ListRow from "../../ui/ListRow.svelte";
+    import ListRowItem from "../../ui/ListRowItem.svelte";
+    import {Team} from "./Models";
+    import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
 
     export let visible: boolean = false;
     let teams = [
@@ -74,7 +73,7 @@
 </Dialog>
 
 <style lang="scss">
-  @import "../../components/theme";
+  @import "../../ui/theme";
 
   .wrapper{
     display: flex;

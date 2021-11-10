@@ -41,6 +41,6 @@
 </script>
 
 <style lang="scss">
-    @import "../../components/theme";
+    @import "../../ui/theme";
 
 </style>

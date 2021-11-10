@@ -1,6 +1,6 @@
-import getService from "../utils/Services";
+import getService from "../utils/ServiceFactory";
 import { RestClient } from "../utils/RestClient";
-import "../projects/Models";
+import "../../components/projects/Models";
 export class UserService {
     constructor() {
         this.client = getService(RestClient);

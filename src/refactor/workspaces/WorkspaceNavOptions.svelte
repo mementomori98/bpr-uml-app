@@ -1,10 +1,10 @@
 <script lang="ts">
 
     import {Workspace} from "./Models";
-    import ListRow from "../../components/ui/ListRow.svelte";
-    import ListRowItem from "../../components/ui/ListRowItem.svelte";
+    import ListRow from "../../ui/ListRow.svelte";
+    import ListRowItem from "../../ui/ListRowItem.svelte";
     import {goto} from "@roxi/routify";
-    import getService from "../utils/Services";
+    import getService from "../utils/ServiceFactory";
     import {WorkspaceService} from "./WorkspaceService";
     import {createEventDispatcher, onMount} from "svelte";
     import {AppContext} from "../utils/AppContext";
@@ -29,6 +29,6 @@
 {/each}
 
 <style lang="scss">
-  @import "../../components/theme";
+  @import "../../ui/theme";
 
 </style>

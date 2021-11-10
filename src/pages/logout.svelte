@@ -1,8 +1,8 @@
 <script lang="ts">
 
-    import {AuthenticationService} from "../refactor/auth/AuthenticationService";
     import {getContext} from "svelte";
-    import getService from "../refactor/utils/Services";
+    import getService from "../refactor/utils/ServiceFactory";
+    import {AuthenticationService} from "../components/auth/AuthenticationService";
 
     let authenticationService = getService(AuthenticationService);
 
@@ -13,5 +13,5 @@
 
 
 <style lang="scss">
-    @import "../components/theme.scss";
+    @import "../ui/theme";
 </style>

@@ -1,4 +1,4 @@
-import {Colors} from "../../components/utils/Colors";
+import {Colors} from "../../ui/utils/Colors";
 import {Model} from "./Model";
 
 export class Snackbar {

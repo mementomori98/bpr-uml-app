@@ -1,6 +1,6 @@
 <script lang="ts">
-    import Dialog from "../../components/ui/Dialog.svelte";
-    import Form from "../../components/ui/Form.svelte";
+    import Dialog from "../../ui/Dialog.svelte";
+    import Form from "../../ui/Form.svelte";
 
     export let visible: boolean = false;
 
@@ -24,7 +24,7 @@
 </Dialog>
 
 <style lang="scss">
-  @import "../../components/theme";
+  @import "../../ui/theme";
     .description{
       font: $font-form;
     }

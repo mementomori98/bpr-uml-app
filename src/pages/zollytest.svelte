@@ -1,13 +1,13 @@
 <script lang="ts">
 
-import Tabs from "../components/ui/Tabs.svelte";
-import TabList from "../components/ui/TabList.svelte";
-import Tab from "../components/ui/Tab.svelte";
-import TabPanel from "../components/ui/TabPanel.svelte";
+import Tabs from "../ui/Tabs.svelte";
+import TabList from "../ui/TabList.svelte";
+import Tab from "../ui/Tab.svelte";
+import TabPanel from "../ui/TabPanel.svelte";
 import WorkspaceForm from "../refactor/workspaces/WorkspaceForm.svelte";
 import WorkspaceDangerZone from "../refactor/workspaces/WorkspaceDangerZone.svelte";
 import WorkspaceUsersCard from "../refactor/workspaces/WorkspaceUsersCard.svelte";
-import MessageIcon from "../components/ui/MessageIcon.svelte";
+import MessageIcon from "../ui/MessageIcon.svelte";
 </script>
 
 
@@ -32,6 +32,6 @@ import MessageIcon from "../components/ui/MessageIcon.svelte";
 </Tabs>
 
 <style lang="scss">
-  @import "../components/theme.scss";
+  @import "../ui/theme";
 
 </style>

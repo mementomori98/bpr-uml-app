@@ -1,9 +1,9 @@
 <script lang="ts">
-    import Dialog from "../../components/ui/Dialog.svelte";
-    import Form from "../../components/ui/Form.svelte";
-    import Button from "../../components/ui/Button.svelte";
-    import {Colors} from "../../components/utils/Colors";
-    import Input from "../../components/ui/Input.svelte";
+    import Dialog from "../../ui/Dialog.svelte";
+    import Form from "../../ui/Form.svelte";
+    import Button from "../../ui/Button.svelte";
+    import {Colors} from "../../ui/utils/Colors";
+    import Input from "../../ui/Input.svelte";
 
     export let visible: boolean = false;
 
@@ -31,6 +31,6 @@
 </Dialog>
 
 <style lang="scss">
-    @import "../../components/theme";
+    @import "../../ui/theme";
 
 </style>

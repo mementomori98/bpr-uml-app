@@ -1,9 +1,9 @@
 <script lang="ts">
 
-import View from "../../components/ui/View.svelte";
-import Input from "../../components/ui/Input.svelte";
-import Button from "../../components/ui/Button.svelte";
-import getService from "../utils/Services";
+import View from "../../ui/View.svelte";
+import Input from "../../ui/Input.svelte";
+import Button from "../../ui/Button.svelte";
+import getService from "../utils/ServiceFactory";
 import {DiagramService} from "./DiagramService";
 import {CreateDiagramRequest} from "./Models";
 
@@ -31,6 +31,6 @@ const handleCreate = async () => {
 </View>
 
 <style lang="scss">
-    @import "../../components/theme";
+    @import "../../ui/theme";
 
 </style>
