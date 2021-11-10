@@ -36,11 +36,19 @@
     }
 
     onMount(async () => {
+        if(appContext.getWorkspaceId() == null){
+            $goto('/create-workspace')
+            return;
+        }
         const res = await workspaceService.getById(appContext.getWorkspaceId());
         currentWorkspaceName = res.name;
     })
 
     const switchWorkspace = async (e) => {
+        if(appContext.getWorkspaceId() == null){
+            $goto('/select-workspace')
+            return;
+        }
         const res = await workspaceService.getById(e.detail.workspaceId);
         appContext.setWorkspaceId(res._id)
         currentWorkspaceName = res.name;

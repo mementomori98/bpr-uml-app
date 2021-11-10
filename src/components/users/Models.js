@@ -3,6 +3,13 @@ export class User {
         Object.assign(this, init);
     }
 }
+//+++++++++++++++++++++
+export class UserInvitationRequest {
+    constructor(init) {
+        Object.assign(this, init);
+    }
+}
+//+++++++++++++++++++++
 export class UserToProject {
     constructor(init) {
         Object.assign(this, init);

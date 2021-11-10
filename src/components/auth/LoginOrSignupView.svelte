@@ -4,7 +4,7 @@
     import SignupView from "./SignupView.svelte";
     import {createEventDispatcher} from "svelte";
     import {goto} from "@roxi/routify";
-    import {Workspace} from "../workspaces/Models";
+    import {Workspace, WorkspaceInvitation} from "../workspaces/Models";
 
     const dispatch = createEventDispatcher();
 
@@ -18,8 +18,15 @@
         new Workspace({name: "Neutron", id: 5}),
     ].sort((u1, u2) => u1.name.localeCompare(u2.name));
 
+    let invitations: WorkspaceInvitation[] = [
+        new WorkspaceInvitation({name: 'Rome', invitor: 'Nero', id: 1}),
+        new WorkspaceInvitation({name: 'London', invitor: 'Henrik', id: 2}),
+        new WorkspaceInvitation({name: 'Constantinople', invitor: 'Constantine', id: 3}),
+    ]
+
+
     const onLogin = () => {
-        if(workspaces.length >= 1){
+        if(workspaces.length >= 1 && invitations.length >= 1){
             $goto('/select-workspace')
         }else{
             $goto('/create-workspace')
