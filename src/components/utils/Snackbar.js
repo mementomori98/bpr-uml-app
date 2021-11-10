@@ -15,7 +15,7 @@ export class Snackbar {
                 let item = this.items.shift();
                 this.callback();
                 resolve();
-            }, 2000);
+            }, 4000);
         });
     }
 }

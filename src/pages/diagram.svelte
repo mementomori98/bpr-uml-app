@@ -5,8 +5,6 @@
     import SubDrawer from "../ui/SubDrawer.svelte";
     import TreeView from "../ui/TreeView.svelte";
 
-    const diagramHandler = new DiagramHandler();
-
     const demoTree = {
         label: "USA", type:"folder", children: [
             {label: "Cloreida", type:"folder", children: [
@@ -51,7 +49,7 @@
     <div slot="drawer">
         <TreeView tree={demoTree}/>
     </div>
-    <Canvas {diagramHandler}/>
+    <Canvas />
 </SubDrawer>
 
 <style lang="scss">

@@ -11,7 +11,7 @@
     import {BoxRepresentation} from "../boxes/Models";
     import CanvasContextMenu from "./CanvasContextMenu.svelte";
 
-    export let diagramHandler: DiagramHandler;
+    let diagramHandler = new DiagramHandler(() => diagramHandler = diagramHandler);
 
     let mouseX: number;
     let mouseY: number;
