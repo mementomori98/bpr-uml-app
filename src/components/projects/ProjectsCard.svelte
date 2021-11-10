@@ -14,7 +14,7 @@
     import {ProjectService} from "./ProjectService";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
     import {Team} from "../teams/Models";
-    import {Project} from "./Models";
+    import {Project, ProjectsResponse} from "./Models";
 
     const projectService = getService(ProjectService);
     const appContext = getService(AppContext);
@@ -28,25 +28,23 @@
         new Project({name: 'Skyfall', id: 4}),
         new Project({name: 'Syndicate', id: 5}),
     ]
-
+    let projects: ProjectsResponse[] = [];
     onMount(async () => {
-        const res = await projectService.getWorkspaceProjects(appContext.getWorkspaceId());
-        console.log(res)
+        projects = await projectService.getWorkspaceProjects(appContext.getWorkspaceId());
     })
 
-    const formatProjectList = (projects: Project[]) => {
+    /*const formatProjectList = (projects: Project[]) => {
         projects.sort((u1, u2) => u1.name.localeCompare(u2.name));
         let currentProject = projects.filter(item => item.id === currentProjectId)[0]
         let remaining = projects.filter(item => item.id !== currentProjectId)
         remaining.unshift(currentProject)
         return remaining
     }
-
     let projects = formatProjectList(received);
 
     const leaveProject = (project) => {
         alert("Leaving project " + project.name)
-    }
+    }*/
 </script>
 
 <Card>
@@ -55,17 +53,17 @@
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
-                    <ListRowItem widthInPercentage={93}>Name</ListRowItem>
-                    <ListRowItem center widthInPercentage={7}>Leave</ListRowItem>
+                    <ListRowItem widthInPercentage={100}>Name</ListRowItem>
+<!--                    <ListRowItem center widthInPercentage={7}>Leave</ListRowItem>-->
                 </ListRow>
             </svelte:fragment>
             {#each projects as project}
                 <ListRow noBorder={project === projects[projects.length-1]}
-                         on:click={() => $goto('/project', {id: project.name})}> <!-- TODO pass id in goto--> <!-- TODO isHighlighted = currentProject...-->
-                    <ListRowItem widthInPercentage={93}>{project.name}</ListRowItem>
-                    <ListRowItem center widthInPercentage={7}>
-                        <CloseButton on:click={() => leaveProject(project)}/>
-                        <!-- TODO disabled if not product owner--></ListRowItem>
+                         on:click={() => $goto('/project', {id: project._id})}> <!-- TODO pass id in goto--> <!-- TODO isHighlighted = currentProject...-->
+                    <ListRowItem widthInPercentage={100}>{project.title}</ListRowItem>
+<!--                    <ListRowItem center widthInPercentage={7}>-->
+<!--                        <CloseButton on:click={() => leaveProject(project)}/>-->
+<!--                        &lt;!&ndash; TODO disabled if not product owner&ndash;&gt;</ListRowItem>-->
                 </ListRow>
             {/each}
         </ListScrollWrapper>
