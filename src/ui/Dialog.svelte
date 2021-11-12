@@ -29,7 +29,7 @@
                 out:fade={{duration: 50}}
                 class="dialog__content"
                 on:mousedown={handleContentClick}>
-            <Card style={style}>
+            <Card noMargin style={style} >
                 <slot/>
             </Card>
         </div>
