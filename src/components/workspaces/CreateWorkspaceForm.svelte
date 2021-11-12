@@ -29,15 +29,18 @@
         $goto('/')
     }
 
+    const handleCancel = () => {
+        window.history.back()
+    }
+
     onMount(async () => {
         invitations = await userService.getUserInvitations();
     })
 
 </script>
 
-<Form on:submit={handleSubmit}>
+<Form cancelButton on:cancel={handleCancel} on:submit={handleSubmit}>
     <svelte:fragment slot="header">Create Workspace</svelte:fragment>
-    <svelte:fragment slot="header-actions"></svelte:fragment>
     <Input label="Workspace Name" bind:value={name} />
 </Form>
 {#if invitations.length > 0}

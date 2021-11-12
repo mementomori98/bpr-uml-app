@@ -8,6 +8,8 @@
     import {WorkspaceService} from "./WorkspaceService";
     import {createEventDispatcher, onMount} from "svelte";
     import {AppContext} from "../utils/AppContext";
+    import Option from "../../ui/Option.svelte";
+    import Divider from "../../ui/Divider.svelte";
 
     const workspaceService = getService(WorkspaceService);
     const appContext = getService(AppContext);
@@ -23,10 +25,12 @@
 </script>
 
 {#each workspaces as workspace}
-    <ListRow on:click={() => dispatch('switch', {workspaceId: workspace._id})} noBorder={workspace === workspaces[workspaces.length-1]}> <!-- TODO set workspace by the decision -->
+    <ListRow on:click={() => dispatch('switch', {workspaceId: workspace._id})} noBorder={workspace === workspaces[workspaces.length-1]} style="padding: 14px 16px"> <!-- TODO set workspace by the decision -->
         <ListRowItem widthInPercentage={100}>{workspace.name}</ListRowItem>
     </ListRow>
 {/each}
+<Divider noPadding/>
+<Option style="background-color: rgba(247,247,247,0.64)" on:click={$goto('/create-workspace')}>Create WS</Option>
 
 <style lang="scss">
   @import "../../ui/theme";

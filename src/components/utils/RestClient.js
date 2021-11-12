@@ -1,17 +1,24 @@
 import getService from "./ServiceFactory";
 import { AppContext } from "./AppContext";
 import "@roxi/routify/typings/runtime";
+import "@roxi/routify";
 export class RestClient {
     constructor(baseUrl) {
         this.context = getService(AppContext);
         this.baseUrl = baseUrl !== null && baseUrl !== void 0 ? baseUrl : '';
     }
     async get(path) {
+        console.log("heyyy");
         let response = await fetch(`${this.baseUrl}/${path}`, {
             headers: {
                 'Authorization': `Bearer ${this.context.getAccessToken()}`
             }
         });
+        console.log(response);
+        if (response.status == 401) {
+            $goto('/login');
+            return;
+        }
         return response.json();
     }
     async post(path, body) {
@@ -24,6 +31,10 @@ export class RestClient {
             },
             body: JSON.stringify(body)
         });
+        if (response.status == 401) {
+            $goto('/login');
+            return;
+        }
         return response.json();
     }
 }

@@ -19,6 +19,7 @@
     import MessageIcon from "./ui/MessageIcon.svelte";
     import TreeView from "./ui/TreeView.svelte";
     import {AuthenticationService} from "./components/auth/AuthenticationService";
+    import {getAuth} from "firebase/auth";
 
     const authenticationService = getService(AuthenticationService);
     const workspaceService = getService(WorkspaceService);
@@ -32,20 +33,22 @@
 
     const handleLogout = function () {
         authenticationService.logout()
-        $goto('/login');
+        $goto('/login'); 
     }
 
     onMount(async () => {
-        if(appContext.getWorkspaceId() == null){
+        console.log("Get workspace by id failed on Nav")
+        if (appContext.getWorkspaceId() == null) {
             $goto('/create-workspace')
             return;
         }
         const res = await workspaceService.getById(appContext.getWorkspaceId());
         currentWorkspaceName = res.name;
+
     })
 
     const switchWorkspace = async (e) => {
-        if(appContext.getWorkspaceId() == null){
+        if (appContext.getWorkspaceId() == null) {
             $goto('/select-workspace')
             return;
         }
@@ -59,7 +62,7 @@
 <DrawerLayout>
     <svelte:fragment slot="drawer">
         <NavLink href="/">Index</NavLink>
-        
+
         <NavLink href="/projects">Projects</NavLink>
         <NavLink href="/diagram">__Diagram</NavLink>
         <NavLink href="/tests">__Tests</NavLink>
@@ -71,13 +74,14 @@
         <Spacer size="1"/>
     </svelte:fragment>
     <svelte:fragment slot="appbar">
-        <TextButton on:click={() => $goto('/settings')}>{currentWorkspaceName}</TextButton>
+        <TextButton on:click={$goto('/workspaces')}>{currentWorkspaceName}</TextButton>
         <Spacer/>
 
 
         <div style="display: block" bind:this={workspacesDiv}>
             <TextButton on:click={() => visibleWorkspaces = true}>Switch Workspace</TextButton>
-            <ContextMenu noPadding bind:visible={visibleWorkspaces} top={workspacesDiv?.offsetTop + workspacesDiv?.offsetHeight} right={60}>
+            <ContextMenu noPadding bind:visible={visibleWorkspaces}
+                         top={workspacesDiv?.offsetTop + workspacesDiv?.offsetHeight} right={60}>
                 <WorkspaceNavOptions on:switch={e => switchWorkspace(e)}/>
             </ContextMenu>
         </div>
@@ -120,3 +124,6 @@
     pointer-events: none;
   }
 </style>
+
+
+<!--a cigit is eldobáltuk, azon nem panaszkodott senki-->

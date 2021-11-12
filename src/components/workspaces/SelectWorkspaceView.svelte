@@ -16,6 +16,7 @@
     import {WorkspaceService} from "./WorkspaceService";
     import {AppContext} from "../utils/AppContext";
     import {UserService} from "../users/UserService";
+    import {Colors} from "../../ui/utils/Colors";
 
     const dispatch = createEventDispatcher();
 
@@ -38,29 +39,36 @@
     })
 
     const onclick = async (workspace: Workspace) => {
-        const res = await workspaceService.getById(workspace._id);
-        appContext.setWorkspaceId(res._id)
+        appContext.setWorkspaceId(workspace._id)
         $goto('/')
+    }
+
+    const handleCancel = () => {
+        window.history.back()
     }
 
 </script>
 
 <Wrapper width="480" bgColor="ededed" verticalCentering>
     <Card>
-        <View noActions>
+        <View>
             <svelte:fragment slot="header">Select workspace</svelte:fragment>
-            <Text noPadding>Your workspaces</Text>
-            <ListScrollWrapper>
-                {#each workspaces as workspace}
-                    <ListRow noBorder={workspace === workspaces[workspaces.length-1]} on:click={() => $goto('/')}> <!-- TODO set workspace by the decision -->
-                        <ListRowItem widthInPercentage={100}>{workspace.name}</ListRowItem>
-                    </ListRow>
-                {/each}
-            </ListScrollWrapper>
-            {#if invitations.length > 0}
-                <InvitationsList maxHeight={150} invitations={invitations}/>
-            {/if}
-
+            <svelte:fragment slot="default">
+                <Text noPadding>Your workspaces</Text>
+                <ListScrollWrapper>
+                    {#each workspaces as workspace}
+                        <ListRow noBorder={workspace === workspaces[workspaces.length-1]} on:click={() => onclick(workspace)}> <!-- TODO set workspace by the decision -->
+                            <ListRowItem widthInPercentage={100}>{workspace.name}</ListRowItem>
+                        </ListRow>
+                    {/each}
+                </ListScrollWrapper>
+                {#if invitations.length > 0}
+                    <InvitationsList maxHeight={150} invitations={invitations}/>
+                {/if}
+            </svelte:fragment>
+            <svelte:fragment slot="actions">
+                <Button color={Colors.Gray} on:click={handleCancel}>Cancel</Button>
+            </svelte:fragment>
         </View>
     </Card>
 </Wrapper>

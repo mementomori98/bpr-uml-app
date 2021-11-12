@@ -2,9 +2,11 @@
     import {createEventDispatcher} from "svelte";
 
     const dispatch = createEventDispatcher()
+
+    export let style: string = "";
 </script>
 
-<div class="option" on:click={() => dispatch('click')}>
+<div class="option" style={style} on:click={() => dispatch('click')}>
     <slot/>
 </div>
 
