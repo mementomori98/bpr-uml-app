@@ -50,6 +50,7 @@
     @import "../ui/theme";
 
     .input {
+        min-width: 200px;
         width: 100%;
         padding: 16px 0;
 
@@ -68,6 +69,7 @@
         }
 
         &__content {
+          min-height: 50px;
             border: $border-inactive;
             padding: 10px;
             outline: none;

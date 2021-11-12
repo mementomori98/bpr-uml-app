@@ -49,7 +49,7 @@
                 </ListRow>
             </svelte:fragment>
             {#each users as user}
-                <ListRow noBorder={user === users[users.length-1]} on:click={() => handleClick(user)}>
+                <ListRow on:click={() => handleClick(user)}>
                     <ListRowItem widthInPercentage={30}>{user.name}</ListRowItem>
                     <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
                     <ListRowItem center widthInPercentage={20}>{user.status}</ListRowItem>

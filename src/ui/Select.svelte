@@ -40,10 +40,17 @@
     }
 
     const handleSubmit = () => {
+        console.log(defaultChoice + " Choice " + choices.find(x => x.name === defaultChoice))
         dispatch('submit', {choice: choices.find(x => x.name === defaultChoice)});
     }
 
+    $: arrowDown = opened
+
 </script>
+
+<svelte:head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</svelte:head>
 
 <div class="wrapper">
     {#if choices.length > 0}
@@ -60,8 +67,13 @@
                         {choice != null ? choice.name : (defaultChoice != null ? defaultChoice : choices[0].name)}
                     </div>
                 {:else}
-                    <div class="select__value">
-                        {choice != null ? choice.name : (defaultChoice != null ? defaultChoice : choices[0].name)}
+                    <div class="select__value" style="display: flex; justify-content: space-between">
+                        <div style="padding-right: 10px">
+                            {choice != null ? choice.name : (defaultChoice != null ? defaultChoice : choices[0].name)}
+                        </div>
+
+                        <div class="fa fa-chevron-down" style="font-size: 14px; align-self: center;" class:arrowDown></div>
+
                     </div>
                 {/if}
 
@@ -92,6 +104,10 @@
 
 <style lang="scss">
   @import "../ui/theme";
+  .arrowDown {
+    transform: rotate(180deg);
+  }
+
 
   .wrapper{
     padding: 16px 0;
@@ -107,6 +123,7 @@
     outline: 0;
     position: relative;
     width: 100%;
+    min-width: 200px;
     &__items {
       background-color: white;
       position: absolute;

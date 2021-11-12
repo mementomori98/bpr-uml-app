@@ -134,7 +134,7 @@
                 </ListRow>
             </svelte:fragment>
             {#each teamUsers as user}
-                <ListRow noBorder={user === teamUsers[teamUsers.length-1]} noFunction>
+                <ListRow noFunction>
                     <ListRowItem widthInPercentage={43}>{user.name}</ListRowItem>
                     <ListRowItem widthInPercentage={50}>{user.email}</ListRowItem>
                     {#if !locked || !lockable}

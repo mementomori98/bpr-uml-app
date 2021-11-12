@@ -41,7 +41,7 @@
         </ListRow>
     </svelte:fragment>
     {#each invitations as invitation}
-        <ListRow noBorder={invitation === invitations[invitations.length-1]} style="padding-top:0; padding-bottom:0; min-height: 40px">
+        <ListRow style="padding-top:0; padding-bottom:0; min-height: 40px">
             <ListRowItem widthInPercentage={40}>{invitation.workspaceId}</ListRowItem> <!--TODO workspaceName-->
             <ListRowItem widthInPercentage={40}>{invitation.inviterId}</ListRowItem> <!--TODO inviterName-->
             <ListRowItem widthInPercentage={20}>

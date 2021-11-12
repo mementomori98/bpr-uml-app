@@ -57,7 +57,7 @@
                 </ListRow>
             </svelte:fragment>
             {#each projects as project}
-                <ListRow noBorder={project === projects[projects.length-1]}
+                <ListRow
                          on:click={() => $goto('/project', {id: project._id})}> <!-- TODO pass id in goto--> <!-- TODO isHighlighted = currentProject...-->
                     <ListRowItem widthInPercentage={100}>{project.title}</ListRowItem>
 <!--                    <ListRowItem center widthInPercentage={7}>-->

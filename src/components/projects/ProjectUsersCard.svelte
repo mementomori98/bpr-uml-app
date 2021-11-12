@@ -71,7 +71,7 @@
                 </ListRow>
             </svelte:fragment>
             {#each users as user}
-                <ListRow noBorder={user === users[users.length-1]} noFunction>
+                <ListRow noFunction>
                     <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>
                     <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
                     <ListRowItem widthInPercentage={30}>{user.role}</ListRowItem>

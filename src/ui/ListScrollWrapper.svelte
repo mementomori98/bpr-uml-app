@@ -3,7 +3,7 @@
     import {isHeader, noBorder} from "./ListRow.svelte";
 
     export let style: string = "";
-    export let maxHeight: number = null;
+    export let height: number = 200;
     export let disabledBorder: boolean = false;
     export let hiddenVerticalScroll: boolean = false;
 
@@ -17,7 +17,7 @@
     <slot name="header"/>
 </div>
 
-<div class={wrapperStyle} style={`max-height: ${maxHeight}px; ${style};`}>
+<div class={wrapperStyle} style={`height: ${height}px; ${style};`}>
     <slot/>
 </div>
 
@@ -25,7 +25,6 @@
   @import "../ui/theme";
 
   .wrapper{
-    max-height: 280px;
     overflow-y: overlay;
     overflow-x: hidden;
     border-bottom: 2px solid #d5d5d591; //was border:

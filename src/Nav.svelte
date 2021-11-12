@@ -55,6 +55,7 @@
         const res = await workspaceService.getById(e.detail.workspaceId);
         appContext.setWorkspaceId(res._id)
         currentWorkspaceName = res.name;
+        $goto('/')
     }
 
 </script>
