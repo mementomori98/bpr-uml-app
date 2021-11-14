@@ -62,12 +62,11 @@
 
 <DrawerLayout>
     <svelte:fragment slot="drawer">
-        <NavLink href="/">Index</NavLink>
-
+        <NavLink href="/">IndexTest1</NavLink>
+        <NavLink href="/zollytest">IndexTest2</NavLink>
         <NavLink href="/projects">Projects</NavLink>
         <NavLink href="/diagram">__Diagram</NavLink>
         <NavLink href="/tests">__Tests</NavLink>
-        <NavLink href="/zollytest">__Tabs</NavLink>
         <NavLink href="/socket">__Socket</NavLink>
         <Spacer size="24"/>
         <NavLink href="/workspaces">Workspace</NavLink>
@@ -107,7 +106,7 @@
         </ContextMenu>
     </svelte:fragment>
     <slot/>
-    {#if path !== '/editor' && path !== '/diagram'}
+    {#if path !== '/editor' && path !== '/diagram' && path !== '/index'&& path !== '/zollytest'}
         <VirtualSpace/>
     {/if}
 </DrawerLayout>
