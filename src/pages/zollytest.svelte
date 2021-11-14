@@ -1,10 +1,17 @@
 <script lang="ts">
 
+import Card from "../ui/Card.svelte";
+import View from "../ui/View.svelte";
+import Container from "../ui/Container.svelte";
 </script>
 
 <div class="container">
-    <div class="cell" id="cell1"></div>
-    <div class="cell" id="cell2"></div>
+    <div class="cell" id="cell1">
+        <Card noMargin></Card>
+    </div>
+    <div class="cell" id="cell2">
+        <Card noMargin></Card>
+    </div>
 </div>
 
 <style lang="scss">
@@ -16,30 +23,26 @@
 
   .container {
     display: flex;
-    border: 1px solid red;
     flex-wrap: wrap;
     flex-direction: row;
-    padding: 10px;
     height: 100%;
   }
 
   .cell {
     display: flex;
     flex: 50%;
-    padding: 10px;
-    border: 1px solid black;
   }
 
   #cell1{
-    background-color: #cbcbcb;
     height: 100%;
+    padding: 20px 10px 20px 20px;
   }
   #cell2{
-    background-color: #696969;
     height: 100%;
+    padding: 20px 20px 20px 10px;
   }
 
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 1200px) {
 
     .container {
       flex-direction: row;
@@ -53,10 +56,15 @@
 
     #cell1{
       height: 25%;
+      padding: 20px 20px 10px 20px;
+    }
+
+    #cell2{
+      padding: 10px 20px 20px 20px;
     }
   }
 
-  @media only screen and (min-width: 1000px) {
+  @media only screen and (min-width: 1200px) {
     .container {
       position: relative;
     }
