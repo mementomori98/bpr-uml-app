@@ -106,13 +106,13 @@
         </ContextMenu>
     </svelte:fragment>
     <slot/>
-    {#if path !== '/editor' && path !== '/diagram' && path !== '/index'&& path !== '/zollytest'}
+    {#if path !== '/editor' && path !== '/diagram' && path !== '/index' && path !== '/zollytest' && path !== '/projects'}
         <VirtualSpace/>
     {/if}
 </DrawerLayout>
-<Fab on:click={() => alert('fab clicked')}>
-    <Icon icon="add"/>
-</Fab>
+<!--<Fab on:click={() => alert('fab clicked')}>-->
+<!--    <Icon icon="add"/>-->
+<!--</Fab>-->
 
 <style lang="scss">
   @import "ui/theme.css";

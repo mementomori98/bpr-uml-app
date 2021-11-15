@@ -5,20 +5,66 @@
     import ProjectsCard from "./ProjectsCard.svelte";
     import Card from "../../ui/Card.svelte";
     import CardItem from "../../ui/CardItem.svelte";
+    import getService from "../utils/ServiceFactory";
+    import {ProjectService} from "./ProjectService";
+    import {AppContext} from "../utils/AppContext";
+    import {ProjectsResponse} from "./Models";
+    import {onMount} from "svelte";
+    import {goto} from "@roxi/routify";
+    import Fab from "../../ui/Fab.svelte";
+    import Icon from "../../ui/Icon.svelte";
+    import CreateProjectDialog from "./CreateProjectDialog.svelte";
+    import View from "../../ui/View.svelte";
 
+    const projectService = getService(ProjectService);
+    const appContext = getService(AppContext);
+
+    let createVisible: boolean = false;
+    let currentProjectId: number = 5;
+
+    let projects: ProjectsResponse[] = [];
+
+    onMount(async () => {
+        projects = await projectService.getWorkspaceProjects(appContext.getWorkspaceId());
+    })
+
+    const onCreateProject = async () => {
+        projects = await projectService.getWorkspaceProjects(appContext.getWorkspaceId());
+    }
 
 </script>
 
-<!--<Container>-->
-<!--    <Wrapper bgColor="ffffff">-->
-<!--        <ProjectsCard/>-->
-<!--    </Wrapper>-->
-<!--</Container>-->
+<div class="container">
+    <div class="wrapper">
+        {#each projects as project}
+            <CardItem title={project.title} on:click={() => $goto('/project', {id: project._id})}/>
+        {/each}
+    </div>
+</div>
 
-<CardItem title="Themis asd ahs dhas d asd"/>
+<Fab on:click={() => createVisible = true}>
+    <Icon icon="add"/>
+</Fab>
+
+<CreateProjectDialog on:create={onCreateProject} bind:visible={createVisible}/>
 
 <style lang="scss">
   @import "../../ui/theme";
 
+  .container {
+    background-color: #d8d8d8;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .wrapper {
+    display: flex;
+    flex: auto;
+    flex-wrap: wrap;
+    width: 100%;
+    height: fit-content;
+    justify-content: center;
+  }
 
 </style>

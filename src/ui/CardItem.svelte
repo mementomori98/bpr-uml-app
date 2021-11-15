@@ -1,9 +1,11 @@
 <script lang="ts">
     import {CssBuilder} from "./utils/CssBuilder";
     import {small} from "./MessageIcon.svelte";
+    import {createEventDispatcher} from "svelte";
 
     export let style: string = '';
     export let title: string = '';
+    const dispatch = createEventDispatcher();
 
     $: itemClass = new CssBuilder('card-item')
         .build();
@@ -12,11 +14,12 @@
         .build();
 
     const itemClick = () => {
-
+        dispatch('click')
     }
 
     const menuClick = (e) => {
         e.stopPropagation()
+        dispatch('menu')
     }
 </script>
 
@@ -26,7 +29,6 @@
 
 <div class={itemClass} style={`${style}`} on:click={itemClick}>
     <div class="title">{title}</div>
-
     <i class="fa fa-ellipsis-v {iconStyle}"  on:click={menuClick}></i>
 </div>
 
@@ -41,16 +43,17 @@
   }
 
   .card-item {
-    width: 200px;
-    min-height: 50px;
+    width: 230px;
+    height: 50px;
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
     border-radius: 8px;
     background-color: white;
-    margin-bottom: 32px;
-    padding: 15px;
+    padding: 24px 12px 24px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 10px;
+    cursor: pointer;
   }
 
   .icon{
