@@ -2,15 +2,24 @@
     import {CssBuilder} from "./utils/CssBuilder";
     import {small} from "./MessageIcon.svelte";
     import {createEventDispatcher} from "svelte";
+    import {IconType} from "./utils/IconType";
 
     export let style: string = '';
     export let title: string = '';
+    export let icon: IconType = null;
+    export let noIcon: boolean = false;
     const dispatch = createEventDispatcher();
 
     $: itemClass = new CssBuilder('card-item')
+        .addFeature('folder', icon === IconType.Folder)
+        .addFeature('project', icon === IconType.Project)
+        .addFeature('model', icon === IconType.Model)
         .build();
 
     $: iconStyle = new CssBuilder('icon')
+        .addFeature('folder', icon === IconType.Folder)
+        .addFeature('project', icon === IconType.Project)
+        .addFeature('model', icon === IconType.Model)
         .build();
 
     const itemClick = () => {
@@ -28,14 +37,24 @@
 </svelte:head>
 
 <div class={itemClass} style={`${style}`} on:click={itemClick}>
-    <div class="title">{title}</div>
-    <i class="fa fa-ellipsis-v {iconStyle}"  on:click={menuClick}></i>
+    <div style="display: flex; width: calc(100% - 32px);">
+        {#if icon === IconType.Folder}
+            <i class="fa fa-folder {iconStyle}" on:click={menuClick}></i>
+        {:else if icon === IconType.Project}
+            <i class="fa fa-suitcase {iconStyle}" on:click={menuClick}></i>
+        {:else if icon === IconType.Model}
+            <i class="fa fa-file {iconStyle}" on:click={menuClick}></i>
+        {/if}
+        <div class="title">{title}</div>
+    </div>
+
+    <i class="fa fa-ellipsis-v {iconStyle}" style="margin-right: 10px; color: #5b5b5b" on:click={menuClick}></i>
 </div>
 
 <style lang="scss">
   @import "./theme";
 
-  .title{
+  .title {
     font-weight: 700;
     overflow: hidden;
     white-space: nowrap;
@@ -54,17 +73,40 @@
     align-items: center;
     margin: 10px;
     cursor: pointer;
+
+    &--folder {
+      background-color: #f2f4ff;
+    }
+
+    &--model {
+      background-color: #fefff3;
+    }
+
+    &--project {
+      background-color: #f5fff1;
+    }
   }
 
-  .icon{
+  .icon {
     font-size: 20px;
-    color: #5b5b5b;
     align-self: center;
-    padding: 2px 10px 0 10px;
-    border-radius: 5px;
-    margin-left: 10px;
 
-    &:hover{
+    &--folder {
+      margin: 2px 10px 0 0;
+      color: #2b4dc9;
+    }
+
+    &--model {
+      margin: 1px 10px 0 0;
+      color: #e7c003;
+    }
+
+    &--project {
+      margin: -1px 10px 0 0;
+      color: #379519;
+    }
+
+    &:hover {
       background-color: #ececec;
       cursor: pointer;
     }

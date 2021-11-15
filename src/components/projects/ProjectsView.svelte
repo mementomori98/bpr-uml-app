@@ -15,6 +15,7 @@
     import Icon from "../../ui/Icon.svelte";
     import CreateProjectDialog from "./CreateProjectDialog.svelte";
     import View from "../../ui/View.svelte";
+    import {IconType} from "../../ui/utils/IconType";
 
     const projectService = getService(ProjectService);
     const appContext = getService(AppContext);
@@ -37,7 +38,7 @@
 <div class="container">
     <div class="wrapper">
         {#each projects as project}
-            <CardItem title={project.title} on:click={() => $goto('/project', {id: project._id})}/>
+            <CardItem icon={IconType.Project} title={project.title} on:click={() => $goto('/project', {id: project._id})}/>
         {/each}
     </div>
 </div>
@@ -52,7 +53,7 @@
   @import "../../ui/theme";
 
   .container {
-    background-color: #d8d8d8;
+    //background-color: #d8d8d8;
     height: 100%;
     width: 100%;
     padding: 20px;
