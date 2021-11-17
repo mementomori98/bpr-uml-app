@@ -63,7 +63,8 @@
 <DrawerLayout>
     <svelte:fragment slot="drawer">
         <NavLink href="/">IndexTest1</NavLink>
-        <NavLink href="/zollytest">IndexTest2</NavLink>
+        <NavLink href="/index-test">IndexTest2</NavLink>
+        <NavLink href="/zollytest">__ZollyTest</NavLink>
         <NavLink href="/projects">Projects</NavLink>
         <NavLink href="/diagram">__Diagram</NavLink>
         <NavLink href="/tests">__Tests</NavLink>
