@@ -94,27 +94,27 @@
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
-                    <ListRowItem widthInPercentage={33}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={40}>Name</ListRowItem>
                     <ListRowItem widthInPercentage={40}>Email</ListRowItem>
-                    <ListRowItem widthInPercentage={10}>Can edit</ListRowItem>
-                    <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>Can edit</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>Kick</ListRowItem>
                 </ListRow>
             </svelte:fragment>
             {#if currentUser}
                 <ListRow noFunction>
-                    <ListRowItem widthInPercentage={33}>{currentUser.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={40}>{currentUser.name}</ListRowItem>
                     <ListRowItem widthInPercentage={40}>{currentUser.email}</ListRowItem>
                 </ListRow>
             {/if}
             {#each selectedUsers as user}
                 <ListRow noFunction>
-                    <ListRowItem widthInPercentage={33}>{user.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={40}>{user.name}</ListRowItem>
                     <ListRowItem widthInPercentage={40}>{user.email}</ListRowItem>
-                    <ListRowItem widthInPercentage={10}>
+                    <ListRowItem center widthInPercentage={10}>
                         <Checkbox bind:checked={user.isEditor}
                                   on:checkChange={e => user.isEditor =e.detail.state }/>
                     </ListRowItem>
-                    <ListRowItem widthInPercentage={7}>
+                    <ListRowItem center widthInPercentage={10}>
                         <CloseButton on:click={() => closeUserChoice(user)}/>
                     </ListRowItem>
                 </ListRow>

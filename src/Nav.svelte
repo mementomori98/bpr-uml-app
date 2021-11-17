@@ -52,7 +52,7 @@
             $goto('/login')
         }
         let invitations = await userService.getUserInvitations();
-        if (invitations) hasInvitation = true;
+        if (invitations >= 1) hasInvitation = true;
 
     })
 
