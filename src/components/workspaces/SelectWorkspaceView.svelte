@@ -67,6 +67,7 @@
                 {/if}
             </svelte:fragment>
             <svelte:fragment slot="actions">
+                <Button color={Colors.Gray} on:click={() => $goto('/create-workspace')}>Create Workspace</Button>
                 <Button color={Colors.Gray} on:click={handleCancel}>Cancel</Button>
             </svelte:fragment>
         </View>
