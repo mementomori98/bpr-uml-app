@@ -15,15 +15,11 @@
     let email: string;
 
     const handleSubmit = async () => {
-        try{
-            await userService.inviteUser(new UserInvitationRequest(
-                {
-                    inviteeEmailAddress: email,
-                    workspaceId: appContext.getWorkspaceId(),
-                }));
-        }catch (e) {
-            console.log("inviteUser error occurred, possibly no json object")
-        }
+        await userService.inviteUser(new UserInvitationRequest(
+            {
+                inviteeEmailAddress: email,
+                workspaceId: appContext.getWorkspaceId(),
+            }));
 
         email = '';
         visible = false;

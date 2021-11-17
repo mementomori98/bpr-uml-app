@@ -38,7 +38,6 @@
 <Card>
     <View>
         <svelte:fragment slot="header">Users</svelte:fragment>
-        <svelte:fragment slot="header-actions"></svelte:fragment>
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>

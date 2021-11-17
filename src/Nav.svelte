@@ -37,13 +37,18 @@
     }
 
     onMount(async () => {
-        console.log("Get workspace by id failed on Nav")
         if (appContext.getWorkspaceId() == null) {
             $goto('/create-workspace')
             return;
         }
-        const res = await workspaceService.getById(appContext.getWorkspaceId());
-        currentWorkspaceName = res.name;
+        try {
+            const res = await workspaceService.getById(appContext.getWorkspaceId());
+            currentWorkspaceName = res.name;
+        }catch (e) {
+            authenticationService.logout();
+            $goto('/login')
+        }
+
 
     })
 

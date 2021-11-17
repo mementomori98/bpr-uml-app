@@ -18,6 +18,7 @@
     let workspaces = [];
 
     onMount(async () => {
+
         const res = await workspaceService.get();
         workspaces = res.sort((u1, u2) => u1.name.localeCompare(u2.name));
     })
