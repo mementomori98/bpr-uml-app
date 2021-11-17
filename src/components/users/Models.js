@@ -12,11 +12,10 @@ export class UserInvitationRequest {
 }
 export class WorkspaceUsersResponse extends Model {
 }
+export class ProjectUserRequest extends Model {
+}
 //+++++++++++++++++++++
-export class UserToProject {
-    constructor(init) {
-        Object.assign(this, init);
-    }
+export class UserToProject extends Model {
 }
 export class UserToTeam {
     constructor(init) {

@@ -2,11 +2,12 @@
     import Button from "./Button.svelte";
     import {createEventDispatcher} from "svelte";
     import {DataListItem} from "./utils/DataListItem";
+    import {ListItem} from "./utils/ListItem";
 
     export let label: string = "";
     export let clearOnChoice: boolean = false;
-    export let choices: DataListItem[];
-    let choice: DataListItem;
+    export let choices: ListItem[];
+    let choice: ListItem;
     export let defaultChoice: string;
     export let btnText: string = "";
     export let hasButton: boolean = false;
@@ -14,9 +15,9 @@
     let opened: boolean = false;
     const dispatch = createEventDispatcher();
 
-    const handleRoleChoice = (e, role) => {
+    const handleChoice = (e, c) => {
         e.stopPropagation();
-        choice = role;
+        choice = c;
         opened = false;
         if(!hasButton){
             dispatch('submit', {choice: choice});
@@ -80,7 +81,7 @@
                 {#if !locked}
                     <div class="select__items" hidden={!opened}>
                         {#each choices as item, i}
-                            <div class="select__items-item" on:click={e => handleRoleChoice(e, item)}>
+                            <div class="select__items-item" on:click={e => handleChoice(e, item)}>
                                 {item.name}
                             </div>
                         {/each}

@@ -11,129 +11,93 @@
     import {AppContext} from "../utils/AppContext";
     import getService from "../utils/ServiceFactory";
     import {ProjectService} from "./ProjectService";
-    import {CreateProjectRequest} from "./Models";
+    import {CreateProjectRequest, addProjectUsersRequest} from "./Models";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
-    import {User, UserToProject} from "../users/Models";
-    import {createEventDispatcher} from "svelte";
+    import {ProjectUserRequest, User, UserToProject, WorkspaceUsersResponse} from "../users/Models";
+    import {createEventDispatcher, onMount} from "svelte";
+    import {
+        filterPickList,
+        formList,
+        getItem,
+        getUserToProject,
+        ListItem
+    } from "../../ui/utils/ListItem";
+    import {UserService} from "../users/UserService";
 
     export let visible: boolean = false;
     let projectName: string = "";
 
+    const userService = getService(UserService);
     const projectService = getService(ProjectService);
     const appContext = getService(AppContext);
     const dispatch = createEventDispatcher();
 
-    let testUsers = [
-        new User({name: 'Ralu', email: 'ralu@bpr.com', status: 'Invited', role: 'Developer', canEdit: false, id: 1}),
-        new User({name: 'Aron', email: 'aron@bpr.com', status: 'Active', role: 'Developer', canEdit: true, id: 2}),
-        new User({
-            name: 'Mate',
-            email: 'mate@bpr.com',
-            status: 'Invited',
-            role: 'Product owner',
-            canEdit: false,
-            id: 3
-        }),
-        new User({name: 'Tony', email: 'aron@bpr.com', status: 'Active', role: 'Developer', canEdit: true, id: 4}),
-        new User({
-            name: 'Anne',
-            email: 'mate@bpr.com',
-            status: 'Invited',
-            role: 'Product owner',
-            canEdit: false,
-            id: 5
-        }),
-        new User({name: 'Signe', email: 'aron@bpr.com', status: 'Active', role: 'Developer', canEdit: true, id: 6}),
-        new User({
-            name: 'Allan',
-            email: 'mate@bpr.com',
-            status: 'Invited',
-            role: 'Product owner',
-            canEdit: false,
-            id: 7
-        }),
-    ];
+    let users: WorkspaceUsersResponse[] = [];
+    let pickList: ListItem[] = [];
+    let selectedUsers: UserToProject[] = []
 
-    let listUsers = testUsers.sort((u1, u2) => u1.name.localeCompare(u2.name)).map(person => {
-        return new DataListItem(person.id, person.name)
-    });
+    onMount(async () => {
+        const res = await userService.getWorkspaceUsers(appContext.getWorkspaceId());
+        users = res.sort((u1, u2) => u1.name.localeCompare(u2.name));
+        pickList = formList(users);
+    })
 
-    let projectUsers: UserToProject[] = []
+    const handleCreate = async () => {
+        let project = await projectService.create(new CreateProjectRequest({
+            title: projectName,
+            workspaceId: appContext.getWorkspaceId()
+        }));
 
-    const handleCreate =async () => {
-        // todo
-        console.log(projectUsers) //TODO
-        await projectService.create(new CreateProjectRequest({title: projectName, workspaceId:appContext.getWorkspaceId()}));
+        await projectService.addProjectUsers(project._id, new addProjectUsersRequest({
+            users: selectedUsers.map(person => {
+                return new ProjectUserRequest({userId: person._id, isEditor: person.isEditor})
+            })
+        }));
+
         visible = false;
         dispatch('create')
     }
 
     const handleCancel = () => {
-
         visible = false;
     }
 
-    function findUser(user, id) {
-        return user.id === id;
-    }
-
-
     const pickUser = (e) => {
-        let user = testUsers.filter(function (item) {
-            return item.id == e.detail.choice.id;
-        })[0]
-        projectUsers.push(new UserToProject({
-            name: user.name,
-            email: user.email,
-            id: user.id,
-            canEdit: true,
-            role: "Developer"
-        }));
-
-        listUsers = listUsers.filter(function (item) {
-            return item.id != e.detail.choice.id;
-        });
-        projectUsers = projectUsers;
+        let user = getItem(users, e.detail.choice._id);
+        selectedUsers.push(getUserToProject(user, true));
+        pickList = filterPickList(pickList, e.detail.choice._id)
+        selectedUsers = selectedUsers;
     }
 
     const closeUserChoice = (u) => {
-        let user = testUsers.filter(function (item) {
-            return item.id == u.id;
-        })[0]
-        listUsers.push(user);
-        projectUsers = projectUsers.filter(function (item) {
-            return item.id != user.id;
-        });
-        listUsers = listUsers.sort((u1, u2) => u1.name.localeCompare(u2.name)).map(person => {
-            return new DataListItem(person.id, person.name)
-        });
+        let user = getItem(users, u._id);
+        pickList.push(user);
+        selectedUsers = filterPickList(selectedUsers, user._id);
+        pickList = formList(pickList);
     }
-
 </script>
 
 <Dialog bind:visible style="min-width: 600px">
     <Form on:submit={handleCreate} on:cancel={handleCancel} submitText="Create" cancelButton>
         <svelte:fragment slot="header">Create Project</svelte:fragment>
         <Input label="Project name" bind:value={projectName}/>
-        <Select clearOnChoice label="Users to add" choices={listUsers} on:submit={e => pickUser(e)}/>
+        <Select clearOnChoice label="Users to add" choices={pickList} on:submit={e => pickUser(e)}/>
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
-                    <ListRowItem widthInPercentage={20}>Name</ListRowItem>
-                    <ListRowItem widthInPercentage={30}>Email</ListRowItem>
-                    <ListRowItem widthInPercentage={33}>Role</ListRowItem>
+                    <ListRowItem widthInPercentage={33}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={40}>Email</ListRowItem>
                     <ListRowItem widthInPercentage={10}>Can edit</ListRowItem>
                     <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
                 </ListRow>
             </svelte:fragment>
-            {#each projectUsers as user}
+            {#each selectedUsers as user}
                 <ListRow noFunction>
-                    <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>
-                    <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
-                    <ListRowItem widthInPercentage={33}>{user.role}</ListRowItem>
+                    <ListRowItem widthInPercentage={33}>{user.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={40}>{user.email}</ListRowItem>
                     <ListRowItem widthInPercentage={10}>
-                        <Checkbox bind:checked={user.canEdit}
-                                  on:checkChange={e => console.log("")}/>
+                        <Checkbox bind:checked={user.isEditor}
+                                  on:checkChange={e => user.isEditor =e.detail.state }/>
                     </ListRowItem>
                     <ListRowItem widthInPercentage={7}>
                         <CloseButton on:click={() => closeUserChoice(user)}/>
@@ -157,6 +121,4 @@
   .divider {
     border-bottom: .5px solid rgba(0, 0, 0, .2);
   }
-
-
 </style>
