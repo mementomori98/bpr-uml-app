@@ -6,7 +6,8 @@ export class ListItem extends Model {
 export function formList(list) {
     let pickList = list.map(person => {
         return new ListItem({ name: person.name, _id: person._id });
-    }).sort((u1, u2) => u1.name.localeCompare(u2.name));
+    });
+    pickList = sortList(pickList);
     return pickList;
 }
 export function getItem(list, id) {
@@ -23,10 +24,14 @@ export function getUserToProject(user, canEdit = true) {
         isEditor: canEdit,
     });
 }
-export function filterPickList(pickList, id) {
-    let list = pickList.filter(function (item) {
+export function filterList(l, id) {
+    let list = l.filter(function (item) {
         return item._id != id;
-    }).sort((u1, u2) => u1.name.localeCompare(u2.name));
+    });
+    list = sortList(list);
     return list;
+}
+export function sortList(list) {
+    return list.sort((u1, u2) => u1.name.localeCompare(u2.name));
 }
 //# sourceMappingURL=ListItem.js.map

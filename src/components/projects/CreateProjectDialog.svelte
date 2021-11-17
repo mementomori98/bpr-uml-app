@@ -16,11 +16,11 @@
     import {ProjectUserRequest, User, UserToProject, WorkspaceUsersResponse} from "../users/Models";
     import {createEventDispatcher, onMount} from "svelte";
     import {
-        filterPickList,
+        filterList,
         formList,
         getItem,
         getUserToProject,
-        ListItem
+        ListItem, sortList
     } from "../../ui/utils/ListItem";
     import {UserService} from "../users/UserService";
 
@@ -34,13 +34,21 @@
 
     let users: WorkspaceUsersResponse[] = [];
     let pickList: ListItem[] = [];
-    let selectedUsers: UserToProject[] = []
+    let selectedUsers: UserToProject[] = [];
+    let currentUser;
 
     onMount(async () => {
         const res = await userService.getWorkspaceUsers(appContext.getWorkspaceId());
-        users = res.sort((u1, u2) => u1.name.localeCompare(u2.name));
+        users = sortList(res);
         pickList = formList(users);
+        await handleOccurrence();
     })
+
+    const handleOccurrence = async () => {
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        currentUser = await userService.getCurrentUser();
+        pickList = filterList(pickList, currentUser._id)
+    }
 
     const handleCreate = async () => {
         let project = await projectService.create(new CreateProjectRequest({
@@ -62,26 +70,27 @@
         visible = false;
     }
 
-    const pickUser = (e) => {
-        let user = getItem(users, e.detail.choice._id);
+    const pickUser = (_id) => {
+        let user = getItem(users, _id);
         selectedUsers.push(getUserToProject(user, true));
-        pickList = filterPickList(pickList, e.detail.choice._id)
-        selectedUsers = selectedUsers;
+        pickList = filterList(pickList, _id)
+        selectedUsers = sortList(selectedUsers);
     }
 
     const closeUserChoice = (u) => {
         let user = getItem(users, u._id);
         pickList.push(user);
-        selectedUsers = filterPickList(selectedUsers, user._id);
+        selectedUsers = filterList(selectedUsers, user._id);
         pickList = formList(pickList);
     }
+
 </script>
 
 <Dialog bind:visible style="min-width: 600px">
     <Form on:submit={handleCreate} on:cancel={handleCancel} submitText="Create" cancelButton>
         <svelte:fragment slot="header">Create Project</svelte:fragment>
         <Input label="Project name" bind:value={projectName}/>
-        <Select clearOnChoice label="Users to add" choices={pickList} on:submit={e => pickUser(e)}/>
+        <Select clearOnChoice label="Users to add" choices={pickList} on:submit={e => pickUser(e.detail.choice._id)}/>
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
@@ -91,6 +100,12 @@
                     <ListRowItem widthInPercentage={7}>Kick</ListRowItem>
                 </ListRow>
             </svelte:fragment>
+            {#if currentUser}
+                <ListRow noFunction>
+                    <ListRowItem widthInPercentage={33}>{currentUser.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={40}>{currentUser.email}</ListRowItem>
+                </ListRow>
+            {/if}
             {#each selectedUsers as user}
                 <ListRow noFunction>
                     <ListRowItem widthInPercentage={33}>{user.name}</ListRowItem>

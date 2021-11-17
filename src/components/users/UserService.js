@@ -1,6 +1,5 @@
 import getService from "../utils/ServiceFactory";
 import { RestClient } from "../utils/RestClient";
-import "./Models";
 export class UserService {
     constructor() {
         this.client = getService(RestClient);
@@ -18,6 +17,11 @@ export class UserService {
             workspaceId: request.workspaceId,
             inviteeEmailAddress: request.inviteeEmailAddress,
         });
+        // Todo return something relevant
+        return res;
+    }
+    async getCurrentUser() {
+        const res = await this.client.post('users', {});
         // Todo return something relevant
         return res;
     }
