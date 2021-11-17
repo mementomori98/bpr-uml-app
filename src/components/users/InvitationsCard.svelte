@@ -57,18 +57,21 @@
                     <ListRowItem widthInPercentage={35}> </ListRowItem>
                 </ListRow>
             </svelte:fragment>
-            {#each invitations as invitation}
-                <ListRow>
-                    <ListRowItem widthInPercentage={30}>{invitation.workspaceName}</ListRowItem>
-                    <ListRowItem widthInPercentage={35}>{invitation.inviterUserName}</ListRowItem>
-                    <ListRowItem widthInPercentage={35}>
-                        <div class="button-wrapper">
-                            <Button on:click={() => onAcceptInvitation(invitation)} color={Colors.Green}>Accept</Button>
-                            <Button on:click={() => onDeclineInvitation(invitation)} color={Colors.Red}>Decline</Button>
-                        </div>
-                    </ListRowItem>
-                </ListRow>
-            {/each}
+            {#if invitations}
+                {#each invitations as invitation}
+                    <ListRow>
+                        <ListRowItem widthInPercentage={30}>{invitation.workspaceName}</ListRowItem>
+                        <ListRowItem widthInPercentage={35}>{invitation.inviterUserName}</ListRowItem>
+                        <ListRowItem widthInPercentage={35}>
+                            <div class="button-wrapper">
+                                <Button on:click={() => onAcceptInvitation(invitation)} color={Colors.Green}>Accept</Button>
+                                <Button on:click={() => onDeclineInvitation(invitation)} color={Colors.Red}>Decline</Button>
+                            </div>
+                        </ListRowItem>
+                    </ListRow>
+                {/each}
+            {/if}
+
         </ListScrollWrapper>
 
     </View>
