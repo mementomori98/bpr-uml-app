@@ -72,7 +72,6 @@
         <NavLink href="/projects">Projects</NavLink>
         <NavLink href="/diagram">__Diagram</NavLink>
         <NavLink href="/tests">__Tests</NavLink>
-        <NavLink href="/socket">__Socket</NavLink>
         <Spacer size="24"/>
         <NavLink href="/workspaces">Workspace</NavLink>
         <NavLink href="/logout">Log out</NavLink>

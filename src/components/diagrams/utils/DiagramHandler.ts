@@ -38,7 +38,7 @@ export class DiagramHandler {
                 h: e.h,
                 text: this.modelStash.text,
                 modelId: this.modelStash.modelId,
-                id: e._id,
+                _id: e._id,
             });
             this.elements.push(boxRepresentation);
             this.callback();
@@ -75,7 +75,7 @@ export class DiagramHandler {
     }
 
     public move(id: string, x: number, y: number): boolean {
-        let box = this.elements.find(b => b.id == id);
+        let box = this.elements.find(b => b._id == id);
         box.x = x;
         box.y = y;
 

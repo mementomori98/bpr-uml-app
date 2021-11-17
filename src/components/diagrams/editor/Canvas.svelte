@@ -2,14 +2,8 @@
     import MouseDriver from "./MouseDriver.svelte";
     import Camera from "./Camera.svelte";
     import {onMount} from "svelte";
-    import BoxDisplay from "../boxes/BoxDisplay.svelte";
     import {DiagramHandler} from "../utils/DiagramHandler";
-    import ContextMenu from "../../../ui/ContextMenu.svelte";
-    import Option from "../../../ui/Option.svelte";
     import DisplayDispatcher from "./DisplayDispatcher.svelte";
-    import {context} from "@roxi/routify/typings/runtime";
-    import {BoxRepresentation} from "../boxes/Models";
-    import CanvasContextMenu from "./CanvasContextMenu.svelte";
 
     let diagramHandler = new DiagramHandler(() => diagramHandler = diagramHandler);
 
@@ -82,16 +76,6 @@
     {#each diagramHandler.elements as element, i (element.id)}
         <DisplayDispatcher representation={element} camera={camera} diagramHandler={diagramHandler} />
     {/each}
-
-    <CanvasContextMenu
-        originX={contextX}
-        originY={contextY}
-        canvasX={canvas?.offsetLeft}
-        canvasY={canvas?.offsetTop}
-        diagramHandler={diagramHandler}
-        realCoords={camera.realCoords}
-        bind:visible={contextVisible}
-        refreshCallback={() => diagramHandler = diagramHandler}/>
 </div>
 
 <style lang="scss">

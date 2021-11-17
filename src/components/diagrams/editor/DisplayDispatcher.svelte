@@ -7,8 +7,9 @@
     import ClassDisplay from "../classes/ClassDisplay.svelte";
     import {BoxRepresentation} from "../boxes/Models";
     import {ClassDiagramRepresentation} from "../classes/Models";
+    import {Representation} from "../utils/Models";
 
-    export let representation: Representation<any>;
+    export let representation: Representation<any, any>;
     export let camera: Camera;
     export let diagramHandler: DiagramHandler
 
@@ -31,7 +32,7 @@
             return;
 
         diagramHandler.move(
-            representation.id,
+            representation._id,
             representation.x + dragX,
             representation.y + dragY)
         dragX = 0;
