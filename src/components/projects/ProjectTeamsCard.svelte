@@ -3,7 +3,7 @@
     import View from "../../ui/View.svelte";
     import Button from "../../ui/Button.svelte";
     import UserSettingsDialog from "../users/UserSettingsDialog.svelte";
-    import InviteProjectUserDialog from "../users/InviteProjectUserDialog.svelte";
+    import InviteProjectUserDialog from "../users/EditProjectUsersDialog.svelte";
     import Checkbox from "../../ui/Checkbox.svelte";
     import CloseButton from "../../ui/CloseButton.svelte";
     import ListRowItem from "../../ui/ListRowItem.svelte";
