@@ -8,6 +8,10 @@ export class UserService {
         const res = await this.client.get('workspaces/' + id + '/users');
         return res;
     }
+    async getUserTeams() {
+        const res = await this.client.get('users/teams');
+        return res;
+    }
     async getUserInvitations() {
         const res = await this.client.get('users/invitations');
         return res;

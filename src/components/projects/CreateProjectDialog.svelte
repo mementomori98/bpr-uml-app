@@ -104,6 +104,9 @@
                 <ListRow noFunction>
                     <ListRowItem widthInPercentage={40}>{currentUser.name}</ListRowItem>
                     <ListRowItem widthInPercentage={40}>{currentUser.email}</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>
+                        <Checkbox disabled checked/>
+                    </ListRowItem>
                 </ListRow>
             {/if}
             {#each selectedUsers as user}

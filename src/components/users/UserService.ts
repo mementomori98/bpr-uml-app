@@ -12,6 +12,11 @@ export class UserService {
         return res;
     }
 
+    public async getUserTeams() {
+        const res = await this.client.get('users/teams');
+        return res;
+    }
+
     public async getUserInvitations() {
         const res = await this.client.get('users/invitations');
         return res;
