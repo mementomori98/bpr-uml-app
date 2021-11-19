@@ -69,7 +69,7 @@
         locked = true
     }
 
-    const pickTeam = (e) => {
+    const pickUser = (e) => {
         let user = testUsers.filter(function (item) {
             return item.id == e.detail.choice.id;
         })[0]
@@ -89,7 +89,7 @@
         teamUsers = teamUsers;
     }
 
-    const closeTeamChoice = (u) => {
+    const closeUserChoice = (u) => {
         let user = testUsers.filter(function (item) {
             return item.id == u.id;
         })[0]
@@ -111,7 +111,7 @@
         <svelte:fragment slot="header">{locked ? "Team" : "Edit team"}</svelte:fragment>
         <Input locked={locked && lockable} label="Team name" bind:value={teamName}/>
         {#if !locked || !lockable}
-            <Select clearOnChoice label="Users to add" choices={listUsers} on:submit={e => pickTeam(e)}/>
+            <Select clearOnChoice label="Users to add" choices={listUsers} on:submit={e => pickUser(e)}/>
         {/if}
         <ListScrollWrapper>
             <svelte:fragment slot="header">
@@ -129,7 +129,7 @@
                     <ListRowItem widthInPercentage={50}>{user.email}</ListRowItem>
                     {#if !locked || !lockable}
                         <ListRowItem center widthInPercentage={7}>
-                            <CloseButton on:click={() => closeTeamChoice(user)}/>
+                            <CloseButton on:click={() => closeUserChoice(user)}/>
                         </ListRowItem>
                     {/if}
                 </ListRow>

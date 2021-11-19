@@ -24,22 +24,15 @@
     const teamService = getService(TeamService);
     const appContext = getService(AppContext);
 
-    let testUsers = [];
-
-    let listUsers = testUsers.sort((u1, u2) => u1.name.localeCompare(u2.name)).map(person => {
-        return new DataListItem(person.id, person.name)
+    let teams = [].sort((u1, u2) => u1.name.localeCompare(u2.name)).map(team => {
+        return new DataListItem(team.id, team.name)
     });
 
-    let teamUsers: UserToTeam[] = []
-
-    const handleCreate = async () => {
-
-
-        visible = false;
-    }
+    let teamsToAdd = []
 
     const handleEdit = () => {
-
+        // todo
+        visible = false;
     }
 
     const handleCancel = () => {
@@ -47,35 +40,21 @@
     }
 
     const pickTeam = (e) => {
-        let user = testUsers.filter(function (item) {
-            return item.id == e.detail.choice.id;
-        })[0]
-        teamUsers.push(new UserToTeam({
-            name: user.name,
-            email: user.email,
-            id: user.id,
-            canEdit: true,
-            role: "Developer"
-        }));
-        teamUsers.sort((u1, u2) => u1.name.localeCompare(u2.name))
+        teamsToAdd.push(e.detail.choice);
 
-        listUsers = listUsers.filter(function (item) {
+        teams = teams.filter(function(item){
             return item.id != e.detail.choice.id;
         });
-
-        teamUsers = teamUsers;
+        teamsToAdd = teamsToAdd;
     }
 
-    const closeTeamChoice = (u) => {
-        let user = testUsers.filter(function (item) {
-            return item.id == u.id;
-        })[0]
-        listUsers.push(user);
-        teamUsers = teamUsers.filter(function (item) {
-            return item.id != user.id;
+    const closeTeamChoice = (team) => {
+        teams.push(team);
+        teamsToAdd = teamsToAdd.filter(function(item){
+            return item.id != team.id;
         });
-        listUsers = listUsers.sort((u1, u2) => u1.name.localeCompare(u2.name)).map(person => {
-            return new DataListItem(person.id, person.name)
+        teams = teams.sort((u1, u2) => u1.name.localeCompare(u2.name)).map(team => {
+            return new DataListItem(team.id, team.name)
         });
     }
 
@@ -85,23 +64,21 @@
     <Form
             on:submit={handleEdit} cancelButton on:cancel={handleCancel}
             submitText="Edit">
-        <svelte:fragment slot="header">Edit team</svelte:fragment>
-        <Select clearOnChoice label="Users to add" choices={listUsers} on:submit={e => pickTeam(e)}/>
+        <svelte:fragment slot="header">Edit teams</svelte:fragment>
+        <Select clearOnChoice label="Teams to add" choices={teams} on:submit={e => pickTeam(e)}/>
 
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
-                    <ListRowItem widthInPercentage={43}>Name</ListRowItem>
-                    <ListRowItem widthInPercentage={50}>Email</ListRowItem>
-                    <ListRowItem center widthInPercentage={7}>Kick</ListRowItem>
+                    <ListRowItem widthInPercentage={90}>Name</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>Kick</ListRowItem>
                 </ListRow>
             </svelte:fragment>
-            {#each teamUsers as user}
+            {#each teamsToAdd as team}
                 <ListRow noFunction>
-                    <ListRowItem widthInPercentage={43}>{user.name}</ListRowItem>
-                    <ListRowItem widthInPercentage={50}>{user.email}</ListRowItem>
-                    <ListRowItem center widthInPercentage={7}>
-                        <CloseButton on:click={() => closeTeamChoice(user)}/>
+                    <ListRowItem widthInPercentage={90}>{team.name}</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>
+                        <CloseButton on:click={() => closeTeamChoice(team)}/>
                     </ListRowItem>
                 </ListRow>
             {/each}
