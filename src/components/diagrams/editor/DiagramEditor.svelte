@@ -1,11 +1,19 @@
 <script lang="ts">
 
-import Canvas from "./Canvas.svelte";
+    import {key, createDiagramStore} from "./diagramStore";
+    import {setContext} from "svelte";
+    import Canvas from "./Canvas.svelte";
 
-const diagramId = '';
+    export let diagramId: string;
+
+    const diagramStore = createDiagramStore(diagramId);
+    setContext(key, diagramStore);
+
 </script>
 
-<Canvas/>
+
+<Canvas />
+
 
 <style lang="scss">
 

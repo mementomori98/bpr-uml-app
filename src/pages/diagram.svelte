@@ -3,7 +3,7 @@
     import DiagramEditor from "../components/diagrams/editor/DiagramEditor.svelte";
 </script>
 
-<DiagramEditor />
+<DiagramEditor diagramId="6184ee5c88072b194b9cd06b"/>
 
 <style lang="scss">
     @import "../ui/theme";

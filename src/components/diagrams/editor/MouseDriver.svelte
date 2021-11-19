@@ -14,7 +14,6 @@
 
     let dragging: boolean = false;
 
-
     const handleMouseDown = e => {
         if (e.button == 0 && e.target == (target ?? e.target)) {
             dragging = true;

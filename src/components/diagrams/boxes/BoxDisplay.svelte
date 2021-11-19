@@ -1,22 +1,11 @@
 <script lang="ts">
-
-    import {BoxRepresentation} from "../utils/Models";
-    import DisplayFrame from "../editor/DisplayFrame.svelte";
-
-    export let representation: BoxRepresentation;
-    export let dragX: number;
-    export let dragY: number;
-    export let screenCoords;
-    export let element = null;
-    export let zoom: number;
+    export let representation;
 
 </script>
 
-<DisplayFrame representation={representation} dragX={dragX} dragY={dragY} screenCoords={screenCoords} zoom={zoom} bind:element>
-    <div class="box">
-        {representation.text}
-    </div>
-</DisplayFrame>
+<div class="box">
+    {representation.model.text}
+</div>
 
 <style lang="scss">
     @import "../../../ui/theme";

@@ -1,11 +1,21 @@
 <script lang="ts">
     import MouseDriver from "./MouseDriver.svelte";
     import Camera from "./Camera.svelte";
-    import {onMount} from "svelte";
-    import {DiagramHandler} from "../utils/DiagramHandler";
     import DisplayDispatcher from "./DisplayDispatcher.svelte";
+    import ContextMenu from "../../../ui/ContextMenu.svelte";
+    import Option from "../../../ui/Option.svelte";
+    import getService from "../../utils/ServiceFactory";
+    import {Snackbar} from "../../utils/Snackbar";
+    import {getContext, setContext} from "svelte";
+    import {key as diagramKey} from "./diagramStore";
+    import {key as registerKey, CallbackRegister} from "./callbackRegister";
+    import DialogRouter from "./DialogRouter.svelte";
 
-    let diagramHandler = new DiagramHandler(() => diagramHandler = diagramHandler);
+    const snackbar = getService(Snackbar);
+    const diagramStore = getContext(diagramKey);
+
+    const inputRegister = new CallbackRegister();
+    setContext(registerKey, inputRegister);
 
     let mouseX: number;
     let mouseY: number;
@@ -28,12 +38,12 @@
 
     let contextX: number;
     let contextY: number;
-    let contextVisible: boolean;
+    let contextMenuVisible: boolean;
 
     const handleDrag = e => {
         cameraX -= e.detail.dx / zoom;
         cameraY -= e.detail.dy / zoom;
-        diagramHandler = diagramHandler
+        camera = camera;
     };
 
     const handleScroll = e => {
@@ -42,7 +52,6 @@
         } else {
             camera.zoomIn(mouseX, mouseY, canvas.offsetWidth, canvas.offsetHeight);
         }
-        diagramHandler = diagramHandler;
         camera = camera;
     }
 
@@ -50,10 +59,9 @@
         e.preventDefault();
         contextX = e.x;
         contextY = e.y;
-        contextVisible = true;
+        contextMenuVisible = true;
     }
 
-    onMount(() => diagramHandler = diagramHandler);
 
 </script>
 
@@ -73,10 +81,19 @@
 
 <div bind:this={canvas} style="user-select: none;height: 100%;position: relative; overflow: hidden;" on:contextmenu={handleContextMenu}>
     <slot/>
-    {#each diagramHandler.elements as element, i (element.id)}
-        <DisplayDispatcher representation={element} camera={camera} diagramHandler={diagramHandler} />
+    {#each $diagramStore.representations as r, i (r._id)}
+        <DisplayDispatcher representation={r} camera={camera} />
     {/each}
 </div>
+
+<ContextMenu
+        bind:visible={contextMenuVisible}
+        left={contextX}
+        top={contextY}>
+    <Option on:click={() => inputRegister.raise('create_box', {x: camera.realCoords(mouseX, mouseY)[0], y: camera.realCoords(mouseX, mouseY)[1]})}>Create Box</Option>
+</ContextMenu>
+
+<DialogRouter />
 
 <style lang="scss">
     @import "../../../ui/theme";

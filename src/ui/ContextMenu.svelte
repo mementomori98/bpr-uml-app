@@ -31,7 +31,7 @@
 
 {#if visible}
     <div class="context-menu__overlay" on:click={handleOverlayClick}/>
-    <div in:fade={{duration: 50}} out:fade={{duration: 50}}
+    <div
          class={menuStyle}
          style="{style}"
          bind:clientWidth={width}
