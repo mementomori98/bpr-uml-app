@@ -14,7 +14,7 @@
     import {ProjectService} from "./ProjectService";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
     import {Team} from "../teams/Models";
-    import {Project, ProjectsResponse} from "./Models";
+    import {ProjectResponse, ProjectsResponse} from "./Models";
 
     const projectService = getService(ProjectService);
     const appContext = getService(AppContext);

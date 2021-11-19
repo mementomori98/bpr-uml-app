@@ -56,7 +56,7 @@
             workspaceId: appContext.getWorkspaceId()
         }));
 
-        await projectService.addProjectUsers(project._id, new addProjectUsersRequest({
+        await projectService.manageProjectUsers(project._id, new addProjectUsersRequest({
             users: selectedUsers.map(person => {
                 return new ProjectUserRequest({userId: person._id, isEditor: person.isEditor})
             })

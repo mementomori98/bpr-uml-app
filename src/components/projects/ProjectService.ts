@@ -12,8 +12,13 @@ export class ProjectService {
         return res;
     }
 
-    public async addProjectUsers(id: string, request: addProjectUsersRequest) {
-        return await this.client.post('projects/' + id + '/users', request);
+    public async getProject(id: string) {
+        const res = await this.client.get('projects/' + id);
+        return res;
+    }
+
+    public async manageProjectUsers(id: string, request: addProjectUsersRequest) {
+        return await this.client.put('projects/' + id + '/users', request);
     }
 
     public async create(request: CreateProjectRequest){

@@ -22,7 +22,8 @@
     } from "../../ui/utils/ListItem";
     import {UserService} from "../users/UserService";
     import {ProjectService} from "../projects/ProjectService";
-    import {addProjectUsersRequest} from "../projects/Models";
+    import {addProjectUsersRequest, ProjectResponse} from "../projects/Models";
+    import {params} from "@roxi/routify";
 
     export let visible: boolean = false;
 
@@ -31,12 +32,16 @@
     const appContext = getService(AppContext);
     const dispatch = createEventDispatcher();
 
+    let project: ProjectResponse = null;
+
     let users: WorkspaceUsersResponse[] = [];
     let pickList: ListItem[] = [];
     let selectedUsers: UserToProject[] = [];
     let currentUser;
 
     onMount(async () => {
+        project = await projectService.getProject($params.id)
+
         const res = await userService.getWorkspaceUsers(appContext.getWorkspaceId());
         users = sortList(res);
         pickList = formList(users);
@@ -46,13 +51,17 @@
     const handleOccurrence = async () => {
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         currentUser = await userService.getCurrentUser();
+
+
+
+
         pickList = filterList(pickList, currentUser._id)
     }
 
     const handleEdit = async () => {
         let project; //TODO DODODODODODODODODODODODO TODO
 
-        await projectService.addProjectUsers(project._id, new addProjectUsersRequest({
+        await projectService.manageProjectUsers(project._id, new addProjectUsersRequest({
             users: selectedUsers.map(person => {
                 return new ProjectUserRequest({userId: person._id, isEditor: person.isEditor})
             })

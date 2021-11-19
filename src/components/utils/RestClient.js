@@ -42,5 +42,21 @@ export class RestClient {
         }
         return response.json();
     }
+    async put(path, body) {
+        let response = await fetch(`${this.baseUrl}/${path}`, {
+            method: 'PUT',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.context.getAccessToken()}`
+            },
+            body: JSON.stringify(body)
+        });
+        if (response.status == 401) {
+            $goto('/login');
+            return;
+        }
+        return response.json();
+    }
 }
 //# sourceMappingURL=RestClient.js.map

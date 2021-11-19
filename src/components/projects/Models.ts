@@ -18,11 +18,10 @@ export class ProjectsResponse extends Model<ProjectsResponse> {
     public teams: [];
 }
 
-export class Project {
-    public name: string;
-    public id: number;
-
-    public constructor(init?: Partial<Project>) {
-        Object.assign(this, init);
-    }
+export class ProjectResponse extends Model<ProjectsResponse> {
+    public teams: [];
+    public title: string;
+    public users: [];
+    public workspaceId: string;
+    public _id: string;
 }

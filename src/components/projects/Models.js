@@ -5,9 +5,6 @@ export class addProjectUsersRequest extends Model {
 }
 export class ProjectsResponse extends Model {
 }
-export class Project {
-    constructor(init) {
-        Object.assign(this, init);
-    }
+export class ProjectResponse extends Model {
 }
 //# sourceMappingURL=Models.js.map
