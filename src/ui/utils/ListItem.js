@@ -24,14 +24,24 @@ export function getUserToProject(user, canEdit = true) {
         isEditor: canEdit,
     });
 }
-export function filterList(l, id) {
+export function filterListById(l, id) {
     let list = l.filter(function (item) {
         return item._id != id;
     });
     list = sortList(list);
     return list;
 }
+export function filterListByList(l, ref) {
+    let list = l.filter(function (item) {
+        let result = ref.find(obj => {
+            return obj._id === item._id;
+        });
+        return result === undefined;
+    });
+    list = sortList(list);
+    return list;
+}
 export function sortList(list) {
-    return list.sort((u1, u2) => u1.name.localeCompare(u2.name));
+    return list.sort((u1, u2) => { var _a; return (_a = u1.name) === null || _a === void 0 ? void 0 : _a.localeCompare(u2.name); });
 }
 //# sourceMappingURL=ListItem.js.map

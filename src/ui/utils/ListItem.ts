@@ -31,7 +31,7 @@ export function getUserToProject(user: WorkspaceUsersResponse, canEdit: boolean 
     })
 }
 
-export function filterList(l: any[], id: string) {
+export function filterListById(l: any[], id: string) {
     let list = l.filter(function (item) {
         return item._id != id;
     });
@@ -39,6 +39,17 @@ export function filterList(l: any[], id: string) {
     return list;
 }
 
+export function filterListByList(l: any[], ref: any[]) {
+    let list = l.filter(function (item) {
+        let result = ref.find(obj => {
+            return obj._id === item._id
+        })
+        return result === undefined;
+    });
+    list = sortList(list)
+    return list;
+}
+
 export function sortList(list: any[]) {
-    return list.sort((u1, u2) => u1.name.localeCompare(u2.name));
+    return list.sort((u1, u2) => u1.name?.localeCompare(u2.name));
 }

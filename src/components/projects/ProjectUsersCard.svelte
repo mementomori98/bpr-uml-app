@@ -17,11 +17,15 @@
     import {ProjectService} from "./ProjectService";
 
     const projectService = getService(ProjectService);
-    let project: ProjectResponse = new ProjectResponse({title: "", users: []});
+    let project: ProjectResponse = new ProjectResponse({title: "", users: [], teams: [], _id: "", workspaceId: ""});
 
     onMount(async () => {
         project = await projectService.getProject($params.id)
     })
+ 
+    const onEdit = async () => {
+        project = await projectService.getProject($params.id)
+    }
 
     let editVisible: boolean = false;
 
@@ -56,7 +60,7 @@
     </View>
 </Card>
 
-<EditProjectUsersDialog bind:visible={editVisible}/>
+<EditProjectUsersDialog bind:visible={editVisible} on:edit={onEdit}/>
 
 <style lang="scss">
   @import "../../ui/theme";

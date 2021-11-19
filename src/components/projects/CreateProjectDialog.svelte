@@ -16,7 +16,7 @@
     import {ProjectUserRequest, User, UserToProject, WorkspaceUsersResponse} from "../users/Models";
     import {createEventDispatcher, onMount} from "svelte";
     import {
-        filterList,
+        filterListById,
         formList,
         getItem,
         getUserToProject,
@@ -32,22 +32,22 @@
     const appContext = getService(AppContext);
     const dispatch = createEventDispatcher();
 
-    let users: WorkspaceUsersResponse[] = [];
+    let workspaceUsers: WorkspaceUsersResponse[] = [];
     let pickList: ListItem[] = [];
     let selectedUsers: UserToProject[] = [];
     let currentUser;
 
     onMount(async () => {
         const res = await userService.getWorkspaceUsers(appContext.getWorkspaceId());
-        users = sortList(res);
-        pickList = formList(users);
+        workspaceUsers = sortList(res);
+        pickList = formList(workspaceUsers);
         await handleOccurrence();
     })
 
     const handleOccurrence = async () => {
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         currentUser = await userService.getCurrentUser();
-        pickList = filterList(pickList, currentUser._id)
+        pickList = filterListById(pickList, currentUser._id)
     }
 
     const handleCreate = async () => {
@@ -71,16 +71,16 @@
     }
 
     const pickUser = (_id) => {
-        let user = getItem(users, _id);
+        let user = getItem(workspaceUsers, _id);
         selectedUsers.push(getUserToProject(user, true));
-        pickList = filterList(pickList, _id)
+        pickList = filterListById(pickList, _id)
         selectedUsers = sortList(selectedUsers);
     }
 
     const closeUserChoice = (u) => {
-        let user = getItem(users, u._id);
+        let user = getItem(workspaceUsers, u._id);
         pickList.push(user);
-        selectedUsers = filterList(selectedUsers, user._id);
+        selectedUsers = filterListById(selectedUsers, user._id);
         pickList = formList(pickList);
     }
 
