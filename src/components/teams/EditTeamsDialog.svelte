@@ -20,11 +20,6 @@
     import {AppContext} from "../utils/AppContext";
 
     export let visible: boolean = false;
-    export let readonly: boolean = false;
-    export let lockable: boolean = readonly;
-    export let teamName: string = "";
-
-    let locked: boolean = true;
 
     const teamService = getService(TeamService);
     const appContext = getService(AppContext);
@@ -38,35 +33,17 @@
     let teamUsers: UserToTeam[] = []
 
     const handleCreate = async () => {
-        let team = await teamService.create(new CreateTeamRequest({
-            teamName: teamName,
-            workspaceId: appContext.getWorkspaceId()
-        }));
-
 
 
         visible = false;
     }
 
-    const handleUpdate = () => {
-        // todo
-        alert("Team " + teamName + " has been updated")
+    const handleEdit = () => {
+
     }
 
     const handleCancel = () => {
-        if (lockable) {
-            if (!locked) {
-                visible = false;
-                locked = true;
-            }
-        } else {
-            visible = false;
-        }
-    }
-
-    const handleClose = () => {
         visible = false;
-        locked = true
     }
 
     const pickTeam = (e) => {
@@ -104,42 +81,31 @@
 
 </script>
 
-<Dialog on:clickedOut={() => locked = true} bind:visible style="min-width: 600px">
-    <Form readonly={readonly} bind:locked lockable={lockable}
-          on:submit={() => lockable ? handleUpdate() : handleCreate()} cancelButton={!lockable} on:cancel={handleCancel}
-          submitText={lockable ? "Update" : "Create"}>
-        <svelte:fragment slot="header">{locked ? "Team" : "Edit team"}</svelte:fragment>
-        <Input locked={locked && lockable} label="Team name" bind:value={teamName}/>
-        {#if !locked || !lockable}
-            <Select clearOnChoice label="Users to add" choices={listUsers} on:submit={e => pickTeam(e)}/>
-        {/if}
+<Dialog bind:visible style="min-width: 600px">
+    <Form
+            on:submit={handleEdit} cancelButton on:cancel={handleCancel}
+            submitText="Edit">
+        <svelte:fragment slot="header">Edit team</svelte:fragment>
+        <Select clearOnChoice label="Users to add" choices={listUsers} on:submit={e => pickTeam(e)}/>
+
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
                     <ListRowItem widthInPercentage={43}>Name</ListRowItem>
                     <ListRowItem widthInPercentage={50}>Email</ListRowItem>
-                    {#if !locked || !lockable}
-                        <ListRowItem center widthInPercentage={7}>Kick</ListRowItem>
-                    {/if}
+                    <ListRowItem center widthInPercentage={7}>Kick</ListRowItem>
                 </ListRow>
             </svelte:fragment>
             {#each teamUsers as user}
                 <ListRow noFunction>
                     <ListRowItem widthInPercentage={43}>{user.name}</ListRowItem>
                     <ListRowItem widthInPercentage={50}>{user.email}</ListRowItem>
-                    {#if !locked || !lockable}
-                        <ListRowItem center widthInPercentage={7}>
-                            <CloseButton on:click={() => closeTeamChoice(user)}/>
-                        </ListRowItem>
-                    {/if}
+                    <ListRowItem center widthInPercentage={7}>
+                        <CloseButton on:click={() => closeTeamChoice(user)}/>
+                    </ListRowItem>
                 </ListRow>
             {/each}
         </ListScrollWrapper>
-        <svelte:fragment slot="footer-actions">
-            {#if lockable}
-                <Button color={Colors.Gray} on:click={handleClose}>Close</Button>
-            {/if}
-        </svelte:fragment>
     </Form>
 </Dialog>
 

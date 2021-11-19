@@ -64,7 +64,7 @@
         </ListScrollWrapper>
 
         <svelte:fragment slot="actions">
-            <Button on:click={() => createVisible = true}>Invite</Button>
+            <Button on:click={() => createVisible = true}>Create</Button>
         </svelte:fragment>
     </View>
 </Card>
