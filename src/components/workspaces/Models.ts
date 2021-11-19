@@ -18,10 +18,12 @@ export class Workspace {
 }
 
 export class WorkspaceInvitation {
-    public _id: string;
-    public inviterId: string;
-    public workspaceId: string;
     public inviteeEmailAddress: string;
+    public inviterId: string;
+    public inviterUserName: string;
+    public workspaceId: string;
+    public workspaceName: string;
+    public _id: string;
 
     constructor(init?: Partial<WorkspaceInvitation>) {
         Object.assign(this, init);

@@ -5,12 +5,22 @@
     import Input from "../../ui/Input.svelte";
     import Button from "../../ui/Button.svelte";
     import {Colors} from "../../ui/utils/Colors";
+    import {onMount} from "svelte";
+    import {goto} from "@roxi/routify";
+    import getService from "../utils/ServiceFactory";
+    import {WorkspaceService} from "./WorkspaceService";
+    import {AppContext} from "../utils/AppContext";
 
-    let workspaceName: string = 'My Workspace';
+    let workspaceName: string = '';
+    const workspaceService = getService(WorkspaceService);
+    const appContext = getService(AppContext);
 
     let locked: boolean = true;
 
-
+    onMount(async () => {
+        const res = await workspaceService.getById(appContext.getWorkspaceId());
+        workspaceName = res.name;
+    })
 
 </script>
 
@@ -22,6 +32,6 @@
 </Card>
 
 <style lang="scss">
-    @import "../../ui/theme";
+  @import "../../ui/theme";
 
 </style>

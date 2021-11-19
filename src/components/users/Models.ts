@@ -31,21 +31,19 @@ export class WorkspaceUsersResponse extends Model<WorkspaceUsersResponse> {
     public _id: string;
 }
 
-//+++++++++++++++++++++
-
-export class UserToProject {
-    public name: string;
-    public email: string;
-    public role: 'Developer' | 'Scrum Master' | 'Product owner';
-    public canEdit: boolean;
-    public id: number;
-
-    public constructor(init?: Partial<UserToProject>) {
-        Object.assign(this, init);
-    }
+export class ProjectUserRequest  extends Model<ProjectUserRequest>{
+    public userId: string;
+    public isEditor: boolean;
 }
 
+//+++++++++++++++++++++
 
+export class UserToProject  extends Model<UserToProject>{
+    public name: string;
+    public email: string;
+    public isEditor: boolean;
+    public _id: string;
+}
 
 export class UserToTeam {
     public name: string;

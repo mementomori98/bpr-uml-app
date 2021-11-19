@@ -8,6 +8,9 @@ export class ProjectService {
         const res = await this.client.get('workspaces/' + id + '/projects');
         return res;
     }
+    async addProjectUsers(id, request) {
+        return await this.client.post('projects/' + id + '/users', request);
+    }
     async create(request) {
         return await this.client.post('projects', request);
     }

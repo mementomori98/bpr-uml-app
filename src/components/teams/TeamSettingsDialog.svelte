@@ -12,6 +12,12 @@
     import {Colors} from "../../ui/utils/Colors";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
     import {User, UserToTeam} from "../users/Models";
+    import {CreateProjectRequest} from "../projects/Models";
+    import getService from "../utils/ServiceFactory";
+    import {ProjectService} from "../projects/ProjectService";
+    import {TeamService} from "./TeamService";
+    import {CreateTeamRequest} from "./Models";
+    import {AppContext} from "../utils/AppContext";
 
     export let visible: boolean = false;
     export let readonly: boolean = false;
@@ -20,42 +26,26 @@
 
     let locked: boolean = true;
 
-    let testUsers = [
-        new User({name: 'Ralu', email: 'ralu@bpr.com', id: 1}),
-        new User({name: 'Aron', email: 'aron@bpr.com', id: 2}),
-        new User({
-            name: 'Mate',
-            email: 'mate@bpr.com',
-            id: 3
-        }),
-        new User({name: 'Tom', email: 'aron@bpr.com', id: 4}),
-        new User({
-            name: 'Anne',
-            email: 'mate@bpr.com',
-            id: 5
-        }),
-        new User({name: 'Signe', email: 'aron@bpr.com', id: 6}),
-        new User({
-            name: 'Allan',
-            email: 'mate@bpr.com',
-            id: 7
-        }),
-    ];
+    const teamService = getService(TeamService);
+    const appContext = getService(AppContext);
+
+    let testUsers = [];
 
     let listUsers = testUsers.sort((u1, u2) => u1.name.localeCompare(u2.name)).map(person => {
         return new DataListItem(person.id, person.name)
     });
 
-    let teamUsers: UserToTeam[] = [
-        new UserToTeam({name: "Zuzanne", email: "susanne@bpr.com", id: 8}),
-        new UserToTeam({name: "Bala", email: "balatoni1@langos.hu", id: 9}),
-        new UserToTeam({name: "Tony", email: "balatoni2@langos.hu", id: 10}),
-    ] //DUMMYOFDUMMY
+    let teamUsers: UserToTeam[] = []
 
-    const handleCreate = () => {
-        // todo
+    const handleCreate = async () => {
+        let team = await teamService.create(new CreateTeamRequest({
+            teamName: teamName,
+            workspaceId: appContext.getWorkspaceId()
+        }));
+
+
+
         visible = false;
-        alert("Team " + teamName + " has been created")
     }
 
     const handleUpdate = () => {

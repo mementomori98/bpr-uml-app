@@ -3,14 +3,14 @@
     import View from "../../ui/View.svelte";
     import Button from "../../ui/Button.svelte";
     import UserSettingsDialog from "../users/UserSettingsDialog.svelte";
-    import InviteProjectUserDialog from "../users/InviteProjectUserDialog.svelte";
+    import InviteProjectUserDialog from "../users/EditProjectUsersDialog.svelte";
     import Checkbox from "../../ui/Checkbox.svelte";
     import CloseButton from "../../ui/CloseButton.svelte";
     import ListRowItem from "../../ui/ListRowItem.svelte";
     import ListRow from "../../ui/ListRow.svelte";
     import {goto, params} from "@roxi/routify";
     import {Team} from "../teams/Models";
-    import InviteTeamDialog from "../teams/InviteTeamDialog.svelte";
+    import EditTeamsDialog from "../teams/EditTeamsDialog.svelte";
     import TeamSettingsDialog from "../teams/TeamSettingsDialog.svelte";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
 
@@ -21,7 +21,7 @@
         new Team({name: 'Maverick', usersAmount: 11, projectsAmount: 6}),
     ].sort((u1, u2) => u1.name.localeCompare(u2.name));
 
-    let addVisible: boolean = false;
+    let editVisible: boolean = false;
     let itemViewVisible: boolean = false;
     let chosenTeam: Team = null;
 
@@ -63,12 +63,12 @@
             {/each}
         </ListScrollWrapper>
         <svelte:fragment slot="actions"> <!-- TODO disabled if not product owner-->
-            <Button on:click={() => addVisible = true}>Add</Button>
+            <Button on:click={() => editVisible = true}>Edit</Button>
         </svelte:fragment>
     </View>
 </Card>
 
-<InviteTeamDialog bind:visible={addVisible}/>
+<EditTeamsDialog bind:visible={editVisible}/>
 <TeamSettingsDialog readonly bind:visible={itemViewVisible} teamName={chosenTeam === null ? "" : chosenTeam.name}/>
 
 <style lang="scss">

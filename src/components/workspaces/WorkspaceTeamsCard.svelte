@@ -10,19 +10,22 @@
     import CloseButton from "../../ui/CloseButton.svelte";
     import TeamSettingsDialog from "../teams/TeamSettingsDialog.svelte";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
+    import {onMount} from "svelte";
+    import getService from "../utils/ServiceFactory";
+    import {UserService} from "../users/UserService";
 
 
-    let teams = [
-        new Team({name: 'Core', usersAmount: 5, projectsAmount: 3}),
-        new Team({name: 'Mercury', usersAmount: 7, projectsAmount: 1}),
-        new Team({name: 'Titan', usersAmount: 3, projectsAmount: 2}),
-        new Team({name: 'Maverick', usersAmount: 11, projectsAmount: 6}),
-    ].sort((u1, u2) => u1.name.localeCompare(u2.name));
+    let teams = [].sort((u1, u2) => u1.name.localeCompare(u2.name));
+
+    const userService = getService(UserService);
 
     let createVisible: boolean = false;
     let itemSettingsVisible: boolean = false;
     let chosenTeam: Team = null;
 
+    onMount(async () => {
+        const res = await userService.getUserTeams();
+    })
 
     const handleClick = (team) => {
         // todo
@@ -39,7 +42,6 @@
 <Card>
     <View>
         <svelte:fragment slot="header">Teams</svelte:fragment>
-        <svelte:fragment slot="header-actions"></svelte:fragment>
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
@@ -62,7 +64,7 @@
         </ListScrollWrapper>
 
         <svelte:fragment slot="actions">
-            <Button on:click={() => createVisible = true}>Invite</Button>
+            <Button on:click={() => createVisible = true}>Create</Button>
         </svelte:fragment>
     </View>
 </Card>

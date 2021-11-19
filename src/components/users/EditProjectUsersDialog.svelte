@@ -10,8 +10,6 @@
     import Input from "../../ui/Input.svelte";
     import {AppContext} from "../utils/AppContext";
     import getService from "../utils/ServiceFactory";
-    import {ProjectService} from "./ProjectService";
-    import {CreateProjectRequest, addProjectUsersRequest} from "./Models";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
     import {ProjectUserRequest, User, UserToProject, WorkspaceUsersResponse} from "../users/Models";
     import {createEventDispatcher, onMount} from "svelte";
@@ -23,9 +21,10 @@
         ListItem, sortList
     } from "../../ui/utils/ListItem";
     import {UserService} from "../users/UserService";
+    import {ProjectService} from "../projects/ProjectService";
+    import {addProjectUsersRequest} from "../projects/Models";
 
     export let visible: boolean = false;
-    let projectName: string = "";
 
     const userService = getService(UserService);
     const projectService = getService(ProjectService);
@@ -50,11 +49,8 @@
         pickList = filterList(pickList, currentUser._id)
     }
 
-    const handleCreate = async () => {
-        let project = await projectService.create(new CreateProjectRequest({
-            title: projectName,
-            workspaceId: appContext.getWorkspaceId()
-        }));
+    const handleEdit = async () => {
+        let project; //TODO DODODODODODODODODODODODO TODO
 
         await projectService.addProjectUsers(project._id, new addProjectUsersRequest({
             users: selectedUsers.map(person => {
@@ -87,9 +83,8 @@
 </script>
 
 <Dialog bind:visible style="min-width: 600px">
-    <Form on:submit={handleCreate} on:cancel={handleCancel} submitText="Create" cancelButton>
-        <svelte:fragment slot="header">Create Project</svelte:fragment>
-        <Input label="Project name" bind:value={projectName}/>
+    <Form on:submit={handleEdit} on:cancel={handleCancel} submitText="Edit" cancelButton>
+        <svelte:fragment slot="header">Edit project users</svelte:fragment>
         <Select clearOnChoice label="Users to add" choices={pickList} on:submit={e => pickUser(e.detail.choice._id)}/>
         <ListScrollWrapper>
             <svelte:fragment slot="header">

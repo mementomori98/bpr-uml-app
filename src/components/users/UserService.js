@@ -1,12 +1,15 @@
 import getService from "../utils/ServiceFactory";
 import { RestClient } from "../utils/RestClient";
-import "./Models";
 export class UserService {
     constructor() {
         this.client = getService(RestClient);
     }
     async getWorkspaceUsers(id) {
         const res = await this.client.get('workspaces/' + id + '/users');
+        return res;
+    }
+    async getUserTeams() {
+        const res = await this.client.get('users/teams');
         return res;
     }
     async getUserInvitations() {
@@ -18,6 +21,11 @@ export class UserService {
             workspaceId: request.workspaceId,
             inviteeEmailAddress: request.inviteeEmailAddress,
         });
+        // Todo return something relevant
+        return res;
+    }
+    async getCurrentUser() {
+        const res = await this.client.post('users', {});
         // Todo return something relevant
         return res;
     }

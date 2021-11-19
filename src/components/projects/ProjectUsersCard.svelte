@@ -3,7 +3,7 @@
     import View from "../../ui/View.svelte";
     import Button from "../../ui/Button.svelte";
     import UserSettingsDialog from "../users/UserSettingsDialog.svelte";
-    import InviteProjectUserDialog from "../users/InviteProjectUserDialog.svelte";
+    import EditProjectUsersDialog from "../users/EditProjectUsersDialog.svelte";
     import Checkbox from "../../ui/Checkbox.svelte";
     import CloseButton from "../../ui/CloseButton.svelte";
     import ListRowItem from "../../ui/ListRowItem.svelte";
@@ -49,49 +49,40 @@
         console.log(user.name + " " + e.detail.state); //TODO
 
     }
-
-    const removeUserFromProject = (user) => {
-        alert(user.name + " to be removed from project") //TODO implement & if(product owner)
-    }
 </script>
 
 <Card>
     <View>
         <svelte:fragment slot="header">Users in {$params.id}</svelte:fragment>
         <!-- TODO disabled if not product owner-->
-        <svelte:fragment slot="header-actions"></svelte:fragment>
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
-                    <ListRowItem widthInPercentage={20}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>Name</ListRowItem>
                     <ListRowItem widthInPercentage={30}>Email</ListRowItem>
                     <ListRowItem widthInPercentage={30}>Role</ListRowItem>
                     <ListRowItem center widthInPercentage={10}>Can edit</ListRowItem>
-                    <ListRowItem center widthInPercentage={10}>Kick</ListRowItem>
                 </ListRow>
             </svelte:fragment>
             {#each users as user}
                 <ListRow noFunction>
-                    <ListRowItem widthInPercentage={20}>{user.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>{user.name}</ListRowItem>
                     <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
                     <ListRowItem widthInPercentage={30}>{user.role}</ListRowItem>
                     <ListRowItem center widthInPercentage={10}>
-                        <Checkbox bind:checked={user.canEdit} on:checkChange={e => checkChange(e, user)}/>
-                        <!-- TODO disabled if not product owner--></ListRowItem>
-                    <ListRowItem center widthInPercentage={10}>
-                        <CloseButton on:click={() => removeUserFromProject(user)}/>
-                        <!-- TODO disabled if not product owner--></ListRowItem>
+                        <Checkbox disabled bind:checked={user.canEdit}/>
+                    </ListRowItem>
                 </ListRow>
             {/each}
         </ListScrollWrapper>
 
         <svelte:fragment slot="actions"> <!-- TODO disabled if not product owner-->
-            <Button on:click={() => addVisible = true}>Add</Button>
+            <Button on:click={() => addVisible = true}>Edit</Button>
         </svelte:fragment>
     </View>
 </Card>
 
-<InviteProjectUserDialog bind:visible={addVisible}/>
+<EditProjectUsersDialog bind:visible={addVisible}/>
 
 <style lang="scss">
   @import "../../ui/theme";

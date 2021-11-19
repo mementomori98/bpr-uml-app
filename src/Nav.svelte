@@ -20,9 +20,11 @@
     import TreeView from "./ui/TreeView.svelte";
     import {AuthenticationService} from "./components/auth/AuthenticationService";
     import {getAuth} from "firebase/auth";
+    import {UserService} from "./components/users/UserService";
 
     const authenticationService = getService(AuthenticationService);
     const workspaceService = getService(WorkspaceService);
+    const userService = getService(UserService);
     const appContext = getService(AppContext);
 
     let visible: boolean;
@@ -30,10 +32,11 @@
     let workspacesDiv: HTMLElement;
     export let path: string;
     let currentWorkspaceName: string;
+    let hasInvitation: boolean = false;
 
     const handleLogout = function () {
         authenticationService.logout()
-        $goto('/login'); 
+        $goto('/login');
     }
 
     onMount(async () => {
@@ -44,11 +47,12 @@
         try {
             const res = await workspaceService.getById(appContext.getWorkspaceId());
             currentWorkspaceName = res.name;
-        }catch (e) {
+        } catch (e) {
             authenticationService.logout();
             $goto('/login')
         }
-
+        let invitations = await userService.getUserInvitations();
+        if (invitations >= 1) hasInvitation = true;
 
     })
 
@@ -92,9 +96,11 @@
 
         <TextButton on:click={() => visible = true}>
             <Icon icon="person"/>
-            <div style="position: fixed; right: 24px; top: 28px"><!-- TODO-->
-                <MessageIcon small/>
-            </div>
+            {#if hasInvitation}
+                <div style="position: fixed; right: 24px; top: 28px">
+                    <MessageIcon small/>
+                </div>
+            {/if}
         </TextButton>
 
         <ContextMenu noPadding bind:visible top="50" right="8">
@@ -102,7 +108,10 @@
             <Option on:click={$goto('/account', {tab: "invitations"})}>
                 <div class="option-wrapper">
                     Invitations
-                    <MessageIcon/><!-- TODO-->
+                    {#if hasInvitation}
+                        <MessageIcon/>
+                    {/if}
+
                 </div>
             </Option>
             <Divider noPadding/>
