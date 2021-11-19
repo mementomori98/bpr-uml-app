@@ -3,20 +3,29 @@ import View from "../../../ui/View.svelte";
 import Button from "../../../ui/Button.svelte";
 import Input from "../../../ui/Input.svelte";
 import {Colors} from "../../../ui/utils/Colors";
-import {CreateModelRequest} from "../utils/Models";
-import {BoxRepresentation, CreateBoxRequest} from "./Models";
-import {DiagramHandler} from "../utils/DiagramHandler";
-import diagram from "../../../pages/diagram.svelte";
+import {getContext} from "svelte";
+import {key as diagramKey} from "../editor/diagramStore";
+import {key as inputKey} from "../editor/callbackRegister";
 
-export let refreshCallback: () => void;
-export let request: CreateBoxRequest
-export let diagramHandler: DiagramHandler;
+export let request;
+
+const diagramStore = getContext(diagramKey);
+const inputStore = getContext(inputKey);
 
 const create = () => {
     request.w = 100;
     request.h = 50;
-    diagramHandler.create(request);
-    refreshCallback();
+    diagramStore.createModel({
+        type: 'textBox',
+        text: request.text,
+        path: '',
+    }, {
+        x: request.x,
+        y: request.y,
+        w: 200,
+        h: 100,
+    });
+    inputStore.raise('done', null);
 }
 
 </script>
@@ -26,7 +35,6 @@ const create = () => {
     <svelte:fragment slot="header-actions"/>
         <Input label="Text" bind:value={request.text} focused/>
     <svelte:fragment slot="actions">
-        <Button on:click={refreshCallback} color={Colors.Gray}>Cancel</Button>
         <Button on:click={create}>Create</Button>
     </svelte:fragment>
 </View>

@@ -1,10 +1,9 @@
 <script lang="ts">
 
-    import {Representation} from "../utils/Models";
     import Icon from "../../../ui/Icon.svelte";
     import TextButton from "../../../ui/TextButton.svelte";
 
-    export let representation: Representation<any>;
+    export let representation;
     export let dragX: number;
     export let dragY: number;
     export let screenCoords;

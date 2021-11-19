@@ -1,38 +1,29 @@
 <script lang="ts">
 
-    import {ClassDiagramRepresentation} from "../utils/Models";
     import DisplayFrame from "../editor/DisplayFrame.svelte";
 
-    export let representation: ClassDiagramRepresentation;
-    export let dragX: number;
-    export let dragY: number;
-    export let screenCoords;
-    export let element = null;
-    export let zoom: number;
+    export let representation;
 
 </script>
 
-<DisplayFrame representation={representation} dragX={dragX} dragY={dragY} screenCoords={screenCoords} zoom={zoom} bind:element>
-    <div class="class">
-        <div class="class__header">
-            {representation.name}</div>
-        <div class="class__fields">
-            {#each representation.fields as field}
-                <div class="class__field">
-                    {field}
-                </div>
-            {/each}
-        </div>
-        <div class="class__methods">
-            {#each representation.methods as method}
-                <div class="class__method">
-                    {method}
-                </div>
-            {/each}
-        </div>
+<div class="class">
+    <div class="class__header">
+        {representation.model.name}</div>
+    <div class="class__fields">
+        <!--{#each representation.model.fields as field}-->
+        <!--    <div class="class__field">-->
+        <!--        {field}-->
+        <!--    </div>-->
+        <!--{/each}-->
     </div>
-
-</DisplayFrame>
+    <div class="class__methods">
+        <!--{#each representation.model.methods as method}-->
+        <!--    <div class="class__method">-->
+        <!--        {method}-->
+        <!--    </div>-->
+        <!--{/each}-->
+    </div>
+</div>
 
 <style lang="scss">
     @import "../../../ui/theme";

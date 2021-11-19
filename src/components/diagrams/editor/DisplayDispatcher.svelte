@@ -3,22 +3,23 @@
     import BoxDisplay from "../boxes/BoxDisplay.svelte";
     import MouseDriver from "./MouseDriver.svelte";
     import Camera from "./Camera.svelte";
-    import {DiagramHandler} from "../utils/DiagramHandler";
     import ClassDisplay from "../classes/ClassDisplay.svelte";
-    import {BoxRepresentation} from "../boxes/Models";
-    import {ClassDiagramRepresentation} from "../classes/Models";
+    import DisplayFrame from "./DisplayFrame.svelte";
+    import {getContext} from "svelte";
+    import {key} from "./diagramStore";
 
-    export let representation: Representation<any>;
+    export let representation;
     export let camera: Camera;
-    export let diagramHandler: DiagramHandler
 
     let dragX: number = 0;
     let dragY: number = 0;
     let element: HTMLElement;
 
+    const diagramStore = getContext(key);
+
     $: screenCoords = camera.screenCoords;
     $: zoom = camera.zoom;
-    $: type = representation.constructor.name;
+    $: type = representation.model.type;
 
     const handleElementDrag = (e, b) => {
         dragX += e.detail.dx / camera.zoom;
@@ -30,22 +31,30 @@
         if (dragX == 0 && dragY == 0)
             return;
 
-        diagramHandler.move(
-            representation.id,
-            representation.x + dragX,
-            representation.y + dragY)
+        diagramStore.updateRepresentation({
+            _id: representation._id,
+            x: representation.x + dragX,
+            y: representation.y + dragY,
+            w: representation.w,
+            h: representation.h,
+        });
+        // diagramHandler.move(
+        //     representation._id,
+        //     representation.x + dragX,
+        //     representation.y + dragY)
         dragX = 0;
         dragY = 0;
-        diagramHandler = diagramHandler;
     }
 
 </script>
 
-{#if type === BoxRepresentation.name}
-    <BoxDisplay representation={representation} screenCoords={screenCoords} bind:zoom bind:dragX={dragX} bind:dragY={dragY} bind:element/>
-{:else if type === ClassDiagramRepresentation.name}
-    <ClassDisplay representation={representation} screenCoords={screenCoords} bind:zoom bind:dragX={dragX} bind:dragY={dragY} bind:element/>
-{/if}
+<DisplayFrame representation={representation} dragX={dragX} dragY={dragY} screenCoords={screenCoords} zoom={zoom} bind:element>
+    {#if type === 'textBox'}
+        <BoxDisplay {representation}/>
+    {:else if type === 'class'}
+        <ClassDisplay {representation}/>
+    {/if}
+</DisplayFrame>
 
 <MouseDriver
         target={element}
