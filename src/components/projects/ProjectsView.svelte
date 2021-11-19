@@ -38,7 +38,7 @@
 <div class="container">
     <div class="wrapper">
         {#each projects as project}
-            <CardItem icon={IconType.Project} title={project.title} on:click={() => $goto('/project', {id: project._id})}/>
+            <CardItem icon={IconType.Project} title={project.title} on:click={() => console.log("open project...")} on:menu={() => $goto('/project', {id: project._id})}/>
         {/each}
     </div>
 </div>

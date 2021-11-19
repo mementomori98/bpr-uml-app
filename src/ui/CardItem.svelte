@@ -37,7 +37,7 @@
 </svelte:head>
 
 <div class={itemClass} style={`${style}`} on:click={itemClick}>
-    <div style="display: flex; width: calc(100% - 32px);">
+    <div style="display: flex; width: calc(100% - 45px);">
         {#if icon === IconType.Folder}
             <i class="fa fa-folder {iconStyle}" on:click={menuClick}></i>
         {:else if icon === IconType.Project}
@@ -48,7 +48,7 @@
         <div class="title">{title}</div>
     </div>
 
-    <i class="fa fa-ellipsis-v {iconStyle}" style="margin-right: 10px; color: #5b5b5b" on:click={menuClick}></i>
+    <i class="fa fa-ellipsis-v {iconStyle}" style="padding: 5px 15px; border-radius: 10px; margin-right: 10px; color: #5b5b5b" on:click={menuClick}></i>
 </div>
 
 <style lang="scss">
