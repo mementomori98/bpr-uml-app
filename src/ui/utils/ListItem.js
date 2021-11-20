@@ -44,4 +44,7 @@ export function filterListByList(l, ref) {
 export function sortList(list) {
     return list.sort((u1, u2) => { var _a; return (_a = u1.name) === null || _a === void 0 ? void 0 : _a.localeCompare(u2.name); });
 }
+export function sortUserList(list) {
+    return list.sort((u1, u2) => { var _a; return (_a = u1.user[0].name) === null || _a === void 0 ? void 0 : _a.localeCompare(u2.user[0].name); });
+}
 //# sourceMappingURL=ListItem.js.map

@@ -15,12 +15,15 @@
     import {ProjectResponse} from "./Models";
     import getService from "../utils/ServiceFactory";
     import {ProjectService} from "./ProjectService";
+    import {sortList, sortUserList} from "../../ui/utils/ListItem";
 
     const projectService = getService(ProjectService);
     let project: ProjectResponse = new ProjectResponse({title: "", users: [], teams: [], _id: "", workspaceId: ""});
 
     onMount(async () => {
         project = await projectService.getProject($params.id)
+        project.users = sortUserList(project.users);
+        console.log(project)
     })
  
     const onEdit = async () => {
@@ -34,7 +37,6 @@
 <Card>
     <View>
         <svelte:fragment slot="header">Users in {project.title}</svelte:fragment>
-        <!-- TODO disabled if not product owner-->
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
@@ -45,15 +47,14 @@
             </svelte:fragment>
             {#each project.users as user}
                 <ListRow noFunction>
-                    <ListRowItem widthInPercentage={45}>{user.name}</ListRowItem>
-                    <ListRowItem widthInPercentage={45}>{user.email}</ListRowItem>
+                    <ListRowItem widthInPercentage={45}>{user.user[0].name}</ListRowItem>
+                    <ListRowItem widthInPercentage={45}>{user.user[0].email}</ListRowItem>
                     <ListRowItem center widthInPercentage={10}>
                         <Checkbox disabled bind:checked={user.isEditor}/>
                     </ListRowItem>
                 </ListRow>
             {/each}
         </ListScrollWrapper>
-
         <svelte:fragment slot="actions"> <!-- TODO disabled if not product owner-->
             <Button on:click={() => editVisible = true}>Edit</Button>
         </svelte:fragment>

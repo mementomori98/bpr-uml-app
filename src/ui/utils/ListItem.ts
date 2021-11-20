@@ -53,3 +53,7 @@ export function filterListByList(l: any[], ref: any[]) {
 export function sortList(list: any[]) {
     return list.sort((u1, u2) => u1.name?.localeCompare(u2.name));
 }
+
+export function sortUserList(list: any[]) {
+    return list.sort((u1, u2) => u1.user[0].name?.localeCompare(u2.user[0].name));
+}

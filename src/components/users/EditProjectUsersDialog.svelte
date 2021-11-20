@@ -56,8 +56,9 @@
         currentUser = await userService.getCurrentUser();
         pickList = filterListByList(pickList, project.users)
         project.users.forEach(user => {
-            selectedUsers.push(getUserToProject(user, true));
+            selectedUsers.push(getUserToProject(user.user[0], true));
         })
+        selectedUsers = sortList(selectedUsers);
     }
 
     const handleEdit = async () => {
@@ -104,15 +105,6 @@
                     <ListRowItem center widthInPercentage={10}>Kick</ListRowItem>
                 </ListRow>
             </svelte:fragment>
-            <!--{#if currentUser}-->
-            <!--    <ListRow noFunction>-->
-            <!--        <ListRowItem widthInPercentage={40}>{currentUser.name}</ListRowItem>-->
-            <!--        <ListRowItem widthInPercentage={40}>{currentUser.email}</ListRowItem>-->
-            <!--        <ListRowItem center widthInPercentage={10}>-->
-            <!--            <Checkbox disabled checked/>-->
-            <!--        </ListRowItem>-->
-            <!--    </ListRow>-->
-            <!--{/if}-->
             {#each selectedUsers as user}
                 <ListRow noFunction>
                     <ListRowItem widthInPercentage={40}>{user.name}</ListRowItem>

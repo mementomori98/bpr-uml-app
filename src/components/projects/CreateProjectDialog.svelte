@@ -45,9 +45,10 @@
     })
 
     const handleOccurrence = async () => {
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         currentUser = await userService.getCurrentUser();
         pickList = filterListById(pickList, currentUser._id)
+        selectedUsers.push(getUserToProject(currentUser, true));
+        selectedUsers = sortList(selectedUsers);
     }
 
     const handleCreate = async () => {
@@ -100,25 +101,16 @@
                     <ListRowItem center widthInPercentage={10}>Kick</ListRowItem>
                 </ListRow>
             </svelte:fragment>
-            {#if currentUser}
-                <ListRow noFunction>
-                    <ListRowItem widthInPercentage={40}>{currentUser.name}</ListRowItem>
-                    <ListRowItem widthInPercentage={40}>{currentUser.email}</ListRowItem>
-                    <ListRowItem center widthInPercentage={10}>
-                        <Checkbox disabled checked/>
-                    </ListRowItem>
-                </ListRow>
-            {/if}
             {#each selectedUsers as user}
                 <ListRow noFunction>
                     <ListRowItem widthInPercentage={40}>{user.name}</ListRowItem>
                     <ListRowItem widthInPercentage={40}>{user.email}</ListRowItem>
                     <ListRowItem center widthInPercentage={10}>
-                        <Checkbox bind:checked={user.isEditor}
+                        <Checkbox disabled={user._id === currentUser?._id} bind:checked={user.isEditor}
                                   on:checkChange={e => user.isEditor =e.detail.state }/>
                     </ListRowItem>
                     <ListRowItem center widthInPercentage={10}>
-                        <CloseButton on:click={() => closeUserChoice(user)}/>
+                        <CloseButton disabled={user._id === currentUser?._id} on:click={() => closeUserChoice(user)}/>
                     </ListRowItem>
                 </ListRow>
             {/each}
