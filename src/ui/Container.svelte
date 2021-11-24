@@ -22,6 +22,7 @@
             width: 100%;
             display: flex;
             flex-direction: column;
+            background-color: $page-bg;
         }
     }
 </style>

@@ -16,6 +16,7 @@
     import CreateProjectDialog from "./CreateProjectDialog.svelte";
     import View from "../../ui/View.svelte";
     import {IconType} from "../../ui/utils/IconType";
+    import {redirectUrl} from "../utils/redirectStore";
 
     const projectService = getService(ProjectService);
     const appContext = getService(AppContext);
@@ -38,7 +39,7 @@
 <div class="container">
     <div class="wrapper">
         {#each projects as project}
-            <CardItem icon={IconType.Project} title={project.title} on:click={() => console.log("open project...")} on:menu={() => $goto('/project', {id: project._id})}/>
+            <CardItem icon={IconType.Project} title={project.title} on:click={() => $redirectUrl = `/project-open?id=${project._id}`} on:menu={() => $goto('/project', {id: project._id})}/>
         {/each}
     </div>
 </div>

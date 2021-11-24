@@ -21,6 +21,7 @@
     import {AuthenticationService} from "./components/auth/AuthenticationService";
     import {getAuth} from "firebase/auth";
     import {UserService} from "./components/users/UserService";
+    import {redirectUrl} from "./components/utils/redirectStore";
 
     const authenticationService = getService(AuthenticationService);
     const workspaceService = getService(WorkspaceService);
@@ -40,6 +41,10 @@
     }
 
     onMount(async () => {
+        if(appContext.getAccessToken() == null) {
+            $goto('/login');
+            return;
+        }
         if (appContext.getWorkspaceId() == null) {
             $goto('/create-workspace')
             return;

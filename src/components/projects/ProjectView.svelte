@@ -6,7 +6,7 @@
 </script>
 
 <Container>
-    <Wrapper bgColor="ffffff">
+    <Wrapper>
         <ProjectUsersCard/>
         <ProjectTeamsCard/>
     </Wrapper>
