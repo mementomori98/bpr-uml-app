@@ -15,3 +15,10 @@ export class CreateTeamRequest extends Model<CreateTeamRequest> {
     public name: string;
     public workspaceId: string;
 }
+
+export class TeamResponse extends Model<TeamResponse> {
+    public _id: string;
+    public teamName: string;
+    public users: [];
+    public workspaceId: string;
+}

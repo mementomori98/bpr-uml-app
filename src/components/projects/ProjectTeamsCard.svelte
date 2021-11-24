@@ -9,26 +9,31 @@
     import ListRowItem from "../../ui/ListRowItem.svelte";
     import ListRow from "../../ui/ListRow.svelte";
     import {goto, params} from "@roxi/routify";
-    import {Team} from "../teams/Models";
+    import {Team, TeamResponse} from "../teams/Models";
     import EditTeamsDialog from "../teams/EditTeamsDialog.svelte";
     import TeamSettingsDialog from "../teams/TeamSettingsDialog.svelte";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
+    import {onMount} from "svelte";
+    import {sortUserList} from "../../ui/utils/ListItem";
+    import getService from "../utils/ServiceFactory";
+    import {UserService} from "../users/UserService";
+    import {AppContext} from "../utils/AppContext";
+    import {TeamService} from "../teams/TeamService";
 
-    let teams = [
-        new Team({name: 'Core', usersAmount: 5, projectsAmount: 3}),
-        new Team({name: 'Mercury', usersAmount: 7, projectsAmount: 1}),
-        new Team({name: 'Titan', usersAmount: 3, projectsAmount: 2}),
-        new Team({name: 'Maverick', usersAmount: 11, projectsAmount: 6}),
-    ].sort((u1, u2) => u1.name.localeCompare(u2.name));
+    const teamsService = getService(TeamService);
+    const appContext = getService(AppContext);
 
-    let createVisible: boolean = false;
     let editVisible: boolean = false;
+    let readVisible: boolean = false;
     let chosenTeam: Team = null;
+    let teams = []
 
+    onMount(async () => {
+        teams = await teamsService.getProjectTeams($params.id)
+    })
 
     const handleClick = (team) => {
-        // todo
-        editVisible = true
+        readVisible = true
         chosenTeam = team
     }
 
@@ -54,13 +59,13 @@
             {/each}
         </ListScrollWrapper>
         <svelte:fragment slot="actions"> <!-- TODO disabled if not product owner-->
-            <Button on:click={() => createVisible = true}>Edit</Button>
+            <Button on:click={() => editVisible = true}>Edit</Button>
         </svelte:fragment>
     </View>
 </Card>
 
-<EditTeamsDialog bind:visible={createVisible}/>
-<TeamSettingsDialog readonly bind:visible={editVisible} teamName={chosenTeam === null ? "" : chosenTeam.name}/>
+<EditTeamsDialog bind:visible={editVisible}/>
+<TeamSettingsDialog readonly bind:visible={readVisible} teamName={chosenTeam === null ? "" : chosenTeam.name}/>
 
 <style lang="scss">
   @import "../../ui/theme";
