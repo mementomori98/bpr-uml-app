@@ -54,7 +54,8 @@
         }
 
         &__content {
-
+            max-height: 90vh;
+            overflow-y: auto;
         }
     }
 </style>
