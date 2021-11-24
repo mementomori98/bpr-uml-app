@@ -19,6 +19,8 @@
     import Nav from "../Nav.svelte";
     import SnackbarProvider from "../ui/SnackbarProvider.svelte";
     import {AuthenticationService} from "../components/auth/AuthenticationService";
+    import RedirectProvider from "../components/utils/RedirectProvider.svelte";
+    import RegisterServices from "../components/utils/RegisterServices.svelte";
 
     const authenticationService = getService(AuthenticationService);
     let loggedIn: boolean;
@@ -44,6 +46,8 @@
 
 
 </script>
+
+<RedirectProvider/>
 
 <main>
     <SnackbarProvider/>
