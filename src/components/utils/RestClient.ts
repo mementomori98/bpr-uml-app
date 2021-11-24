@@ -57,7 +57,7 @@ export class RestClient {
             method: 'PUT',
             mode: 'cors',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json; charset=UTF-8',
                 'Authorization': `Bearer ${this.context.getAccessToken()}`
             },
             body: JSON.stringify(body)

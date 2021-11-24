@@ -55,5 +55,5 @@ export function sortList(list: any[]) {
 }
 
 export function sortUserList(list: any[]) {
-    return list.sort((u1, u2) => u1.user[0].name?.localeCompare(u2.user[0].name));
+    return list.sort((u1, u2) => u1.user?.name.localeCompare(u2.user?.name));
 }

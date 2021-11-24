@@ -45,6 +45,6 @@ export function sortList(list) {
     return list.sort((u1, u2) => { var _a; return (_a = u1.name) === null || _a === void 0 ? void 0 : _a.localeCompare(u2.name); });
 }
 export function sortUserList(list) {
-    return list.sort((u1, u2) => { var _a; return (_a = u1.user[0].name) === null || _a === void 0 ? void 0 : _a.localeCompare(u2.user[0].name); });
+    return list.sort((u1, u2) => { var _a, _b; return (_a = u1.user) === null || _a === void 0 ? void 0 : _a.name.localeCompare((_b = u2.user) === null || _b === void 0 ? void 0 : _b.name); });
 }
 //# sourceMappingURL=ListItem.js.map

@@ -56,7 +56,7 @@
         currentUser = await userService.getCurrentUser();
         pickList = filterListByList(pickList, project.users)
         project.users.forEach(user => {
-            selectedUsers.push(getUserToProject(user.user[0], true));
+            selectedUsers.push(getUserToProject(user.user, true));
         })
         selectedUsers = sortList(selectedUsers);
     }

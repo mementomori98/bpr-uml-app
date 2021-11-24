@@ -21,55 +21,46 @@
         new Team({name: 'Maverick', usersAmount: 11, projectsAmount: 6}),
     ].sort((u1, u2) => u1.name.localeCompare(u2.name));
 
+    let createVisible: boolean = false;
     let editVisible: boolean = false;
-    let itemViewVisible: boolean = false;
     let chosenTeam: Team = null;
 
 
     const handleClick = (team) => {
         // todo
-        itemViewVisible = true
+        editVisible = true
         chosenTeam = team
     }
 
-    const removeTeamFromProject = (team) => {
-        alert(team.name + " to be removed from project") //TODO implement & if(product owner)
-    }
 </script>
 
 <Card>
     <View>
         <svelte:fragment slot="header">Teams in {$params.id}</svelte:fragment>
-        <!-- TODO disabled if not product owner-->
-        <svelte:fragment slot="header-actions"></svelte:fragment>
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
-                    <ListRowItem widthInPercentage={58}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={72}>Name</ListRowItem>
                     <ListRowItem center widthInPercentage={14}>Users</ListRowItem>
                     <ListRowItem center widthInPercentage={14}>Projects</ListRowItem>
-                    <ListRowItem center widthInPercentage={14}>Remove</ListRowItem>
                 </ListRow>
             </svelte:fragment>
             {#each teams as team}
                 <ListRow on:click={() => handleClick(team)}>
-                    <ListRowItem widthInPercentage={58}>{team.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={72}>{team.name}</ListRowItem>
                     <ListRowItem center widthInPercentage={14}>{team.usersAmount}</ListRowItem>
                     <ListRowItem center widthInPercentage={14}>{team.projectsAmount}</ListRowItem>
-                    <ListRowItem center widthInPercentage={14}>
-                        <CloseButton on:click={() => removeTeamFromProject(team)}/>
-                        <!-- TODO disabled if not product owner --></ListRowItem>
                 </ListRow>
             {/each}
         </ListScrollWrapper>
         <svelte:fragment slot="actions"> <!-- TODO disabled if not product owner-->
-            <Button on:click={() => editVisible = true}>Edit</Button>
+            <Button on:click={() => createVisible = true}>Edit</Button>
         </svelte:fragment>
     </View>
 </Card>
 
-<EditTeamsDialog bind:visible={editVisible}/>
-<TeamSettingsDialog readonly bind:visible={itemViewVisible} teamName={chosenTeam === null ? "" : chosenTeam.name}/>
+<EditTeamsDialog bind:visible={createVisible}/>
+<TeamSettingsDialog readonly bind:visible={editVisible} teamName={chosenTeam === null ? "" : chosenTeam.name}/>
 
 <style lang="scss">
   @import "../../ui/theme";

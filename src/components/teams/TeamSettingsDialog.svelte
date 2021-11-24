@@ -39,7 +39,7 @@
 
     const handleCreate = async () => {
         let team = await teamService.create(new CreateTeamRequest({
-            teamName: teamName,
+            name: teamName,
             workspaceId: appContext.getWorkspaceId()
         }));
 

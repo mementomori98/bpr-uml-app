@@ -12,6 +12,6 @@ export class Team {
 }
 
 export class CreateTeamRequest extends Model<CreateTeamRequest> {
-    public teamName: string;
+    public name: string;
     public workspaceId: string;
 }

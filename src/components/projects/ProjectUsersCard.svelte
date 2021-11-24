@@ -22,8 +22,7 @@
 
     onMount(async () => {
         project = await projectService.getProject($params.id)
-        project.users = sortUserList(project.users);
-        console.log(project)
+        project.users = sortUserList(project?.users);
     })
  
     const onEdit = async () => {
@@ -47,8 +46,8 @@
             </svelte:fragment>
             {#each project.users as user}
                 <ListRow noFunction>
-                    <ListRowItem widthInPercentage={45}>{user.user[0].name}</ListRowItem>
-                    <ListRowItem widthInPercentage={45}>{user.user[0].email}</ListRowItem>
+                    <ListRowItem widthInPercentage={45}>{user.user.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={45}>{user.user.email}</ListRowItem>
                     <ListRowItem center widthInPercentage={10}>
                         <Checkbox disabled bind:checked={user.isEditor}/>
                     </ListRowItem>
