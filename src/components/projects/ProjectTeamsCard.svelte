@@ -29,7 +29,7 @@
     let teams = []
 
     onMount(async () => {
-        teams = await teamsService.getProjectTeams($params.id)
+       // teams = await teamsService.getProjectTeams($params.id)
     })
 
     const handleClick = (team) => {

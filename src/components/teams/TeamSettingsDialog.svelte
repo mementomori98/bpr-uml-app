@@ -38,10 +38,10 @@
     let teamUsers: UserToTeam[] = []
 
     const handleCreate = async () => {
-        let team = await teamService.create(new CreateTeamRequest({
+       /* let team = await teamService.create(new CreateTeamRequest({
             name: teamName,
             workspaceId: appContext.getWorkspaceId()
-        }));
+        }));*/
 
 
 
