@@ -14,6 +14,7 @@
     .container {
         display: flex;
         justify-content: center;
+        background-color: $page-bg;
 
         &__content {
             padding-top: 24px;

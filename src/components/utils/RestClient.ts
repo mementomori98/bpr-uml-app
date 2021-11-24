@@ -1,8 +1,8 @@
 import getService from "./ServiceFactory";
 import {AppContext} from "./AppContext";
 import {context} from "@roxi/routify/typings/runtime";
-import {goto} from "@roxi/routify";
 import {throwError} from "svelte-preprocess/dist/modules/errors";
+import {redirectUrl} from "./redirectStore";
 
 export class RestClient {
 
@@ -21,8 +21,7 @@ export class RestClient {
             }
         });
         if(response.status == 401) {
-            console.log("RestClient-get failed with 401")
-            throwError("Failed on get request: 401")
+            redirectUrl.set('/login');
             return;
         }
 
@@ -46,7 +45,7 @@ export class RestClient {
             body: JSON.stringify(body)
         });
         if(response.status == 401) {
-            $goto('/login')
+            redirectUrl.set('/login');
             return;
         }
         return response.json();
@@ -63,7 +62,7 @@ export class RestClient {
             body: JSON.stringify(body)
         });
         if(response.status == 401) {
-            $goto('/login')
+            redirectUrl.set('/login');
             return;
         }
         return response.json();

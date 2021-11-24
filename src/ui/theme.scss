@@ -14,9 +14,9 @@ $colors: (('red', nth($red, 1), nth($red, 2)),
         ('gray', nth($gray, 1), nth($gray, 2)),
 );
 
-$shadow-small: 0 1px 6px 0px rgba(0, 0, 0, .3);
-$shadow-medium: 0 0 15px 0px rgba(0, 0, 0, .2);
-$shadow-large: 0 0 20px 2px rgba(0, 0, 0, .3);
+$shadow-small: 0 1px 6px 0px rgba(0, 0, 0, .2);
+$shadow-medium: 0 0 8px 0px rgba(0, 0, 0, .1);
+$shadow-large: 0 0 14px 0px rgba(0, 0, 0, .2);
 
 $border-inactive: 1px solid lighten(nth($blue, 1), 30%);
 $border: 1px solid nth($blue, 1);
@@ -30,3 +30,5 @@ $font-option: normal 14px 'Nunito', sans-serif;
 
 $border-radius-small: 0px;
 $border-radius-medium: 6px;
+
+$page-bg: #fafafa;
