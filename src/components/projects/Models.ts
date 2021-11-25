@@ -6,7 +6,7 @@ export class CreateProjectRequest extends Model<CreateProjectRequest> {
     public workspaceId: string;
 }
 
-export class addProjectUsersRequest extends Model<addProjectUsersRequest> {
+export class AddProjectUsersRequest extends Model<AddProjectUsersRequest> {
     public users: ProjectUserRequest[];
 }
 

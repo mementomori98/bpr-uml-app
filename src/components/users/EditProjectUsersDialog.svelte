@@ -22,7 +22,7 @@
     } from "../../ui/utils/ListItem";
     import {UserService} from "../users/UserService";
     import {ProjectService} from "../projects/ProjectService";
-    import {addProjectUsersRequest, ProjectResponse} from "../projects/Models";
+    import {AddProjectUsersRequest, ProjectResponse} from "../projects/Models";
     import {params} from "@roxi/routify";
 
     export let visible: boolean = false;
@@ -62,7 +62,7 @@
     }
 
     const handleEdit = async () => {
-        await projectService.manageProjectUsers(project._id, new addProjectUsersRequest({
+        await projectService.manageProjectUsers(project._id, new AddProjectUsersRequest({
             users: selectedUsers.map(person => {
                 return new ProjectUserRequest({userId: person._id, isEditor: person.isEditor})
             })

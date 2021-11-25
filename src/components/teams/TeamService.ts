@@ -2,6 +2,8 @@
 import getService from "../utils/ServiceFactory";
 import {RestClient} from "../utils/RestClient";
 import type {CreateTeamRequest} from "./Models";
+import {AddProjectUsersRequest} from "../projects/Models";
+import {AddTeamUsersRequest} from "./Models";
 
 export class TeamService {
 
@@ -14,6 +16,10 @@ export class TeamService {
     public async getWorkspaceTeams(id: string) {
         const res = await this.client.get('workspaces/' + id + '/teams');
         return res;
+    }
+
+    public async manageTeamUsers(id: string, request: AddTeamUsersRequest) {
+        return await this.client.put('teams/' + id + '/users', request);
     }
 
     public async getProjectTeams(id: string) {

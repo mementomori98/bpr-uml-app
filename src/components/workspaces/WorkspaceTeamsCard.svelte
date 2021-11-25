@@ -27,7 +27,7 @@
         teams = await teamsService.getWorkspaceTeams(appContext.getWorkspaceId())
     })
 
-    const onCreate = async () => {
+    const fetch = async () => {
         teams = await teamsService.getWorkspaceTeams(appContext.getWorkspaceId())
     }
 
@@ -61,8 +61,8 @@
         </svelte:fragment>
     </View>
 </Card>
-<TeamSettingsDialog lockable teamName={chosenTeam === null ? "" : chosenTeam.name} bind:visible={editVisible}/>
-<TeamSettingsDialog bind:visible={createVisible} on:create={onCreate}/>
+<TeamSettingsDialog lockable on:edit={fetch} teamId={chosenTeam === null ? "" : chosenTeam._id} bind:visible={editVisible}/>
+<TeamSettingsDialog bind:visible={createVisible} on:create={fetch}/>
 <style lang="scss">
   @import "../../ui/theme";
 

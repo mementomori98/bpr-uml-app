@@ -36,6 +36,10 @@ export class ProjectUserRequest  extends Model<ProjectUserRequest>{
     public isEditor: boolean;
 }
 
+export class TeamUserRequest  extends Model<ProjectUserRequest>{
+    public userId: string;
+}
+
 //+++++++++++++++++++++
 
 export class UserToProject  extends Model<UserToProject>{
@@ -48,7 +52,7 @@ export class UserToProject  extends Model<UserToProject>{
 export class UserToTeam {
     public name: string;
     public email: string;
-    public id: number;
+    public _id: string;
 
     public constructor(init?: Partial<UserToTeam>) {
         Object.assign(this, init);

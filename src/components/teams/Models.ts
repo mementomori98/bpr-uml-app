@@ -1,4 +1,5 @@
 import {Model} from "../utils/Model";
+import {TeamUserRequest} from "../users/Models";
 
 export class Team {
     public name: string;
@@ -9,6 +10,10 @@ export class Team {
     public constructor(init?: Partial<Team>) {
         Object.assign(this, init);
     }
+}
+
+export class AddTeamUsersRequest extends Model<AddTeamUsersRequest> {
+    public users: TeamUserRequest[];
 }
 
 export class CreateTeamRequest extends Model<CreateTeamRequest> {

@@ -1,5 +1,5 @@
 import {Model} from "../../components/utils/Model";
-import {User, UserToProject, WorkspaceUsersResponse} from "../../components/users/Models";
+import {User, UserToProject, UserToTeam, WorkspaceUsersResponse} from "../../components/users/Models";
 import * as events from "events";
 
 export class ListItem extends Model<ListItem> {
@@ -28,6 +28,14 @@ export function getUserToProject(user: WorkspaceUsersResponse, canEdit: boolean 
         email: user.email,
         _id: user._id,
         isEditor: canEdit,
+    })
+}
+
+export function getUserToTeam(user: WorkspaceUsersResponse) {
+    return new UserToTeam({
+        name: user.name,
+        email: user.email,
+        _id: user._id,
     })
 }
 

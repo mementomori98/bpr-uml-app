@@ -14,6 +14,8 @@ export class WorkspaceUsersResponse extends Model {
 }
 export class ProjectUserRequest extends Model {
 }
+export class TeamUserRequest extends Model {
+}
 //+++++++++++++++++++++
 export class UserToProject extends Model {
 }
