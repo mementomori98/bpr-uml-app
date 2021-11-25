@@ -11,22 +11,27 @@
     import getService from "../utils/ServiceFactory";
     import {params} from "@roxi/routify";
     import {TeamService} from "../teams/TeamService";
+    import {AppContext} from "../utils/AppContext";
 
 
     let teams = [];
 
     const teamsService = getService(TeamService);
+    const appContext = getService(AppContext);
 
     let createVisible: boolean = false;
     let editVisible: boolean = false;
     let chosenTeam: Team = null;
 
     onMount(async () => {
-       // teams = await teamsService.getWorkspaceTeams($params.id)
+        teams = await teamsService.getWorkspaceTeams(appContext.getWorkspaceId())
     })
 
+    const onCreate = async () => {
+        teams = await teamsService.getWorkspaceTeams(appContext.getWorkspaceId())
+    }
+
     const handleEdit = (team) => {
-        // todo
         chosenTeam = team
         editVisible = true
     }
@@ -39,16 +44,14 @@
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
-                    <ListRowItem widthInPercentage={72}>Name</ListRowItem>
-                    <ListRowItem center widthInPercentage={14}>Users</ListRowItem>
-                    <ListRowItem center widthInPercentage={16}>Projects</ListRowItem>
+                    <ListRowItem widthInPercentage={90}>Name</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>Users</ListRowItem>
                 </ListRow>
             </svelte:fragment>
             {#each teams as team}
                 <ListRow on:click={() => handleEdit(team)}>
-                    <ListRowItem widthInPercentage={72}>{team.name}</ListRowItem>
-                    <ListRowItem center widthInPercentage={14}>{team.usersAmount}</ListRowItem>
-                    <ListRowItem center widthInPercentage={14}>{team.projectsAmount}</ListRowItem>
+                    <ListRowItem widthInPercentage={90}>{team.name}</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>{team.users.length}</ListRowItem>
                 </ListRow>
             {/each}
         </ListScrollWrapper>
@@ -59,7 +62,7 @@
     </View>
 </Card>
 <TeamSettingsDialog lockable teamName={chosenTeam === null ? "" : chosenTeam.name} bind:visible={editVisible}/>
-<TeamSettingsDialog bind:visible={createVisible}/>
+<TeamSettingsDialog bind:visible={createVisible} on:create={onCreate}/>
 <style lang="scss">
   @import "../../ui/theme";
 

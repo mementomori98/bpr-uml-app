@@ -43,16 +43,12 @@
                 <ListRow isHeader>
                     <ListRowItem widthInPercentage={50}>Name</ListRowItem>
                     <ListRowItem widthInPercentage={50}>Email</ListRowItem>
-<!--                    <ListRowItem center widthInPercentage={20}>Status</ListRowItem>-->
-<!--                    <ListRowItem right widthInPercentage={20}>Role</ListRowItem>-->
                 </ListRow>
             </svelte:fragment>
             {#each users as user}
                 <ListRow on:click={() => handleClick(user)}>
                     <ListRowItem widthInPercentage={50}>{user.name}</ListRowItem>
                     <ListRowItem widthInPercentage={50}>{user.email}</ListRowItem>
-<!--                    <ListRowItem center widthInPercentage={20}>{user.status}</ListRowItem>-->
-<!--                    <ListRowItem right widthInPercentage={20}>{user.role}</ListRowItem>-->
                 </ListRow>
             {/each}
         </ListScrollWrapper>

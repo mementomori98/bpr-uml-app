@@ -18,6 +18,7 @@
     import {TeamService} from "./TeamService";
     import {CreateTeamRequest} from "./Models";
     import {AppContext} from "../utils/AppContext";
+    import {createEventDispatcher} from "svelte";
 
     export let visible: boolean = false;
     export let readonly: boolean = false;
@@ -28,6 +29,7 @@
 
     const teamService = getService(TeamService);
     const appContext = getService(AppContext);
+    const dispatch = createEventDispatcher();
 
     let testUsers = [];
 
@@ -38,11 +40,11 @@
     let teamUsers: UserToTeam[] = []
 
     const handleCreate = async () => {
-       /* let team = await teamService.create(new CreateTeamRequest({
+        await teamService.create(new CreateTeamRequest({
             name: teamName,
             workspaceId: appContext.getWorkspaceId()
-        }));*/
-
+        }));
+        dispatch('create')
 
 
         visible = false;
@@ -53,7 +55,7 @@
         alert("Team " + teamName + " has been updated")
     }
 
-    const handleCancel = () => {
+    const handleCancelDialog = () => {
         if (lockable) {
             if (!locked) {
                 visible = false;
@@ -64,7 +66,7 @@
         }
     }
 
-    const handleClose = () => {
+    const handleCloseDialog = () => {
         visible = false;
         locked = true
     }
@@ -106,7 +108,7 @@
 
 <Dialog on:clickedOut={() => locked = true} bind:visible style="min-width: 600px">
     <Form readonly={readonly} bind:locked lockable={lockable}
-          on:submit={() => lockable ? handleUpdate() : handleCreate()} cancelButton={!lockable} on:cancel={handleCancel}
+          on:submit={() => lockable ? handleUpdate() : handleCreate()} cancelButton={!lockable} on:cancel={handleCancelDialog}
           submitText={lockable ? "Update" : "Create"}>
         <svelte:fragment slot="header">{locked ? "Team" : "Edit team"}</svelte:fragment>
         <Input locked={locked && lockable} label="Team name" bind:value={teamName}/>
@@ -137,7 +139,7 @@
         </ListScrollWrapper>
         <svelte:fragment slot="footer-actions">
             {#if lockable}
-                <Button color={Colors.Gray} on:click={handleClose}>Close</Button>
+                <Button color={Colors.Gray} on:click={handleCloseDialog}>Close</Button>
             {/if}
         </svelte:fragment>
     </Form>
