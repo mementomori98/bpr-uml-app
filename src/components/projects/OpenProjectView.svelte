@@ -1,7 +1,67 @@
 <script lang="ts">
 
     import {params} from "@roxi/routify";
+    import TreeView from "../../ui/TreeView.svelte";
+    import {onMount} from "svelte";
+    import getService from "../utils/ServiceFactory";
+    import {ProjectService} from "./ProjectService";
+
+    const projectService = getService(ProjectService);
+
+    let content;
+
+    const createFolders = (tree, path) => {
+        // /hello/niggers/here
+        // remove starting /
+        if (path.startsWith('/'))
+            path = path.substring(1);
+
+        let folders = path.split('/');
+        let f = folders.shift();
+        let subTree = tree.children.find(c => c.label == f);
+        if (!subTree) {
+            subTree = {label: f, type: 'folder', children: []};
+            tree.children.push(subTree);
+        }
+        if (folders.length <= 1)
+            return;
+        createFolders(subTree, folders.join('/'));
+    }
+
+    const addItems = (tree, items, path = '/') => {
+        console.log([path, items.map(i => i.path)])
+        items.filter(i => i.path == (path)).forEach(i => {
+            tree.children.push({label: i.name, type: i.type});
+        });
+        tree.children.filter(c => c.type === 'folder').forEach(c => {
+            addItems(c, items, path + c.label + '/')
+        });
+    };
+
+    const mapContentToTree = content => {
+        let tree = {
+            label: 'Project',
+            type: 'folder',
+            children: []
+        }; // label, type, children
+        if (content) {
+            content.items.forEach(item => {
+                content.items.map(i => i.path).filter(p => p !== '/').forEach(path =>
+                    createFolders(tree, path));
+            });
+
+            addItems(tree, content.items.filter(i => i.type !== 'folder'));
+        }
+
+        return tree;
+    };
+
+    $: tree = mapContentToTree(content);
+
+    onMount(async () => {
+        content = await projectService.getContent($params.id);
+    });
 
 </script>
 
-<h1>Projects View - {$params.id}</h1>
+<TreeView {tree}/>

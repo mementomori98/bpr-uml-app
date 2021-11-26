@@ -124,7 +124,12 @@
         </ContextMenu>
     </svelte:fragment>
     <slot/>
-    {#if path !== '/editor' && path !== '/diagram' && path !== '/index' && path !== '/zollytest' && path !== '/projects'}
+    {#if path !== '/editor' &&
+         path !== '/diagram' &&
+         path !== '/index' &&
+         path !== '/zollytest' &&
+         path !== '/projects' &&
+         !path.startsWith('/project-open')}
         <VirtualSpace/>
     {/if}
 </DrawerLayout>

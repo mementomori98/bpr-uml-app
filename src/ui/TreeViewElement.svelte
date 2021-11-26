@@ -7,7 +7,9 @@
 <script>
     //	import { slide } from 'svelte/transition'
     export let tree = {}
-    const {label, type, children} = tree
+    $: label = tree.label
+    $: type = tree.type
+    $: children = tree.children
 
     let expanded = _expansionState[label] || false
     const toggleExpansion = () => {
@@ -54,13 +56,17 @@
   ul {
     margin: 0;
     list-style: none;
-    padding-left: 1.2rem;
+    padding-left: 1.2em;
     user-select: none;
 
     & > * {
       color: white;
       font: 500 16px "Nunito", sans-serif;
     }
+  }
+
+  ul:first-child {
+      padding-left: 0;
   }
 
     .label{

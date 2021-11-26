@@ -5,20 +5,17 @@
     import {noPadding} from "./Text.svelte";
 
     export let tree = null;
-    export const width: number = 200;
-    export const height: number = 200;
-    export const maxWidth: number = width;
-    export const maxHeight: number = height;
+    export let width: number = 240;
 
-    $: style = new CssBuilder('wrapper')
-        .build();
 </script>
 
 
-<div class={style}>
-    {#if tree !== null}
-        <TreeViewElement tree={tree}/>
-    {/if}
+<div class="wrapper" style={`width: ${width}px;`}>
+    <div class="content">
+        {#if tree !== null}
+            <TreeViewElement {tree}/>
+        {/if}
+    </div>
 </div>
 
 
@@ -26,14 +23,19 @@
     @import "../ui/theme";
 
     .wrapper {
-        width: calc(100% - 24px);
-        height: calc(100vh - 64px - 32px);
-        border-radius: 5px;
-        padding: 10px 0px 15px 0;
-        margin: 0 12px 0 12px;
+        height: calc(100%);
+        padding: 8px;
+        background-color: transparent;
+    }
+
+    .content {
+        border-radius: $border-radius-medium;
         background-color: #30476a;
         border: 1px solid #dfdfff4d;
-        overflow: scroll;
+        overflow: auto;
+        height: 100%;
+        width: 100%;
+        padding: 8px;
     }
 
     ::-webkit-scrollbar {
