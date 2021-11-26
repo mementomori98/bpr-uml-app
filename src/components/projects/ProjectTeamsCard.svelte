@@ -10,10 +10,11 @@
     import TeamSettingsDialog from "../teams/TeamSettingsDialog.svelte";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
     import {onMount} from "svelte";
-    import {sortUserList} from "../../ui/utils/ListItem";
+    import {checkIfEmpty, sortUserList} from "../../ui/utils/ListItem";
     import getService from "../utils/ServiceFactory";
     import {ProjectService} from "./ProjectService";
     import {ProjectResponse} from "./Models";
+    import Checkbox from "../../ui/Checkbox.svelte";
 
     const projectService = getService(ProjectService);
     let project: ProjectResponse = new ProjectResponse({title: "", users: [], teams: [], _id: "", workspaceId: ""});
@@ -21,15 +22,21 @@
     let editVisible: boolean = false;
     let readVisible: boolean = false;
     let chosenTeam: Team = null;
-    let teams = []
 
     onMount(async () => {
         project = await projectService.getProject($params.id)
         project.teams = sortUserList(project?.teams);
+        if (checkIfEmpty(project.teams)) {
+            project.teams = []
+        }
     })
 
     const onEdit = async () => {
         project = await projectService.getProject($params.id)
+        project.teams = sortUserList(project?.teams);
+        if (checkIfEmpty(project.teams)) {
+            project.teams = []
+        }
     }
 
     const handleReadingTeam = (team) => {
@@ -41,20 +48,22 @@
 
 <Card>
     <View>
-        <svelte:fragment slot="header">Teams in {$params.id}</svelte:fragment>
+        <svelte:fragment slot="header">Teams in {project.title}</svelte:fragment>
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
-                    <ListRowItem widthInPercentage={72}>Name</ListRowItem>
-                    <ListRowItem center widthInPercentage={14}>Users</ListRowItem>
-                    <ListRowItem center widthInPercentage={14}>Projects</ListRowItem>
+                    <ListRowItem widthInPercentage={70}>Name</ListRowItem>
+                    <ListRowItem center widthInPercentage={15}>Users</ListRowItem>
+                    <ListRowItem center widthInPercentage={15}>Can edit</ListRowItem>
                 </ListRow>
             </svelte:fragment>
-            {#each teams as team}
+            {#each project.teams as team}
                 <ListRow on:click={() => handleReadingTeam(team)}>
-                    <ListRowItem widthInPercentage={72}>{team.name}</ListRowItem>
-                    <ListRowItem center widthInPercentage={14}>{team.usersAmount}</ListRowItem>
-                    <ListRowItem center widthInPercentage={14}>{team.projectsAmount}</ListRowItem>
+                    <ListRowItem widthInPercentage={70}>{team.team?.name}</ListRowItem>
+                    <ListRowItem center widthInPercentage={15}>{team.team?.users.length}</ListRowItem>
+                    <ListRowItem center widthInPercentage={15}>
+                        <Checkbox disabled bind:checked={team.isEditor}/>
+                    </ListRowItem>
                 </ListRow>
             {/each}
         </ListScrollWrapper>

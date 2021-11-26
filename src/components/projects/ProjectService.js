@@ -1,5 +1,6 @@
 import getService from "../utils/ServiceFactory";
 import { RestClient } from "../utils/RestClient";
+import "./Models";
 export class ProjectService {
     constructor() {
         this.client = getService(RestClient);
@@ -14,6 +15,9 @@ export class ProjectService {
     }
     async manageProjectUsers(id, request) {
         return await this.client.put('projects/' + id + '/users', request);
+    }
+    async manageProjectTeams(id, request) {
+        return await this.client.put('projects/' + id + '/teams', request);
     }
     async create(request) {
         return await this.client.post('projects', request);

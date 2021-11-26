@@ -1,5 +1,6 @@
 import {Model} from "../utils/Model";
 import type {ProjectUserRequest} from "../users/Models";
+import {ProjectTeamRequest} from "../users/Models";
 
 export class CreateProjectRequest extends Model<CreateProjectRequest> {
     public title: string;
@@ -8,6 +9,10 @@ export class CreateProjectRequest extends Model<CreateProjectRequest> {
 
 export class AddProjectUsersRequest extends Model<AddProjectUsersRequest> {
     public users: ProjectUserRequest[];
+}
+
+export class AddProjectTeamsRequest extends Model<AddProjectTeamsRequest> {
+    public teams: ProjectTeamRequest[];
 }
 
 export class ProjectsResponse extends Model<ProjectsResponse> {

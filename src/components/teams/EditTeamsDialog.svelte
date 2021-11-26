@@ -11,51 +11,101 @@
     import Button from "../../ui/Button.svelte";
     import {Colors} from "../../ui/utils/Colors";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
-    import {User, UserToTeam} from "../users/Models";
-    import {CreateProjectRequest} from "../projects/Models";
+    import {
+        ProjectTeamRequest,
+        ProjectUserRequest, TeamToProject,
+        User,
+        UserToTeam,
+        WorkspaceTeamsResponse,
+        WorkspaceUsersResponse
+    } from "../users/Models";
+    import {
+        AddProjectTeamsRequest,
+        AddProjectUsersRequest,
+        CreateProjectRequest,
+        ProjectResponse
+    } from "../projects/Models";
     import getService from "../utils/ServiceFactory";
     import {ProjectService} from "../projects/ProjectService";
     import {TeamService} from "./TeamService";
     import {CreateTeamRequest} from "./Models";
     import {AppContext} from "../utils/AppContext";
+    import {createEventDispatcher, onMount} from "svelte";
+    import {params} from "@roxi/routify";
+    import {
+        checkIfEmpty,
+        filterListById,
+        filterListByList,
+        formList,
+        getItem, getTeamToProject,
+        getUserToProject,
+        ListItem,
+        sortList
+    } from "../../ui/utils/ListItem";
 
     export let visible: boolean = false;
 
     const teamService = getService(TeamService);
     const appContext = getService(AppContext);
+    const projectService = getService(ProjectService);
+    let project: ProjectResponse = new ProjectResponse({title: "", users: [], teams: [], _id: "", workspaceId: ""});
+    let workspaceTeams: WorkspaceTeamsResponse[] = [];
+    const dispatch = createEventDispatcher();
 
-    let teams = [].sort((u1, u2) => u1.name.localeCompare(u2.name)).map(team => {
-        return new DataListItem(team.id, team.name)
-    });
+    let selectedTeams: TeamToProject[] = []
+    let pickList: ListItem[] = [];
 
-    let teamsToAdd = []
+    onMount(async () => {
+        project = await projectService.getProject($params.id)
+        if (!checkIfEmpty(project.teams)) {
+            project.teams.forEach(function (o) {
+                Object.defineProperty(o, '_id',
+                    Object.getOwnPropertyDescriptor(o, 'teamId'));
+                delete o['teamId'];
+            });
+        }
+        const res = await teamService.getWorkspaceTeams(appContext.getWorkspaceId());
+        workspaceTeams = sortList(res);
+        pickList = formList(workspaceTeams);
+        await handleOccurrence();
+    })
 
-    const handleEdit = () => {
-        // todo
+    const handleOccurrence = async () => {
+        pickList = filterListByList(pickList, project.teams)
+        if (!checkIfEmpty(project.teams)) {
+            project.teams.forEach(team => {
+                selectedTeams.push(getTeamToProject(team.team, team.isEditor));
+            })
+        }
+        selectedTeams = sortList(selectedTeams);
+    }
+
+    const handleEdit = async () => {
+        await projectService.manageProjectTeams(project._id, new AddProjectTeamsRequest({
+            teams: selectedTeams.map(team => {
+                return new ProjectTeamRequest({teamId: team._id, isEditor: team.isEditor})
+            })
+        }));
         visible = false;
+        dispatch('edit')
     }
 
     const handleCancel = () => {
         visible = false;
     }
 
-    const pickTeam = (e) => {
-        teamsToAdd.push(e.detail.choice);
-
-        teams = teams.filter(function(item){
-            return item.id != e.detail.choice.id;
-        });
-        teamsToAdd = teamsToAdd;
+    const pickTeam = (_id) => {
+        let user = getItem(workspaceTeams, _id);
+        selectedTeams.push(getTeamToProject(user, true));
+        pickList = filterListById(pickList, _id)
+        selectedTeams = sortList(selectedTeams);
     }
 
-    const closeTeamChoice = (team) => {
-        teams.push(team);
-        teamsToAdd = teamsToAdd.filter(function(item){
-            return item.id != team.id;
-        });
-        teams = teams.sort((u1, u2) => u1.name.localeCompare(u2.name)).map(team => {
-            return new DataListItem(team.id, team.name)
-        });
+    const closeTeamChoice = (u) => {
+        let team = getItem(workspaceTeams, u._id);
+        pickList.push(team);
+        selectedTeams = filterListById(selectedTeams, team._id);
+        pickList = formList(pickList);
     }
 
 </script>
@@ -65,19 +115,24 @@
             on:submit={handleEdit} cancelButton on:cancel={handleCancel}
             submitText="Edit">
         <svelte:fragment slot="header">Edit teams</svelte:fragment>
-        <Select clearOnChoice label="Teams to add" choices={teams} on:submit={e => pickTeam(e)}/>
+        <Select clearOnChoice label="Teams to add" choices={pickList} on:submit={e => pickTeam(e.detail.choice._id)}/>
 
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
-                    <ListRowItem widthInPercentage={90}>Name</ListRowItem>
-                    <ListRowItem center widthInPercentage={10}>Kick</ListRowItem>
+                    <ListRowItem widthInPercentage={70}>Name</ListRowItem>
+                    <ListRowItem center widthInPercentage={15}>Can edit</ListRowItem>
+                    <ListRowItem center widthInPercentage={15}>Kick</ListRowItem>
                 </ListRow>
             </svelte:fragment>
-            {#each teamsToAdd as team}
+            {#each selectedTeams as team}
                 <ListRow noFunction>
-                    <ListRowItem widthInPercentage={90}>{team.name}</ListRowItem>
-                    <ListRowItem center widthInPercentage={10}>
+                    <ListRowItem widthInPercentage={70}>{team.name}</ListRowItem>
+                    <ListRowItem center widthInPercentage={15}>
+                        <Checkbox bind:checked={team.isEditor}
+                                  on:checkChange={e => team.isEditor = e.detail.state }/>
+                    </ListRowItem>
+                    <ListRowItem center widthInPercentage={15}>
                         <CloseButton on:click={() => closeTeamChoice(team)}/>
                     </ListRowItem>
                 </ListRow>

@@ -1,5 +1,5 @@
 import { Model } from "../../components/utils/Model";
-import { UserToProject, UserToTeam } from "../../components/users/Models";
+import { TeamToProject, UserToProject, UserToTeam } from "../../components/users/Models";
 import "events";
 export class ListItem extends Model {
 }
@@ -15,6 +15,13 @@ export function getItem(list, id) {
         return i._id == id;
     })[0];
     return item;
+}
+export function getTeamToProject(user, canEdit = true) {
+    return new TeamToProject({
+        name: user.name,
+        _id: user._id,
+        isEditor: canEdit,
+    });
 }
 export function getUserToProject(user, canEdit = true) {
     return new UserToProject({

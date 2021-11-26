@@ -31,6 +31,18 @@ export class WorkspaceUsersResponse extends Model<WorkspaceUsersResponse> {
     public _id: string;
 }
 
+export class WorkspaceTeamsResponse extends Model<WorkspaceTeamsResponse> {
+    public name: string;
+    public users: [];
+    public workspaceId: string;
+    public _id: string;
+}
+
+export class ProjectTeamRequest  extends Model<ProjectTeamRequest>{
+    public teamId: string;
+    public isEditor: boolean;
+}
+
 export class ProjectUserRequest  extends Model<ProjectUserRequest>{
     public userId: string;
     public isEditor: boolean;
@@ -45,6 +57,12 @@ export class TeamUserRequest  extends Model<ProjectUserRequest>{
 export class UserToProject  extends Model<UserToProject>{
     public name: string;
     public email: string;
+    public isEditor: boolean;
+    public _id: string;
+}
+
+export class TeamToProject  extends Model<UserToProject>{
+    public name: string;
     public isEditor: boolean;
     public _id: string;
 }

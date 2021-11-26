@@ -1,5 +1,12 @@
 import {Model} from "../../components/utils/Model";
-import {User, UserToProject, UserToTeam, WorkspaceUsersResponse} from "../../components/users/Models";
+import {
+    TeamToProject,
+    User,
+    UserToProject,
+    UserToTeam,
+    WorkspaceTeamsResponse,
+    WorkspaceUsersResponse
+} from "../../components/users/Models";
 import * as events from "events";
 
 export class ListItem extends Model<ListItem> {
@@ -20,6 +27,14 @@ export function getItem(list: any[], id: string) {
         return i._id == id;
     })[0]
     return item;
+}
+
+export function getTeamToProject(user: WorkspaceTeamsResponse, canEdit: boolean = true) {
+    return new TeamToProject({
+        name: user.name,
+        _id: user._id,
+        isEditor: canEdit,
+    })
 }
 
 export function getUserToProject(user: WorkspaceUsersResponse, canEdit: boolean = true) {

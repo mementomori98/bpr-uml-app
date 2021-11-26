@@ -2,6 +2,7 @@ import getService from "../utils/ServiceFactory";
 import {RestClient} from "../utils/RestClient";
 import type {CreateProjectRequest} from "./Models";
 import type {AddProjectUsersRequest} from "./Models";
+import {AddProjectTeamsRequest} from "./Models";
 
 export class ProjectService {
 
@@ -19,6 +20,10 @@ export class ProjectService {
 
     public async manageProjectUsers(id: string, request: AddProjectUsersRequest) {
         return await this.client.put('projects/' + id + '/users', request);
+    }
+
+    public async manageProjectTeams(id: string, request: AddProjectTeamsRequest) {
+        return await this.client.put('projects/' + id + '/teams', request);
     }
 
     public async create(request: CreateProjectRequest){

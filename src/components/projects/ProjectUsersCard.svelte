@@ -24,6 +24,7 @@
  
     const onEdit = async () => {
         project = await projectService.getProject($params.id)
+        project.users = sortUserList(project?.users);
     }
 
     let editVisible: boolean = false;
