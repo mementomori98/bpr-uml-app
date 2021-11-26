@@ -39,7 +39,7 @@
     let selectedUsers: UserToProject[] = [];
     let currentUser;
 
-    onMount(async () => {
+    export async function open() {
         project = await projectService.getProject($params.id)
         project.users.forEach(function(o) {
             Object.defineProperty(o, '_id',
@@ -50,7 +50,7 @@
         workspaceUsers = sortList(res);
         pickList = formList(workspaceUsers);
         await handleOccurrence();
-    })
+    }
 
     const handleOccurrence = async () => {
         currentUser = await userService.getCurrentUser();
@@ -69,11 +69,13 @@
         }));
 
         visible = false;
+        resetDialog()
         dispatch('edit')
     }
 
     const handleCancel = () => {
         visible = false;
+        resetDialog()
     }
 
     const pickUser = (_id) => {
@@ -90,9 +92,17 @@
         pickList = formList(pickList);
     }
 
+    const resetDialog = () => {
+        project = new ProjectResponse({title: "", users: [], teams: [], _id: "", workspaceId: ""});
+        workspaceUsers = [];
+        pickList = [];
+        selectedUsers = [];
+        currentUser = null;
+    }
+
 </script>
 
-<Dialog bind:visible style="min-width: 600px">
+<Dialog on:clickedOut={handleCancel} bind:visible style="min-width: 600px">
     <Form on:submit={handleEdit} on:cancel={handleCancel} submitText="Edit" cancelButton>
         <svelte:fragment slot="header">Edit project users</svelte:fragment>
         <Select clearOnChoice label="Users to add" choices={pickList} on:submit={e => pickUser(e.detail.choice._id)}/>

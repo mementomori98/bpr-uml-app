@@ -55,7 +55,7 @@
     let selectedTeams: TeamToProject[] = []
     let pickList: ListItem[] = [];
 
-    onMount(async () => {
+    export async function open() {
         project = await projectService.getProject($params.id)
         if (!checkIfEmpty(project.teams)) {
             project.teams.forEach(function (o) {
@@ -68,7 +68,7 @@
         workspaceTeams = sortList(res);
         pickList = formList(workspaceTeams);
         await handleOccurrence();
-    })
+    }
 
     const handleOccurrence = async () => {
         pickList = filterListByList(pickList, project.teams)
@@ -87,11 +87,13 @@
             })
         }));
         visible = false;
+        resetDialog()
         dispatch('edit')
     }
 
     const handleCancel = () => {
         visible = false;
+        resetDialog()
     }
 
     const pickTeam = (_id) => {
@@ -108,9 +110,16 @@
         pickList = formList(pickList);
     }
 
+    const resetDialog = () => {
+        project = new ProjectResponse({title: "", users: [], teams: [], _id: "", workspaceId: ""});
+        workspaceTeams = [];
+        selectedTeams = []
+        pickList = [];
+    }
+
 </script>
 
-<Dialog bind:visible style="min-width: 600px">
+<Dialog on:clickedOut={resetDialog} bind:visible style="min-width: 600px">
     <Form
             on:submit={handleEdit} cancelButton on:cancel={handleCancel}
             submitText="Edit">

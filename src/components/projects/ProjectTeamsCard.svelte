@@ -22,6 +22,8 @@
     let editVisible: boolean = false;
     let readVisible: boolean = false;
     let chosenTeam: Team = null;
+    let readChild;
+    let editChild;
 
     onMount(async () => {
         project = await projectService.getProject($params.id)
@@ -68,13 +70,14 @@
             {/each}
         </ListScrollWrapper>
         <svelte:fragment slot="actions">
-            <Button on:click={() => editVisible = true}>Edit</Button>
+            <Button on:click={() => {editVisible = true;
+            editChild.open()}}>Edit</Button>
         </svelte:fragment>
     </View>
 </Card>
 
-<EditProjectTeamsDialog bind:visible={editVisible} on:edit={onEdit}/>
-<TeamSettingsDialog readonly bind:visible={readVisible} teamName={chosenTeam === null ? "" : chosenTeam.name}/>
+<EditProjectTeamsDialog bind:this={editChild} bind:visible={editVisible} on:edit={onEdit}/>
+<TeamSettingsDialog bind:this={readChild} readonly bind:visible={readVisible} teamId={chosenTeam === null ? "" : chosenTeam.teamId}/>
 
 <style lang="scss">
   @import "../../ui/theme";

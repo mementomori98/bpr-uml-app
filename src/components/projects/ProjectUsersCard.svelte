@@ -16,6 +16,7 @@
 
     const projectService = getService(ProjectService);
     let project: ProjectResponse = new ProjectResponse({title: "", users: [], teams: [], _id: "", workspaceId: ""});
+    let child;
 
     onMount(async () => {
         project = await projectService.getProject($params.id)
@@ -53,12 +54,13 @@
             {/each}
         </ListScrollWrapper>
         <svelte:fragment slot="actions">
-            <Button on:click={() => editVisible = true}>Edit</Button>
+            <Button on:click={() => {editVisible = true;
+            child.open()}}>Edit</Button>
         </svelte:fragment>
     </View>
 </Card>
 
-<EditProjectUsersDialog bind:visible={editVisible} on:edit={onEdit}/>
+<EditProjectUsersDialog bind:this={child} bind:visible={editVisible} on:edit={onEdit}/>
 
 <style lang="scss">
   @import "../../ui/theme";
