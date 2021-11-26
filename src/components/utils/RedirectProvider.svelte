@@ -4,6 +4,11 @@
     import {goto} from "@roxi/routify";
     import {onMount} from "svelte";
 
-    redirectUrl.subscribe(url => $goto(url))
+    onMount(() => redirectUrl.subscribe(url => {
+        if (url)
+            $goto(url);
+    }));
+
+
 
 </script>

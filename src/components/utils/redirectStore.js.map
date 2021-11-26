@@ -1,1 +1,1 @@
-{"version":3,"file":"redirectStore.js","sourceRoot":"","sources":["redirectStore.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,QAAQ,EAAC,MAAM,cAAc,CAAC;AAEtC,MAAM,CAAC,MAAM,WAAW,GAAG,QAAQ,CAAC,EAAE,CAAC,CAAC"}
+{"version":3,"file":"redirectStore.js","sourceRoot":"","sources":["redirectStore.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,QAAQ,EAAC,MAAM,cAAc,CAAC;AAEtC,MAAM,CAAC,MAAM,WAAW,GAAG,QAAQ,CAAC,IAAI,CAAC,CAAC"}

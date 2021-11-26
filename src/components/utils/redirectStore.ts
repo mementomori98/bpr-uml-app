@@ -1,3 +1,3 @@
 import {writable} from "svelte/store";
 
-export const redirectUrl = writable('');
+export const redirectUrl = writable(null);

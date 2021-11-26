@@ -25,4 +25,22 @@ export class ProjectService {
         return await this.client.post('projects', request);
     }
 
+    public async getContent(projectId: string) {
+        return {
+            _id: projectId,
+            name: 'Dummy Project',
+            items: [
+                {name: '', path: '/folder1/', type: 'folder'},
+                {name: '', path: '/folder2/', type: 'folder'},
+                {name: '', path: '/folder1/subfolder1/', type: 'folder'},
+                {name: '', path: '/folder1/subfolder2/', type: 'folder'},
+                {name: 'diagram1', path: '/folder1/', type: 'diagram', id: 'dummyId'},
+                {name: 'diagram2', path: '/folder1/', type: 'diagram', id: 'dummyId'},
+                {name: 'model1', path: '/folder1/subfolder1/', type: 'model', id: 'dummyId'},
+                {name: 'model2', path: '/folder2/', type: 'model', id: 'dummyId'},
+            ]
+        };
+        // return await this.client.get(`projects/${projectId}/content`);
+    }
+
 }
