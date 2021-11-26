@@ -65,3 +65,10 @@ export function sortList(list: any[]) {
 export function sortUserList(list: any[]) {
     return list.sort((u1, u2) => u1.user?.name.localeCompare(u2.user?.name));
 }
+
+export function checkIfEmpty(list: any[]) {
+    if(list.length > 1) return false
+    return list
+        && Object.keys(list[0]).length === 0
+        && Object.getPrototypeOf(list[0]) === Object.prototype
+}

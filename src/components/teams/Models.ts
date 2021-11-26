@@ -23,7 +23,7 @@ export class CreateTeamRequest extends Model<CreateTeamRequest> {
 
 export class TeamResponse extends Model<TeamResponse> {
     public _id: string;
-    public teamName: string;
+    public name: string;
     public users: [];
     public workspaceId: string;
 }

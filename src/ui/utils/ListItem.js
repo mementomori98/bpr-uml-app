@@ -54,4 +54,11 @@ export function sortList(list) {
 export function sortUserList(list) {
     return list.sort((u1, u2) => { var _a, _b; return (_a = u1.user) === null || _a === void 0 ? void 0 : _a.name.localeCompare((_b = u2.user) === null || _b === void 0 ? void 0 : _b.name); });
 }
+export function checkIfEmpty(list) {
+    if (list.length > 1)
+        return false;
+    return list
+        && Object.keys(list[0]).length === 0
+        && Object.getPrototypeOf(list[0]) === Object.prototype;
+}
 //# sourceMappingURL=ListItem.js.map

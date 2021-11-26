@@ -18,6 +18,7 @@
 
     const teamsService = getService(TeamService);
     const appContext = getService(AppContext);
+    let child;
 
     let createVisible: boolean = false;
     let editVisible: boolean = false;
@@ -57,12 +58,18 @@
         </ListScrollWrapper>
 
         <svelte:fragment slot="actions">
-            <Button on:click={() => createVisible = true}>Create</Button>
+            <Button on:click={() =>
+                {
+                    createVisible = true;
+                    child.open()
+                }}>Create
+            </Button>
         </svelte:fragment>
     </View>
 </Card>
-<TeamSettingsDialog lockable on:edit={fetch} teamId={chosenTeam === null ? "" : chosenTeam._id} bind:visible={editVisible}/>
-<TeamSettingsDialog bind:visible={createVisible} on:create={fetch}/>
+<TeamSettingsDialog lockable on:edit={fetch} teamId={chosenTeam === null ? "" : chosenTeam._id}
+                    bind:visible={editVisible}/>
+<TeamSettingsDialog bind:this={child} bind:visible={createVisible} on:create={fetch}/>
 <style lang="scss">
   @import "../../ui/theme";
 

@@ -18,6 +18,11 @@ export class TeamService {
         return res;
     }
 
+    public async getTeam(id: string) {
+        const res = await this.client.get('teams/' + id);
+        return res;
+    }
+
     public async manageTeamUsers(id: string, request: AddTeamUsersRequest) {
         return await this.client.put('teams/' + id + '/users', request);
     }

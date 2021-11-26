@@ -13,6 +13,10 @@ export class TeamService {
         const res = await this.client.get('workspaces/' + id + '/teams');
         return res;
     }
+    async getTeam(id) {
+        const res = await this.client.get('teams/' + id);
+        return res;
+    }
     async manageTeamUsers(id, request) {
         return await this.client.put('teams/' + id + '/users', request);
     }

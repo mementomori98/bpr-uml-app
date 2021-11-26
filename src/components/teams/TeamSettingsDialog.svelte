@@ -20,6 +20,7 @@
     import {AppContext} from "../utils/AppContext";
     import {createEventDispatcher, onMount} from "svelte";
     import {
+        checkIfEmpty,
         filterListById,
         filterListByList,
         formList, getItem,
@@ -35,7 +36,7 @@
     export let readonly: boolean = false;
     export let lockable: boolean = readonly;
     let teamName: string = "";
-    let teamId: string = "";
+    export let teamId: string = "";
 
     let locked: boolean = true;
 
@@ -44,46 +45,64 @@
     const appContext = getService(AppContext);
     const dispatch = createEventDispatcher();
 
-
-
-    let team: TeamResponse = new TeamResponse({_id: "", teamName: "", users: [], workspaceId: ""});
+    let team: TeamResponse = new TeamResponse({_id: "", name: "", users: [], workspaceId: ""});
 
     let workspaceUsers: WorkspaceUsersResponse[] = [];
     let pickList: ListItem[] = [];
     let selectedUsers: UserToTeam[] = [];
 
+    $: onEditMount(teamId);
 
-    onMount(async () => {
-     //   team = await teamService.getTeam(teamId.......) //TODO
-        team.users.forEach(function(o) {
-            Object.defineProperty(o, '_id',
-                Object.getOwnPropertyDescriptor(o, 'userId'));
-            delete o['userId'];
-        });
+    export async function open() {
+        const res = await userService.getWorkspaceUsers(appContext.getWorkspaceId());
+        workspaceUsers = sortList(res);
+        pickList = formList(workspaceUsers);
+    }
+
+    const onEditMount = async (id: string) => {
+        if(id === "") return
+        team = await teamService.getTeam(id)
+        teamName = team.name
+        if(!checkIfEmpty(team.users)){
+            team.users.forEach(function(o) {
+                Object.defineProperty(o, '_id',
+                    Object.getOwnPropertyDescriptor(o, 'userId'));
+                delete o['userId'];
+            });
+        }
+
         const res = await userService.getWorkspaceUsers(appContext.getWorkspaceId());
         workspaceUsers = sortList(res);
         pickList = formList(workspaceUsers);
         await handleOccurrence();
-    })
+    }
 
     const handleOccurrence = async () => {
         pickList = filterListByList(pickList, team.users)
-        team.users.forEach(user => {
-            selectedUsers.push(getUserToTeam(user.user));
-        })
+        if(!checkIfEmpty(team.users)) {
+            team.users.forEach(user => {
+                selectedUsers.push(getUserToTeam(user.user));
+            })
+        }
         selectedUsers = sortList(selectedUsers);
     }
 
 
     const handleCreate = async () => {
-        await teamService.create(new CreateTeamRequest({
+        const res = await teamService.create(new CreateTeamRequest({
             name: teamName,
             workspaceId: appContext.getWorkspaceId()
         }));
-        dispatch('create')
 
+        await teamService.manageTeamUsers(res._id, new AddTeamUsersRequest({
+            users: selectedUsers.map(person => {
+                return new TeamUserRequest({userId: person._id})
+            })
+        }));
 
         visible = false;
+        resetDialog()
+        dispatch('create')
     }
 
     const handleEdit = async () => {
@@ -94,6 +113,7 @@
         }));
 
         visible = false;
+        resetDialog()
         dispatch('edit')
     }
 
@@ -102,15 +122,27 @@
             if (!locked) {
                 visible = false;
                 locked = true;
+                resetDialog()
             }
         } else {
             visible = false;
+            resetDialog()
         }
     }
 
     const handleCloseDialog = () => {
         visible = false;
         locked = true
+        resetDialog()
+    }
+
+    const resetDialog = () => {
+        teamName = "";
+        teamId = "";
+        team = new TeamResponse({_id: "", name: "", users: [], workspaceId: ""});
+        workspaceUsers = [];
+        pickList = [];
+        selectedUsers = [];
     }
 
     const pickUser = (_id) => {
@@ -129,7 +161,7 @@
 
 </script>
 
-<Dialog on:clickedOut={() => locked = true} bind:visible style="min-width: 600px">
+<Dialog on:clickedOut={handleCloseDialog} bind:visible style="min-width: 600px">
     <Form readonly={readonly} bind:locked lockable={lockable}
           on:submit={() => lockable ? handleEdit() : handleCreate()} cancelButton={!lockable} on:cancel={handleCancelDialog}
           submitText={lockable ? "Update" : "Create"}>
