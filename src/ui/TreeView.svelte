@@ -32,7 +32,8 @@
         border-radius: $border-radius-medium;
         background-color: #30476a;
         border: 1px solid #dfdfff4d;
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: auto;
         height: 100%;
         width: 100%;
         padding: 8px;
