@@ -5,8 +5,10 @@
     import {onMount} from "svelte";
 
     onMount(() => redirectUrl.subscribe(url => {
-        if (url)
+        if (url) {
             $goto(url);
+            $redirectUrl = null;
+        }
     }));
 
 
