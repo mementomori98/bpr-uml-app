@@ -9,7 +9,8 @@ import {key as inputKey} from "../editor/callbackRegister";
 
 export let request;
 
-const diagramStore = getContext(diagramKey);
+const getDiagramStore = getContext(diagramKey);
+$: diagramStore = getDiagramStore();
 const inputStore = getContext(inputKey);
 
 const create = () => {

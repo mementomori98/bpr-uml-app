@@ -7,7 +7,9 @@
     export let diagramId: string;
 
     const diagramStore = createDiagramStore(diagramId);
-    setContext(key, diagramStore);
+
+    const getStore = () => diagramStore;
+    setContext(key, getStore);
 
 </script>
 
