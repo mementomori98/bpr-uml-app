@@ -4,7 +4,7 @@
     import {CssBuilder} from "./utils/CssBuilder";
     import {noPadding} from "./Text.svelte";
 
-    export let tree = null;
+    export let tree;
     export let width: number = 240;
 
 </script>
@@ -12,8 +12,8 @@
 
 <div class="wrapper" style={`width: ${width}px;`}>
     <div class="content">
-        {#if tree !== null}
-            <TreeViewElement {tree}/>
+        {#if tree}
+            <TreeViewElement {tree} on:click on:dblclick/>
         {/if}
     </div>
 </div>
@@ -32,7 +32,8 @@
         border-radius: $border-radius-medium;
         background-color: #30476a;
         border: 1px solid #dfdfff4d;
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: auto;
         height: 100%;
         width: 100%;
         padding: 8px;

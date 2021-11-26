@@ -15,7 +15,8 @@
     let dragY: number = 0;
     let element: HTMLElement;
 
-    const diagramStore = getContext(key);
+    const getStore = getContext(key);
+    $: diagramStore = getStore();
 
     $: screenCoords = camera.screenCoords;
     $: zoom = camera.zoom;
