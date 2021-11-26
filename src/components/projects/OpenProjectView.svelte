@@ -5,6 +5,7 @@
     import {onMount} from "svelte";
     import getService from "../utils/ServiceFactory";
     import {ProjectService} from "./ProjectService";
+    import DiagramEditor from "../diagrams/editor/DiagramEditor.svelte";
 
     const projectService = getService(ProjectService);
 
@@ -64,4 +65,27 @@
 
 </script>
 
-<TreeView {tree}/>
+<div class="wrapper">
+    <TreeView {tree}/>
+    <div class="editor-wrapper">
+        <DiagramEditor diagramId="6184ee5c88072b194b9cd06b"/>
+    </div>
+
+</div>
+
+<style lang="scss">
+    @import '../../ui/theme.scss';
+
+    .wrapper {
+        height: calc(100vh - 64px);
+        display: flex;
+    }
+
+    .editor-wrapper {
+        flex: 1;
+        border: 1px solid #c5c5c5;
+        margin: 8px 8px 8px 0;
+        border-radius: $border-radius-medium;
+        box-shadow: inset 0 0 8px -2px rgba(0, 0, 0, .1);
+    }
+</style>
