@@ -79,7 +79,6 @@
         <NavLink href="/">IndexTest1</NavLink>
         <NavLink href="/zollytest">IndexTest2</NavLink>
         <NavLink href="/projects">Projects</NavLink>
-        <NavLink href="/diagram">__Diagram</NavLink>
         <NavLink href="/tests">__Tests</NavLink>
         <Spacer size="24"/>
         <NavLink href="/workspaces">Workspace</NavLink>
@@ -124,9 +123,7 @@
         </ContextMenu>
     </svelte:fragment>
     <slot/>
-    {#if path !== '/editor' &&
-         path !== '/diagram' &&
-         path !== '/index' &&
+    {#if path !== '/index' &&
          path !== '/zollytest' &&
          path !== '/projects' &&
          !path.startsWith('/project-open')}

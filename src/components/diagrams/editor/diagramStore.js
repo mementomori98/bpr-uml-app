@@ -39,6 +39,7 @@ const createDiagramStore = (diagramId) => {
     });
     // response to create_model
     socket.on('model_created', e => {
+        console.log('model created');
         diagram.representations.push(JSON.parse(e));
         notify();
     });
@@ -64,9 +65,11 @@ const createDiagramStore = (diagramId) => {
     return {
         subscribe,
         createModel: (model, representation) => {
+            console.log('creating model');
             socket.emit('create_model', model, representation);
         },
         updateRepresentation: (request) => {
+            console.log('updating repr');
             socket.emit('update_model_representation', request);
         },
     };

@@ -12,7 +12,9 @@
     import DialogRouter from "./DialogRouter.svelte";
 
     const snackbar = getService(Snackbar);
-    const diagramStore = getContext(diagramKey);
+    const getStore = getContext(diagramKey);
+
+    $: diagramStore = getStore();
 
     const inputRegister = new CallbackRegister();
     setContext(registerKey, inputRegister);

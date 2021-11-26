@@ -12,7 +12,6 @@
     let content;
 
     const createFolders = (tree, path) => {
-        // /hello/niggers/here
         // remove starting /
         if (path.startsWith('/'))
             path = path.substring(1);
@@ -30,9 +29,8 @@
     }
 
     const addItems = (tree, items, path = '/') => {
-        console.log([path, items.map(i => i.path)])
         items.filter(i => i.path == (path)).forEach(i => {
-            tree.children.push({label: i.name, type: i.type});
+            tree.children.push({label: i.name, type: i.type, id: i.id});
         });
         tree.children.filter(c => c.type === 'folder').forEach(c => {
             addItems(c, items, path + c.label + '/')
@@ -66,9 +64,12 @@
 </script>
 
 <div class="wrapper">
-    <TreeView {tree}/>
+    <TreeView {tree}
+      on:click={e => console.log(`selected ${e.detail.id}`)}
+      on:dblclick={e => console.log(`double ${e.detail.id}`)}
+    />
     <div class="editor-wrapper">
-        <DiagramEditor diagramId="6184ee5c88072b194b9cd06b"/>
+        <DiagramEditor diagramId="61a0d2fa28f1167d4bbb87de"/>
     </div>
 
 </div>
