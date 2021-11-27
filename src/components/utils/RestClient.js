@@ -25,6 +25,28 @@ export class RestClient {
         }
         return response.json();
     }
+    async delete(path) {
+        let response = await fetch(`${this.baseUrl}/${path}`, {
+            method: 'DELETE',
+            mode: 'cors',
+            headers: {
+                'Authorization': `Bearer ${this.context.getAccessToken()}`
+            }
+        });
+        return response.json();
+    }
+    async deleteByObj(path, body) {
+        let response = await fetch(`${this.baseUrl}/${path}`, {
+            method: 'DELETE',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.context.getAccessToken()}`
+            },
+            body: JSON.stringify(body)
+        });
+        return response.json();
+    }
     async post(path, body) {
         let response = await fetch(`${this.baseUrl}/${path}`, {
             method: 'POST',

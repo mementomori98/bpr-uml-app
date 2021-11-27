@@ -3,7 +3,8 @@ import getService from "../utils/ServiceFactory";
 import {RestClient} from "../utils/RestClient";
 import type {CreateTeamRequest} from "./Models";
 import {AddProjectUsersRequest} from "../projects/Models";
-import {AddTeamUsersRequest} from "./Models";
+import {AddTeamUsersRequest, RenameTeamRequest} from "./Models";
+import {CreateWorkspaceRequest} from "../workspaces/Models";
 
 export class TeamService {
 
@@ -30,5 +31,13 @@ export class TeamService {
     public async getProjectTeams(id: string) {
         const res = await this.client.get('workspaces/' + id + '/teams');
         return res;
+    }
+
+    public async renameTeam(id: string, request: RenameTeamRequest) {
+        return await this.client.put('teams/' + id, request);
+    }
+
+    public async deleteTeam(id: string) {
+        return await this.client.delete('teams/' + id);
     }
 }

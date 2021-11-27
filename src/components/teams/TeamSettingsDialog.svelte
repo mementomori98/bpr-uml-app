@@ -16,7 +16,7 @@
     import getService from "../utils/ServiceFactory";
     import {ProjectService} from "../projects/ProjectService";
     import {TeamService} from "./TeamService";
-    import {AddTeamUsersRequest, CreateTeamRequest, TeamResponse} from "./Models";
+    import {AddTeamUsersRequest, CreateTeamRequest, RenameTeamRequest, TeamResponse} from "./Models";
     import {AppContext} from "../utils/AppContext";
     import {createEventDispatcher, onMount} from "svelte";
     import {
@@ -31,6 +31,8 @@
     } from "../../ui/utils/ListItem";
     import {params} from "@roxi/routify";
     import {UserService} from "../users/UserService";
+    import {CreateWorkspaceRequest} from "../workspaces/Models";
+    import ConfirmDialog from "../workspaces/ConfirmDialog.svelte";
 
     export let visible: boolean = false;
     export let readonly: boolean = false;
@@ -39,6 +41,7 @@
     export let teamId: string = "";
 
     let locked: boolean = true;
+    let deleteVisible: boolean = false;
 
     const userService = getService(UserService);
     const teamService = getService(TeamService);
@@ -60,11 +63,11 @@
     }
 
     const onEditMount = async (id: string) => {
-        if(id === "") return
+        if (id === "") return
         team = await teamService.getTeam(id)
         teamName = team.name
-        if(!checkIfEmpty(team.users)){
-            team.users.forEach(function(o) {
+        if (!checkIfEmpty(team.users)) {
+            team.users.forEach(function (o) {
                 Object.defineProperty(o, '_id',
                     Object.getOwnPropertyDescriptor(o, 'userId'));
                 delete o['userId'];
@@ -79,7 +82,7 @@
 
     const handleOccurrence = async () => {
         pickList = filterListByList(pickList, team.users)
-        if(!checkIfEmpty(team.users)) {
+        if (!checkIfEmpty(team.users)) {
             team.users.forEach(user => {
                 selectedUsers.push(getUserToTeam(user.user));
             })
@@ -112,22 +115,19 @@
             })
         }));
 
+        await teamService.renameTeam(team._id, new RenameTeamRequest({
+            name: teamName
+        }));
+
         visible = false;
         resetDialog()
         dispatch('edit')
     }
 
     const handleCancelDialog = () => {
-        if (lockable) {
-            if (!locked) {
-                visible = false;
-                locked = true;
-                resetDialog()
-            }
-        } else {
-            visible = false;
-            resetDialog()
-        }
+        let tId = teamId;
+        resetDialog()
+        onEditMount(tId)
     }
 
     const handleCloseDialog = () => {
@@ -159,16 +159,29 @@
         pickList = formList(pickList);
     }
 
+    const deleteTeam = async () => {
+        await teamService.deleteTeam(team._id);
+        visible = false;
+        resetDialog()
+        dispatch('edit')
+    }
+
 </script>
 
 <Dialog on:clickedOut={handleCloseDialog} bind:visible style="min-width: 600px">
     <Form readonly={readonly} bind:locked lockable={lockable}
-          on:submit={() => lockable ? handleEdit() : handleCreate()} cancelButton={!lockable} on:cancel={handleCancelDialog}
+          on:submit={() => lockable ? handleEdit() : handleCreate()} cancelButton={!lockable}
+          on:cancel={handleCancelDialog}
           submitText={lockable ? "Update" : "Create"}>
         <svelte:fragment slot="header">{locked ? "Team" : "Edit team"}</svelte:fragment>
+        <svelte:fragment slot="header-actions">
+            <Button small color={Colors.Red} on:click={() => deleteVisible = true}>Delete Team</Button>
+
+        </svelte:fragment>
         <Input locked={locked && lockable} label="Team name" bind:value={teamName}/>
         {#if !locked || !lockable}
-            <Select clearOnChoice label="Users to add" choices={pickList} on:submit={e => pickUser(e.detail.choice._id)}/>
+            <Select clearOnChoice label="Users to add" choices={pickList}
+                    on:submit={e => pickUser(e.detail.choice._id)}/>
         {/if}
         <ListScrollWrapper>
             <svelte:fragment slot="header">
@@ -199,6 +212,8 @@
         </svelte:fragment>
     </Form>
 </Dialog>
+<ConfirmDialog on:confirm={deleteTeam} title="Delete Team" description="Confirm team removal. This action cannot be reverted!" bind:visible={deleteVisible}/>
+
 
 <style lang="scss">
   @import "../../ui/theme";

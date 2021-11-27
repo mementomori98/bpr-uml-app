@@ -9,6 +9,8 @@ export class AddTeamUsersRequest extends Model {
 }
 export class CreateTeamRequest extends Model {
 }
+export class RenameTeamRequest extends Model {
+}
 export class TeamResponse extends Model {
 }
 //# sourceMappingURL=Models.js.map

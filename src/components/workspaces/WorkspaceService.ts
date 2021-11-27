@@ -2,6 +2,7 @@ import type {CreateWorkspaceRequest, JoinWorkspaceRequest} from "./Models";
 import getService from "../utils/ServiceFactory";
 import {RestClient} from "../utils/RestClient";
 import {AddProjectUsersRequest} from "../projects/Models";
+import {RemoveWorkspaceUserRequest} from "../users/Models";
 
 export class WorkspaceService {
 
@@ -34,5 +35,13 @@ export class WorkspaceService {
 
     public async renameWorkspace(id: string, request: CreateWorkspaceRequest) {
         return await this.client.put('workspaces/' + id, request);
+    }
+
+    public async deleteWorkspace(id: string) {
+        return await this.client.delete('workspaces/' + id);
+    }
+
+    public async deleteUser(request: RemoveWorkspaceUserRequest) {
+        return await this.client.deleteByObj('workspaces/user', request);
     }
 }

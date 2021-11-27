@@ -16,6 +16,8 @@ export class WorkspaceTeamsResponse extends Model {
 }
 export class ProjectTeamRequest extends Model {
 }
+export class RemoveWorkspaceUserRequest extends Model {
+}
 export class ProjectUserRequest extends Model {
 }
 export class TeamUserRequest extends Model {

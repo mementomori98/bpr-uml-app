@@ -1,36 +1,67 @@
 <script lang="ts">
-import Card from "../../ui/Card.svelte";
-import View from "../../ui/View.svelte";
-import WorkspaceDangerItem from "./WorkspaceDangerItem.svelte";
-import Button from "../../ui/Button.svelte";
-import {Colors} from "../../ui/utils/Colors";
-import WorkspaceDangerDialog from "./WorkspaceDangerDialog.svelte";
+    import Card from "../../ui/Card.svelte";
+    import View from "../../ui/View.svelte";
+    import WorkspaceDangerItem from "./WorkspaceDangerItem.svelte";
+    import Button from "../../ui/Button.svelte";
+    import {Colors} from "../../ui/utils/Colors";
+    import ConfirmDialog from "./ConfirmDialog.svelte";
+    import {goto} from "@roxi/routify";
+    import getService from "../utils/ServiceFactory";
+    import {TeamService} from "../teams/TeamService";
+    import {WorkspaceService} from "./WorkspaceService";
+    import {AppContext} from "../utils/AppContext";
+    import {AuthenticationService} from "../auth/AuthenticationService";
+    import {RemoveWorkspaceUserRequest} from "../users/Models";
+    import {user} from "../users/UserSettingsDialog.svelte";
+    import {UserService} from "../users/UserService";
 
-export const title: string = ""
-let dangerVisible: boolean = false;
+    const authenticationService = getService(AuthenticationService);
+    const workspaceService = getService(WorkspaceService);
+    const userService = getService(UserService);
+    const appContext = getService(AppContext);
 
-const deleteWorkspace = () => {
-    //todo deleteWorkspace
-    alert('Workspace removed')
-}
+    export const title: string = ""
+    let deleteVisible: boolean = false;
+    let leaveVisible: boolean = false;
+
+    const onLeaveWorkspace = async () => {
+        let currentUser = await userService.getCurrentUser();
+        await workspaceService.deleteUser(new RemoveWorkspaceUserRequest({
+            userId: currentUser._id,
+            workspaceId: appContext.getWorkspaceId()
+        }));
+        authenticationService.logout()
+        $goto('/login');
+    }
+
+    const onDeleteWorkspace = async () => {
+        await workspaceService.deleteWorkspace(appContext.getWorkspaceId());
+        authenticationService.logout()
+        $goto('/login');
+    }
+
 </script>
 
 <Card borderSize="1" borderColor="ee1111">
     <View noPadding noActions>
         <svelte:fragment slot="header">Danger Zone</svelte:fragment>
-        <WorkspaceDangerItem title="Leave Workspace" description="You will permanently leave the workspace. With a new invitation, you can gain access again later.">
+        <WorkspaceDangerItem title="Leave Workspace"
+                             description="You will permanently leave the workspace. With a new invitation, you can gain access again later.">
             <svelte:fragment slot="actionBtn">
-                <Button color="{Colors.Red}" on:click={() => dangerVisible = true}>Leave</Button> <!-- TODO functionality -->
+                <Button color="{Colors.Red}" on:click={() => leaveVisible = true}>Leave</Button>
+                <!-- TODO functionality -->
             </svelte:fragment>
         </WorkspaceDangerItem>
-        <WorkspaceDangerItem title="Delete Workspace" description="Your workspace will be removed permanently. This action cannot be reversed!">
+        <WorkspaceDangerItem title="Delete Workspace"
+                             description="Your workspace will be removed permanently. This action cannot be reversed!">
             <svelte:fragment slot="actionBtn">
-                <Button color="{Colors.Red}" on:click={() => dangerVisible = true}>Delete</Button>
+                <Button color="{Colors.Red}" on:click={() => deleteVisible = true}>Delete</Button>
             </svelte:fragment>
         </WorkspaceDangerItem>
     </View>
 </Card>
-<WorkspaceDangerDialog bind:visible={dangerVisible}/>
+<ConfirmDialog on:confirm={onDeleteWorkspace} title="Delete Workspace" description="Confirm workspace removal. This action cannot be reverted!" bind:visible={deleteVisible}/>
+<ConfirmDialog on:confirm={onLeaveWorkspace} title="Leave Workspace" description="Confirm leaving workspace. This action cannot be reverted!" bind:visible={leaveVisible}/>
 
 <style lang="scss">
   @import "../../ui/theme";

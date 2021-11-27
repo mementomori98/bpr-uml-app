@@ -7,6 +7,10 @@ export class CreateProjectRequest extends Model<CreateProjectRequest> {
     public workspaceId: string;
 }
 
+export class RenameProjectRequest extends Model<RenameProjectRequest> {
+    public title: string;
+}
+
 export class AddProjectUsersRequest extends Model<AddProjectUsersRequest> {
     public users: ProjectUserRequest[];
 }
