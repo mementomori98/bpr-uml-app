@@ -1,6 +1,7 @@
 import type {CreateWorkspaceRequest, JoinWorkspaceRequest} from "./Models";
 import getService from "../utils/ServiceFactory";
 import {RestClient} from "../utils/RestClient";
+import {AddProjectUsersRequest} from "../projects/Models";
 
 export class WorkspaceService {
 
@@ -23,13 +24,15 @@ export class WorkspaceService {
 
     public async get() {
         const res = await this.client.get('workspaces');
-        // Todo return something relevant
         return res;
     }
 
     public async getById(id: string) {
         const res = await this.client.get('workspaces/' + id);
-        // Todo return something relevant
         return res;
+    }
+
+    public async renameWorkspace(id: string, request: CreateWorkspaceRequest) {
+        return await this.client.put('workspaces/' + id, request);
     }
 }

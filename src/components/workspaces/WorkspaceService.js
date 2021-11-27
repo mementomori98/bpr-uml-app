@@ -1,5 +1,6 @@
 import getService from "../utils/ServiceFactory";
 import { RestClient } from "../utils/RestClient";
+import "../projects/Models";
 export class WorkspaceService {
     constructor() {
         this.client = getService(RestClient);
@@ -19,13 +20,14 @@ export class WorkspaceService {
     }
     async get() {
         const res = await this.client.get('workspaces');
-        // Todo return something relevant
         return res;
     }
     async getById(id) {
         const res = await this.client.get('workspaces/' + id);
-        // Todo return something relevant
         return res;
+    }
+    async renameWorkspace(id, request) {
+        return await this.client.put('workspaces/' + id, request);
     }
 }
 //# sourceMappingURL=WorkspaceService.js.map
