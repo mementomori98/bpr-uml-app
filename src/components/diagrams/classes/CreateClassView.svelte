@@ -2,11 +2,11 @@
     import View from "../../../ui/View.svelte";
     import Button from "../../../ui/Button.svelte";
     import Input from "../../../ui/Input.svelte";
-    import {Colors} from "../../../ui/utils/Colors";
     import {getContext} from "svelte";
     import {key as diagramKey} from "../editor/diagramStore";
     import {key as inputKey} from "../editor/callbackRegister";
     import ClassAttributeInput from "./ClassAttributeInput.svelte";
+    import ClassMethodInput from "./ClassMethodInput.svelte";
 
     export let request;
 
@@ -17,34 +17,34 @@
     const create = () => {
         if (!request.fields)
             request.fields = [];
+        console.log(request.methods);
         if (!request.methods)
             request.methods = [];
+        console.log(request.methods);
 
         request.w = 250;
         request.h = 250;
         const fields = request.fields.map(f => {
-            return {kind: 'field', type: f.type, name: f.name, accessModifier: f.accessModifier}
+            return {kind: 'field', type: f.type, name: f.name, accessModifier: f.visibility}
         });
         const methods = request.methods.map(m => {
             return {
-                kind: 'method', type: m.type, name: m.name, accessModifier: m.accessModifier, parameters: [
-                    {name: 'val', type: 'int'}
-                ]
+                kind: 'method', type: m.type, name: m.name, accessModifier: m.accessModifier, parameters: m.params ?? []
             }
         })
         diagramStore.createModel({
             type: 'class',
             path: '',
             attributes: [
-                ...fields,
                 ...methods,
+                ...fields,
                 {
                     kind: 'name',
                     value: request.name
                 }
             ],
             relations: []
-        }, {
+        },  {
             x: request.x,
             y: request.y,
             w: request.w,
@@ -75,6 +75,10 @@
         {JSON.stringify(field)}<br/>
     {/each}
     <ClassAttributeInput on:add={e => handleAddAttribute(e.detail)}/>
+    {#each request.methods ?? [] as method}
+        {JSON.stringify(method)}<br/>
+    {/each}
+    <ClassMethodInput on:add={e => handleAddMethod(e.detail)}/>
     <svelte:fragment slot="actions">
         <Button on:click={create}>Create</Button>
     </svelte:fragment>
