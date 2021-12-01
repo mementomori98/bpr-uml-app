@@ -1,7 +1,9 @@
 import getService from "../utils/ServiceFactory";
 import {RestClient} from "../utils/RestClient";
 import type {CreateProjectRequest} from "./Models";
-import type {addProjectUsersRequest} from "./Models";
+import type {AddProjectUsersRequest} from "./Models";
+import {AddProjectTeamsRequest, RenameProjectRequest} from "./Models";
+import {RenameTeamRequest} from "../teams/Models";
 
 export class ProjectService {
 
@@ -17,8 +19,20 @@ export class ProjectService {
         return res;
     }
 
-    public async manageProjectUsers(id: string, request: addProjectUsersRequest) {
+    public async renameProject(id: string, request: RenameProjectRequest) {
+        return await this.client.put('projects/' + id, request);
+    }
+
+    public async deleteProject(id: string) {
+        return await this.client.delete('projects/' + id);
+    }
+
+    public async manageProjectUsers(id: string, request: AddProjectUsersRequest) {
         return await this.client.put('projects/' + id + '/users', request);
+    }
+
+    public async manageProjectTeams(id: string, request: AddProjectTeamsRequest) {
+        return await this.client.put('projects/' + id + '/teams', request);
     }
 
     public async create(request: CreateProjectRequest){

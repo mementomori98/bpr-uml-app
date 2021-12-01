@@ -1,7 +1,12 @@
 import { Model } from "../utils/Model";
+import "../users/Models";
 export class CreateProjectRequest extends Model {
 }
-export class addProjectUsersRequest extends Model {
+export class RenameProjectRequest extends Model {
+}
+export class AddProjectUsersRequest extends Model {
+}
+export class AddProjectTeamsRequest extends Model {
 }
 export class ProjectsResponse extends Model {
 }

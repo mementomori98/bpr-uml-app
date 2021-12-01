@@ -11,107 +11,177 @@
     import Button from "../../ui/Button.svelte";
     import {Colors} from "../../ui/utils/Colors";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
-    import {User, UserToTeam} from "../users/Models";
-    import {CreateProjectRequest} from "../projects/Models";
+    import {TeamUserRequest, User, UserToProject, UserToTeam, WorkspaceUsersResponse} from "../users/Models";
+    import {CreateProjectRequest, ProjectResponse} from "../projects/Models";
     import getService from "../utils/ServiceFactory";
     import {ProjectService} from "../projects/ProjectService";
     import {TeamService} from "./TeamService";
-    import {CreateTeamRequest} from "./Models";
+    import {AddTeamUsersRequest, CreateTeamRequest, RenameTeamRequest, TeamResponse} from "./Models";
     import {AppContext} from "../utils/AppContext";
+    import {createEventDispatcher, onMount} from "svelte";
+    import {
+        checkIfEmpty,
+        filterListById,
+        filterListByList,
+        formList, getItem,
+        getUserToProject,
+        getUserToTeam,
+        ListItem,
+        sortList
+    } from "../../ui/utils/ListItem";
+    import {params} from "@roxi/routify";
+    import {UserService} from "../users/UserService";
+    import {CreateWorkspaceRequest} from "../workspaces/Models";
+    import ConfirmDialog from "../workspaces/ConfirmDialog.svelte";
 
     export let visible: boolean = false;
     export let readonly: boolean = false;
     export let lockable: boolean = readonly;
-    export let teamName: string = "";
+    let teamName: string = "";
+    export let teamId: string = "";
 
     let locked: boolean = true;
+    let deleteVisible: boolean = false;
 
+    const userService = getService(UserService);
     const teamService = getService(TeamService);
     const appContext = getService(AppContext);
+    const dispatch = createEventDispatcher();
 
-    let testUsers = [];
+    let team: TeamResponse = new TeamResponse({_id: "", name: "", users: [], workspaceId: ""});
 
-    let listUsers = testUsers.sort((u1, u2) => u1.name.localeCompare(u2.name)).map(person => {
-        return new DataListItem(person.id, person.name)
-    });
+    let workspaceUsers: WorkspaceUsersResponse[] = [];
+    let pickList: ListItem[] = [];
+    let selectedUsers: UserToTeam[] = [];
 
-    let teamUsers: UserToTeam[] = []
+    $: onEditMount(teamId);
+
+    export async function open() {
+        const res = await userService.getWorkspaceUsers(appContext.getWorkspaceId());
+        workspaceUsers = sortList(res);
+        pickList = formList(workspaceUsers);
+    }
+
+    const onEditMount = async (id: string) => {
+        if (id === "") return
+        team = await teamService.getTeam(id)
+        teamName = team.name
+        if (!checkIfEmpty(team.users)) {
+            team.users.forEach(function (o) {
+                Object.defineProperty(o, '_id',
+                    Object.getOwnPropertyDescriptor(o, 'userId'));
+                delete o['userId'];
+            });
+        }
+
+        const res = await userService.getWorkspaceUsers(appContext.getWorkspaceId());
+        workspaceUsers = sortList(res);
+        pickList = formList(workspaceUsers);
+        await handleOccurrence();
+    }
+
+    const handleOccurrence = async () => {
+        pickList = filterListByList(pickList, team.users)
+        if (!checkIfEmpty(team.users)) {
+            team.users.forEach(user => {
+                selectedUsers.push(getUserToTeam(user.user));
+            })
+        }
+        selectedUsers = sortList(selectedUsers);
+    }
+
 
     const handleCreate = async () => {
-       /* let team = await teamService.create(new CreateTeamRequest({
+        const res = await teamService.create(new CreateTeamRequest({
             name: teamName,
             workspaceId: appContext.getWorkspaceId()
-        }));*/
+        }));
 
-
+        await teamService.manageTeamUsers(res._id, new AddTeamUsersRequest({
+            users: selectedUsers.map(person => {
+                return new TeamUserRequest({userId: person._id})
+            })
+        }));
 
         visible = false;
+        resetDialog()
+        dispatch('create')
     }
 
-    const handleUpdate = () => {
-        // todo
-        alert("Team " + teamName + " has been updated")
+    const handleEdit = async () => {
+        await teamService.manageTeamUsers(team._id, new AddTeamUsersRequest({
+            users: selectedUsers.map(person => {
+                return new TeamUserRequest({userId: person._id})
+            })
+        }));
+
+        await teamService.renameTeam(team._id, new RenameTeamRequest({
+            name: teamName
+        }));
+
+        visible = false;
+        resetDialog()
+        dispatch('edit')
     }
 
-    const handleCancel = () => {
-        if (lockable) {
-            if (!locked) {
-                visible = false;
-                locked = true;
-            }
-        } else {
-            visible = false;
-        }
+    const handleCancelDialog = () => {
+        let tId = teamId;
+        resetDialog()
+        onEditMount(tId)
     }
 
-    const handleClose = () => {
+    const handleCloseDialog = () => {
         visible = false;
         locked = true
+        resetDialog()
     }
 
-    const pickUser = (e) => {
-        let user = testUsers.filter(function (item) {
-            return item.id == e.detail.choice.id;
-        })[0]
-        teamUsers.push(new UserToTeam({
-            name: user.name,
-            email: user.email,
-            id: user.id,
-            canEdit: true,
-            role: "Developer"
-        }));
-        teamUsers.sort((u1, u2) => u1.name.localeCompare(u2.name))
+    const resetDialog = () => {
+        teamName = "";
+        teamId = "";
+        team = new TeamResponse({_id: "", name: "", users: [], workspaceId: ""});
+        workspaceUsers = [];
+        pickList = [];
+        selectedUsers = [];
+    }
 
-        listUsers = listUsers.filter(function (item) {
-            return item.id != e.detail.choice.id;
-        });
-
-        teamUsers = teamUsers;
+    const pickUser = (_id) => {
+        let user = getItem(workspaceUsers, _id);
+        selectedUsers.push(getUserToProject(user, true));
+        pickList = filterListById(pickList, _id)
+        selectedUsers = sortList(selectedUsers);
     }
 
     const closeUserChoice = (u) => {
-        let user = testUsers.filter(function (item) {
-            return item.id == u.id;
-        })[0]
-        listUsers.push(user);
-        teamUsers = teamUsers.filter(function (item) {
-            return item.id != user.id;
-        });
-        listUsers = listUsers.sort((u1, u2) => u1.name.localeCompare(u2.name)).map(person => {
-            return new DataListItem(person.id, person.name)
-        });
+        let user = getItem(workspaceUsers, u._id);
+        pickList.push(user);
+        selectedUsers = filterListById(selectedUsers, user._id);
+        pickList = formList(pickList);
+    }
+
+    const deleteTeam = async () => {
+        await teamService.deleteTeam(team._id);
+        visible = false;
+        resetDialog()
+        dispatch('edit')
     }
 
 </script>
 
-<Dialog on:clickedOut={() => locked = true} bind:visible style="min-width: 600px">
+<Dialog on:clickedOut={handleCloseDialog} bind:visible style="min-width: 600px">
     <Form readonly={readonly} bind:locked lockable={lockable}
-          on:submit={() => lockable ? handleUpdate() : handleCreate()} cancelButton={!lockable} on:cancel={handleCancel}
+          on:submit={() => lockable ? handleEdit() : handleCreate()} cancelButton={!lockable}
+          on:cancel={handleCancelDialog}
           submitText={lockable ? "Update" : "Create"}>
         <svelte:fragment slot="header">{locked ? "Team" : "Edit team"}</svelte:fragment>
+        <svelte:fragment slot="header-actions">
+            <Button small color={Colors.Red} on:click={() => deleteVisible = true}>Delete Team</Button>
+
+        </svelte:fragment>
         <Input locked={locked && lockable} label="Team name" bind:value={teamName}/>
         {#if !locked || !lockable}
-            <Select clearOnChoice label="Users to add" choices={listUsers} on:submit={e => pickUser(e)}/>
+            <Select clearOnChoice label="Users to add" choices={pickList}
+                    on:submit={e => pickUser(e.detail.choice._id)}/>
         {/if}
         <ListScrollWrapper>
             <svelte:fragment slot="header">
@@ -123,7 +193,7 @@
                     {/if}
                 </ListRow>
             </svelte:fragment>
-            {#each teamUsers as user}
+            {#each selectedUsers as user}
                 <ListRow noFunction>
                     <ListRowItem widthInPercentage={43}>{user.name}</ListRowItem>
                     <ListRowItem widthInPercentage={50}>{user.email}</ListRowItem>
@@ -137,11 +207,13 @@
         </ListScrollWrapper>
         <svelte:fragment slot="footer-actions">
             {#if lockable}
-                <Button color={Colors.Gray} on:click={handleClose}>Close</Button>
+                <Button color={Colors.Gray} on:click={handleCloseDialog}>Close</Button>
             {/if}
         </svelte:fragment>
     </Form>
 </Dialog>
+<ConfirmDialog on:confirm={deleteTeam} title="Delete Team" description="Confirm team removal. This action cannot be reverted!" bind:visible={deleteVisible}/>
+
 
 <style lang="scss">
   @import "../../ui/theme";

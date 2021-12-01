@@ -11,7 +11,7 @@
     import {AppContext} from "../utils/AppContext";
     import getService from "../utils/ServiceFactory";
     import {ProjectService} from "./ProjectService";
-    import {CreateProjectRequest, addProjectUsersRequest} from "./Models";
+    import {CreateProjectRequest, AddProjectUsersRequest} from "./Models";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
     import {ProjectUserRequest, User, UserToProject, WorkspaceUsersResponse} from "../users/Models";
     import {createEventDispatcher, onMount} from "svelte";
@@ -57,7 +57,7 @@
             workspaceId: appContext.getWorkspaceId()
         }));
 
-        await projectService.manageProjectUsers(project._id, new addProjectUsersRequest({
+        await projectService.manageProjectUsers(project._id, new AddProjectUsersRequest({
             users: selectedUsers.map(person => {
                 return new ProjectUserRequest({userId: person._id, isEditor: person.isEditor})
             })

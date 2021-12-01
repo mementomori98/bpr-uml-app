@@ -1,0 +1,64 @@
+<script lang="ts">
+
+    import Card from "../../ui/Card.svelte";
+    import Form from "../../ui/Form.svelte";
+    import Input from "../../ui/Input.svelte";
+    import Button from "../../ui/Button.svelte";
+    import {Colors} from "../../ui/utils/Colors";
+    import {onMount} from "svelte";
+    import {goto, params} from "@roxi/routify";
+    import getService from "../utils/ServiceFactory";
+    import {AppContext} from "../utils/AppContext";
+    import {ProjectResponse, RenameProjectRequest} from "./Models";
+    import {ProjectService} from "./ProjectService";
+    import ConfirmDialog from "../workspaces/ConfirmDialog.svelte";
+
+    let projectName: string = '';
+    const appContext = getService(AppContext);
+    const projectService = getService(ProjectService);
+
+    let project: ProjectResponse = new ProjectResponse({title: "", users: [], teams: [], _id: "", workspaceId: ""});
+    let deleteVisible: boolean = false;
+
+    let locked: boolean = true;
+
+    onMount(async () => {
+        await fetch()
+    })
+
+    const fetch = async () => {
+        project = await projectService.getProject($params.id)
+        projectName = project.title;
+    }
+
+    const onEdit = async () => {
+        await projectService.renameProject($params.id, new RenameProjectRequest({
+            title: projectName
+        }));
+        await fetch()
+    }
+
+    const deleteProject = async () => {
+        await projectService.deleteProject($params.id);
+        $goto('/projects')
+    }
+
+</script>
+
+<Card>
+    <Form lockable bind:locked cancelButton on:cancel={fetch} on:submit={onEdit}>
+        <svelte:fragment slot="header">Project</svelte:fragment>
+        <svelte:fragment slot="header-actions">
+            {#if !locked}
+                <Button small color={Colors.Red} on:click={() => deleteVisible = true}>Delete Project</Button>
+            {/if}
+        </svelte:fragment>
+        <Input label="Project name" bind:value={projectName} {locked}/>
+    </Form>
+</Card>
+<ConfirmDialog on:confirm={deleteProject} title="Delete Project" description="Confirm project removal. This action cannot be reverted!" bind:visible={deleteVisible}/>
+
+<style lang="scss">
+  @import "../../ui/theme";
+
+</style>

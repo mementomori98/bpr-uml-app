@@ -65,9 +65,11 @@ const createDiagramStore = (diagramId) => {
     return {
         subscribe,
         createModel: (model, representation) => {
+            console.log('creating model');
             socket.emit('create_model', model, representation);
         },
         updateRepresentation: (request) => {
+            console.log('updating repr');
             socket.emit('update_model_representation', request);
         },
     };

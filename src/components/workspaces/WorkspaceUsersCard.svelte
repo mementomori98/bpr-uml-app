@@ -21,12 +21,20 @@
 
     let inviteVisible: boolean = false;
     let itemSettingsVisible: boolean = false;
-    let chosenUser: User = null;
+    let chosenUser: WorkspaceUsersResponse = null;
 
     onMount(async () => {
-        const res = await userService.getWorkspaceUsers(appContext.getWorkspaceId());
-        users = res.sort((u1, u2) => u1.name.localeCompare(u2.name)); //TODO should merge it with the invited ones, and show them by status on the separate column
+         await fetch()
     })
+
+    const fetch = async () => {
+        const res = await userService.getWorkspaceUsers(appContext.getWorkspaceId());
+        users = res.sort((u1, u2) => u1.name.localeCompare(u2.name));
+    }
+
+    const onRemoveUser = async () => {
+        await fetch()
+    }
 
     const handleClick = async (user) => {
         // todo
@@ -43,16 +51,12 @@
                 <ListRow isHeader>
                     <ListRowItem widthInPercentage={50}>Name</ListRowItem>
                     <ListRowItem widthInPercentage={50}>Email</ListRowItem>
-<!--                    <ListRowItem center widthInPercentage={20}>Status</ListRowItem>-->
-<!--                    <ListRowItem right widthInPercentage={20}>Role</ListRowItem>-->
                 </ListRow>
             </svelte:fragment>
             {#each users as user}
                 <ListRow on:click={() => handleClick(user)}>
                     <ListRowItem widthInPercentage={50}>{user.name}</ListRowItem>
                     <ListRowItem widthInPercentage={50}>{user.email}</ListRowItem>
-<!--                    <ListRowItem center widthInPercentage={20}>{user.status}</ListRowItem>-->
-<!--                    <ListRowItem right widthInPercentage={20}>{user.role}</ListRowItem>-->
                 </ListRow>
             {/each}
         </ListScrollWrapper>
@@ -63,7 +67,7 @@
     </View>
 </Card>
 <InviteUserDialog bind:visible={inviteVisible}/>
-<UserSettingsDialog bind:visible={itemSettingsVisible} user={chosenUser}/> <!-- TODO should pass id-->
+<UserSettingsDialog on:delete={onRemoveUser} bind:visible={itemSettingsVisible} user={chosenUser}/> <!-- TODO should pass id-->
 
 <style lang="scss">
   @import "../../ui/theme";

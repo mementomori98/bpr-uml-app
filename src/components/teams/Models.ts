@@ -1,4 +1,5 @@
 import {Model} from "../utils/Model";
+import {TeamUserRequest} from "../users/Models";
 
 export class Team {
     public name: string;
@@ -11,14 +12,22 @@ export class Team {
     }
 }
 
+export class AddTeamUsersRequest extends Model<AddTeamUsersRequest> {
+    public users: TeamUserRequest[];
+}
+
 export class CreateTeamRequest extends Model<CreateTeamRequest> {
     public name: string;
     public workspaceId: string;
 }
 
+export class RenameTeamRequest extends Model<RenameTeamRequest> {
+    public name: string;
+}
+
 export class TeamResponse extends Model<TeamResponse> {
     public _id: string;
-    public teamName: string;
+    public name: string;
     public users: [];
     public workspaceId: string;
 }

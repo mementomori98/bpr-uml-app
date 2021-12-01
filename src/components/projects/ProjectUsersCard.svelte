@@ -2,23 +2,21 @@
     import Card from "../../ui/Card.svelte";
     import View from "../../ui/View.svelte";
     import Button from "../../ui/Button.svelte";
-    import UserSettingsDialog from "../users/UserSettingsDialog.svelte";
     import EditProjectUsersDialog from "../users/EditProjectUsersDialog.svelte";
     import Checkbox from "../../ui/Checkbox.svelte";
-    import CloseButton from "../../ui/CloseButton.svelte";
     import ListRowItem from "../../ui/ListRowItem.svelte";
     import ListRow from "../../ui/ListRow.svelte";
     import {goto, params} from "@roxi/routify";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
-    import {User} from "../users/Models";
     import {onMount} from "svelte";
     import {ProjectResponse} from "./Models";
     import getService from "../utils/ServiceFactory";
     import {ProjectService} from "./ProjectService";
-    import {sortList, sortUserList} from "../../ui/utils/ListItem";
+    import {sortUserList} from "../../ui/utils/ListItem";
 
     const projectService = getService(ProjectService);
     let project: ProjectResponse = new ProjectResponse({title: "", users: [], teams: [], _id: "", workspaceId: ""});
+    let child;
 
     onMount(async () => {
         project = await projectService.getProject($params.id)
@@ -27,6 +25,7 @@
  
     const onEdit = async () => {
         project = await projectService.getProject($params.id)
+        project.users = sortUserList(project?.users);
     }
 
     let editVisible: boolean = false;
@@ -54,13 +53,14 @@
                 </ListRow>
             {/each}
         </ListScrollWrapper>
-        <svelte:fragment slot="actions"> <!-- TODO disabled if not product owner-->
-            <Button on:click={() => editVisible = true}>Edit</Button>
+        <svelte:fragment slot="actions">
+            <Button on:click={() => {editVisible = true;
+            child.open()}}>Edit</Button>
         </svelte:fragment>
     </View>
 </Card>
 
-<EditProjectUsersDialog bind:visible={editVisible} on:edit={onEdit}/>
+<EditProjectUsersDialog bind:this={child} bind:visible={editVisible} on:edit={onEdit}/>
 
 <style lang="scss">
   @import "../../ui/theme";

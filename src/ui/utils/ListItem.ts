@@ -1,5 +1,12 @@
 import {Model} from "../../components/utils/Model";
-import {User, UserToProject, WorkspaceUsersResponse} from "../../components/users/Models";
+import {
+    TeamToProject,
+    User,
+    UserToProject,
+    UserToTeam,
+    WorkspaceTeamsResponse,
+    WorkspaceUsersResponse
+} from "../../components/users/Models";
 import * as events from "events";
 
 export class ListItem extends Model<ListItem> {
@@ -22,12 +29,28 @@ export function getItem(list: any[], id: string) {
     return item;
 }
 
+export function getTeamToProject(user: WorkspaceTeamsResponse, canEdit: boolean = true) {
+    return new TeamToProject({
+        name: user.name,
+        _id: user._id,
+        isEditor: canEdit,
+    })
+}
+
 export function getUserToProject(user: WorkspaceUsersResponse, canEdit: boolean = true) {
     return new UserToProject({
         name: user.name,
         email: user.email,
         _id: user._id,
         isEditor: canEdit,
+    })
+}
+
+export function getUserToTeam(user: WorkspaceUsersResponse) {
+    return new UserToTeam({
+        name: user.name,
+        email: user.email,
+        _id: user._id,
     })
 }
 
@@ -56,4 +79,11 @@ export function sortList(list: any[]) {
 
 export function sortUserList(list: any[]) {
     return list.sort((u1, u2) => u1.user?.name.localeCompare(u2.user?.name));
+}
+
+export function checkIfEmpty(list: any[]) {
+    if(list.length > 1) return false
+    return list
+        && Object.keys(list[0]).length === 0
+        && Object.getPrototypeOf(list[0]) === Object.prototype
 }

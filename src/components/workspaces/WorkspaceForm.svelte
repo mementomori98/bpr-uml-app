@@ -10,6 +10,7 @@
     import getService from "../utils/ServiceFactory";
     import {WorkspaceService} from "./WorkspaceService";
     import {AppContext} from "../utils/AppContext";
+    import {CreateWorkspaceRequest} from "./Models";
 
     let workspaceName: string = '';
     const workspaceService = getService(WorkspaceService);
@@ -18,14 +19,25 @@
     let locked: boolean = true;
 
     onMount(async () => {
+        await fetch()
+    })
+
+    const fetch =async () => {
         const res = await workspaceService.getById(appContext.getWorkspaceId());
         workspaceName = res.name;
-    })
+    }
+
+    const onEdit =async () => {
+        await workspaceService.renameWorkspace(appContext.getWorkspaceId(), new CreateWorkspaceRequest({
+            name: workspaceName
+        }));
+        await fetch()
+    }
 
 </script>
 
 <Card>
-    <Form lockable bind:locked>
+    <Form lockable bind:locked cancelButton on:cancel={fetch} on:submit={onEdit}>
         <svelte:fragment slot="header">Workspace</svelte:fragment>
         <Input label="Workspace name" bind:value={workspaceName} {locked}/>
     </Form>

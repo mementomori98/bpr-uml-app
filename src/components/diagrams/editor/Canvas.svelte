@@ -15,7 +15,6 @@
     const getStore = getContext(diagramKey);
 
     $: diagramStore = getStore();
-    $: console.log(diagramStore)
 
     const inputRegister = new CallbackRegister();
     setContext(registerKey, inputRegister);
