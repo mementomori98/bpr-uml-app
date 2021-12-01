@@ -18,8 +18,14 @@ const create = () => {
     request.h = 50;
     diagramStore.createModel({
         type: 'textBox',
-        text: request.text,
         path: '',
+        attributes: [
+            {
+                kind: 'text',
+                value: request.text
+            }
+        ],
+        relations: []
     }, {
         x: request.x,
         y: request.y,

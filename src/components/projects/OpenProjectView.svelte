@@ -10,7 +10,7 @@
     const projectService = getService(ProjectService);
 
     let content;
-    let diagramId;
+    let diagramId = '61a0d2fa28f1167d4bbb87de';
 
     const createFolders = (tree, path) => {
         // remove starting /

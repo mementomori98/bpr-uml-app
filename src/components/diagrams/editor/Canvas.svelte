@@ -41,6 +41,8 @@
     let contextX: number;
     let contextY: number;
     let contextMenuVisible: boolean;
+    let resultX;
+    let resultY;
 
     const handleDrag = e => {
         cameraX -= e.detail.dx / zoom;
@@ -61,6 +63,8 @@
         e.preventDefault();
         contextX = e.x;
         contextY = e.y;
+        resultX = e.offsetX;
+        resultY = e.offsetY;
         contextMenuVisible = true;
     }
 
@@ -84,7 +88,7 @@
 <div bind:this={canvas} style="user-select: none;height: 100%;position: relative; overflow: hidden;" on:contextmenu={handleContextMenu}>
     <slot/>
     {#each $diagramStore.representations as r, i (r._id)}
-        <DisplayDispatcher representation={r} camera={camera} />
+        <DisplayDispatcher representation={r} camera={camera}/>
     {/each}
 </div>
 
@@ -92,10 +96,10 @@
         bind:visible={contextMenuVisible}
         left={contextX}
         top={contextY}>
-    <Option on:click={() => inputRegister.raise('create_box', {x: camera.realCoords(mouseX, mouseY)[0], y: camera.realCoords(mouseX, mouseY)[1]})}>Create Box</Option>
+    <Option on:click={() => inputRegister.raise('create_box', {x: camera.realCoords(resultX, resultY)[0], y: camera.realCoords(resultX, resultY)[1]})}>Create Box</Option>
 </ContextMenu>
 
-<DialogRouter />
+<DialogRouter/>
 
 <style lang="scss">
     @import "../../../ui/theme";

@@ -4,7 +4,7 @@
 </script>
 
 <div class="box">
-    {representation.model.text}
+    {representation.model.attributes.find(a => a.kind === 'text')?.value}
 </div>
 
 <style lang="scss">

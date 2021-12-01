@@ -12,6 +12,7 @@ const createDiagramStore = (diagramId) => {
     };
     const { set, subscribe } = writable(diagram);
     const notify = () => set(diagram);
+    console.log('connecting');
     // @ts-ignore
     const socket = io.connect('https://bpr-uml-socket-server.herokuapp.com/', {
         extraHeaders: { Authorization: `Bearer ${appContext.getAccessToken()}` }
@@ -22,6 +23,9 @@ const createDiagramStore = (diagramId) => {
         console.log('connection_response: ' + e);
         socket.emit('join_diagram', { diagramId: diagramId });
     });
+    socket.on('disconnect', e => {
+        console.log('disconnect');
+    });
     // response to join_diagram
     socket.on('all_diagram_models', e => {
         diagram.representations = JSON.parse(e);
@@ -30,22 +34,18 @@ const createDiagramStore = (diagramId) => {
     // response to join_diagram
     socket.on('user_joined', e => {
         console.log(e);
-        diagram.users.push(e);
-        notify();
+        // diagram.users.push(e);
+        // notify();
     });
     // response to join_diagram
-    socket.on('diagram_not_found', e => {
-        console.log('diagram_not_found: ' + e);
+    socket.on('error', e => {
+        console.log('error: ' + JSON.stringify(e));
     });
     // response to create_model
-    socket.on('model_created', e => {
-        console.log('model created');
+    socket.on('model_added', e => {
+        console.log('model added: ' + e);
         diagram.representations.push(JSON.parse(e));
         notify();
-    });
-    // response to create_model
-    socket.on('create_model_error', e => {
-        console.log(`create_model_error ${e}`);
     });
     socket.on('model_updated', e => {
         console.log(e);
@@ -54,9 +54,6 @@ const createDiagramStore = (diagramId) => {
         diagram.representations[index] = rep;
         notify();
     });
-    socket.on('update_model_error', e => {
-        console.log(`update_model_error ${e}`);
-    });
     // general error message from server
     socket.on('message', e => {
         console.log('socket io message:');
@@ -64,13 +61,20 @@ const createDiagramStore = (diagramId) => {
     });
     return {
         subscribe,
+        joinDiagram: diagramId => {
+            socket.emit('join_diagram', { diagramId: diagramId });
+        },
         createModel: (model, representation) => {
             console.log('creating model');
             socket.emit('create_model', model, representation);
         },
         updateRepresentation: (request) => {
-            console.log('updating repr');
+            console.log('updating representation');
             socket.emit('update_model_representation', request);
+        },
+        addModel: (modelId, representation) => {
+            console.log('adding model');
+            socket.emit('add_model', { modelId: modelId }, representation);
         },
     };
 };

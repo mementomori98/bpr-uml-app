@@ -6,7 +6,7 @@
 
     export let diagramId: string;
 
-    $: diagramStore = createDiagramStore(diagramId);
+    const diagramStore = createDiagramStore(diagramId);
 
     const getStore = () => diagramStore;
     setContext(key, getStore);
