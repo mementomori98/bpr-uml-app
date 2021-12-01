@@ -47,11 +47,19 @@ const createDiagramStore = (diagramId) => {
         diagram.representations.push(JSON.parse(e));
         notify();
     });
-    socket.on('model_updated', e => {
-        console.log(e);
+    socket.on('model_rep_updated', e => {
+        console.log('model_rep_updated: ' + e);
         let rep = JSON.parse(e);
         const index = diagram.representations.findIndex(r => r._id === rep._id);
         diagram.representations[index] = rep;
+        notify();
+    });
+    socket.on('model_updated', e => {
+        console.log('model_updated: ' + e);
+        let model = JSON.parse(e);
+        diagram.representations.filter(r => r.modelId === model._id).forEach(r => {
+            r.model = model;
+        });
         notify();
     });
     // general error message from server
@@ -76,6 +84,20 @@ const createDiagramStore = (diagramId) => {
             console.log('adding model');
             socket.emit('add_model', { modelId: modelId }, representation);
         },
+        updateAttribute: (request) => {
+            console.log('updating attribute');
+            console.log({
+                modelId: request.modelId
+            });
+            console.log({ kind: request.kind, value: request.value });
+            socket.emit('update_model_attribute', {
+                modelId: request.modelId
+            }, {
+                kind: request.kind,
+                value: request.value,
+                _id: request.attributeId
+            });
+        }
     };
 };
 export { key, createDiagramStore };

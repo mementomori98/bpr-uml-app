@@ -97,6 +97,7 @@
         left={contextX}
         top={contextY}>
     <Option on:click={() => inputRegister.raise('create_box', {x: camera.realCoords(resultX, resultY)[0], y: camera.realCoords(resultX, resultY)[1]})}>Create Box</Option>
+    <Option on:click={() => inputRegister.raise('create_class', {x: camera.realCoords(resultX, resultY)[0], y: camera.realCoords(resultX, resultY)[1]})}>Create Class</Option>
 </ContextMenu>
 
 <DialogRouter/>

@@ -2,6 +2,8 @@
 
     import Icon from "../../../ui/Icon.svelte";
     import TextButton from "../../../ui/TextButton.svelte";
+    import {getContext} from "svelte";
+    import {key} from "./callbackRegister";
 
     export let representation;
     export let dragX: number;
@@ -9,6 +11,8 @@
     export let screenCoords;
     export let element = null;
     export let zoom: number;
+
+    const inputRegister = getContext(key);
 
     $: style = `
         left: ${screenCoords(representation.x + dragX, representation.y + dragY)[0]}px;
@@ -23,7 +27,7 @@
 
 <div class="display-frame" style={style}>
     <div class="display-frame__toolbar">
-        <TextButton noPadding><Icon icon="edit"/></TextButton>
+        <TextButton noPadding on:click={() => inputRegister.raise('update_' + representation.model.type, representation)}><Icon icon="edit"/></TextButton>
         <Icon icon="open_with" cursor="all-scroll" bind:element/>
     </div>
     <div class="display-frame__content" style={contentStyle}>

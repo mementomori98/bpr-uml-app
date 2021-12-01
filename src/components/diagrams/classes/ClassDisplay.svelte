@@ -8,20 +8,27 @@
 
 <div class="class">
     <div class="class__header">
-        {representation.model.name}</div>
+        {representation.model.attributes.find(a => a.kind === 'name')?.value}</div>
     <div class="class__fields">
-        <!--{#each representation.model.fields as field}-->
-        <!--    <div class="class__field">-->
-        <!--        {field}-->
-        <!--    </div>-->
-        <!--{/each}-->
+        {#each representation.model.attributes.filter(a => a.kind === 'field') as field}
+            <div class="class__field">
+                {field.accessModifier === 'private' ? '-' : '+'} {field.name} : {field.type}
+            </div>
+        {/each}
     </div>
     <div class="class__methods">
-        <!--{#each representation.model.methods as method}-->
-        <!--    <div class="class__method">-->
-        <!--        {method}-->
-        <!--    </div>-->
-        <!--{/each}-->
+        {#each representation.model.attributes.filter(a => a.kind === 'method') as method}
+            <div class="class__method">
+                {method.accessModifier === 'private' ? '-' : '+'} {method.name} (
+                {#each method.parameters as param, i}
+                    {param.name} : {param.type}
+                    {#if i !== method.parameters.length - 1}
+                        ,&nbsp;
+                    {/if}
+                {/each}
+                ) : {method.type}
+            </div>
+        {/each}
     </div>
 </div>
 
