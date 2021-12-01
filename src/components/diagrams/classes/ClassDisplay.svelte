@@ -40,6 +40,8 @@
 
         border: 1px solid black;
         background-color: #f5eec4;
+        overflow-y: auto;
+        overflow-x: auto;
 
         &__header {
             border-bottom: 1px solid black;

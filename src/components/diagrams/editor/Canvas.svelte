@@ -76,7 +76,8 @@
         bind:mouseX
         bind:mouseY
         target={canvas}
-        on:drag={handleDrag}
+        on:drag={handleDrag}/>
+<MouseDriver
         on:scroll={handleScroll}/>
 
 <Camera
