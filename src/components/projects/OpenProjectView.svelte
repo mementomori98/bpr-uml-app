@@ -10,6 +10,7 @@
     const projectService = getService(ProjectService);
 
     let content;
+    let diagramId;
 
     const createFolders = (tree, path) => {
         // remove starting /
@@ -65,11 +66,12 @@
 
 <div class="wrapper">
     <TreeView {tree}
-      on:click={e => console.log(`selected ${e.detail.id}`)}
-      on:dblclick={e => console.log(`double ${e.detail.id}`)}
+              on:dblclick={e => diagramId = e.detail.id}
     />
     <div class="editor-wrapper">
-        <DiagramEditor diagramId="61a0d2fa28f1167d4bbb87de"/>
+        {#if diagramId}
+            <DiagramEditor {diagramId}/>
+        {/if}
     </div>
 
 </div>

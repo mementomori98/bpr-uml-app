@@ -27,8 +27,8 @@ export class ProjectService {
                 { name: '', path: '/folder2/', type: 'folder' },
                 { name: '', path: '/folder1/subfolder1/', type: 'folder' },
                 { name: '', path: '/folder1/subfolder2/', type: 'folder' },
-                { name: 'diagram1', path: '/', type: 'diagram', id: 'dummyId' },
-                { name: 'diagram2', path: '/folder1/', type: 'diagram', id: 'dummyId' },
+                { name: 'diagram1', path: '/', type: 'diagram', id: '61a0d2fa28f1167d4bbb87de' },
+                { name: 'diagram2', path: '/folder1/', type: 'diagram', id: '61a0d289cdfe942f939a1d7c' },
                 { name: 'model1', path: '/folder1/subfolder1/', type: 'model', id: 'dummyId' },
                 { name: 'model2', path: '/folder2/', type: 'model', id: 'dummyId' },
             ]

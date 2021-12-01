@@ -7,7 +7,7 @@
     import getService from "../../utils/ServiceFactory";
     import {Snackbar} from "../../utils/Snackbar";
     import {getContext, setContext} from "svelte";
-    import {key as diagramKey} from "./diagramStore";
+    import {createDiagramStore, key as diagramKey} from "./diagramStore";
     import {key as registerKey, CallbackRegister} from "./callbackRegister";
     import DialogRouter from "./DialogRouter.svelte";
 
@@ -15,6 +15,7 @@
     const getStore = getContext(diagramKey);
 
     $: diagramStore = getStore();
+    $: console.log(diagramStore)
 
     const inputRegister = new CallbackRegister();
     setContext(registerKey, inputRegister);
