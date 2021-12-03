@@ -37,6 +37,7 @@
     let zoom: number;
 
     let canvas: HTMLDivElement;
+    setContext('canvas', () => canvas);
 
     let contextX: number;
     let contextY: number;

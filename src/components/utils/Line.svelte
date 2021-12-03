@@ -2,15 +2,22 @@
 
     export let startX, startY, endX, endY;
 
+
+    const bias = () => {
+        if (w < 0)
+            return -3.14;
+        return 0;
+    }
     // Based on these we can just use x, y, w, h for our div
-    $: x = Math.min(startX, endX);
-    $: y = Math.min(startY, endY);
-    $: x2 = Math.max(startX, endX);
-    $: y2 = Math.max(startY, endY);
-    $: w = x2 - x;
-    $: h = y2 - y;
+    $: x = startX;
+    $: y = startY;
+    $: w = endX - x;
+    $: h = endY - y;
     $: length = Math.sqrt(w * w + h * h)
-    $: angle = Math.atan(h / w);
+    $: angle = Math.atan(h / w) + bias();
+
+    $: console.log([Math.floor(angle * 180 / 3.14)])
+
 </script>
 
 <div class="line" style={`left: ${x}px;top: ${y}px;width: ${length}px;transform: rotate(${angle}rad);`}>
@@ -25,6 +32,7 @@
         border-bottom: 2px solid black;
         position: absolute;
         display: inline-block;
+        transform-origin: top left;
     }
 
 </style>
