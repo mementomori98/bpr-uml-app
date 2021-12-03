@@ -91,7 +91,7 @@ const createDiagramStore = (diagramId: string) => {
         },
         updateRepresentation: (request) => {
             console.log('updating representation');
-            socket.emit('update_model_representation', request);
+            socket.emit('update_model_rep', request);
         },
         addModel: (modelId, representation) => {
             console.log('adding model');
