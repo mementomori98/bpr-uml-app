@@ -17,10 +17,8 @@
     const create = () => {
         if (!request.fields)
             request.fields = [];
-        console.log(request.methods);
         if (!request.methods)
             request.methods = [];
-        console.log(request.methods);
 
         request.w = 250;
         request.h = 250;
