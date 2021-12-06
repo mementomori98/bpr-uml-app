@@ -6,8 +6,9 @@
     import Option from "../../../ui/Option.svelte";
     import getService from "../../utils/ServiceFactory";
     import {Snackbar} from "../../utils/Snackbar";
-    import {getContext, setContext} from "svelte";
+    import {getContext, onDestroy, onMount, setContext} from "svelte";
     import {createDiagramStore, key as diagramKey} from "./diagramStore";
+    import {key as associationKey} from "./associationStore"
     import {key as registerKey, CallbackRegister} from "./callbackRegister";
     import DialogRouter from "./DialogRouter.svelte";
 
@@ -18,6 +19,8 @@
 
     const inputRegister = new CallbackRegister();
     setContext(registerKey, inputRegister);
+
+    const associationStore = getContext(associationKey);
 
     let mouseX: number;
     let mouseY: number;
@@ -31,6 +34,7 @@
         zoomOut: (n1, n2, n3, n4) => null,
         zoomIn: (n1, n2, n3, n4) => null,
         getZoom: () => 1,
+        cameraStore: null
     };
     let cameraX: number;
     let cameraY: number;
@@ -38,6 +42,7 @@
 
     let canvas: HTMLDivElement;
     setContext('canvas', () => canvas);
+    setContext('camera', () => camera.cameraStore)
 
     let contextX: number;
     let contextY: number;
@@ -68,7 +73,6 @@
         resultY = e.offsetY;
         contextMenuVisible = true;
     }
-
 
 </script>
 

@@ -2,15 +2,32 @@
 
 <script lang="ts">
 
+    import {writable} from "svelte/store";
+
     export let cameraX: number = 0;
     export let cameraY: number = 0;
     export let zoom: number = 1;
+
+    const store = writable({
+        cameraX: cameraX,
+        cameraY: cameraY,
+        zoom: zoom
+    });
+
+    $: store.update(c => {
+       c.cameraX = cameraX;
+       c.cameraY = cameraY;
+       c.zoom = zoom;
+       return c;
+    });
+
+    export const cameraStore = {subscribe: store.subscribe};
 
     export const realCoords = (screenX: number, screenY: number) => {
         return [screenX / zoom + cameraX, screenY / zoom + cameraY]
     }
 
-    export const screenCoords = (realX: number, realY: number) => {
+    export let screenCoords = (realX: number, realY: number) => {
         return [(realX - cameraX) * zoom, (realY - cameraY) * zoom];
     }
 

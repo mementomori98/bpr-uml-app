@@ -97,6 +97,17 @@ const createDiagramStore = (diagramId) => {
                 value: request.value,
                 _id: request.attributeId
             });
+        },
+        createRelation: (representationId, request) => {
+            console.log('creating relation');
+            console.log(`${request.type} : ${request.source} (${representationId}) -> ${request.target}`);
+            socket.emit('create_model_relation', {
+                modelRepId: representationId,
+                modelId: request.source,
+            }, {
+                target: request.target,
+                type: request.type,
+            });
         }
     };
 };

@@ -16,8 +16,6 @@
     $: length = Math.sqrt(w * w + h * h)
     $: angle = Math.atan(h / w) + bias();
 
-    $: console.log([Math.floor(angle * 180 / 3.14)])
-
 </script>
 
 <div class="line" style={`left: ${x}px;top: ${y}px;width: ${length}px;transform: rotate(${angle}rad);`}>
@@ -33,6 +31,7 @@
         position: absolute;
         display: inline-block;
         transform-origin: top left;
+        z-index: 2;
     }
 
 </style>
