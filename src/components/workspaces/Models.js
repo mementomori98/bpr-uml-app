@@ -3,6 +3,11 @@ export class CreateWorkspaceRequest {
         Object.assign(this, init);
     }
 }
+export class UpdateUserPermissions {
+    constructor(init) {
+        Object.assign(this, init);
+    }
+}
 export class Workspace {
     constructor(init) {
         Object.assign(this, init);

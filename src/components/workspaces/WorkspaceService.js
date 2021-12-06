@@ -2,6 +2,7 @@ import getService from "../utils/ServiceFactory";
 import { RestClient } from "../utils/RestClient";
 import "../projects/Models";
 import "../users/Models";
+import "./Models";
 export class WorkspaceService {
     constructor() {
         this.client = getService(RestClient);
@@ -29,6 +30,9 @@ export class WorkspaceService {
     }
     async renameWorkspace(id, request) {
         return await this.client.put('workspaces/' + id, request);
+    }
+    async updateUserPermissions(userId, request) {
+        return await this.client.put('workspaces/' + userId + '/permissions', request);
     }
     async deleteWorkspace(id) {
         return await this.client.delete('workspaces/' + id);

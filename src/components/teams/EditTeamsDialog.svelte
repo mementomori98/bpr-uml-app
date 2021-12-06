@@ -1,36 +1,26 @@
 <script lang="ts">
     import Form from "../../ui/Form.svelte";
     import Select from "../../ui/Select.svelte";
-    import {DataListItem} from "../../ui/utils/DataListItem";
     import CloseButton from "../../ui/CloseButton.svelte";
     import ListRow from "../../ui/ListRow.svelte";
     import Dialog from "../../ui/Dialog.svelte";
     import ListRowItem from "../../ui/ListRowItem.svelte";
     import Checkbox from "../../ui/Checkbox.svelte";
-    import Input from "../../ui/Input.svelte";
-    import Button from "../../ui/Button.svelte";
-    import {Colors} from "../../ui/utils/Colors";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
     import {
         ProjectTeamRequest,
-        ProjectUserRequest, TeamToProject,
-        User,
-        UserToTeam,
+        TeamToProject,
         WorkspaceTeamsResponse,
-        WorkspaceUsersResponse
     } from "../users/Models";
     import {
         AddProjectTeamsRequest,
-        AddProjectUsersRequest,
-        CreateProjectRequest,
         ProjectResponse
     } from "../projects/Models";
     import getService from "../utils/ServiceFactory";
     import {ProjectService} from "../projects/ProjectService";
     import {TeamService} from "./TeamService";
-    import {CreateTeamRequest} from "./Models";
     import {AppContext} from "../utils/AppContext";
-    import {createEventDispatcher, onMount} from "svelte";
+    import {createEventDispatcher} from "svelte";
     import {params} from "@roxi/routify";
     import {
         checkIfEmpty,

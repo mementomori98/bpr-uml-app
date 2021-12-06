@@ -8,20 +8,22 @@
     import ListRow from "../../ui/ListRow.svelte";
     import {onMount} from "svelte";
     import getService from "../utils/ServiceFactory";
-    import {WorkspaceService} from "./WorkspaceService";
     import {AppContext} from "../utils/AppContext";
     import {UserService} from "../users/UserService";
 
     const userService = getService(UserService);
     const appContext = getService(AppContext);
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
-    import {User, UserInvitationRequest, WorkspaceUsersResponse} from "../users/Models";
+    import {WorkspaceUsersResponse} from "../users/Models";
+    import Checkbox from "../../ui/Checkbox.svelte";
+    import {ListItem} from "../../ui/utils/ListItem";
 
     let users: WorkspaceUsersResponse[] = [];
 
     let inviteVisible: boolean = false;
     let itemSettingsVisible: boolean = false;
     let chosenUser: WorkspaceUsersResponse = null;
+    let child;
 
     onMount(async () => {
          await fetch()
@@ -32,14 +34,12 @@
         users = res.sort((u1, u2) => u1.name.localeCompare(u2.name));
     }
 
-    const onRemoveUser = async () => {
-        await fetch()
-    }
-
     const handleClick = async (user) => {
         // todo
-        itemSettingsVisible = true
+
         chosenUser = user
+        itemSettingsVisible = true
+        child.open(user.permissions)
     }
 </script>
 
@@ -49,14 +49,34 @@
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
-                    <ListRowItem widthInPercentage={50}>Name</ListRowItem>
-                    <ListRowItem widthInPercentage={50}>Email</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>Email</ListRowItem>
+                    <ListRowItem center widthInPercentage={12}>Edit Teams</ListRowItem>
+                    <ListRowItem center widthInPercentage={12}>Edit Perms</ListRowItem>
+                    <ListRowItem center widthInPercentage={12}>Edit Works</ListRowItem>
+                    <ListRowItem center widthInPercentage={12}>Edit Users</ListRowItem>
                 </ListRow>
             </svelte:fragment>
             {#each users as user}
                 <ListRow on:click={() => handleClick(user)}>
-                    <ListRowItem widthInPercentage={50}>{user.name}</ListRowItem>
-                    <ListRowItem widthInPercentage={50}>{user.email}</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>{user.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
+                    <ListRowItem center widthInPercentage={12}>
+                        <Checkbox disabled={true} checked={user.permissions.includes("MANAGE_TEAMS")}
+                                  on:checkChange={e => console.log(e.detail.state) }/><!-- user.permissions..... -->
+                    </ListRowItem>
+                    <ListRowItem center widthInPercentage={12}>
+                        <Checkbox disabled={true} checked={user.permissions.includes("MANAGE_PERMISSIONS")}
+                                  on:checkChange={e => console.log(e.detail.state) }/>
+                    </ListRowItem>
+                    <ListRowItem center widthInPercentage={12}>
+                        <Checkbox disabled={true} checked={user.permissions.includes("MANAGE_WORKSPACE")}
+                                  on:checkChange={e => console.log(e.detail.state) }/>
+                    </ListRowItem>
+                    <ListRowItem center widthInPercentage={12}>
+                        <Checkbox disabled={true} checked={user.permissions.includes("MANAGE_USERS")}
+                                  on:checkChange={e => console.log(e.detail.state) }/>
+                    </ListRowItem>
                 </ListRow>
             {/each}
         </ListScrollWrapper>
@@ -67,7 +87,7 @@
     </View>
 </Card>
 <InviteUserDialog bind:visible={inviteVisible}/>
-<UserSettingsDialog on:delete={onRemoveUser} bind:visible={itemSettingsVisible} user={chosenUser}/> <!-- TODO should pass id-->
+<UserSettingsDialog bind:this={child} on:delete={fetch} on:submit={fetch} bind:visible={itemSettingsVisible} user={chosenUser}/> <!-- TODO should pass id-->
 
 <style lang="scss">
   @import "../../ui/theme";

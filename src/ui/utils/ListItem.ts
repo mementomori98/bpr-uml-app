@@ -1,7 +1,6 @@
 import {Model} from "../../components/utils/Model";
 import {
     TeamToProject,
-    User,
     UserToProject,
     UserToTeam,
     WorkspaceTeamsResponse,

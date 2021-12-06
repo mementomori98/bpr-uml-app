@@ -13,7 +13,7 @@
     import {ProjectService} from "./ProjectService";
     import {CreateProjectRequest, AddProjectUsersRequest} from "./Models";
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
-    import {ProjectUserRequest, User, UserToProject, WorkspaceUsersResponse} from "../users/Models";
+    import {ProjectUserRequest, UserToProject, WorkspaceUsersResponse} from "../users/Models";
     import {createEventDispatcher, onMount} from "svelte";
     import {
         filterListById,

@@ -7,6 +7,15 @@ export class CreateWorkspaceRequest {
     }
 }
 
+export class UpdateUserPermissions {
+
+    public permissions: string[];
+
+    constructor(init?: Partial<UpdateUserPermissions>) {
+        Object.assign(this, init);
+    }
+}
+
 export class Workspace {
 
     public name: string;

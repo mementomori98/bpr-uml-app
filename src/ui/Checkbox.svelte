@@ -1,9 +1,11 @@
 <script lang="ts">
     import {createEventDispatcher} from "svelte";
     import {CssBuilder} from "./utils/CssBuilder";
+    import {color, elevated, outlined, small} from "./Button.svelte";
 
     export let checked: boolean = false;
     export let disabled: boolean = false;
+    export let aligned: boolean = false;
     const dispatch = createEventDispatcher();
     const handleClick = (event) => {
         // todo
@@ -11,9 +13,13 @@
         dispatch('checkChange', {state: !checked});
     }
 
+    $: wrapper = new CssBuilder('grid')
+        .addFeature('aligned', aligned)
+        .build();
+
 </script>
 
-<div class="grid">
+<div class={wrapper}>
     <div class="checkbox bounce">
         <input disabled={disabled} bind:checked type="checkbox" on:click={handleClick}>
         <svg viewBox="0 0 21 21">
@@ -31,6 +37,14 @@
 
   .grid {
     position: relative;
+
+    &--aligned{
+      width: 25%;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   .checkbox,
