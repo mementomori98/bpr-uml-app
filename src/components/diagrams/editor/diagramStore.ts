@@ -69,7 +69,7 @@ const createDiagramStore = (diagramId: string) => {
         console.log('model_updated: ' + e)
         let model = JSON.parse(e);
         diagram.representations.filter(r => r.modelId === model._id).forEach(r => {
-           r.model = model
+            r.model = model
         });
         notify();
     });
@@ -91,7 +91,7 @@ const createDiagramStore = (diagramId: string) => {
         },
         updateRepresentation: (request) => {
             console.log('updating representation');
-            socket.emit('update_model_representation', request);
+            socket.emit('update_model_rep', request);
         },
         addModel: (modelId, representation) => {
             console.log('adding model');
@@ -110,6 +110,17 @@ const createDiagramStore = (diagramId: string) => {
                 value: request.value,
                 _id: request.attributeId
             })
+        },
+        createRelation: (representationId, request) => {
+            console.log('creating relation');
+            console.log(`${request.type} : ${request.source} (${representationId}) -> ${request.target}`)
+            socket.emit('create_model_relation', {
+                modelRepId: representationId,
+                modelId: request.source,
+            }, {
+                target: request.target,
+                type: request.type,
+            });
         }
     }
 }
