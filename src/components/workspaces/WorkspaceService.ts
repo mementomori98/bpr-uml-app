@@ -38,8 +38,8 @@ export class WorkspaceService {
         return await this.client.put('workspaces/' + id, request);
     }
 
-    public async updateUserPermissions(userId: string, request: UpdateUserPermissions) {
-        return await this.client.put('workspaces/' + userId + '/permissions', request);
+    public async updateUserPermissions(workspaceId: string, userId: string, request: UpdateUserPermissions) {
+        return await this.client.put('workspaces/' + workspaceId + "/" + userId + '/permissions', request);
     }
 
     public async deleteWorkspace(id: string) {

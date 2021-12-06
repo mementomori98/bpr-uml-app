@@ -31,8 +31,8 @@ export class WorkspaceService {
     async renameWorkspace(id, request) {
         return await this.client.put('workspaces/' + id, request);
     }
-    async updateUserPermissions(userId, request) {
-        return await this.client.put('workspaces/' + userId + '/permissions', request);
+    async updateUserPermissions(workspaceId, userId, request) {
+        return await this.client.put('workspaces/' + workspaceId + "/" + userId + '/permissions', request);
     }
     async deleteWorkspace(id) {
         return await this.client.delete('workspaces/' + id);

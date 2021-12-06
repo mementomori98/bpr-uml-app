@@ -70,7 +70,7 @@
         if(perm_works) newPerms.push("MANAGE_WORKSPACE")
         if(perm_users) newPerms.push("MANAGE_USERS")
         console.log(newPerms)
-        await workspaceService.updateUserPermissions(user._id, new UpdateUserPermissions({
+        await workspaceService.updateUserPermissions(appContext.getWorkspaceId(), user._id, new UpdateUserPermissions({
             permissions:  newPerms,
         }));
 
@@ -105,7 +105,7 @@
         </div>
         <div class="wrapper">
             <Checkbox aligned disabled={locked} bind:checked={perm_teams}/>
-            <Checkbox aligned disabled={locked} bind:checked={perm_perms}/>
+            <Checkbox aligned disabled={user._id !== loggedUser._id ? locked : true} bind:checked={perm_perms}/>
             <Checkbox aligned disabled={locked} bind:checked={perm_works}/>
             <Checkbox aligned disabled={locked} bind:checked={perm_users}/>
         </div>
