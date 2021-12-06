@@ -22,7 +22,7 @@
         project = await projectService.getProject($params.id)
         project.users = sortUserList(project?.users);
     })
- 
+
     const onEdit = async () => {
         project = await projectService.getProject($params.id)
         project.users = sortUserList(project?.users);
@@ -38,24 +38,29 @@
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
-                    <ListRowItem widthInPercentage={45}>Name</ListRowItem>
-                    <ListRowItem widthInPercentage={45}>Email</ListRowItem>
+                    <ListRowItem widthInPercentage={40}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={40}>Email</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>Is PM</ListRowItem>
                     <ListRowItem center widthInPercentage={10}>Can edit</ListRowItem>
                 </ListRow>
             </svelte:fragment>
             {#each project.users as user}
                 <ListRow noFunction>
-                    <ListRowItem widthInPercentage={45}>{user.user.name}</ListRowItem>
-                    <ListRowItem widthInPercentage={45}>{user.user.email}</ListRowItem>
+                    <ListRowItem widthInPercentage={40}>{user.user.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={40}>{user.user.email}</ListRowItem>
                     <ListRowItem center widthInPercentage={10}>
-                        <Checkbox disabled bind:checked={user.isEditor}/>
+                        <Checkbox disabled checked={user.isProjectManager}/>
+                    </ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>
+                        <Checkbox disabled checked={user.isEditor}/>
                     </ListRowItem>
                 </ListRow>
             {/each}
         </ListScrollWrapper>
         <svelte:fragment slot="actions">
             <Button on:click={() => {editVisible = true;
-            child.open()}}>Edit</Button>
+            child.open()}}>Edit
+            </Button>
         </svelte:fragment>
     </View>
 </Card>

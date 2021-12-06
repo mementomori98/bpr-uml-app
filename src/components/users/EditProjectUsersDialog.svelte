@@ -54,7 +54,7 @@
         currentUser = await userService.getCurrentUser();
         pickList = filterListByList(pickList, project.users)
         project.users.forEach(user => {
-            selectedUsers.push(getUserToProject(user.user, user.isEditor));
+            selectedUsers.push(getUserToProject(user.user, user.isEditor, user.isProjectManager));
         })
         selectedUsers = sortList(selectedUsers);
     }
@@ -62,7 +62,7 @@
     const handleEdit = async () => {
         await projectService.manageProjectUsers(project._id, new AddProjectUsersRequest({
             users: selectedUsers.map(person => {
-                return new ProjectUserRequest({userId: person._id, isEditor: person.isEditor})
+                return new ProjectUserRequest({userId: person._id, isEditor: person.isEditor, isProjectManager: person.isProjectManager})
             })
         }));
 
@@ -107,16 +107,21 @@
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
-                    <ListRowItem widthInPercentage={40}>Name</ListRowItem>
-                    <ListRowItem widthInPercentage={40}>Email</ListRowItem>
+                    <ListRowItem widthInPercentage={35}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={35}>Email</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>Is PM</ListRowItem>
                     <ListRowItem center widthInPercentage={10}>Can edit</ListRowItem>
                     <ListRowItem center widthInPercentage={10}>Kick</ListRowItem>
                 </ListRow>
             </svelte:fragment>
             {#each selectedUsers as user}
                 <ListRow noFunction>
-                    <ListRowItem widthInPercentage={40}>{user.name}</ListRowItem>
-                    <ListRowItem widthInPercentage={40}>{user.email}</ListRowItem>
+                    <ListRowItem widthInPercentage={35}>{user.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={35}>{user.email}</ListRowItem>
+                    <ListRowItem center widthInPercentage={10}>
+                        <Checkbox disabled={user._id === currentUser?._id} bind:checked={user.isProjectManager}
+                                  on:checkChange={e => user.isProjectManager =e.detail.state }/>
+                    </ListRowItem>
                     <ListRowItem center widthInPercentage={10}>
                         <Checkbox disabled={user._id === currentUser?._id} bind:checked={user.isEditor}
                                   on:checkChange={e => user.isEditor =e.detail.state }/>

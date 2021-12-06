@@ -37,6 +37,7 @@ export class RemoveWorkspaceUserRequest  extends Model<RemoveWorkspaceUserReques
 export class ProjectUserRequest  extends Model<ProjectUserRequest>{
     public userId: string;
     public isEditor: boolean;
+    public isProjectManager: boolean;
 }
 
 export class TeamUserRequest  extends Model<ProjectUserRequest>{
@@ -49,6 +50,7 @@ export class UserToProject  extends Model<UserToProject>{
     public name: string;
     public email: string;
     public isEditor: boolean;
+    public isProjectManager: boolean;
     public _id: string;
 }
 
