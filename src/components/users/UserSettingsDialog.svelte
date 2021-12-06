@@ -87,7 +87,7 @@
     <Form readonly={false} lockable bind:locked on:submit={handleSubmit} on:cancel={handleCancel} submitText="Update" cancelButton>
         <svelte:fragment slot="header">User profile</svelte:fragment>
         <svelte:fragment slot="header-actions">
-            {#if user._id === loggedUser._id}
+            {#if user._id !== loggedUser._id}
                 <Button color={Colors.Red} on:click={() => deleteVisible = true}>Remove user</Button>
             {/if}
 
