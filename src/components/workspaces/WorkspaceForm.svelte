@@ -11,15 +11,19 @@
     import {WorkspaceService} from "./WorkspaceService";
     import {AppContext} from "../utils/AppContext";
     import {CreateWorkspaceRequest} from "./Models";
+    import {UserService} from "../users/UserService";
 
     let workspaceName: string = '';
     const workspaceService = getService(WorkspaceService);
     const appContext = getService(AppContext);
+    const userService = getService(UserService);
+    let hasPermissions: boolean = false;
 
     let locked: boolean = true;
 
     onMount(async () => {
         await fetch()
+        hasPermissions = await userService.validateWorkspacePermissions('MANAGE_WORKSPACE')
     })
 
     const fetch =async () => {
@@ -37,7 +41,7 @@
 </script>
 
 <Card>
-    <Form lockable bind:locked cancelButton on:cancel={fetch} on:submit={onEdit}>
+    <Form readonly={!hasPermissions} lockable bind:locked cancelButton on:cancel={fetch} on:submit={onEdit}>
         <svelte:fragment slot="header">Workspace</svelte:fragment>
         <Input label="Workspace name" bind:value={workspaceName} {locked}/>
     </Form>

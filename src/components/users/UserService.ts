@@ -1,11 +1,12 @@
-
 import getService from "../utils/ServiceFactory";
 import {RestClient} from "../utils/RestClient";
 import type {UserInvitationRequest} from "./Models";
+import {AppContext} from "../utils/AppContext";
 
 export class UserService {
 
     private readonly client = getService(RestClient);
+    private readonly context = getService(AppContext);
 
     public async getWorkspaceUsers(id: string) {
         const res = await this.client.get('workspaces/' + id + '/users');
@@ -35,5 +36,34 @@ export class UserService {
         const res = await this.client.post('users', {});
         // Todo return something relevant
         return res;
+    }
+
+    public async getWorkspaceUser(id: string) {
+        const res = await this.client.get('workspaces/' + id + '/user');
+        return res;
+    }
+
+    public async getProjectUser(id: string) {
+        const res = await this.client.get('projects/' + id + '/user');
+        return res;
+    }
+
+    public async validateWorkspacePermissions(permType: string = "") {
+        let workspaceId = this.context.getWorkspaceId();
+        if (permType === "" || workspaceId === null || workspaceId === "") return false;
+        console.log("all good")
+        try {
+            const res = await this.getWorkspaceUser(workspaceId);
+            console.log(res.permissions)
+            return !!res.permissions.includes(permType);
+        } catch (e) {
+            return false;
+        }
+
+
+    }
+
+    public validateProjectPermissions() {
+
     }
 }
