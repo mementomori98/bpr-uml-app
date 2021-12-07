@@ -51,16 +51,12 @@ export class UserService {
     public async validateWorkspacePermissions(permType: string = "") {
         let workspaceId = this.context.getWorkspaceId();
         if (permType === "" || workspaceId === null || workspaceId === "") return false;
-        console.log("all good")
         try {
             const res = await this.getWorkspaceUser(workspaceId);
-            console.log(res.permissions)
             return !!res.permissions.includes(permType);
         } catch (e) {
             return false;
         }
-
-
     }
 
     public validateProjectPermissions() {

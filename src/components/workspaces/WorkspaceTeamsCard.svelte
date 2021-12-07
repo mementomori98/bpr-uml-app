@@ -12,12 +12,15 @@
     import {params} from "@roxi/routify";
     import {TeamService} from "../teams/TeamService";
     import {AppContext} from "../utils/AppContext";
+    import {UserService} from "../users/UserService";
 
 
     let teams = [];
 
+    const userService = getService(UserService);
     const teamsService = getService(TeamService);
     const appContext = getService(AppContext);
+    let hasPermissions: boolean = false;
     let child;
 
     let createVisible: boolean = false;
@@ -25,6 +28,7 @@
     let chosenTeam: Team = null;
 
     onMount(async () => {
+        hasPermissions = await userService.validateWorkspacePermissions('MANAGE_TEAMS')
         teams = await teamsService.getWorkspaceTeams(appContext.getWorkspaceId())
     })
 
@@ -58,12 +62,15 @@
         </ListScrollWrapper>
 
         <svelte:fragment slot="actions">
-            <Button on:click={() =>
+            {#if hasPermissions}
+                <Button on:click={() =>
                 {
                     createVisible = true;
                     child.open()
                 }}>Create
-            </Button>
+                </Button>
+            {/if}
+
         </svelte:fragment>
     </View>
 </Card>

@@ -13,6 +13,7 @@
 
     const userService = getService(UserService);
     const appContext = getService(AppContext);
+    let hasPermission: boolean = false;
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
     import {WorkspaceUsersResponse} from "../users/Models";
     import Checkbox from "../../ui/Checkbox.svelte";
@@ -26,7 +27,8 @@
     let child;
 
     onMount(async () => {
-         await fetch()
+        hasPermission = await userService.validateWorkspacePermissions('MANAGE_WORKSPACE')
+        await fetch()
     })
 
     const fetch = async () => {
@@ -49,18 +51,17 @@
         <ListScrollWrapper>
             <svelte:fragment slot="header">
                 <ListRow isHeader>
-                    <ListRowItem widthInPercentage={30}>Name</ListRowItem>
-                    <ListRowItem widthInPercentage={30}>Email</ListRowItem>
+                    <ListRowItem widthInPercentage={36}>Name</ListRowItem>
+                    <ListRowItem widthInPercentage={36}>Email</ListRowItem>
                     <ListRowItem center widthInPercentage={12}>Edit Teams</ListRowItem>
                     <ListRowItem center widthInPercentage={12}>Edit Perms</ListRowItem>
                     <ListRowItem center widthInPercentage={12}>Edit Works</ListRowItem>
-                    <ListRowItem center widthInPercentage={12}>Edit Users</ListRowItem>
                 </ListRow>
             </svelte:fragment>
             {#each users as user}
                 <ListRow on:click={() => handleClick(user)}>
-                    <ListRowItem widthInPercentage={30}>{user.name}</ListRowItem>
-                    <ListRowItem widthInPercentage={30}>{user.email}</ListRowItem>
+                    <ListRowItem widthInPercentage={36}>{user.name}</ListRowItem>
+                    <ListRowItem widthInPercentage={36}>{user.email}</ListRowItem>
                     <ListRowItem center widthInPercentage={12}>
                         <Checkbox disabled={true} checked={user.permissions.includes("MANAGE_TEAMS")}
                                   on:checkChange={e => console.log(e.detail.state) }/><!-- user.permissions..... -->
@@ -73,21 +74,20 @@
                         <Checkbox disabled={true} checked={user.permissions.includes("MANAGE_WORKSPACE")}
                                   on:checkChange={e => console.log(e.detail.state) }/>
                     </ListRowItem>
-                    <ListRowItem center widthInPercentage={12}>
-                        <Checkbox disabled={true} checked={user.permissions.includes("MANAGE_USERS")}
-                                  on:checkChange={e => console.log(e.detail.state) }/>
-                    </ListRowItem>
                 </ListRow>
             {/each}
         </ListScrollWrapper>
 
         <svelte:fragment slot="actions">
-            <Button on:click={() => inviteVisible = true}>Invite</Button>
+            {#if hasPermission}
+                <Button on:click={() => inviteVisible = true}>Invite</Button>
+            {/if}
         </svelte:fragment>
     </View>
 </Card>
 <InviteUserDialog bind:visible={inviteVisible}/>
-<UserSettingsDialog bind:this={child} on:delete={fetch} on:submit={fetch} bind:visible={itemSettingsVisible} user={chosenUser}/> <!-- TODO should pass id-->
+<UserSettingsDialog bind:this={child} on:delete={fetch} on:submit={fetch} bind:visible={itemSettingsVisible}
+                    user={chosenUser}/> <!-- TODO should pass id-->
 
 <style lang="scss">
   @import "../../ui/theme";

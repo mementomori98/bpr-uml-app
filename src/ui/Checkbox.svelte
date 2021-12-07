@@ -39,7 +39,7 @@
     position: relative;
 
     &--aligned{
-      width: 25%;
+      width: 33%;
       text-align: center;
       display: flex;
       justify-content: center;

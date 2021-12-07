@@ -14,15 +14,21 @@
     import {RemoveWorkspaceUserRequest} from "../users/Models";
     import {user} from "../users/UserSettingsDialog.svelte";
     import {UserService} from "../users/UserService";
+    import {onMount} from "svelte";
 
     const authenticationService = getService(AuthenticationService);
     const workspaceService = getService(WorkspaceService);
     const userService = getService(UserService);
     const appContext = getService(AppContext);
+    let hasPermission: boolean = false;
 
     export const title: string = ""
     let deleteVisible: boolean = false;
     let leaveVisible: boolean = false;
+
+    onMount(async () => {
+        hasPermission = await userService.validateWorkspacePermissions('MANAGE_WORKSPACE')
+    })
 
     const onLeaveWorkspace = async () => {
         let currentUser = await userService.getCurrentUser();
@@ -52,16 +58,21 @@
                 <!-- TODO functionality -->
             </svelte:fragment>
         </WorkspaceDangerItem>
-        <WorkspaceDangerItem title="Delete Workspace"
-                             description="Your workspace will be removed permanently. This action cannot be reversed!">
-            <svelte:fragment slot="actionBtn">
-                <Button color="{Colors.Red}" on:click={() => deleteVisible = true}>Delete</Button>
-            </svelte:fragment>
-        </WorkspaceDangerItem>
+        {#if hasPermission}
+            <WorkspaceDangerItem title="Delete Workspace"
+                                 description="Your workspace will be removed permanently. This action cannot be reversed!">
+                <svelte:fragment slot="actionBtn">
+                    <Button color="{Colors.Red}" on:click={() => deleteVisible = true}>Delete</Button>
+                </svelte:fragment>
+            </WorkspaceDangerItem>
+        {/if}
+
     </View>
 </Card>
-<ConfirmDialog on:confirm={onDeleteWorkspace} title="Delete Workspace" description="Confirm workspace removal. This action cannot be reverted!" bind:visible={deleteVisible}/>
-<ConfirmDialog on:confirm={onLeaveWorkspace} title="Leave Workspace" description="Confirm leaving workspace. This action cannot be reverted!" bind:visible={leaveVisible}/>
+<ConfirmDialog on:confirm={onDeleteWorkspace} title="Delete Workspace"
+               description="Confirm workspace removal. This action cannot be reverted!" bind:visible={deleteVisible}/>
+<ConfirmDialog on:confirm={onLeaveWorkspace} title="Leave Workspace"
+               description="Confirm leaving workspace. This action cannot be reverted!" bind:visible={leaveVisible}/>
 
 <style lang="scss">
   @import "../../ui/theme";

@@ -17,21 +17,21 @@
     const workspaceService = getService(WorkspaceService);
     const appContext = getService(AppContext);
     const userService = getService(UserService);
-    let hasPermissions: boolean = false;
+    let hasPermission: boolean = false;
 
     let locked: boolean = true;
 
     onMount(async () => {
+        hasPermission = await userService.validateWorkspacePermissions('MANAGE_WORKSPACE')
         await fetch()
-        hasPermissions = await userService.validateWorkspacePermissions('MANAGE_WORKSPACE')
     })
 
-    const fetch =async () => {
+    const fetch = async () => {
         const res = await workspaceService.getById(appContext.getWorkspaceId());
         workspaceName = res.name;
     }
 
-    const onEdit =async () => {
+    const onEdit = async () => {
         await workspaceService.renameWorkspace(appContext.getWorkspaceId(), new CreateWorkspaceRequest({
             name: workspaceName
         }));
@@ -41,7 +41,7 @@
 </script>
 
 <Card>
-    <Form readonly={!hasPermissions} lockable bind:locked cancelButton on:cancel={fetch} on:submit={onEdit}>
+    <Form readonly={!hasPermission} lockable bind:locked cancelButton on:cancel={fetch} on:submit={onEdit}>
         <svelte:fragment slot="header">Workspace</svelte:fragment>
         <Input label="Workspace name" bind:value={workspaceName} {locked}/>
     </Form>
