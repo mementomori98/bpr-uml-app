@@ -13,12 +13,16 @@
     import getService from "../utils/ServiceFactory";
     import {ProjectService} from "./ProjectService";
     import {sortUserList} from "../../ui/utils/ListItem";
+    import {UserService} from "../users/UserService";
 
     const projectService = getService(ProjectService);
+    const userService = getService(UserService);
     let project: ProjectResponse = new ProjectResponse({title: "", users: [], teams: [], _id: "", workspaceId: ""});
+    let hasPermission: boolean = false;
     let child;
 
     onMount(async () => {
+        hasPermission = await userService.validateWorkspacePermissions('MANAGE_WORKSPACE')
         project = await projectService.getProject($params.id)
         project.users = sortUserList(project?.users);
     })
@@ -58,9 +62,11 @@
             {/each}
         </ListScrollWrapper>
         <svelte:fragment slot="actions">
-            <Button on:click={() => {editVisible = true;
+            {#if hasPermission}
+                <Button on:click={() => {editVisible = true;
             child.open()}}>Edit
-            </Button>
+                </Button>
+            {/if}
         </svelte:fragment>
     </View>
 </Card>

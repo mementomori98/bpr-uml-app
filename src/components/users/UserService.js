@@ -43,8 +43,8 @@ export class UserService {
             return false;
         }
     }
-    async validateProjectPermissions(permType = "", projectId = "") {
-        if (permType === "" || projectId === null || projectId === "")
+    async validateProjectPermissions(projectId = "") {
+        if (projectId === null || projectId === "")
             return false;
         try {
             const res = await this.getProjectUser(projectId);

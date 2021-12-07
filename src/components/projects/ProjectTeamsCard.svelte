@@ -15,8 +15,11 @@
     import {ProjectService} from "./ProjectService";
     import {ProjectResponse} from "./Models";
     import Checkbox from "../../ui/Checkbox.svelte";
+    import {UserService} from "../users/UserService";
 
+    const userService = getService(UserService);
     const projectService = getService(ProjectService);
+    let hasPermission: boolean = false;
     let project: ProjectResponse = new ProjectResponse({title: "", users: [], teams: [], _id: "", workspaceId: ""});
 
     let editVisible: boolean = false;
@@ -26,6 +29,7 @@
     let editChild;
 
     onMount(async () => {
+        hasPermission = await userService.validateWorkspacePermissions('MANAGE_WORKSPACE')
         project = await projectService.getProject($params.id)
         project.teams = sortUserList(project?.teams);
         if (checkIfEmpty(project.teams)) {
@@ -70,8 +74,10 @@
             {/each}
         </ListScrollWrapper>
         <svelte:fragment slot="actions">
-            <Button on:click={() => {editVisible = true;
+            {#if hasPermission}
+                <Button on:click={() => {editVisible = true;
             editChild.open()}}>Edit</Button>
+            {/if}
         </svelte:fragment>
     </View>
 </Card>

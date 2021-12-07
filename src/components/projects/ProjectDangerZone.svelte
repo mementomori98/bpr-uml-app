@@ -23,7 +23,7 @@
     let hasPermission: boolean = true;
 
     onMount(async () => {
-        hasPermission = await userService.validateProjectPermissions('PO', $params.id)
+        hasPermission = await userService.validateProjectPermissions($params.id)
 
     })
 

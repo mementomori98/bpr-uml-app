@@ -173,7 +173,7 @@
           submitText={lockable ? "Update" : "Create"}>
         <svelte:fragment slot="header">{locked ? "Team" : "Edit team"}</svelte:fragment>
         <svelte:fragment slot="header-actions">
-            {#if hasPermission}
+            {#if hasPermission && !readonly}
                 <Button small color={Colors.Red} on:click={() => deleteVisible = true}>Delete Team</Button>
             {/if}
         </svelte:fragment>

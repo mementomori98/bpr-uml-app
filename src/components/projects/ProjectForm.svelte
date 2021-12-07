@@ -11,16 +11,20 @@
     import {AppContext} from "../utils/AppContext";
     import {ProjectResponse, RenameProjectRequest} from "./Models";
     import {ProjectService} from "./ProjectService";
+    import {UserService} from "../users/UserService";
 
     let projectName: string = '';
     const appContext = getService(AppContext);
     const projectService = getService(ProjectService);
+    const userService = getService(UserService);
+    let hasPermission: boolean = false;
 
     let project: ProjectResponse = new ProjectResponse({title: "", users: [], teams: [], _id: "", workspaceId: ""});
 
     let locked: boolean = true;
 
     onMount(async () => {
+        hasPermission = await userService.validateProjectPermissions($params.id)
         await fetch()
     })
 
@@ -44,7 +48,7 @@
 </script>
 
 <Card>
-    <Form lockable bind:locked cancelButton on:cancel={fetch} on:submit={onEdit}>
+    <Form readonly={!hasPermission} lockable bind:locked cancelButton on:cancel={fetch} on:submit={onEdit}>
         <svelte:fragment slot="header">Project</svelte:fragment>
         <Input label="Project name" bind:value={projectName} {locked}/>
     </Form>
