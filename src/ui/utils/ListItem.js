@@ -23,7 +23,7 @@ export function getTeamToProject(user, canEdit = true) {
         isEditor: canEdit,
     });
 }
-export function getUserToProject(user, canEdit = true, isProjectManager = true) {
+export function getUserToProject(user, canEdit = true, isProjectManager = false) {
     return new UserToProject({
         name: user.name,
         email: user.email,

@@ -38,6 +38,28 @@ export class UserService {
         return res;
     }
 
+
+    public async validateWorkspacePermissions(permType: string = "") {
+        let id = this.context.getWorkspaceId();
+        if (permType === "" || id === null || id === "") return false;
+        try {
+            const res = await this.getWorkspaceUser(id);
+            return !!res.permissions.includes(permType);
+        } catch (e) {
+            return false;
+        }
+    }
+
+    public async validateProjectPermissions(permType: string = "", projectId: string = "") {
+        if (permType === "" || projectId === null || projectId === "") return false;
+        try {
+            const res = await this.getProjectUser(projectId);
+            return res.isProjectManager
+        } catch (e) {
+            return false;
+        }
+    }
+
     public async getWorkspaceUser(id: string) {
         const res = await this.client.get('workspaces/' + id + '/user');
         return res;
@@ -46,20 +68,5 @@ export class UserService {
     public async getProjectUser(id: string) {
         const res = await this.client.get('projects/' + id + '/user');
         return res;
-    }
-
-    public async validateWorkspacePermissions(permType: string = "") {
-        let workspaceId = this.context.getWorkspaceId();
-        if (permType === "" || workspaceId === null || workspaceId === "") return false;
-        try {
-            const res = await this.getWorkspaceUser(workspaceId);
-            return !!res.permissions.includes(permType);
-        } catch (e) {
-            return false;
-        }
-    }
-
-    public validateProjectPermissions() {
-
     }
 }

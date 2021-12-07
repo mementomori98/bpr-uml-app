@@ -11,14 +11,12 @@
     import {AppContext} from "../utils/AppContext";
     import {ProjectResponse, RenameProjectRequest} from "./Models";
     import {ProjectService} from "./ProjectService";
-    import ConfirmDialog from "../workspaces/ConfirmDialog.svelte";
 
     let projectName: string = '';
     const appContext = getService(AppContext);
     const projectService = getService(ProjectService);
 
     let project: ProjectResponse = new ProjectResponse({title: "", users: [], teams: [], _id: "", workspaceId: ""});
-    let deleteVisible: boolean = false;
 
     let locked: boolean = true;
 
@@ -48,15 +46,9 @@
 <Card>
     <Form lockable bind:locked cancelButton on:cancel={fetch} on:submit={onEdit}>
         <svelte:fragment slot="header">Project</svelte:fragment>
-        <svelte:fragment slot="header-actions">
-            {#if !locked}
-                <Button small color={Colors.Red} on:click={() => deleteVisible = true}>Delete Project</Button>
-            {/if}
-        </svelte:fragment>
         <Input label="Project name" bind:value={projectName} {locked}/>
     </Form>
 </Card>
-<ConfirmDialog on:confirm={deleteProject} title="Delete Project" description="Confirm project removal. This action cannot be reverted!" bind:visible={deleteVisible}/>
 
 <style lang="scss">
   @import "../../ui/theme";

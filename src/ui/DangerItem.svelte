@@ -13,7 +13,7 @@
 
 
 <style lang="scss">
-  @import "../../ui/theme";
+  @import "theme";
 
     .wrapper{
       display: flex;

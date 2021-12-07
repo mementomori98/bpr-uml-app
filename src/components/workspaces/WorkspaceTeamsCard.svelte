@@ -20,7 +20,7 @@
     const userService = getService(UserService);
     const teamsService = getService(TeamService);
     const appContext = getService(AppContext);
-    let hasPermissions: boolean = false;
+    let hasPermission: boolean = false;
     let child;
 
     let createVisible: boolean = false;
@@ -28,7 +28,7 @@
     let chosenTeam: Team = null;
 
     onMount(async () => {
-        hasPermissions = await userService.validateWorkspacePermissions('MANAGE_TEAMS')
+        hasPermission = await userService.validateWorkspacePermissions('MANAGE_TEAMS')
         teams = await teamsService.getWorkspaceTeams(appContext.getWorkspaceId())
     })
 
@@ -62,7 +62,7 @@
         </ListScrollWrapper>
 
         <svelte:fragment slot="actions">
-            {#if hasPermissions}
+            {#if hasPermission}
                 <Button on:click={() =>
                 {
                     createVisible = true;

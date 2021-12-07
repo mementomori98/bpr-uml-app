@@ -4,6 +4,10 @@
     import ProjectUsersCard from "./ProjectUsersCard.svelte";
     import ProjectTeamsCard from "./ProjectTeamsCard.svelte";
     import ProjectForm from "./ProjectForm.svelte";
+    import ProjectDangerZone from "./ProjectDangerZone.svelte";
+
+
+
 </script>
 
 <Container>
@@ -11,6 +15,7 @@
         <ProjectForm/>
         <ProjectUsersCard/>
         <ProjectTeamsCard/>
+        <ProjectDangerZone/>
     </Wrapper>
 </Container>
 

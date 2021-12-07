@@ -43,7 +43,7 @@
     const teamService = getService(TeamService);
     const appContext = getService(AppContext);
     const dispatch = createEventDispatcher();
-    let hasPermissions: boolean = false;
+    let hasPermission: boolean = false;
 
     let team: TeamResponse = new TeamResponse({_id: "", name: "", users: [], workspaceId: ""});
 
@@ -60,7 +60,7 @@
     }
 
     const onEditMount = async (id: string) => {
-        hasPermissions = await userService.validateWorkspacePermissions('MANAGE_TEAMS')
+        hasPermission = await userService.validateWorkspacePermissions('MANAGE_TEAMS')
         if (id === "") return
         team = await teamService.getTeam(id)
         teamName = team.name
@@ -167,13 +167,13 @@
 </script>
 
 <Dialog on:clickedOut={handleCloseDialog} bind:visible style="min-width: 600px">
-    <Form readonly={readonly || !hasPermissions} bind:locked lockable={lockable}
+    <Form readonly={readonly || !hasPermission} bind:locked lockable={lockable}
           on:submit={() => lockable ? handleEdit() : handleCreate()} cancelButton={!lockable}
           on:cancel={handleCancelDialog}
           submitText={lockable ? "Update" : "Create"}>
         <svelte:fragment slot="header">{locked ? "Team" : "Edit team"}</svelte:fragment>
         <svelte:fragment slot="header-actions">
-            {#if hasPermissions}
+            {#if hasPermission}
                 <Button small color={Colors.Red} on:click={() => deleteVisible = true}>Delete Team</Button>
             {/if}
         </svelte:fragment>

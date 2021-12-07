@@ -1,7 +1,7 @@
 <script lang="ts">
     import Card from "../../ui/Card.svelte";
     import View from "../../ui/View.svelte";
-    import WorkspaceDangerItem from "./WorkspaceDangerItem.svelte";
+    import DangerItem from "../../ui/DangerItem.svelte";
     import Button from "../../ui/Button.svelte";
     import {Colors} from "../../ui/utils/Colors";
     import ConfirmDialog from "./ConfirmDialog.svelte";
@@ -51,20 +51,20 @@
 <Card borderSize="1" borderColor="ee1111">
     <View noPadding noActions>
         <svelte:fragment slot="header">Danger Zone</svelte:fragment>
-        <WorkspaceDangerItem title="Leave Workspace"
-                             description="You will permanently leave the workspace. With a new invitation, you can gain access again later.">
+        <DangerItem title="Leave Workspace"
+                    description="You will permanently leave the workspace. With a new invitation, you can gain access again later.">
             <svelte:fragment slot="actionBtn">
                 <Button color="{Colors.Red}" on:click={() => leaveVisible = true}>Leave</Button>
                 <!-- TODO functionality -->
             </svelte:fragment>
-        </WorkspaceDangerItem>
+        </DangerItem>
         {#if hasPermission}
-            <WorkspaceDangerItem title="Delete Workspace"
-                                 description="Your workspace will be removed permanently. This action cannot be reversed!">
+            <DangerItem title="Delete Workspace"
+                        description="Your workspace will be removed permanently. This action cannot be reversed!">
                 <svelte:fragment slot="actionBtn">
                     <Button color="{Colors.Red}" on:click={() => deleteVisible = true}>Delete</Button>
                 </svelte:fragment>
-            </WorkspaceDangerItem>
+            </DangerItem>
         {/if}
 
     </View>

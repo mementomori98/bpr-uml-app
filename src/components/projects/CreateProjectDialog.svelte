@@ -87,7 +87,7 @@
 
     const pickUser = (_id) => {
         let user = getItem(workspaceUsers, _id);
-        selectedUsers.push(getUserToProject(user, true));
+        selectedUsers.push(getUserToProject(user, true, false));
         pickList = filterListById(pickList, _id)
         selectedUsers = sortList(selectedUsers);
     }

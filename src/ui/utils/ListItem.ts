@@ -36,7 +36,7 @@ export function getTeamToProject(user: WorkspaceTeamsResponse, canEdit: boolean 
     })
 }
 
-export function getUserToProject(user: WorkspaceUsersResponse, canEdit: boolean = true, isProjectManager: boolean = true) {
+export function getUserToProject(user: WorkspaceUsersResponse, canEdit: boolean = true, isProjectManager: boolean = false) {
     return new UserToProject({
         name: user.name,
         email: user.email,
