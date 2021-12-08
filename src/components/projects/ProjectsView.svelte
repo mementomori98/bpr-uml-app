@@ -56,16 +56,20 @@
     //background-color: #d8d8d8;
     height: 100%;
     width: 100%;
-    padding: 20px;
   }
 
   .wrapper {
     display: flex;
     flex: auto;
     flex-wrap: wrap;
-    width: 100%;
     height: fit-content;
     justify-content: center;
+    padding-top: 24px;
+    max-width: 1024px;
+    width: 100%;
+    background-color: #fafafa;
+    margin-left: auto;
+    margin-right: auto;
   }
 
 </style>
