@@ -27,7 +27,6 @@
     } from "../../ui/utils/ListItem";
     import {params} from "@roxi/routify";
     import {UserService} from "../users/UserService";
-    import {CreateWorkspaceRequest} from "../workspaces/Models";
     import ConfirmDialog from "../workspaces/ConfirmDialog.svelte";
 
     export let visible: boolean = false;

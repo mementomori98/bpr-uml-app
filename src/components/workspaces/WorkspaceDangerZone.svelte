@@ -7,12 +7,9 @@
     import ConfirmDialog from "./ConfirmDialog.svelte";
     import {goto} from "@roxi/routify";
     import getService from "../utils/ServiceFactory";
-    import {TeamService} from "../teams/TeamService";
     import {WorkspaceService} from "./WorkspaceService";
     import {AppContext} from "../utils/AppContext";
     import {AuthenticationService} from "../auth/AuthenticationService";
-    import {RemoveWorkspaceUserRequest} from "../users/Models";
-    import {user} from "../users/UserSettingsDialog.svelte";
     import {UserService} from "../users/UserService";
     import {onMount} from "svelte";
 
@@ -51,7 +48,6 @@
                     description="You will permanently leave the workspace. With a new invitation, you can gain access again later.">
             <svelte:fragment slot="actionBtn">
                 <Button color="{Colors.Red}" on:click={() => leaveVisible = true}>Leave</Button>
-                <!-- TODO functionality -->
             </svelte:fragment>
         </DangerItem>
         {#if hasPermission}

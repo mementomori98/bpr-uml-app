@@ -1,7 +1,6 @@
 <script lang="ts">
 
     import {CssBuilder} from "./utils/CssBuilder";
-    import Button from "./Button.svelte";
 
     let closed = false;
     let drawerElement: HTMLElement;

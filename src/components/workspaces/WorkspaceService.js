@@ -1,7 +1,5 @@
 import getService from "../utils/ServiceFactory";
 import { RestClient } from "../utils/RestClient";
-import "../projects/Models";
-import "../users/Models";
 import "./Models";
 export class WorkspaceService {
     constructor() {
@@ -11,7 +9,6 @@ export class WorkspaceService {
         const res = await this.client.post('workspaces', {
             name: request.name,
         });
-        // Todo return something relevant
         return res;
     }
     async join(request) {

@@ -29,11 +29,6 @@ export class ProjectTeamRequest  extends Model<ProjectTeamRequest>{
     public isEditor: boolean;
 }
 
-// export class RemoveWorkspaceUserRequest  extends Model<RemoveWorkspaceUserRequest>{
-//     public userId: string;
-//     public workspaceId: string;
-// }
-
 export class ProjectUserRequest  extends Model<ProjectUserRequest>{
     public userId: string;
     public isEditor: boolean;

@@ -1,5 +1,4 @@
 <script lang="ts">
-    import {fade} from 'svelte/transition';
     import {CssBuilder} from "./utils/CssBuilder";
 
     export let visible: boolean = false;

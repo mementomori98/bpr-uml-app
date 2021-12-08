@@ -42,8 +42,8 @@
     </svelte:fragment>
     {#each invitations as invitation}
         <ListRow style="padding-top:0; padding-bottom:0; min-height: 40px">
-            <ListRowItem widthInPercentage={40}>{invitation.workspaceName}</ListRowItem> <!--TODO workspaceName-->
-            <ListRowItem widthInPercentage={40}>{invitation.inviterUserName}</ListRowItem> <!--TODO inviterName-->
+            <ListRowItem widthInPercentage={40}>{invitation.workspaceName}</ListRowItem>
+            <ListRowItem widthInPercentage={40}>{invitation.inviterUserName}</ListRowItem>
             <ListRowItem widthInPercentage={20}>
                 <div class="button-wrapper">
                     <Button on:click={() => onJoinInvitation(invitation)} small color={Colors.Green}>Join</Button>

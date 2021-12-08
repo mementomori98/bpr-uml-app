@@ -35,7 +35,6 @@
 <Dialog bind:visible>
     <Form on:submit={handleSubmit} on:cancel={handleCancel} submitText="Invite" cancelButton>
         <svelte:fragment slot="header">Invite User</svelte:fragment>
-        <svelte:fragment slot="header-actions"></svelte:fragment>
         <Input label="Email" bind:value={email}/>
     </Form>
 </Dialog>

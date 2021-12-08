@@ -3,13 +3,11 @@
     import Input from "../../ui/Input.svelte";
     import Button from "../../ui/Button.svelte";
     import {Colors} from "../../ui/utils/Colors";
-    import {goto} from "@roxi/routify";
     import {AuthenticationService} from "./AuthenticationService";
     import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
     import Card from "../../ui/Card.svelte";
     import Wrapper from "../../ui/Wrapper.svelte";
     import firebase from "firebase/compat";
-    import Auth = firebase.auth.Auth;
     import getService from "../utils/ServiceFactory";
     import {AppContext} from "../utils/AppContext";
     import {createEventDispatcher} from "svelte";

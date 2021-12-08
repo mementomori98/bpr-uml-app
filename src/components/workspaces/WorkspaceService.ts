@@ -1,8 +1,6 @@
 import type {CreateWorkspaceRequest, JoinWorkspaceRequest} from "./Models";
 import getService from "../utils/ServiceFactory";
 import {RestClient} from "../utils/RestClient";
-import {AddProjectUsersRequest} from "../projects/Models";
-import {RemoveWorkspaceUserRequest} from "../users/Models";
 import {UpdateUserPermissions} from "./Models";
 
 export class WorkspaceService {
@@ -13,7 +11,6 @@ export class WorkspaceService {
         const res = await this.client.post('workspaces', {
             name: request.name,
         });
-        // Todo return something relevant
         return res;
     }
 

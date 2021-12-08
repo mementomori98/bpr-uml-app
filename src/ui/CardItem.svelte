@@ -1,6 +1,5 @@
 <script lang="ts">
     import {CssBuilder} from "./utils/CssBuilder";
-    import {small} from "./MessageIcon.svelte";
     import {createEventDispatcher} from "svelte";
     import {IconType} from "./utils/IconType";
 

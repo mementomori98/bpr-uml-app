@@ -1,10 +1,7 @@
-
 import getService from "../utils/ServiceFactory";
 import {RestClient} from "../utils/RestClient";
 import type {CreateTeamRequest} from "./Models";
-import {AddProjectUsersRequest} from "../projects/Models";
 import {AddTeamUsersRequest, RenameTeamRequest} from "./Models";
-import {CreateWorkspaceRequest} from "../workspaces/Models";
 
 export class TeamService {
 

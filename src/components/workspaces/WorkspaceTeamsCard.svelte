@@ -9,11 +9,9 @@
     import ListScrollWrapper from "../../ui/ListScrollWrapper.svelte";
     import {onMount} from "svelte";
     import getService from "../utils/ServiceFactory";
-    import {params} from "@roxi/routify";
     import {TeamService} from "../teams/TeamService";
     import {AppContext} from "../utils/AppContext";
     import {UserService} from "../users/UserService";
-
 
     let teams = [];
 

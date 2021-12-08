@@ -1,7 +1,6 @@
 import getService from "../utils/ServiceFactory";
 import { RestClient } from "../utils/RestClient";
 import "./Models";
-import "../teams/Models";
 export class ProjectService {
     constructor() {
         this.client = getService(RestClient);

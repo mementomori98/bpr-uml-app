@@ -1,6 +1,4 @@
 <script lang="ts">
-
-    import {Workspace} from "./Models";
     import ListRow from "../../ui/ListRow.svelte";
     import ListRowItem from "../../ui/ListRowItem.svelte";
     import {goto} from "@roxi/routify";
@@ -26,7 +24,7 @@
 </script>
 
 {#each workspaces as workspace}
-    <ListRow on:click={() => dispatch('switch', {workspaceId: workspace._id})} noBorder={workspace === workspaces[workspaces.length-1]} style="padding: 14px 16px"> <!-- TODO set workspace by the decision -->
+    <ListRow on:click={() => dispatch('switch', {workspaceId: workspace._id})} noBorder={workspace === workspaces[workspaces.length-1]} style="padding: 14px 16px">
         <ListRowItem widthInPercentage={100}>{workspace.name}</ListRowItem>
     </ListRow>
 {/each}

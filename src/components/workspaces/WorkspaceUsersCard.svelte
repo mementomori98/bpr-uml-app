@@ -37,8 +37,6 @@
     }
 
     const handleClick = async (user) => {
-        // todo
-
         chosenUser = user
         itemSettingsVisible = true
         child.open(user.permissions)
@@ -87,7 +85,7 @@
 </Card>
 <InviteUserDialog bind:visible={inviteVisible}/>
 <UserSettingsDialog bind:this={child} on:delete={fetch} on:submit={fetch} bind:visible={itemSettingsVisible}
-                    user={chosenUser}/> <!-- TODO should pass id-->
+                    user={chosenUser}/>
 
 <style lang="scss">
   @import "../../ui/theme";

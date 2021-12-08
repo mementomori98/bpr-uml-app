@@ -1,5 +1,4 @@
 <script lang="ts">
-
 import Card from "../ui/Card.svelte";
 </script>
 

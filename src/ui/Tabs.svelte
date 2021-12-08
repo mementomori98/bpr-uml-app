@@ -3,7 +3,7 @@
 
     export const TABS = {};
     export let resetUrl = "";
-    import {setContext, onDestroy, getContext, onMount, createEventDispatcher} from 'svelte';
+    import {setContext, onDestroy, getContext, createEventDispatcher} from 'svelte';
     import { writable } from 'svelte/store';
     import Tabs from "./Tabs.svelte";
     import Wrapper from "./Wrapper.svelte";

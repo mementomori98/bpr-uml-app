@@ -1,6 +1,5 @@
 <script lang="ts">
     import {CssBuilder} from "./utils/CssBuilder";
-    import {isHeader, noBorder} from "./ListRow.svelte";
 
     export let style: string = "";
     export let height: number = 480;

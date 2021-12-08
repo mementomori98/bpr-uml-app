@@ -6,7 +6,6 @@
     import Button from "../../ui/Button.svelte";
     import {Colors} from "../../ui/utils/Colors";
     import {goto} from "@roxi/routify";
-    import Wrapper from "../../ui/Wrapper.svelte";
 
     let email: string = 'myemail@email.com';
     let password: string = 'mypassword123';

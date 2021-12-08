@@ -28,7 +28,6 @@
         filterListByList,
         formList,
         getItem, getTeamToProject,
-        getUserToProject,
         ListItem,
         sortList
     } from "../../ui/utils/ListItem";

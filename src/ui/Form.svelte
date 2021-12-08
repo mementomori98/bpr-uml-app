@@ -1,6 +1,4 @@
 <script lang="ts">
-
-
     import View from "./View.svelte";
     import Button from "./Button.svelte";
     import {Colors} from "./utils/Colors";

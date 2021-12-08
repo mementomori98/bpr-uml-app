@@ -1,5 +1,4 @@
 <script lang="ts">
-    import {beforeUrlChange} from "@roxi/routify";
     import {afterPageLoad} from "@roxi/routify";
     import {goto} from "@roxi/routify";
     import getService from "../components/utils/ServiceFactory";

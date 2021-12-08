@@ -1,5 +1,4 @@
 <script lang="ts">
-    import Wrapper from "../../ui/Wrapper.svelte";
     import Card from "../../ui/Card.svelte";
     import View from "../../ui/View.svelte";
     import ListRow from "../../ui/ListRow.svelte";

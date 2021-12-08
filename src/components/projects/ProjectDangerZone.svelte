@@ -5,11 +5,6 @@
     import {Colors} from "../../ui/utils/Colors";
     import {goto, params} from "@roxi/routify";
     import getService from "../utils/ServiceFactory";
-    import {TeamService} from "../teams/TeamService";
-    import {AppContext} from "../utils/AppContext";
-    import {AuthenticationService} from "../auth/AuthenticationService";
-    import {RemoveWorkspaceUserRequest} from "../users/Models";
-    import {user} from "../users/UserSettingsDialog.svelte";
     import {UserService} from "../users/UserService";
     import {onMount} from "svelte";
     import {ProjectService} from "./ProjectService";

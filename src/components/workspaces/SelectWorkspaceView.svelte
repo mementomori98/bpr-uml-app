@@ -1,12 +1,11 @@
 <script lang="ts">
-
     import {createEventDispatcher, onMount} from "svelte";
     import View from "../../ui/View.svelte";
     import Card from "../../ui/Card.svelte";
     import Wrapper from "../../ui/Wrapper.svelte";
     import ListRow from "../../ui/ListRow.svelte";
     import ListRowItem from "../../ui/ListRowItem.svelte";
-    import {Workspace, WorkspaceInvitation} from "./Models";
+    import {Workspace} from "./Models";
     import {goto} from "@roxi/routify";
     import Button from "../../ui/Button.svelte";
     import InvitationsList from "../users/InvitationsList.svelte";
@@ -57,7 +56,7 @@
                 <Text noPadding>Your workspaces</Text>
                 <ListScrollWrapper>
                     {#each workspaces as workspace}
-                        <ListRow on:click={() => onclick(workspace)}> <!-- TODO set workspace by the decision -->
+                        <ListRow on:click={() => onclick(workspace)}>
                             <ListRowItem widthInPercentage={100}>{workspace.name}</ListRowItem>
                         </ListRow>
                     {/each}

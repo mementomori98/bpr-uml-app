@@ -1,14 +1,11 @@
 <script lang="ts">
     import {createEventDispatcher} from "svelte";
     import {CssBuilder} from "./utils/CssBuilder";
-    import {color, elevated, outlined, small} from "./Button.svelte";
-
     export let checked: boolean = false;
     export let disabled: boolean = false;
     export let aligned: boolean = false;
     const dispatch = createEventDispatcher();
     const handleClick = (event) => {
-        // todo
         event.stopPropagation();
         dispatch('checkChange', {state: !checked});
     }

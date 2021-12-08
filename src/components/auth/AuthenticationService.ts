@@ -4,7 +4,6 @@ import getService from "../utils/ServiceFactory";
 import {AppContext} from "../utils/AppContext";
 import {RestClient} from "../utils/RestClient";
 
-
 export class AuthenticationService {
 
     private readonly auth = getAuth();

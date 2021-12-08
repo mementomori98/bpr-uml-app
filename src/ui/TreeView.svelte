@@ -1,12 +1,8 @@
 <script lang="ts">
-    import TreeView from "./TreeView.svelte";
     import TreeViewElement from "./TreeViewElement.svelte";
-    import {CssBuilder} from "./utils/CssBuilder";
-    import {noPadding} from "./Text.svelte";
 
     export let tree;
     export let width: number = 240;
-
 </script>
 
 

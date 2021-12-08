@@ -1,12 +1,11 @@
 <script lang="ts">
-    import Container from "../../ui/Container.svelte";
     import EditAccountForm from "./EditAccountForm.svelte";
     import Tabs from "../../ui/Tabs.svelte";
     import TabList from "../../ui/TabList.svelte";
     import Tab from "../../ui/Tab.svelte";
     import TabPanel from "../../ui/TabPanel.svelte";
     import InvitationsCard from "./InvitationsCard.svelte";
-    import {getContext, onMount, afterUpdate} from "svelte";
+    import {afterUpdate} from "svelte";
     import {goto, params} from "@roxi/routify";
 
 

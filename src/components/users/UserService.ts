@@ -28,13 +28,11 @@ export class UserService {
             workspaceId: request.workspaceId,
             inviteeEmailAddress: request.inviteeEmailAddress,
         });
-        // Todo return something relevant
         return res;
     }
 
     public async getCurrentUser() {
         const res = await this.client.post('users', {});
-        // Todo return something relevant
         return res;
     }
 

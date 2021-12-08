@@ -3,7 +3,6 @@ import {RestClient} from "../utils/RestClient";
 import type {CreateProjectRequest} from "./Models";
 import type {AddProjectUsersRequest} from "./Models";
 import {AddProjectTeamsRequest, RenameProjectRequest} from "./Models";
-import {RenameTeamRequest} from "../teams/Models";
 
 export class ProjectService {
 

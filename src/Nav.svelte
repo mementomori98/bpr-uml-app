@@ -9,19 +9,14 @@
     import Divider from "./ui/Divider.svelte";
     import {goto} from "@roxi/routify";
     import VirtualSpace from "./ui/VirtualSpace.svelte";
-    import Fab from "./ui/Fab.svelte";
     import getService from "./components/utils/ServiceFactory";
     import WorkspaceNavOptions from "./components/workspaces/WorkspaceNavOptions.svelte";
     import {onMount} from "svelte";
     import {WorkspaceService} from "./components/workspaces/WorkspaceService";
     import {AppContext} from "./components/utils/AppContext";
-    import {Workspace} from "./components/workspaces/Models";
     import MessageIcon from "./ui/MessageIcon.svelte";
-    import TreeView from "./ui/TreeView.svelte";
     import {AuthenticationService} from "./components/auth/AuthenticationService";
-    import {getAuth} from "firebase/auth";
     import {UserService} from "./components/users/UserService";
-    import {redirectUrl} from "./components/utils/redirectStore";
 
     const authenticationService = getService(AuthenticationService);
     const workspaceService = getService(WorkspaceService);

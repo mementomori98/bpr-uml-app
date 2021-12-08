@@ -1,7 +1,5 @@
 <script lang="ts">
-
     export let size: number = null;
-
 </script>
 
 {#if size}

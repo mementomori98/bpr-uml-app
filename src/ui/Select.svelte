@@ -1,7 +1,6 @@
 <script lang="ts">
     import Button from "./Button.svelte";
     import {createEventDispatcher} from "svelte";
-    import {DataListItem} from "./utils/DataListItem";
     import {ListItem} from "./utils/ListItem";
 
     export let label: string = "";

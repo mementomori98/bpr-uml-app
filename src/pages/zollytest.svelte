@@ -1,8 +1,5 @@
 <script lang="ts">
-
 import Card from "../ui/Card.svelte";
-import View from "../ui/View.svelte";
-import Container from "../ui/Container.svelte";
 </script>
 
 <div class="container">

@@ -1,8 +1,6 @@
 <script lang="ts">
     import {CssBuilder} from "./utils/CssBuilder";
-    import Button from "./Button.svelte";
     import Icon from "./Icon.svelte";
-    import {Colors} from "./utils/Colors";
     import TextButton from "./TextButton.svelte";
 
     let drawerOpen = true;

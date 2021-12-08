@@ -37,7 +37,6 @@
                 error = `Login failed (${err.code})`;
             });
     }
-
 </script>
 
 <Wrapper width="480" bgColor="ededed" verticalCentering>
@@ -54,7 +53,6 @@
         </View>
     </Card>
 </Wrapper>
-
 
 <style lang="scss">
     @import "../../ui/theme";

@@ -10,10 +10,6 @@ export class WorkspaceTeamsResponse extends Model {
 }
 export class ProjectTeamRequest extends Model {
 }
-// export class RemoveWorkspaceUserRequest  extends Model<RemoveWorkspaceUserRequest>{
-//     public userId: string;
-//     public workspaceId: string;
-// }
 export class ProjectUserRequest extends Model {
 }
 export class TeamUserRequest extends Model {

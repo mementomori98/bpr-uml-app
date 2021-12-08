@@ -21,7 +21,7 @@
 
     let invitations: WorkspaceInvitation[] = [];
 
-    const handleSubmit = async () => { //TODO
+    const handleSubmit = async () => {
         const res = await workspaceService.create(new CreateWorkspaceRequest({
             name: name
         }));
@@ -50,7 +50,6 @@
         <InvitationsList maxHeight={150} invitations={invitations} noPadding/>
     </View>
 {/if}
-
 
 <style lang="scss">
     @import "../../ui/theme";

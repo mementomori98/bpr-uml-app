@@ -1,8 +1,4 @@
 <script lang="ts">
-    import Container from "../../ui/Container.svelte";
-    import Wrapper from "../../ui/Wrapper.svelte";
-    import ProjectUsersCard from "./ProjectUsersCard.svelte";
-    import Card from "../../ui/Card.svelte";
     import CardItem from "../../ui/CardItem.svelte";
     import getService from "../utils/ServiceFactory";
     import {ProjectService} from "./ProjectService";

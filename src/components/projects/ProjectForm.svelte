@@ -3,8 +3,6 @@
     import Card from "../../ui/Card.svelte";
     import Form from "../../ui/Form.svelte";
     import Input from "../../ui/Input.svelte";
-    import Button from "../../ui/Button.svelte";
-    import {Colors} from "../../ui/utils/Colors";
     import {onMount} from "svelte";
     import {goto, params} from "@roxi/routify";
     import getService from "../utils/ServiceFactory";

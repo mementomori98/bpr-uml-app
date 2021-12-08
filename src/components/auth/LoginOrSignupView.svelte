@@ -4,7 +4,6 @@
     import SignupView from "./SignupView.svelte";
     import {createEventDispatcher} from "svelte";
     import {goto} from "@roxi/routify";
-    import {Workspace, WorkspaceInvitation} from "../workspaces/Models";
     import getService from "../utils/ServiceFactory";
     import {UserService} from "../users/UserService";
     import {WorkspaceService} from "../workspaces/WorkspaceService";

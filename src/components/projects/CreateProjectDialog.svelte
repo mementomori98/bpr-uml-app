@@ -1,7 +1,6 @@
 <script lang="ts">
     import Form from "../../ui/Form.svelte";
     import Select from "../../ui/Select.svelte";
-    import {DataListItem} from "../../ui/utils/DataListItem";
     import CloseButton from "../../ui/CloseButton.svelte";
     import ListRow from "../../ui/ListRow.svelte";
     import Dialog from "../../ui/Dialog.svelte";

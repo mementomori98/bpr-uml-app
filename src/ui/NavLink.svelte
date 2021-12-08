@@ -1,7 +1,5 @@
 <script lang="ts">
-
     export let href: string = '/logout';
-
 
     const hashHref = () => {
         if (href.startsWith('/'))

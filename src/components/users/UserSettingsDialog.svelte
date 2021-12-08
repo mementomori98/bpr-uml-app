@@ -1,11 +1,10 @@
 <script lang="ts">
     import Dialog from "../../ui/Dialog.svelte";
-    import {RemoveWorkspaceUserRequest, UserInvitationRequest, WorkspaceUsersResponse} from "./Models";
+    import {WorkspaceUsersResponse} from "./Models";
     import Input from "../../ui/Input.svelte";
     import Button from "../../ui/Button.svelte";
     import {Colors} from "../../ui/utils/Colors";
     import Form from "../../ui/Form.svelte";
-    import {DataListItem} from "../../ui/utils/DataListItem";
     import getService from "../utils/ServiceFactory";
     import {UserService} from "./UserService";
     import {createEventDispatcher, onMount} from "svelte";
@@ -13,7 +12,6 @@
     import ConfirmDialog from "../workspaces/ConfirmDialog.svelte";
     import {AppContext} from "../utils/AppContext";
     import Checkbox from "../../ui/Checkbox.svelte";
-    import Text from "../../ui/Text.svelte";
     import {UpdateUserPermissions} from "../workspaces/Models";
 
     export let visible: boolean = false;

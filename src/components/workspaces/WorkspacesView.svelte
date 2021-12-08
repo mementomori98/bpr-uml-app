@@ -5,7 +5,6 @@
     import Wrapper from "../../ui/Wrapper.svelte";
     import WorkspaceDangerZone from "./WorkspaceDangerZone.svelte";
     import WorkspaceTeamsCard from "./WorkspaceTeamsCard.svelte";
-
 </script>
 
 
