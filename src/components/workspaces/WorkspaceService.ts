@@ -46,7 +46,11 @@ export class WorkspaceService {
         return await this.client.delete('workspaces/' + id);
     }
 
-    public async deleteUser(request: RemoveWorkspaceUserRequest) {
-        return await this.client.deleteByObj('workspaces/user', request);
+    public async deleteUser(workspaceId: string, userId: string) {
+        return await this.client.delete('workspaces/' + workspaceId + '/user/' + userId);
+    }
+
+    public async deleteCurrentUser(workspaceId: string) {
+        return await this.client.delete('workspaces/' + workspaceId + '/current-user');
     }
 }

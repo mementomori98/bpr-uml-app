@@ -31,11 +31,7 @@
     })
 
     const onLeaveWorkspace = async () => {
-        let currentUser = await userService.getCurrentUser();
-        await workspaceService.deleteUser(new RemoveWorkspaceUserRequest({
-            userId: currentUser._id,
-            workspaceId: appContext.getWorkspaceId()
-        }));
+        await workspaceService.deleteCurrentUser(appContext.getWorkspaceId());
         authenticationService.logout()
         $goto('/login');
     }

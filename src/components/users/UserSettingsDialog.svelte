@@ -57,10 +57,7 @@
     }
 
     const deleteUser = async () => {
-        await workspaceService.deleteUser(new RemoveWorkspaceUserRequest({
-            userId: user._id,
-            workspaceId: appContext.getWorkspaceId()
-        }));
+        await workspaceService.deleteUser(appContext.getWorkspaceId(), user._id);
         visible = false
         dispatch('delete')
     }

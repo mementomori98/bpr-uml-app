@@ -37,8 +37,11 @@ export class WorkspaceService {
     async deleteWorkspace(id) {
         return await this.client.delete('workspaces/' + id);
     }
-    async deleteUser(request) {
-        return await this.client.deleteByObj('workspaces/user', request);
+    async deleteUser(workspaceId, userId) {
+        return await this.client.delete('workspaces/' + workspaceId + '/user/' + userId);
+    }
+    async deleteCurrentUser(workspaceId) {
+        return await this.client.delete('workspaces/' + workspaceId + '/current-user');
     }
 }
 //# sourceMappingURL=WorkspaceService.js.map
