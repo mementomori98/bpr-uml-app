@@ -1,6 +1,5 @@
 import getService from "../utils/ServiceFactory";
 import { RestClient } from "../utils/RestClient";
-import "./Models";
 export class WorkspaceService {
     constructor() {
         this.client = getService(RestClient);

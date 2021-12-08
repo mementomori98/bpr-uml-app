@@ -2,7 +2,7 @@ import getService from "../utils/ServiceFactory";
 import {RestClient} from "../utils/RestClient";
 import type {CreateProjectRequest} from "./Models";
 import type {AddProjectUsersRequest} from "./Models";
-import {AddProjectTeamsRequest, RenameProjectRequest} from "./Models";
+import type {AddProjectTeamsRequest, RenameProjectRequest} from "./Models";
 
 export class ProjectService {
 

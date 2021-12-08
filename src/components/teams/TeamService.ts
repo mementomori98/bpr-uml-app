@@ -1,7 +1,7 @@
 import getService from "../utils/ServiceFactory";
 import {RestClient} from "../utils/RestClient";
 import type {CreateTeamRequest} from "./Models";
-import {AddTeamUsersRequest, RenameTeamRequest} from "./Models";
+import type {AddTeamUsersRequest, RenameTeamRequest} from "./Models";
 
 export class TeamService {
 

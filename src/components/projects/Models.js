@@ -1,5 +1,4 @@
 import { Model } from "../utils/Model";
-import "../users/Models";
 export class CreateProjectRequest extends Model {
 }
 export class RenameProjectRequest extends Model {

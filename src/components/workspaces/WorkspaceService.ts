@@ -1,7 +1,7 @@
 import type {CreateWorkspaceRequest, JoinWorkspaceRequest} from "./Models";
 import getService from "../utils/ServiceFactory";
 import {RestClient} from "../utils/RestClient";
-import {UpdateUserPermissions} from "./Models";
+import type {UpdateUserPermissions} from "./Models";
 
 export class WorkspaceService {
 

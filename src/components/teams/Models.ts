@@ -1,5 +1,5 @@
 import {Model} from "../utils/Model";
-import {TeamUserRequest} from "../users/Models";
+import type {TeamUserRequest} from "../users/Models";
 
 export class Team {
     public name: string;

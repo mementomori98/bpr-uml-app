@@ -1,6 +1,6 @@
 import {Model} from "../utils/Model";
 import type {ProjectUserRequest} from "../users/Models";
-import {ProjectTeamRequest} from "../users/Models";
+import type {ProjectTeamRequest} from "../users/Models";
 
 export class CreateProjectRequest extends Model<CreateProjectRequest> {
     public title: string;

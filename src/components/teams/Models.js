@@ -1,5 +1,4 @@
 import { Model } from "../utils/Model";
-import "../users/Models";
 export class Team {
     constructor(init) {
         Object.assign(this, init);
