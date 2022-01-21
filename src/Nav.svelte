@@ -71,12 +71,12 @@
 
 <DrawerLayout>
     <svelte:fragment slot="drawer">
-        <NavLink href="/">IndexTest1</NavLink>
-        <NavLink href="/zollytest">IndexTest2</NavLink>
+        <NavLink href="/">Home</NavLink>
+<!--        <NavLink href="/zollytest">IndexTest2</NavLink>-->
         <NavLink href="/projects">Projects</NavLink>
-        <NavLink href="/tests">__Tests</NavLink>
-        <Spacer size="24"/>
+<!--        <NavLink href="/tests">__Tests</NavLink>-->
         <NavLink href="/workspaces">Workspace</NavLink>
+        <Spacer size="24"/>
         <NavLink href="/logout">Log out</NavLink>
         <Spacer size="1"/>
     </svelte:fragment>
